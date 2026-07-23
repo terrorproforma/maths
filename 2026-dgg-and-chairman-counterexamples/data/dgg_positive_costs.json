@@ -1,0 +1,29 @@
+{
+  "name": "all-positive-cost variant of the seven-vertex counterexample",
+  "demands": {"t1": 15, "t2": 10, "t3": 15},
+  "maximum_demand": 15,
+  "fractional_loads": {
+    "s->t1": 10,
+    "s->t2": 6,
+    "s->u": 24,
+    "u->t3": 10,
+    "u->v": 14,
+    "v->t1": 5,
+    "v->w": 9,
+    "w->t2": 4,
+    "w->t3": 5
+  },
+  "unit_costs": {
+    "s->t1": 12,
+    "s->t2": 18,
+    "s->u": 1,
+    "u->t3": 12,
+    "u->v": 1,
+    "v->t1": 1,
+    "v->w": 1,
+    "w->t2": 1,
+    "w->t3": 1
+  },
+  "claimed_fractional_cost": 409,
+  "claimed_minimum_good_integral_cost": 415
+}
