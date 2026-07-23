@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  >=Latex,
+  box/.style={draw,rounded corners,align=center,minimum width=3.0cm,minimum height=1.55cm,inner sep=4pt},
+  note/.style={align=center,font=\small}
+]
+  \node[box] (J) at (0,0) {$J_k$\\$x_{A_k}=19/24,\ d_{A_k}=1$\\$x_B=5/24,\ d_B=1$};
+  \node[box] (K) at (4.2,0) {$K_k$\\$x_{A_k}=1/2,\ d_{A_k}=1/2$\\$x_{H_k}=1/2,\ d_{H_k}=1$};
+  \node[box] (L) at (8.4,0) {$L_k$\\$x_{A_k}=23/48,\ d_{A_k}=1$\\$x_{H_k}=25/48,\ d_{H_k}=1$};
+
+  \draw[->,line width=0.9pt] (J)-- node[above,font=\scriptsize] {if $J_k\not\mapsto A_k$} (K);
+  \draw[->,line width=0.9pt] (K)-- node[above,font=\scriptsize] {$K_k$ is forced to $A_k$} (L);
+
+  \node[note,draw,rounded corners] (bad) at (8.4,-2.3)
+    {every placement of $L_k$ gives\\$|\Delta_{A_k}|>1$ or $|\Delta_{H_k}|>1$};
+  \draw[->,line width=0.9pt] (L)--(bad);
+
+  \node[note,draw,rounded corners] (force) at (0,-2.3)
+    {therefore every globally good assignment must have\\$J_k\mapsto A_k$, so row $B$ gains $5/24$};
+  \draw[->,line width=0.9pt] (J)--(force);
+
+  \node[note,draw,double,rounded corners] (repeat) at (4.2,-4.0)
+    {five blocks: $\Delta_B\ge 5(5/24)-10/1000=619/600>1$};
+  \draw[->] (force)--(repeat);
+  \draw[->] (bad)--(repeat);
+\end{tikzpicture}
