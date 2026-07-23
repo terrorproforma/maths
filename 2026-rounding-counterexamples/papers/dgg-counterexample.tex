@@ -1,0 +1,372 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=29mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\cost}{\operatorname{cost}}
+
+\title{A Planar Counterexample to Goemans' Cost Conjecture\\
+for Single-Source Unsplittable Flow}
+\author{Anonymous for review}
+\date{23 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give an explicit counterexample to Goemans' cost conjecture for
+single-source unsplittable flow.  The instance is a planar acyclic digraph
+with seven vertices, nine arcs, and three terminals.  A feasible fractional
+flow has cost $58$, but every unsplittable routing whose load on each arc is
+at most the fractional load plus the maximum demand has cost at least $60$.
+Each terminal has exactly two source--terminal paths, so the proof reduces to
+an exhaustive eight-routing certificate.  The obstruction is the
+stable-set inequality of a triangle: the three inexpensive path choices are
+pairwise capacity-incompatible, while their fractional marginals sum to
+$16/15$.  The underlying undirected graph is a subdivision of $K_4$, placing
+the example immediately beyond the known series-parallel positive result.
+A parametric version also gives a planar lower bound of $9/8$ on the best
+universal coefficient for cost-preserving additive congestion.
+\end{abstract}
+
+\section{Introduction}
+
+Let $G=(V,A)$ be a directed graph with source $s$, terminals
+$t_1,\ldots,t_k$, positive demands $d_1,\ldots,d_k$, and nonnegative per-unit
+arc costs $c\in\R_+^A$.  A feasible fractional flow $x\in\R_+^A$ routes all
+demands from $s$ to their terminals.  An unsplittable flow chooses one
+$s$--$t_i$ path $P_i$ for each terminal and induces the load
+\[
+ y_a=\sum_{i:a\in P_i}d_i.
+\]
+Write $D=\max_i d_i$.
+
+The theorem of Dinitz, Garg, and Goemans guarantees an unsplittable routing
+with $y_a\le x_a+D$ on every arc, without a cost condition
+\citep{DinitzGargGoemans1999}.  Goemans' cost conjecture asks whether the same
+additive guarantee can always be obtained without increasing cost; it has
+motivated work on minimum-cost and convex-decomposition variants for roughly
+a quarter century \citep{Skutella2002,MartensSalazarSkutella2007}.
+
+\begin{conjecture}[Goemans' cost conjecture]\label{conj:goemans}
+For every feasible fractional single-source flow $x$ and every nonnegative
+arc-cost vector $c$, there exists an unsplittable flow $y$ such that
+\[
+ y_a\le x_a+D\quad(a\in A),
+ \qquad
+ c^\mathsf{T}y\le c^\mathsf{T}x.
+\]
+\end{conjecture}
+
+Recent progress includes simultaneous upper and lower bounds in special
+cases \citep{MorellSkutella2022}, an additive $2D$ cost-preserving theorem for
+planar digraphs \citep{TraubVargasKochZenklusen2024}, and the exact
+convex-decomposition statement for series-parallel digraphs
+\citep{AlmoghrabiSkutellaWarode2024}.  A 2026 paper still described
+Conjecture~\ref{conj:goemans} as famous and reported only limited general
+progress \citep{SwamyTraubVargasKochZenklusen2026}.
+
+Our main result is the following finite certificate.
+
+\begin{theorem}\label{thm:main}
+Conjecture~\ref{conj:goemans} is false.  It fails on a planar acyclic digraph
+with seven vertices, nine arcs, and three terminals.  In the displayed
+instance,
+\[
+ c^\mathsf{T}x=58
+ \quad\text{but}\quad
+ \min\{c^\mathsf{T}y:y\text{ unsplittable},\ y\le x+D\1\}=60.
+\]
+\end{theorem}
+
+The graph is small enough that every path and every routing can be listed.
+The proof therefore has no dependence on a path decomposition algorithm,
+floating-point computation, or an optimization solver.
+
+\section{The instance}
+
+Let
+\[
+ V=\{s,u,v,w,t_1,t_2,t_3\},
+ \qquad
+ (d_1,d_2,d_3)=(15,10,15),
+ \qquad D=15.
+\]
+The arcs, fractional loads, and costs are shown in
+Table~\ref{tab:instance} and Figure~\ref{fig:network}.
+
+\begin{table}[ht]
+\centering
+\caption{The counterexample.  Arc costs are nonnegative per-unit costs.}
+\label{tab:instance}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+arc $a$ & $x_a$ & $c_a$ \\
+\midrule
+$s\to t_1$ & 10 & 2 \\
+$s\to t_2$ &  6 & 3 \\
+$s\to u$   & 24 & 0 \\
+$u\to t_3$ & 10 & 2 \\
+$u\to v$   & 14 & 0 \\
+$v\to t_1$ &  5 & 0 \\
+$v\to w$   &  9 & 0 \\
+$w\to t_2$ &  4 & 0 \\
+$w\to t_3$ &  5 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\input{../figures/dgg_network.tex}
+\caption{A planar embedding.  Each arc label is $(x_a,c_a)$, with the
+fractional load first.  The heavy arcs witness the three pairwise conflicts.}
+\label{fig:network}
+\end{figure}
+
+The fractional flow has the path decomposition
+\[
+\begin{array}{c|cc}
+ & \text{first path} & \text{second path}\\
+\hline
+ t_1 & 10\,[s,t_1] & 5\,[s,u,v,t_1]\\
+ t_2 & 6\,[s,t_2] & 4\,[s,u,v,w,t_2]\\
+ t_3 & 10\,[s,u,t_3] & 5\,[s,u,v,w,t_3].
+\end{array}
+\]
+Conservation is immediate:
+\[
+24=10+14,\qquad 14=5+9,\qquad 9=4+5,
+\]
+and the terminal inflows are $15,10,15$.
+Its cost is
+\[
+ c^\mathsf{T}x=2\cdot10+3\cdot6+2\cdot10=58.
+\]
+
+\section{Exhaustive proof}
+
+Each terminal has exactly two source--terminal paths:
+\[
+\begin{array}{lll}
+E_1=s\to t_1,
+&\qquad&
+Z_1=s\to u\to v\to t_1,\\[1mm]
+E_2=s\to t_2,
+&&
+Z_2=s\to u\to v\to w\to t_2,\\[1mm]
+E_3=s\to u\to t_3,
+&&
+Z_3=s\to u\to v\to w\to t_3.
+\end{array}
+\]
+The paths $Z_i$ have zero cost.  Each $E_i$ has total integral cost $30$:
+\[
+15c(E_1)=30,\qquad 10c(E_2)=30,\qquad 15c(E_3)=30.
+\]
+
+\begin{lemma}\label{lem:conflict}
+An unsplittable routing satisfies $y_a\le x_a+D$ on every arc if and only if
+it uses at most one of $Z_1,Z_2,Z_3$.
+\end{lemma}
+
+\begin{proof}
+If $Z_1$ and $Z_2$ are selected, terminal $t_3$ uses $s\to u$ on either of
+its two paths.  Hence
+\[
+ y_{su}=15+10+15=40>24+15=x_{su}+D.
+\]
+If $Z_1$ and $Z_3$ are selected, then
+\[
+ y_{uv}=15+15=30>14+15=x_{uv}+D.
+\]
+If $Z_2$ and $Z_3$ are selected, then
+\[
+ y_{vw}=10+15=25>9+15=x_{vw}+D.
+\]
+Thus a good routing uses at most one $Z_i$.
+
+Conversely, when at most one $Z_i$ is used, the shared loads satisfy
+\[
+ y_{su}\le30<39,\qquad y_{uv}\le15<29,\qquad y_{vw}\le15<24.
+\]
+Every other arc is used by at most one demand and therefore has load at most
+$D\le x_a+D$.  Hence the routing is good.
+\end{proof}
+
+Lemma~\ref{lem:conflict} implies that every good routing uses at least two
+expensive paths and therefore costs at least $60$.  This proves
+Theorem~\ref{thm:main}.  For completeness, Table~\ref{tab:routings} lists all
+eight routings.
+
+\begin{table}[ht]
+\centering
+\caption{All unsplittable routings.  The letters correspond to the path
+choices for $(t_1,t_2,t_3)$.}
+\label{tab:routings}
+\begin{tabular}{@{}cccl@{}}
+\toprule
+routing & cost & good? & witness if bad \\
+\midrule
+$EEE$ & 90 & yes & --- \\
+$EEZ$ & 60 & yes & --- \\
+$EZE$ & 60 & yes & --- \\
+$EZZ$ & 30 & no  & $v\to w$: $25>24$ \\
+$ZEE$ & 60 & yes & --- \\
+$ZEZ$ & 30 & no  & $u\to v$: $30>29$ \\
+$ZZE$ & 30 & no  & $s\to u$: $40>39$ \\
+$ZZZ$ &  0 & no  & all three heavy arcs \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{The stable-set geometry}
+
+Let $z_i$ be the indicator of choosing $Z_i$.  By
+Lemma~\ref{lem:conflict}, every good integral routing satisfies the triangle
+stable-set inequality
+\[
+ z_1+z_2+z_3\le1.
+\]
+The fractional cheap-path marginals are
+\[
+ p=\left(\frac5{15},\frac4{10},\frac5{15}\right)
+  =\left(\frac13,\frac25,\frac13\right),
+\]
+so
+\[
+ p_1+p_2+p_3=\frac{16}{15}>1.
+\]
+Thus the fractional point lies outside the convex hull of capacity-good
+routings.  The cost vector is exactly a nonnegative separator of this violated
+facet.
+
+\begin{figure}[ht]
+\centering
+\input{../figures/dgg_obstruction.tex}
+\caption{The counterexample is the stable-set obstruction of a triangle.}
+\label{fig:obstruction}
+\end{figure}
+
+This interpretation also shows that the instance rules out any proposed
+convex decomposition of $x$ into unsplittable flows satisfying simultaneous
+upper and lower $D$-bounds.  Such flows are a subset of the upper-good
+routings, all of which have cost at least $60$, whereas the average cost in a
+decomposition of $x$ would have to be $58$.  This does not refute the costless
+existence of one two-sided-good routing.
+
+\section{Strictly positive costs}
+
+The zero-cost arcs are convenient but inessential.
+
+\begin{proposition}\label{prop:positive}
+The same graph, demands, and fractional flow give a counterexample with
+strictly positive integer costs on every arc.
+\end{proposition}
+
+\begin{proof}
+Set
+\[
+ c_{st_1}=12,\qquad c_{st_2}=18,\qquad c_{ut_3}=12,
+\]
+and give every other arc cost $1$.  Direct calculation gives
+\[
+ c^\mathsf{T}x=409.
+\]
+The four good routings are $EEE,EEZ,EZE,ZEE$.  Their costs are respectively
+$555,420,415,420$, so the minimum good cost is $415>409$.
+\end{proof}
+
+\section{A planar lower-bound family}
+
+The construction belongs to a simple rational family.  Normalize $D=1$,
+set
+\[
+ d_1=d_3=1,\qquad d_2=b,
+\]
+and let the cheap-path probabilities be $r,q,r$.  The three possible cheap
+pairs require additive deviations
+\[
+ A_{12}=A_{23}=1+b(1-q)-r,
+ \qquad
+ A_{13}=2-2r-bq.
+\]
+If every expensive integral path has total cost one, the fractional cost is
+$3-(2r+q)$.  Whenever $2r+q>1$, every no-more-expensive integral routing must
+use at least two cheap paths.
+
+Choose
+\[
+ b=\frac34,\qquad r=\frac14,\qquad q=\frac12+\varepsilon.
+\]
+Then $2r+q=1+\varepsilon$ and
+\[
+ A_{12}=A_{13}=A_{23}
+ =\frac98-\frac34\varepsilon.
+\]
+We obtain the following quantitative consequence.
+
+\begin{corollary}\label{cor:planar}
+Let $\alpha_{\rm planar}$ be the infimum of coefficients $\alpha$ such that
+every planar acyclic single-source fractional flow admits a no-more-expensive
+unsplittable routing satisfying $y_a\le x_a+\alpha D$ for every arc.  Then
+\[
+ \frac98\le \alpha_{\rm planar}\le2.
+\]
+\end{corollary}
+
+\begin{proof}
+The lower bound follows by sending $\varepsilon\downarrow0$ in the family
+above.  The upper bound is the planar cost theorem of
+\citet{TraubVargasKochZenklusen2024}.
+\end{proof}
+
+\section{Topology and implications}
+
+Ignoring directions, the graph is a subdivision of $K_4$.  The branch
+vertices are $s,u,v,w$, while $t_1,t_2,t_3$ subdivide the edges $sv,sw,uw$.
+Thus the counterexample is planar but lies immediately outside the
+series-parallel topology for which the exact convex-decomposition result is
+known \citep{AlmoghrabiSkutellaWarode2024}.
+
+The classical additive-$D$ existence theorem remains valid: for example,
+$EEZ$ is capacity-good.  The failure is specifically the simultaneous demand
+for additive error $D$ and no increase in cost.  The example therefore
+separates three thresholds:
+\[
+\begin{array}{ccl}
+\text{cost ignored} &:& D\text{ is achievable};\\
+\text{cost preserved, planar} &:& D\text{ is false and }2D\text{ is known};\\
+\text{this family} &:& (9/8-o(1))D\text{ is necessary}.
+\end{array}
+\]
+
+\section*{Reproducibility and disclosure}
+
+The accompanying repository contains the exact instance as JSON and a
+standard-library Python verifier that reconstructs all paths and checks all
+eight routings using integer arithmetic.  A generative AI system assisted
+with exploration, checking, code drafting, and exposition.  It is not an
+author.  The human authors assume responsibility for independent
+verification, priority, attribution, and the final submitted text.
+
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}
