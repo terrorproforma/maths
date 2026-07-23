@@ -1,0 +1,10 @@
+build/
+papers/*.aux
+papers/*.bbl
+papers/*.blg
+papers/*.fdb_latexmk
+papers/*.fls
+papers/*.log
+papers/*.out
+papers/*.pdf
+papers/*.synctex.gz

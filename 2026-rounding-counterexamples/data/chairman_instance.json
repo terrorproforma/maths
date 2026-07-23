@@ -1,0 +1,25 @@
+{
+  "title": "Counterexample to machine-dependent weighted chairman assignment",
+  "rows": ["B", "A1", "H1", "A2", "H2", "A3", "H3", "A4", "H4", "A5", "H5"],
+  "columns": ["J1", "K1", "L1", "J2", "K2", "L2", "J3", "K3", "L3", "J4", "K4", "L4", "J5", "K5", "L5"],
+  "default_fractional_entry": "0",
+  "default_weight": "1/1000",
+  "maximum_weight": "1",
+  "block_template": {
+    "Jk": {
+      "fractional_entries": {"Ak": "19/24", "B": "5/24"},
+      "exceptional_weights": {"Ak": "1", "B": "1"}
+    },
+    "Kk": {
+      "fractional_entries": {"Ak": "1/2", "Hk": "1/2"},
+      "exceptional_weights": {"Ak": "1/2", "Hk": "1"}
+    },
+    "Lk": {
+      "fractional_entries": {"Ak": "23/48", "Hk": "25/48"},
+      "exceptional_weights": {"Ak": "1", "Hk": "1"}
+    }
+  },
+  "number_of_blocks": 5,
+  "claimed_detector_lower_bound": "6047/6000",
+  "claimed_accumulator_lower_bound": "619/600"
+}
