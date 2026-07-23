@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[
+  >=Stealth,
+  stage/.style={draw,rounded corners=2pt,align=center,minimum height=17mm,minimum width=34mm,font=\small},
+  result/.style={draw,double,rounded corners=2pt,align=center,minimum height=17mm,minimum width=36mm,font=\small},
+  arr/.style={->,line width=1pt}
+]
+  \node[stage] (flow) at (0,0)
+    {fractional SSUF\\$c^\mathsf{T}x=58$};
+  \node[stage] (triangle) at (4.4,0)
+    {three cheap paths\\$z_1+z_2+z_3\le1$};
+  \node[result] (gap) at (8.8,0)
+    {capacity-good routing\\cost $\ge60$};
+  \draw[arr] (flow) -- node[above,font=\scriptsize] {$p=(1/3,2/5,1/3)$} (triangle);
+  \draw[arr] (triangle) -- node[above,font=\scriptsize] {violated facet} (gap);
+
+  \node[stage] (chair) at (0,-2.5)
+    {machine-dependent\\prefix discrepancy};
+  \node[stage] (force) at (4.4,-2.5)
+    {five forcing blocks\\$J_k\to A_k$};
+  \node[result] (acc) at (8.8,-2.5)
+    {accumulator\\$619/600>1$};
+  \draw[arr] (chair) -- node[above,font=\scriptsize] {three-column gadget} (force);
+  \draw[arr] (force) -- node[above,font=\scriptsize] {$5(5/24)-10/1000$} (acc);
+\end{tikzpicture}
+\end{center}
