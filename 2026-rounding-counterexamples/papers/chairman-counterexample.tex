@@ -1,0 +1,295 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=29mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\disc}{\Delta}
+
+\title{Machine-Dependent Weighted Chairman Assignment:\\
+Counterexamples to Two Conjectures}
+\author{Anonymous for review}
+\date{23 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Liu and Reis conjectured that every fractional assignment with positive
+machine-dependent weights admits an integral assignment whose discrepancy on
+every row and every prefix is at most the largest weight.  We give an exact
+rational counterexample with $11$ rows and $15$ columns.  Every fractional
+column has support two, all weights belong to
+$\{1/1000,1/2,1\}$, and the largest weight is one.  A three-column detector
+gadget forces one decision in each of five blocks.  The five forced decisions
+make an accumulator row attain discrepancy at least
+$619/600>1$.  The proof allows integral assignments outside the fractional
+support, and therefore refutes the unrestricted machine-dependent conjecture
+itself as well as the stronger unified support-preserving formulation.
+\end{abstract}
+
+\section{Introduction}
+
+Let $x\in[0,1]^{m\times n}$ be a fractional assignment with
+\[
+ \sum_{i=1}^m x_{ij}=1\qquad(j=1,\ldots,n).
+\]
+An integral assignment $y\in\{0,1\}^{m\times n}$ satisfies the same column
+sums.  Given positive machine-dependent weights $d_{ij}$, define the
+row-prefix discrepancy
+\[
+ \disc_i(t)=\sum_{j=1}^t d_{ij}(x_{ij}-y_{ij}).
+\]
+Liu and Reis proposed the following extension of the weighted chairman
+assignment problem \citep{LiuReis2026}.
+
+\begin{conjecture}[Liu--Reis, Conjecture 19]\label{conj:machine}
+For every fractional assignment $x$ and every positive weight matrix $d$,
+there is an integral assignment $y$ such that
+\[
+ |\disc_i(t)|\le D:=\max_{i,j}d_{ij}
+ \qquad\text{for every row $i$ and prefix $t$.}
+\]
+\end{conjecture}
+
+Their Conjecture 21 gives a unified statement with support preservation and
+more general prescribed integral column sums.  We show that already
+Conjecture~\ref{conj:machine} is false.
+
+\begin{theorem}\label{thm:main}
+There is a rational instance with $m=11$, $n=15$, and $D=1$ for which every
+integral assignment $y$ has
+\[
+ |\disc_i(t)|>1
+\]
+for some row $i$ and prefix $t$.  Every fractional column has support two and
+every weight is strictly positive.
+\end{theorem}
+
+Since the theorem excludes all integral assignments, including those outside
+the support of $x$, it immediately implies the following.
+
+\begin{corollary}\label{cor:unified}
+The unified support-preserving statement of Liu and Reis (Conjecture 21) is
+false, already in the one-winner-per-column case.
+\end{corollary}
+
+\section{The instance}
+
+The rows are
+\[
+ B,A_1,H_1,A_2,H_2,\ldots,A_5,H_5,
+\]
+and the columns occur in five consecutive blocks
+\[
+ J_k,K_k,L_k\qquad(k=1,\ldots,5).
+\]
+Set
+\[
+ \eta=\frac1{1000}.
+\]
+Every fractional entry not listed below is zero, and every weight not listed
+below equals $\eta$.  Thus all weights are strictly positive.
+
+For each block $k$, define the nonzero fractional entries and exceptional
+weights by Table~\ref{tab:block}.
+
+\begin{table}[ht]
+\centering
+\caption{One block of the counterexample.  Here $A=A_k$ and $H=H_k$.}
+\label{tab:block}
+\begin{tabular}{@{}lll@{}}
+\toprule
+column & nonzero fractional entries & exceptional weights \\
+\midrule
+$J_k$ & $x_{A,J_k}=19/24$, $x_{B,J_k}=5/24$
+      & $d_{A,J_k}=d_{B,J_k}=1$ \\
+$K_k$ & $x_{A,K_k}=1/2$, $x_{H,K_k}=1/2$
+      & $d_{A,K_k}=1/2$, $d_{H,K_k}=1$ \\
+$L_k$ & $x_{A,L_k}=23/48$, $x_{H,L_k}=25/48$
+      & $d_{A,L_k}=d_{H,L_k}=1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Every column sums to one, every column has support two, and
+\[
+ d_{ij}\in\left\{\frac1{1000},\frac12,1\right\},
+ \qquad D=1.
+\]
+
+\section{The forcing gadget}
+
+Fix a block $k$.  Before column $J_k$, the fresh rows $A_k$ and $H_k$ have
+zero fractional entries in every preceding column.  An integral assignment
+may nevertheless have assigned earlier columns to them.  There are at most
+$3(k-1)\le12$ earlier columns, and each such off-support assignment contributes
+exactly $-\eta$.  Hence immediately before $J_k$,
+\begin{equation}\label{eq:fresh}
+ -12\eta\le\disc_{A_k}\le0,
+ \qquad
+ -12\eta\le\disc_{H_k}\le0.
+\end{equation}
+
+\begin{lemma}\label{lem:force}
+Every integral assignment satisfying $|\disc_i(t)|\le1$ on all rows and
+prefixes must assign $J_k$ to $A_k$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $J_k$ is not assigned to $A_k$.  Then $A_k$ is unassigned on
+$J_k$ and gains $19/24$.  By \eqref{eq:fresh}, immediately after $J_k$,
+\begin{equation}\label{eq:A-after-J}
+ \disc_{A_k}\ge-12\eta+\frac{19}{24}.
+\end{equation}
+The row $H_k$ may itself receive $J_k$ outside its support, which costs only
+$\eta$, so
+\begin{equation}\label{eq:H-after-J}
+ \disc_{H_k}\ge-13\eta.
+\end{equation}
+
+Consider $K_k$.  If it is not assigned to $A_k$, then $A_k$ is unassigned
+and gains
+\[
+ d_{A_k,K_k}x_{A_k,K_k}=\frac12\cdot\frac12=\frac14.
+\]
+Together with \eqref{eq:A-after-J}, this gives
+\[
+ \disc_{A_k}\ge-12\eta+\frac{19}{24}+\frac14
+ =\frac{25}{24}-\frac{12}{1000}>1.
+\]
+Thus a surviving assignment must send $K_k$ to $A_k$.
+
+After that forced choice,
+\begin{align}
+ \disc_{A_k}&\ge-12\eta+\frac{19}{24}-\frac14
+             =-12\eta+\frac{13}{24},\label{eq:A-after-K}\\
+ \disc_{H_k}&\ge-13\eta+\frac12.\label{eq:H-after-K}
+\end{align}
+
+It remains to assign $L_k$.  If $L_k$ is assigned to $H_k$, then $A_k$ is
+unassigned and gains $23/48$.  By \eqref{eq:A-after-K},
+\[
+ \disc_{A_k}\ge-12\eta+\frac{13}{24}+\frac{23}{48}
+ =\frac{49}{48}-\frac{12}{1000}>1.
+\]
+If $L_k$ is not assigned to $H_k$, then $H_k$ is unassigned and gains
+$25/48$.  By \eqref{eq:H-after-K},
+\[
+ \disc_{H_k}\ge-13\eta+\frac12+\frac{25}{48}
+ =\frac{49}{48}-\frac{13}{1000}
+ =\frac{6047}{6000}>1.
+\]
+Every possible assignment of $L_k$ therefore violates the unit bound.  The
+assumption $J_k\not\to A_k$ was impossible.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\resizebox{\textwidth}{!}{\input{../figures/chairman_gadget.tex}}
+\caption{The three-column forcing gadget.  The inequalities include the
+worst possible losses from assignments outside the fractional support.}
+\label{fig:gadget}
+\end{figure}
+
+\section{Accumulator contradiction}
+
+Apply Lemma~\ref{lem:force} independently to all five blocks.  Every
+hypothetical discrepancy-good assignment must satisfy
+\[
+ J_k\longmapsto A_k\qquad(k=1,\ldots,5).
+\]
+The accumulator row $B$ is therefore unassigned on every $J_k$.  Since
+$x_{B,J_k}=5/24$ and $d_{B,J_k}=1$, each block increases its discrepancy by
+$5/24$.
+
+The only possible decreases occur when one of the ten detector columns
+$K_k,L_k$ is assigned to $B$.  On each such column $x_{B,j}=0$ and
+$d_{B,j}=\eta$, so the decrease is at most $\eta$.  At the final prefix,
+\[
+ \disc_B(15)
+ \ge 5\cdot\frac5{24}-10\eta
+ =\frac{25}{24}-\frac1{100}
+ =\frac{619}{600}>1.
+\]
+This contradiction proves Theorem~\ref{thm:main}.
+
+\section{A parametric family}
+
+The constants are instances of a simple open parameter region.  In one
+block, choose
+\[
+\begin{array}{c|cc|cc}
+ & x_A & x_H\text{ or }x_B & d_A & d_H\text{ or }d_B\\
+\hline
+J & 1-p & p\ (B) & 1 & 1\\
+K & 1/2 & 1/2\ (H) & a & 1\\
+L & 1-q & q\ (H) & 1 & 1.
+\end{array}
+\]
+The detector works, before the small $\eta$ corrections, whenever
+\[
+ \frac a2>p,
+ \qquad
+ \frac12<q<1-p-\frac a2.
+\]
+Indeed, the three forcing margins are
+\[
+ \frac a2-p,
+ \qquad
+ 1-p-\frac a2-q,
+ \qquad
+ q-\frac12.
+\]
+With $N$ blocks the accumulator margin is $Np-1$, so we also require
+$Np>1$.  Once these inequalities are strict, $\eta>0$ can be chosen small
+enough to absorb every off-support assignment.
+
+Our rational choice is
+\[
+ N=5,\qquad p=\frac5{24},\qquad a=\frac12,
+ \qquad q=\frac{25}{48},\qquad \eta=\frac1{1000}.
+\]
+The ideal margins are respectively $1/24,1/48,1/48$, while the accumulator
+margin is $1/24$.
+
+\section{Discussion}
+
+The counterexample exploits exactly what changes when a common job weight is
+replaced by machine-dependent weights.  With a common weight, assigning a job
+redistributes a conserved amount among rows.  Here the $K$ column has weight
+$1/2$ on $A_k$ but weight $1$ on $H_k$, permitting the detector to amplify a
+prefix imbalance.  The small value $\eta$ keeps every off-support weight
+positive without allowing unsupported choices to repair the forcing chain.
+
+The result does not address the ordinary weighted-carpooling conjecture, in
+which a column has one common weight across all rows.  It rules out the
+machine-dependent extension and every stronger statement containing it.
+
+\section*{Reproducibility and disclosure}
+
+The accompanying repository contains the full $11\times15$ rational instance
+as JSON and an exact `Fraction`-based verifier for every inequality in the
+forcing certificate.  A generative AI system assisted with exploration,
+checking, code drafting, and exposition.  It is not an author.  The human
+authors assume responsibility for independent verification, priority,
+attribution, and the final submitted text.
+
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}
