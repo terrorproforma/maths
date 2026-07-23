@@ -1,5 +1,10 @@
 # Counterexamples to two weighted-rounding conjectures
 
+> **Archived.** This combined package is superseded by the per-result folders
+> [`../chairman-counterexample/`](../chairman-counterexample/) and
+> [`../planar-cost-lower-bound/`](../planar-cost-lower-bound/); it is retained for the
+> record.
+
 > **Attribution.** The flow (DGG/Goemans) counterexample in this package is due to
 > **Dmitry Rybin** (constructed with GPT-5.6 Pro; announced at
 > <https://x.com/DmitryRybin1/status/2079904005652893709>); the positive-cost variant,

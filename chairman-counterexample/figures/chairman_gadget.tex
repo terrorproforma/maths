@@ -1,0 +1,36 @@
+% Requires tikz libraries arrows.meta, positioning.
+\begin{tikzpicture}[
+  >=Stealth,
+  col/.style={draw,rounded corners=2pt,align=center,minimum width=31mm,minimum height=17mm,font=\small},
+  outcome/.style={draw,align=center,inner sep=4pt,font=\scriptsize},
+  arr/.style={->,line width=.8pt},
+  note/.style={font=\scriptsize,align=center}
+]
+  \node[col] (J) at (0,0)
+    {$J_k$\\$x_A=19/24,\ x_B=5/24$\\$d_A=d_B=1$};
+  \node[col,right=20mm of J] (K)
+    {$K_k$\\$x_A=x_H=1/2$\\$d_A=1/2,\ d_H=1$};
+  \node[col,right=20mm of K] (L)
+    {$L_k$\\$x_A=23/48,\ x_H=25/48$\\$d_A=d_H=1$};
+
+  \draw[arr] (J) -- node[above,note] {$J_k\not\to A_k$} (K);
+  \draw[arr] (K) -- node[above,note] {forced: $K_k\to A_k$} (L);
+
+  \node[outcome,above=10mm of K] (badK)
+    {$K_k\not\to A_k$\\$\Delta_{A_k}\ge 25/24-12\eta>1$};
+  \draw[arr] (K) -- (badK);
+
+  \node[outcome,above=10mm of L,xshift=18mm] (badLH)
+    {$L_k\to H_k$\\$\Delta_{A_k}\ge49/48-12\eta>1$};
+  \node[outcome,below=10mm of L,xshift=18mm] (badLnH)
+    {$L_k\not\to H_k$\\$\Delta_{H_k}\ge49/48-13\eta>1$};
+  \draw[arr] (L) -- (badLH);
+  \draw[arr] (L) -- (badLnH);
+
+  \node[outcome,below=12mm of J] (forced)
+    {therefore $J_k\to A_k$\\accumulator gains $5/24$};
+  \draw[arr] (J) -- node[left,note] {only surviving choice} (forced);
+
+  \node[note,below=14mm of K]
+    {Five blocks: $\Delta_B\ge 5(5/24)-10(1/1000)=619/600>1$.};
+\end{tikzpicture}

@@ -31,3 +31,9 @@ chatgpt_thread_export/
 # Conversation transcripts (kept local, not published)
 conversation-exports/
 2026-rounding-counterexamples/research/conversation-thread-verbatim.md
+
+# Local planning documents (not published)
+CONJECTURE_TARGETS.md
+FUTURE_WORK.md
+**/FUTURE_WORK.md
+PLANNING*.md

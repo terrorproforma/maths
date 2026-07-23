@@ -1,5 +1,10 @@
 # Counterexamples to two weighted-rounding conjectures
 
+> **Archived.** This combined package is superseded by the per-result folders
+> [`../chairman-counterexample/`](../chairman-counterexample/) and
+> [`../planar-cost-lower-bound/`](../planar-cost-lower-bound/); it is retained for the
+> record.
+
 **Status:** research preprint and exact certificate package, prepared for independent review. The mathematical claims are explicit and finitely checkable; priority and novelty should still be checked by the eventual human authors and referees before public announcement.
 
 > **Attribution.** Result 1 below (the DGG/Goemans flow counterexample,

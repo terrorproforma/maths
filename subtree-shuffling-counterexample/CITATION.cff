@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "Please cite the manuscript in this folder after authorship and bibliographic metadata are finalized."
+message: "Please cite the manuscript in this folder."
 title: "An Explicit Fixed-Parameter Obstruction to Subtree Shuffling"
 type: article
-version: 0.1.0
-date-released: 2026-07-23
+version: 0.2.0
+date-released: 2026-07-24
 authors:
-  - family-names: "Anonymous"
-    given-names: "for review"
+  - family-names: "Muffatti"
+    given-names: "Angus"
 repository-code: "https://github.com/terrorproforma/maths/tree/main/subtree-shuffling-counterexample"
