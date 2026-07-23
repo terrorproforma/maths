@@ -1,0 +1,8 @@
+% Copy this file to author-info.tex for the non-anonymous submission.
+% Do not list an AI system as an author.
+\author{
+  Full Legal Name\\
+  \small Department, Institution\\
+  \small City, Country\\
+  \small \texttt{corresponding.author@example.org}
+}
