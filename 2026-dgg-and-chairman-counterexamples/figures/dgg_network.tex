@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+  scale=1.02,
+  >=Latex,
+  branch/.style={circle,draw,fill=black!8,minimum size=7mm,inner sep=0pt},
+  terminal/.style={circle,draw,double,minimum size=8mm,inner sep=0pt},
+  arc/.style={->,line width=0.75pt},
+  bottleneck/.style={->,line width=1.7pt},
+  lab/.style={fill=white,inner sep=1.5pt,font=\scriptsize}
+]
+  \node[branch] (s) at (0,3.2) {$s$};
+  \node[branch] (u) at (-3,-2) {$u$};
+  \node[branch] (v) at (3,-2) {$v$};
+  \node[branch] (w) at (0,0) {$w$};
+
+  \node[terminal] (t1) at (1.5,0.6) {$t_1$};
+  \node[terminal] (t2) at (0,1.6) {$t_2$};
+  \node[terminal] (t3) at (-1.5,-1) {$t_3$};
+
+  \draw[bottleneck] (s) -- node[lab,sloped,above] {$(24,0)$} (u);
+  \draw[bottleneck] (u) -- node[lab,below] {$(14,0)$} (v);
+  \draw[bottleneck] (v) -- node[lab,sloped,below] {$(9,0)$} (w);
+
+  \draw[arc] (s) -- node[lab,sloped,above] {$(10,2)$} (t1);
+  \draw[arc] (v) -- node[lab,sloped,below] {$(5,0)$} (t1);
+
+  \draw[arc] (s) -- node[lab,right] {$(6,3)$} (t2);
+  \draw[arc] (w) -- node[lab,right] {$(4,0)$} (t2);
+
+  \draw[arc] (u) -- node[lab,sloped,above] {$(10,2)$} (t3);
+  \draw[arc] (w) -- node[lab,sloped,below] {$(5,0)$} (t3);
+
+  \node[align=left,anchor=west,font=\scriptsize] at (3.8,2.5)
+    {arc label: $(x_a,c_a)$\\demands: $d_1=15$, $d_2=10$, $d_3=15$\\bold arcs are the three pair-conflict witnesses};
+\end{tikzpicture}
