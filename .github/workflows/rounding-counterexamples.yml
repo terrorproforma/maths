@@ -1,0 +1,49 @@
+name: Verify rounding counterexample papers
+
+on:
+  push:
+    branches:
+      - agent/rounding-counterexample-papers
+    paths:
+      - "2026-rounding-counterexamples/**"
+      - ".github/workflows/rounding-counterexamples.yml"
+  pull_request:
+    paths:
+      - "2026-rounding-counterexamples/**"
+      - ".github/workflows/rounding-counterexamples.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  exact-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify final certificates
+        working-directory: 2026-rounding-counterexamples
+        run: python3 code/verify_all.py
+      - name: Reconstruct parameter families
+        working-directory: 2026-rounding-counterexamples
+        run: make derive
+
+  build-pdfs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-fonts-recommended
+      - name: Compile all manuscripts
+        working-directory: 2026-rounding-counterexamples
+        run: make papers
+      - name: Upload compiled manuscripts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rounding-counterexample-papers
+          path: 2026-rounding-counterexamples/build/*.pdf
+          if-no-files-found: error
