@@ -13,10 +13,11 @@ on:
       - ".github/workflows/rounding-counterexamples.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   exact-certificates:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip generated PDFs]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +32,7 @@ jobs:
         run: make derive
 
   build-pdfs:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip generated PDFs]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,3 +49,17 @@ jobs:
           name: rounding-counterexample-papers
           path: 2026-rounding-counterexamples/build/*.pdf
           if-no-files-found: error
+      - name: Commit compiled manuscripts to the review branch
+        if: github.event_name == 'push'
+        run: |
+          mkdir -p 2026-rounding-counterexamples/generated-pdfs
+          cp 2026-rounding-counterexamples/build/*.pdf 2026-rounding-counterexamples/generated-pdfs/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f 2026-rounding-counterexamples/generated-pdfs/*.pdf
+          if git diff --cached --quiet; then
+            echo "Generated PDFs are unchanged."
+          else
+            git commit -m "Add compiled research PDFs [skip generated PDFs]"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
