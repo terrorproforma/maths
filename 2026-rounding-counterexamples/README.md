@@ -2,6 +2,13 @@
 
 **Status:** research preprint and exact certificate package, prepared for independent review. The mathematical claims are explicit and finitely checkable; priority and novelty should still be checked by the eventual human authors and referees before public announcement.
 
+> **Provenance warning.** Result 1 below (the DGG/Goemans flow counterexample,
+> `papers/dgg-counterexample.tex`, and the DGG half of `papers/overview.tex`) originated in
+> a third party's portion of a shared AI conversation and is **not the repository owner's
+> work**; it is retained only as a record. Result 2 (the chairman counterexample,
+> `papers/chairman-counterexample.tex`) is from the owner's session and is the only
+> manuscript here attributable to the owner. See [`../PROVENANCE_AUDIT.md`](../PROVENANCE_AUDIT.md).
+
 This directory contains two self-contained results.
 
 1. **A planar counterexample to Goemans' cost conjecture for single-source unsplittable flow.** The instance has seven vertices, nine arcs, three demands, exactly two paths per terminal, and exactly eight unsplittable routings. The fractional cost is `58`; every unsplittable routing satisfying the conjectured additive upper bound has cost at least `60`.

@@ -24,3 +24,6 @@ dist/
 .idea/
 
 # The reviewed manuscript PDF is intentionally tracked once CI builds it.
+
+# Local conversation exports (raw thread data; kept out of the public repo)
+chatgpt_thread_export/

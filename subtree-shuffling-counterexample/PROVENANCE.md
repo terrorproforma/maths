@@ -2,6 +2,13 @@
 
 ## Starting map
 
+**The starting map is third-party work.** It was pasted into the research conversation from
+an external public announcement (dated 20 July 2026; the conversation's contemporaneous
+research attributed the announcement to Levent Alpöge, with an AI system credited for
+producing the example). The repository owner claims no part of the map, its verification,
+or its fiber-geometry analysis, and any manuscript built on it must attribute the map to
+its original source. See `../PROVENANCE_AUDIT.md` at the repository root.
+
 The project begins with the polynomial map supplied in the research discussion:
 
 ```text
