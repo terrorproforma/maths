@@ -13,9 +13,10 @@ Self-contained source for the arXiv upload — verified to compile standalone:
 1. arxiv.org → START NEW SUBMISSION.
 2. Upload the three source files (`.tex`, the figure `.tex`, `.bbl`) — or a zip of them.
    Do **not** upload the PDF; arXiv builds from TeX source.
-3. **Primary category: `math.CO`** (combinatorics / discrepancy theory); suggested
-   cross-list: `cs.DM`. Note the account's default is `cs.CE` — change it for this
-   submission.
+3. **Primary category: `cs.DS`** — the Liu–Reis paper itself is cs.DS primary
+   (arXiv:2511.18546), so the refutation belongs in the same feed. Suggested
+   cross-list: `math.CO` (discrepancy theory). Note the account's default is `cs.CE` —
+   change it for this submission.
 4. License: the common choice for preprints intended for journal submission is the
    arXiv non-exclusive license; CC BY 4.0 if maximum reuse is preferred.
 5. Abstract: use the abstract from the paper.
