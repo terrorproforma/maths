@@ -1,0 +1,34 @@
+% Requires tikz libraries arrows.meta, positioning.
+\begin{tikzpicture}[
+  >=Stealth,
+  vertex/.style={circle,draw,minimum size=7mm,inner sep=1pt,font=\small},
+  terminal/.style={rectangle,draw,rounded corners=1pt,minimum width=9mm,minimum height=7mm,font=\small},
+  arc/.style={->,line width=.75pt},
+  bottleneck/.style={->,line width=1.8pt},
+  lab/.style={fill=white,inner sep=1.2pt,font=\scriptsize}
+]
+  \node[vertex] (s) at (-4,0) {$s$};
+  \node[vertex] (u) at (4,0) {$u$};
+  \node[vertex] (v) at (0,4) {$v$};
+  \node[vertex] (w) at (0,1.4) {$w$};
+  \node[terminal] (t1) at (-2,2) {$t_1$};
+  \node[terminal] (t2) at (-2,.7) {$t_2$};
+  \node[terminal] (t3) at (2,.7) {$t_3$};
+
+  \draw[bottleneck] (s) -- node[lab,below] {$x=24,\ c=0$} (u);
+  \draw[bottleneck] (u) -- node[lab,right,pos=.55] {$x=14,\ c=0$} (v);
+  \draw[bottleneck] (v) -- node[lab,right] {$x=9,\ c=0$} (w);
+
+  \draw[arc] (s) -- node[lab,left] {$10,2$} (t1);
+  \draw[arc] (v) -- node[lab,right] {$5,0$} (t1);
+  \draw[arc] (s) -- node[lab,below] {$6,3$} (t2);
+  \draw[arc] (w) -- node[lab,above] {$4,0$} (t2);
+  \draw[arc] (u) -- node[lab,below] {$10,2$} (t3);
+  \draw[arc] (w) -- node[lab,above] {$5,0$} (t3);
+
+  \node[font=\scriptsize,below=1mm of t1] {$d_1=15$};
+  \node[font=\scriptsize,below=1mm of t2] {$d_2=10$};
+  \node[font=\scriptsize,below=1mm of t3] {$d_3=15$};
+  \node[font=\scriptsize,align=center] at (0,-.7)
+    {arc labels are $(x_a,c_a)$; heavy arcs are the three conflict witnesses};
+\end{tikzpicture}
