@@ -1,0 +1,27 @@
+% Requires tikz libraries arrows.meta, positioning.
+\begin{tikzpicture}[
+  >=Stealth,
+  choice/.style={circle,draw,minimum size=12mm,font=\small},
+  witness/.style={font=\scriptsize,fill=white,inner sep=1pt},
+  box/.style={draw,rounded corners=2pt,align=center,inner sep=5pt,font=\small}
+]
+  \node[choice] (z1) at (0,2.1) {$Z_1$};
+  \node[choice] (z2) at (-2,0) {$Z_2$};
+  \node[choice] (z3) at (2,0) {$Z_3$};
+  \draw[line width=1.1pt] (z1) -- node[witness,left] {$u\!\to\!v$} (z3);
+  \draw[line width=1.1pt] (z1) -- node[witness,right] {$s\!\to\!u$} (z2);
+  \draw[line width=1.1pt] (z2) -- node[witness,below] {$v\!\to\!w$} (z3);
+
+  \node[box,right=18mm of z3] (integral)
+    {capacity-good integral routings\\[1mm]
+     $z_1+z_2+z_3\le 1$};
+  \node[box,below=7mm of integral] (fractional)
+    {fractional cheap-path marginals\\[1mm]
+     $\frac13+\frac25+\frac13=\frac{16}{15}>1$};
+  \draw[->,line width=.9pt] (integral) -- node[right,font=\scriptsize]
+    {violated facet} (fractional);
+
+  \node[box,below=10mm of z2,xshift=12mm] (cost)
+    {$c^\mathsf{T}x=58$\\[1mm]
+     $\min\{c^\mathsf{T}y:y\le x+D\}=60$};
+\end{tikzpicture}
