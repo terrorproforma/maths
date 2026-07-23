@@ -1,0 +1,27 @@
+\begin{tikzpicture}[>=Latex,font=\small]
+  \begin{scope}[xshift=-3.2cm]
+    \node[circle,draw,minimum size=8mm] (z1) at (0,1.8) {$Z_1$};
+    \node[circle,draw,minimum size=8mm] (z2) at (-1.7,-0.7) {$Z_2$};
+    \node[circle,draw,minimum size=8mm] (z3) at (1.7,-0.7) {$Z_3$};
+    \draw[line width=1.2pt] (z1)--(z2)--(z3)--cycle;
+    \node[align=center] at (0,-1.7)
+      {capacity-good integral routings:\\$z_1+z_2+z_3\le 1$};
+    \node[align=center] at (0,3.0)
+      {fractional marginals\\$\left(\frac13,\frac25,\frac13\right)$};
+    \node[draw,rounded corners,inner sep=4pt] at (0,-2.8)
+      {$\frac13+\frac25+\frac13=\frac{16}{15}>1$};
+  \end{scope}
+
+  \begin{scope}[xshift=2.3cm,yshift=-1.15cm]
+    \draw[->] (0,0)--(0,4.0) node[above] {cost};
+    \draw[->] (0,0)--(4.4,0);
+    \filldraw[fill=black!12] (0.7,0) rectangle (2.0,2.9);
+    \filldraw[fill=black!35] (2.7,0) rectangle (4.0,3.0);
+    \node at (1.35,3.2) {$58$};
+    \node at (3.35,3.3) {$60$};
+    \node[align=center] at (1.35,-0.55) {fractional\\flow};
+    \node[align=center] at (3.35,-0.55) {best\\good routing};
+    \draw[dashed] (0,2.9)--(4.2,2.9);
+    \node[anchor=west,font=\scriptsize] at (4.25,2.9) {$c^\top x$};
+  \end{scope}
+\end{tikzpicture}
