@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+  <title id="title">Seven-vertex planar counterexample to Goemans' cost conjecture</title>
+  <desc id="desc">A planar directed graph with fractional arc loads and unit costs. The three bold backbone arcs witness pairwise conflicts among the three zero-cost path choices.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#111"/>
+    </marker>
+    <style>
+      .edge{stroke:#111;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .bottleneck{stroke:#111;stroke-width:6;fill:none;marker-end:url(#arrow)}
+      .branch{fill:#eeeeee;stroke:#111;stroke-width:2}
+      .terminal{fill:#fff;stroke:#111;stroke-width:2}
+      .terminal2{fill:none;stroke:#111;stroke-width:1.5}
+      .label{font-family:Arial,sans-serif;font-size:18px;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5;stroke-linejoin:round}
+      .node{font-family:Arial,sans-serif;font-size:21px;text-anchor:middle;dominant-baseline:middle}
+      .small{font-family:Arial,sans-serif;font-size:16px}
+      .headline{font-family:Arial,sans-serif;font-size:25px;font-weight:700}
+    </style>
+  </defs>
+
+  <text x="40" y="42" class="headline">Planar seven-vertex certificate</text>
+  <text x="40" y="68" class="small">Arc labels are (fractional load, unit cost); demands are d₁=15, d₂=10, d₃=15.</text>
+
+  <!-- backbone -->
+  <line class="bottleneck" x1="437" y1="92" x2="135" y2="480"/>
+  <line class="bottleneck" x1="145" y1="500" x2="755" y2="500"/>
+  <line class="bottleneck" x1="760" y1="485" x2="472" y2="316"/>
+
+  <!-- terminal arms -->
+  <line class="edge" x1="470" y1="90" x2="596" y2="266"/>
+  <line class="edge" x1="764" y1="480" x2="634" y2="304"/>
+  <line class="edge" x1="450" y1="96" x2="450" y2="162"/>
+  <line class="edge" x1="450" y1="276" x2="450" y2="208"/>
+  <line class="edge" x1="143" y1="485" x2="267" y2="415"/>
+  <line class="edge" x1="432" y1="315" x2="303" y2="385"/>
+
+  <!-- edge labels -->
+  <text class="label" x="258" y="282">(24,0)</text>
+  <text class="label" x="450" y="528">(14,0)</text>
+  <text class="label" x="625" y="405">(9,0)</text>
+  <text class="label" x="548" y="164">(10,2)</text>
+  <text class="label" x="706" y="389">(5,0)</text>
+  <text class="label" x="490" y="130">(6,3)</text>
+  <text class="label" x="490" y="251">(4,0)</text>
+  <text class="label" x="213" y="431">(10,2)</text>
+  <text class="label" x="374" y="362">(5,0)</text>
+
+  <!-- nodes -->
+  <circle class="branch" cx="450" cy="75" r="23"/><text class="node" x="450" y="76">s</text>
+  <circle class="branch" cx="120" cy="500" r="23"/><text class="node" x="120" y="501">u</text>
+  <circle class="branch" cx="780" cy="500" r="23"/><text class="node" x="780" y="501">v</text>
+  <circle class="branch" cx="450" cy="300" r="23"/><text class="node" x="450" y="301">w</text>
+
+  <circle class="terminal" cx="615" cy="285" r="26"/><circle class="terminal2" cx="615" cy="285" r="21"/><text class="node" x="615" y="286">t₁</text>
+  <circle class="terminal" cx="450" cy="185" r="26"/><circle class="terminal2" cx="450" cy="185" r="21"/><text class="node" x="450" y="186">t₂</text>
+  <circle class="terminal" cx="285" cy="400" r="26"/><circle class="terminal2" cx="285" cy="400" r="21"/><text class="node" x="285" y="401">t₃</text>
+
+  <!-- certificate summary -->
+  <rect x="50" y="555" width="900" height="70" rx="12" fill="#f5f5f5" stroke="#111"/>
+  <text x="75" y="584" class="small">Fractional cost: 58.</text>
+  <text x="75" y="610" class="small">Every routing with yₐ ≤ xₐ+15 uses at least two expensive choices, hence has cost ≥60.</text>
+  <text x="740" y="597" class="headline">58 &lt; 60</text>
+</svg>
