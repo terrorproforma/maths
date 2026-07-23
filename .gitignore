@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# LaTeX auxiliaries
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/
+
+# The reviewed manuscript PDF is intentionally tracked once CI builds it.

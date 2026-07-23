@@ -2,4 +2,8 @@
 
 Research notes, computational certificates, and reproducible manuscripts.
 
-The first project is being prepared on a review branch before merging into `main`.
+## Projects
+
+- [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — an explicit fixed-parameter obstruction to the subtree-shuffling conjecture, with a journal-style LaTeX manuscript, exact symbolic checks, derivations, and CI.
+
+Every project carries its own status, provenance, review checklist, tests, and build instructions.

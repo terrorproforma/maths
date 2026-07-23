@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "subtree-shuffling-counterexample"
+version = "0.1.0"
+description = "Exact symbolic verification for a fixed-parameter subtree-shuffling obstruction"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "sympy>=1.13,<2",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8,<10",
+]
+
+[project.scripts]
+verify-subtree-shuffling = "shuffle_counterexample.verify:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
