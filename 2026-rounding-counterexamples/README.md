@@ -2,12 +2,14 @@
 
 **Status:** research preprint and exact certificate package, prepared for independent review. The mathematical claims are explicit and finitely checkable; priority and novelty should still be checked by the eventual human authors and referees before public announcement.
 
-> **Provenance warning.** Result 1 below (the DGG/Goemans flow counterexample,
-> `papers/dgg-counterexample.tex`, and the DGG half of `papers/overview.tex`) originated in
-> a third party's portion of a shared AI conversation and is **not the repository owner's
-> work**; it is retained only as a record. Result 2 (the chairman counterexample,
-> `papers/chairman-counterexample.tex`) is from the owner's session and is the only
-> manuscript here attributable to the owner. See [`../PROVENANCE_AUDIT.md`](../PROVENANCE_AUDIT.md).
+> **Attribution.** Result 1 below (the DGG/Goemans flow counterexample,
+> `papers/dgg-counterexample.tex`, and the DGG half of `papers/overview.tex`) is due to
+> **Dmitry Rybin** (with GPT-5.6 Pro; announced at
+> <https://x.com/DmitryRybin1/status/2079904005652893709>) and is built upon here with
+> credit, not claimed. Result 2 (the chairman counterexample,
+> `papers/chairman-counterexample.tex`) is from the repository owner's session.
+> See [`../ATTRIBUTIONS.md`](../ATTRIBUTIONS.md) and
+> [`../PROVENANCE_AUDIT.md`](../PROVENANCE_AUDIT.md).
 
 This directory contains two self-contained results.
 

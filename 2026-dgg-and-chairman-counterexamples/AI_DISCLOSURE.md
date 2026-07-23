@@ -2,11 +2,11 @@
 
 GPT-5.6 Pro was used as a research assistant during exploration, construction of the finite certificates, algebraic checking, code drafting, literature orientation, and preparation of the manuscript source.
 
-**Provenance boundary.** The flow (DGG/Goemans) counterexample and everything derived from
-its seven-vertex instance were produced in a third party's portion of a shared AI
-conversation, before the repository owner's involvement, and are excluded from any
-contribution claimed by the owner. Only the machine-dependent weighted-chairman
-counterexample originates from the owner's session. See `../PROVENANCE_AUDIT.md`.
+**Provenance boundary.** The flow (DGG/Goemans) counterexample is due to Dmitry Rybin
+(with GPT-5.6 Pro), and the material derived from his seven-vertex instance builds on his
+work; it is credited, not claimed. The machine-dependent weighted-chairman counterexample
+originates from the repository owner's session. See `../ATTRIBUTIONS.md` and
+`../PROVENANCE_AUDIT.md`.
 
 The repository is deliberately organized so that the claims do not depend on trusting an AI-generated narrative. The flow result is exhaustively checkable over eight routings. The chairman result has an exact rational proof certificate and an independent mixed-integer infeasibility model. All data used by those checks are included.
 

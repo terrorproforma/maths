@@ -1,13 +1,15 @@
 # Counterexamples to two weighted-rounding conjectures
 
-> **Provenance warning.** The flow (DGG/Goemans) counterexample in this package — including
-> its positive-cost variant, the Morell–Skutella corollaries, and the parametric 9/8 family —
-> originated in a third party's portion of a shared AI conversation and is **not the
-> repository owner's work**. The chairman (Liu–Reis) counterexample is from the owner's own
-> session. The combined manuscript in `paper/main.tex` mixes the two and is **not a
-> submission vehicle**; the owner's separable result has a standalone manuscript at
+> **Attribution.** The flow (DGG/Goemans) counterexample in this package is due to
+> **Dmitry Rybin** (constructed with GPT-5.6 Pro; announced at
+> <https://x.com/DmitryRybin1/status/2079904005652893709>); the positive-cost variant,
+> Morell–Skutella corollaries, and parametric 9/8 family here build on his instance. The
+> chairman (Liu–Reis) counterexample is from the repository owner's own session. The
+> combined manuscript `paper/main.tex` carries an explicit attribution note for the Rybin
+> sections; a chairman-only manuscript is at
 > `../2026-rounding-counterexamples/papers/chairman-counterexample.tex`.
-> See [`../PROVENANCE_AUDIT.md`](../PROVENANCE_AUDIT.md).
+> See [`../ATTRIBUTIONS.md`](../ATTRIBUTIONS.md) and
+> [`../PROVENANCE_AUDIT.md`](../PROVENANCE_AUDIT.md).
 
 This folder contains a self-contained research package for two finite counterexamples:
 

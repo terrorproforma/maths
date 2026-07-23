@@ -27,3 +27,7 @@ dist/
 
 # Local conversation exports (raw thread data; kept out of the public repo)
 chatgpt_thread_export/
+
+# Conversation transcripts (kept local, not published)
+conversation-exports/
+2026-rounding-counterexamples/research/conversation-thread-verbatim.md
