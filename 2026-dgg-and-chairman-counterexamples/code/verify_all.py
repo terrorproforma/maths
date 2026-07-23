@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import subprocess
 import sys
 from pathlib import Path
@@ -18,10 +19,10 @@ def run(name: str) -> None:
 def main() -> None:
     run("verify_dgg.py")
     run("verify_chairman_certificate.py")
-    try:
-        run("verify_chairman_milp.py")
-    except ModuleNotFoundError:
+    if importlib.util.find_spec("scipy") is None:
         print("SciPy is unavailable; exact certificate checks passed, MILP check skipped.")
+    else:
+        run("verify_chairman_milp.py")
 
 
 if __name__ == "__main__":
