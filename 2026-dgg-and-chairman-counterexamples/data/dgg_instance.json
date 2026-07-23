@@ -1,0 +1,39 @@
+{
+  "name": "seven-vertex planar counterexample to Goemans' cost conjecture",
+  "source": "s",
+  "vertices": ["s", "u", "v", "w", "t1", "t2", "t3"],
+  "terminals": {
+    "t1": 15,
+    "t2": 10,
+    "t3": 15
+  },
+  "maximum_demand": 15,
+  "arcs": [
+    {"tail": "s", "head": "t1", "fractional_load": 10, "unit_cost": 2},
+    {"tail": "s", "head": "t2", "fractional_load": 6, "unit_cost": 3},
+    {"tail": "s", "head": "u", "fractional_load": 24, "unit_cost": 0},
+    {"tail": "u", "head": "t3", "fractional_load": 10, "unit_cost": 2},
+    {"tail": "u", "head": "v", "fractional_load": 14, "unit_cost": 0},
+    {"tail": "v", "head": "t1", "fractional_load": 5, "unit_cost": 0},
+    {"tail": "v", "head": "w", "fractional_load": 9, "unit_cost": 0},
+    {"tail": "w", "head": "t2", "fractional_load": 4, "unit_cost": 0},
+    {"tail": "w", "head": "t3", "fractional_load": 5, "unit_cost": 0}
+  ],
+  "fractional_path_decomposition": {
+    "t1": [
+      {"amount": 10, "path": [["s", "t1"]]},
+      {"amount": 5, "path": [["s", "u"], ["u", "v"], ["v", "t1"]]}
+    ],
+    "t2": [
+      {"amount": 6, "path": [["s", "t2"]]},
+      {"amount": 4, "path": [["s", "u"], ["u", "v"], ["v", "w"], ["w", "t2"]]}
+    ],
+    "t3": [
+      {"amount": 10, "path": [["s", "u"], ["u", "t3"]]},
+      {"amount": 5, "path": [["s", "u"], ["u", "v"], ["v", "w"], ["w", "t3"]]}
+    ]
+  },
+  "claimed_fractional_cost": 58,
+  "claimed_minimum_good_integral_cost": 60,
+  "capacity_rule": "integral_load(a) <= fractional_load(a) + maximum_demand"
+}
