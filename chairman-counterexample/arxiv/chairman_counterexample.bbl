@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Liu and Reis(2026)]{LiuReis2026}
+S.~Liu and V.~Reis.
+\newblock Weighted chairman assignment and flow-time scheduling.
+\newblock In \emph{17th Innovations in Theoretical Computer Science Conference
+  (ITCS 2026)}, volume 362 of \emph{Leibniz International Proceedings in
+  Informatics}, pages 98:1--98:15. Schloss Dagstuhl -- Leibniz-Zentrum f{\"u}r
+  Informatik, 2026.
+\newblock \doi{10.4230/LIPIcs.ITCS.2026.98}.
+\newblock Preprint arXiv:2511.18546.
+
+\end{thebibliography}
