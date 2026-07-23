@@ -1,0 +1,141 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\title{Two Exact Counterexamples in Weighted Rounding\\
+Illustrated Research Overview}
+\author{Anonymous for review}
+\date{23 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note summarizes two exact certificate-based counterexamples: a planar
+seven-vertex counterexample to Goemans' cost conjecture for single-source
+unsplittable flow, and an $11$-row, $15$-column counterexample to the
+machine-dependent weighted-chairman conjecture.  Both are accompanied by
+standard-library Python verifiers using exact arithmetic.
+\end{abstract}
+
+\input{../figures/graphical_abstract.tex}
+
+\section{The flow result in one page}
+
+For demands $(15,10,15)$, the planar acyclic network in
+Figure~\ref{fig:network} supports a feasible fractional flow of cost $58$.
+Each terminal has one expensive path of total integral cost $30$ and one
+zero-cost path.  Any pair of zero-cost paths violates one of three arc bounds
+by exactly one unit.  A capacity-good routing therefore buys at least two
+expensive paths and costs at least $60$.
+
+\begin{figure}[ht]
+\centering
+\resizebox{.84\textwidth}{!}{\input{../figures/dgg_network.tex}}
+\caption{The explicit planar counterexample.  Arc labels are
+$(\text{fractional load},\text{per-unit cost})$.}
+\label{fig:network}
+\end{figure}
+
+The convex-geometric obstruction is the stable-set inequality of a triangle:
+\[
+ z_1+z_2+z_3\le1,
+ \qquad
+ \frac13+\frac25+\frac13=\frac{16}{15}>1.
+\]
+The example is planar, but its underlying undirected graph is a subdivision
+of $K_4$, immediately beyond the series-parallel class for which the exact
+positive theorem is known \citep{AlmoghrabiSkutellaWarode2024}.
+
+A parametric form gives the quantitative planar lower bound
+\[
+ \frac98\le\alpha_{\rm planar}\le2,
+\]
+where $\alpha_{\rm planar}D$ is the permitted cost-preserving additive upper
+deviation and the upper bound is the planar theorem of
+\citet{TraubVargasKochZenklusen2024}.
+
+\section{The assignment result in one page}
+
+Liu and Reis conjectured prefix discrepancy at most
+$D=\max_{i,j}d_{ij}$ for arbitrary positive machine-dependent weights
+\citep{LiuReis2026}.  The counterexample repeats the detector shown in
+Figure~\ref{fig:gadget} five times.
+
+\begin{figure}[ht]
+\centering
+\resizebox{\textwidth}{!}{\input{../figures/chairman_gadget.tex}}
+\caption{One forcing block.  No support restriction is assumed.}
+\label{fig:gadget}
+\end{figure}
+
+Every discrepancy-good assignment is forced to send $J_k$ to $A_k$.  Each
+such choice contributes $5/24$ to a global accumulator row.  The ten detector
+columns can repair the accumulator by at most $10/1000$, leaving
+\[
+ 5\left(\frac5{24}\right)-\frac{10}{1000}
+ =\frac{619}{600}>1.
+\]
+Thus the unrestricted machine-dependent conjecture and its stronger unified
+support-preserving version are false.
+
+\section{Why the results matter}
+
+\begin{table}[ht]
+\centering
+\caption{Conservative chronology and significance.}
+\begin{tabular}{@{}p{25mm}p{44mm}p{70mm}@{}}
+\toprule
+period & development & significance \\
+\midrule
+1998--1999 & Dinitz--Garg--Goemans additive-$D$ theorem
+& Establishes optimal cost-free congestion rounding. \\
+2000--2002 & minimum-cost SSUF formulation
+& Goemans' simultaneous cost/congestion conjecture enters the literature. \\
+2024 & planar additive-$2D$ cost theorem
+& Best known planar upper bound before the present certificate. \\
+2024--2025 & exact series-parallel convex decomposition
+& Confirms the roughly 25-year-old conjecture on a nontrivial class. \\
+2026 & present seven-vertex certificate
+& Shows the exact $D$ cost guarantee fails even for planar DAGs. \\
+2025--2026 & Liu--Reis machine-dependent conjecture
+& Natural extension of weighted chairman assignment. \\
+2026 & present five-block forcing certificate
+& Shows machine dependence destroys the unit prefix bound. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The flow result preserves the classical Dinitz--Garg--Goemans theorem: the
+failure occurs only when cost preservation is imposed.  The chairman result
+preserves the ordinary common-weight problem: the failure occurs only after
+weights become row dependent.
+
+\section{Verification}
+
+The repository command
+\begin{verbatim}
+python3 code/verify_all.py
+\end{verbatim}
+checks the flow graph, reconstructs all six source--terminal paths, enumerates
+all eight routings, and checks every rational inequality in the chairman
+forcing proof.  No floating-point computation or optimization solver is
+needed.
+
+\paragraph{Status.}
+These are preprint claims prepared for independent review.  Human authors
+must verify priority, theorem wording, and the final submission.  A
+generative AI system assisted with exploration and drafting and is not an
+author.
+
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}
