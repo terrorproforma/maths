@@ -20,6 +20,6 @@
     }
   },
   "number_of_blocks": 5,
-  "claimed_detector_lower_bound": "49/48-13/1000",
+  "claimed_detector_lower_bound": "6047/6000",
   "claimed_accumulator_lower_bound": "619/600"
 }
