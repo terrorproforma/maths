@@ -1,0 +1,38 @@
+{
+  "title": "Planar counterexample to Goemans' cost conjecture",
+  "source": "s",
+  "terminals": {
+    "t1": 15,
+    "t2": 10,
+    "t3": 15
+  },
+  "maximum_demand": 15,
+  "vertices": ["s", "u", "v", "w", "t1", "t2", "t3"],
+  "arcs": [
+    {"tail": "s", "head": "t1", "fractional_load": 10, "cost": 2},
+    {"tail": "s", "head": "t2", "fractional_load": 6, "cost": 3},
+    {"tail": "s", "head": "u", "fractional_load": 24, "cost": 0},
+    {"tail": "u", "head": "t3", "fractional_load": 10, "cost": 2},
+    {"tail": "u", "head": "v", "fractional_load": 14, "cost": 0},
+    {"tail": "v", "head": "t1", "fractional_load": 5, "cost": 0},
+    {"tail": "v", "head": "w", "fractional_load": 9, "cost": 0},
+    {"tail": "w", "head": "t2", "fractional_load": 4, "cost": 0},
+    {"tail": "w", "head": "t3", "fractional_load": 5, "cost": 0}
+  ],
+  "fractional_path_decomposition": {
+    "t1": [
+      {"amount": 10, "path": ["s", "t1"]},
+      {"amount": 5, "path": ["s", "u", "v", "t1"]}
+    ],
+    "t2": [
+      {"amount": 6, "path": ["s", "t2"]},
+      {"amount": 4, "path": ["s", "u", "v", "w", "t2"]}
+    ],
+    "t3": [
+      {"amount": 10, "path": ["s", "u", "t3"]},
+      {"amount": 5, "path": ["s", "u", "v", "w", "t3"]}
+    ]
+  },
+  "claimed_fractional_cost": 58,
+  "claimed_minimum_cost_subject_to_additive_bound": 60
+}
