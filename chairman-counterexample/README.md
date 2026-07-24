@@ -13,7 +13,9 @@ fractional assignment admits an integral assignment whose row/prefix discrepancy
 `D = max d_ij`. The instance here has 11 rows and 15 columns, every fractional column has
 support two, all weights lie in `{1/1000, 1/2, 1}` (so `D = 1`), and **every** integral
 assignment — including assignments outside the fractional support — has some row/prefix
-discrepancy at least `619/600 > 1`.
+discrepancy strictly greater than `1` (deviating branches force at least `6047/6000`; the
+accumulator branch forces `619/600`; the instance's exact min-max, by independent MILP, is
+`6101/6000 ≈ 1.0168`).
 
 The mechanism: machine-dependent weights break the conservation identity that protects the
 classical (common-weight) chairman problem. A three-column detector gadget forces one
@@ -55,7 +57,7 @@ make arxiv    # assembles and test-compiles the self-contained arXiv package in 
 - `paper/` — the manuscript (`chairman_counterexample.tex`) and bibliography.
 - `figures/` — TikZ source for the detector/accumulator figure.
 - `data/` — the machine-readable rational instance.
-- `code/` — the three verifiers and the gadget-parameter derivation script.
+- `code/` — the six verifiers and the gadget-parameter derivation script.
 - `research/` — the derivation notes.
 
 ## Attribution and provenance

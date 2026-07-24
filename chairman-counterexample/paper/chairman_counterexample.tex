@@ -24,7 +24,7 @@
 \title{Machine-Dependent Weighted Chairman Assignment:\\
 Counterexamples to Two Conjectures and a $7/6$ Lower Bound}
 \author{Angus Muffatti}
-\date{24 July 2026}
+\date{25 July 2026}
 
 \begin{document}
 \maketitle
@@ -49,7 +49,8 @@ incurs some row-and-prefix discrepancy at least $7/6-\varepsilon$; a concrete
 $49\times72$ instance forces discrepancy above $9/8$.  The constant $7/6$ is
 optimal for this gadget once the detector split is fixed at one half;
 releasing the split improves the constant to $4-2\sqrt2-\varepsilon$, with an
-exact rational witness forcing $239/204$.  We know of no constant upper bound
+exact rational witness in which all three violation heights equal
+$239/204$.  We know of no constant upper bound
 for machine-dependent prefix discrepancy and pose the determination of the
 optimal constant as an open problem.
 \end{abstract}
@@ -66,9 +67,11 @@ row-prefix discrepancy
 \[
  \disc_i(t)=\sum_{j=1}^t d_{ij}(x_{ij}-y_{ij}).
 \]
-The unweighted case is the classical chairman assignment problem, for which
-Tijdeman established the optimal prefix guarantee \citep{Tijdeman1980}.  Liu
-and Reis proved the weighted (common column weight) generalization —
+The unweighted case is the classical chairman assignment problem: Tijdeman
+proved the guarantee $1$ together with the matching lower bound, Meijer
+established the optimal constant $1-1/(2m-2)$ \citep{Meijer1973}, and
+Tijdeman later gave an alternative algorithmic proof \citep{Tijdeman1980}.
+Liu and Reis proved the weighted (common column weight) generalization —
 confirming a special case of the two-sided unsplittable-flow conjecture of
 Morell and Skutella \citep{MorellSkutella2022} — and proposed the following
 machine-dependent extension \citep{LiuReis2026}.
@@ -420,11 +423,14 @@ are equal: $x_3=d$ and $x_2=\frac{1-d}{1+d}$, with common value
 \]
 maximized at $d=\sqrt2-1$ with value $\sup_d\tau(d)=4-2\sqrt2\approx1.1716$.
 The rational choice $d=\frac5{12}$ gives $x_2=\frac7{17}$, $x_3=\frac5{12}$,
-and all three heights exactly $\frac{239}{204}>\frac76$.  The proof of
-Theorem~\ref{thm:seven-sixths} applies verbatim with these block constants,
-so for every $\eps>0$ some finite instance forces discrepancy at least
-$4-2\sqrt2-\eps$.  Deeper detector blocks improve the constant further; a
-systematic treatment is deferred to follow-up work.
+and all three heights exactly $\frac{239}{204}>\frac76$.  For $p>0$ the
+heights $v_1$ and $v_A$ each decrease by $p$ while $v_H$ is unchanged, so
+Lemma~\ref{lem:budget} applies with the balanced value $1+M$ replaced by
+$\tau(d)-p$; letting $p\downarrow0$ absorbs the loss exactly as in the proof
+of Theorem~\ref{thm:seven-sixths}.  Hence for every $\eps>0$ some finite
+instance forces discrepancy at least $4-2\sqrt2-\eps$.  Deeper detector
+blocks improve the constant further (the discussion records a depth-four
+witness); a systematic treatment is deferred to follow-up work.
 \end{remark}
 
 \begin{corollary}\label{cor:nine-eighths}
@@ -472,14 +478,21 @@ the three-column gadget.  Let $\kappa$ denote the supremum, over all finite
 instances with positive machine-dependent weights, of the minimum over
 integral assignments of the maximum row-and-prefix discrepancy divided by
 $D=\max_{i,j}d_{ij}$.  We have shown $\kappa\ge4-2\sqrt2$, and deeper
-detector blocks push the bound higher still.  In the opposite
-direction we are aware of no finite upper bound on $\kappa$ beyond the
-trivial $\kappa\le n$: the non-prefix version of the machine-dependent bound
-does hold \citep{LiuReis2026}, and for the common-weight prefix problem the
-best known bounds are $2m\cdot\max_jd_j$ and, via Banaszczyk's convex-geometry
-theorem \citep{Banaszczyk1998}, the $O(\sqrt{\log n})\cdot\max_jd_j$ bound of
-Bansal, Rohwedder, and Svensson \citep{BansalRohwedderSvensson2022}; whether
-either argument survives machine-dependent weights appears to be open.
+detector blocks push the bound higher still: a depth-four detector with
+weights $(9/25,3/5)$ admits an exact rational certificate with all forcing
+heights equal to $103/85>4-2\sqrt2$, to appear in follow-up work.  In the
+opposite direction we are aware of no finite upper bound on $\kappa$ at all;
+per instance nothing improves on the trivial bound of $n\cdot D$ on the
+discrepancy itself, which gives no bound on the supremum $\kappa$.  The
+non-prefix version of the machine-dependent statement does hold
+\citep{LiuReis2026}, by the rounding argument of Lenstra, Shmoys, and Tardos
+\citep{LenstraShmoysTardos1990}, and for the common-weight prefix problem
+the best known bounds are $2m\cdot\max_jd_j$, via the linear-algebraic
+argument of B\'ar\'any and Grinberg \citep{BaranyGrinberg1981,Barany2008},
+and the $O(\sqrt{\log n})\cdot\max_jd_j$ bound of Bansal, Rohwedder, and
+Svensson \citep{BansalRohwedderSvensson2022} via Banaszczyk's theorem on
+series of signed vectors \citep{Banaszczyk2012}; whether either argument
+survives machine-dependent weights appears to be open.
 Determining whether $\kappa$ is finite, and if so its value, is the natural
 next question.
 

@@ -62,7 +62,7 @@ def main() -> None:
         assert v[0] == v[1] == v[2] == tau(dd), dd
     print("balance formula verified on rational sample  ✓")
 
-    # 3. optimality: tau(d) <= 4 - 2*sqrt(2), i.e. (3 - tau)^2 >= 8, exact
+    # 3. optimality: tau(d) <= 4 - 2*sqrt(2), i.e. (4 - tau)^2 >= 8, exact
     worst = F(0)
     for num in range(1, 1000):
         dd = F(num, 1000)

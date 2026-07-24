@@ -16,7 +16,8 @@ disclosures; all claims are unverified until independently audited.
 - [`chairman-counterexample/`](chairman-counterexample/) — **counterexample to the
   machine-dependent weighted-chairman conjectures** (Liu–Reis Conjectures 19 and 21),
   plus a quantitative strengthening: prefix discrepancy can be forced arbitrarily close
-  to 7/6·D (optimal for the gadget family; concrete 49×72 instance > 9/8). Five
+  to 7/6·D for the ½-split gadget (concrete 49×72 instance > 9/8), improved to
+  (4−2√2)·D − ε ≈ 1.1716·D by freeing the detector split (exact witness 239/204). Six
   independent verifiers (exact-rational and MILP). Author: Angus Muffatti.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — **explicit
   fixed-parameter obstruction to the subtree-shuffling conjecture** at (d,p) = (7,15) for
