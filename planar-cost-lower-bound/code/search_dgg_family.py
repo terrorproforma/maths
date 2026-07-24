@@ -35,7 +35,10 @@ def candidates(max_denominator: int = 48):
 
 
 def main() -> None:
-    best = sorted(candidates(), reverse=True)[:20]
+    import sys
+
+    max_denominator = int(sys.argv[1]) if len(sys.argv) > 1 else 48
+    best = sorted(candidates(max_denominator), reverse=True)[:20]
     print("factor\tb\tr\tq\tcheap-marginal-sum")
     for factor, b, r, q in best:
         print(f"{factor}\t{b}\t{r}\t{q}\t{2*r+q}")

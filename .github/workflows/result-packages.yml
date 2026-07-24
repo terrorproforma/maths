@@ -1,0 +1,84 @@
+name: Verify result packages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "chairman-counterexample/**"
+      - "planar-cost-lower-bound/**"
+      - ".github/workflows/result-packages.yml"
+  pull_request:
+    paths:
+      - "chairman-counterexample/**"
+      - "planar-cost-lower-bound/**"
+      - ".github/workflows/result-packages.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  chairman-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install MILP dependencies
+        run: pip install numpy scipy
+      - name: Exact certificate (11x15 instance)
+        working-directory: chairman-counterexample/code
+        run: |
+          python3 verify_chairman.py
+          python3 verify_chairman_certificate.py
+      - name: Independent MILP check (11x15)
+        working-directory: chairman-counterexample/code
+        run: python3 verify_chairman_milp.py
+      - name: Exact certificate (7/6 strengthening and 9/8 instance)
+        working-directory: chairman-counterexample/code
+        run: python3 verify_stronger_bound.py
+      - name: Independent MILP check (49x72 at budget 9/8)
+        working-directory: chairman-counterexample/code
+        run: python3 verify_stronger_milp.py
+
+  planar-cost-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Exhaustive DGG certificate (Rybin instance)
+        working-directory: planar-cost-lower-bound/code
+        run: python3 verify_dgg.py
+      - name: Parametric family enumeration (9/8 supremum, denominator cap 12)
+        working-directory: planar-cost-lower-bound/code
+        run: python3 search_dgg_family.py 12
+
+  build-manuscripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-extra texlive-fonts-recommended
+      - name: Compile chairman manuscript (repo layout)
+        working-directory: chairman-counterexample/paper
+        run: latexmk -pdf -interaction=nonstopmode chairman_counterexample.tex
+      - name: Compile chairman manuscript (arXiv package, self-contained)
+        working-directory: chairman-counterexample/arxiv
+        run: latexmk -pdf -interaction=nonstopmode chairman_counterexample.tex
+      - name: Compile planar-cost manuscript
+        working-directory: planar-cost-lower-bound/paper
+        run: latexmk -pdf -interaction=nonstopmode planar_cost_lower_bound.tex
+      - name: Upload compiled manuscripts
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-package-manuscripts
+          path: |
+            chairman-counterexample/paper/chairman_counterexample.pdf
+            chairman-counterexample/arxiv/chairman_counterexample.pdf
+            planar-cost-lower-bound/paper/planar_cost_lower_bound.pdf
+          if-no-files-found: error
