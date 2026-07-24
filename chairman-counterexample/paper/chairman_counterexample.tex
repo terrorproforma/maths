@@ -338,7 +338,7 @@ for some row $i$ and prefix $t$.
 \end{theorem}
 
 \begin{proof}
-Balance the margins.  For $p\in(0,\tfrac18)$ set
+Balance the margins.  For $p\in(0,\tfrac14)$ set
 \[
  a=\frac13+\frac{2p}3,
  \qquad
@@ -346,19 +346,20 @@ Balance the margins.  For $p\in(0,\tfrac18)$ set
 \]
 Then
 \[
- m_1=m_2=m_3=\frac16-\frac{2p}3,
+ m_1=m_2=m_3=\frac16-\frac{2p}3\ >\ 0,
  \qquad
  1+M=\frac76-\frac{2p}3 .
 \]
 Assume without loss of generality $\eps\le\tfrac76$, and choose
 \[
- p=\frac{3\eps}8,
+ p=\min\Bigl\{\frac{3\eps}8,\ \frac18\Bigr\},
  \qquad
  N=\Bigl\lceil\frac2p\Bigr\rceil,
  \qquad
  \eta=\frac{\eps}{13N}.
 \]
-Then
+If $\eps<\tfrac13$ then $\frac{2p}3=\frac\eps4$; otherwise $p=\tfrac18$ and
+$\frac{2p}3=\frac1{12}\le\frac\eps4$.  In both cases
 \[
  \frac{2p}3+(3N-2)\eta
  \ \le\

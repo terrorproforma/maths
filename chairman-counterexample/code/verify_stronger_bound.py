@@ -87,16 +87,17 @@ def main() -> None:
     print(f"concrete instance verified: m=49, n=72, "
           f"guaranteed discrepancy = {bound} > 9/8")
 
-    # 4. Theorem 7/6 recipe on sampled epsilon
-    for eps in (F(1, 2), F(1, 10), F(1, 100), F(1, 1000)):
-        pp = 3 * eps / 8
+    # 4. Theorem 7/6 recipe on sampled epsilon (exact recipe from the paper,
+    #    including the p = min{3eps/8, 1/8} cap for large eps)
+    for eps in (F(7, 6), F(1, 2), F(1, 3), F(1, 10), F(1, 100), F(1, 1000)):
+        pp = min(3 * eps / 8, F(1, 8))
         NN = ceil(F(2, 1) / pp)
         ee = eps / (13 * NN)
         aa = F(1, 3) + 2 * pp / 3
         qq = F(2, 3) - 2 * pp / 3
         b = guaranteed_bound(NN, pp, aa, qq, ee)
         assert b > F(7, 6) - eps, (eps, b)
-        print(f"eps={eps}: N={NN}, bound={b} > 7/6 - eps = {F(7,6)-eps}")
+        print(f"eps={eps}: p={pp}, N={NN}, bound={b} > 7/6 - eps = {F(7,6)-eps}")
 
     # 5. family optimality: min margin <= 1/6 - 2p/3 on a grid
     grid = [F(i, 24) for i in range(0, 25)]
