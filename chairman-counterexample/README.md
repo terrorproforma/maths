@@ -46,7 +46,8 @@ verified exactly`, and `MILP independently certifies infeasibility at budget 9/8
 ## Build the paper
 
 ```bash
-cd paper && latexmk -pdf chairman_counterexample.tex
+make paper    # compiles paper/chairman_counterexample.pdf (the single source of truth)
+make arxiv    # assembles and test-compiles the self-contained arXiv package in arxiv-upload/
 ```
 
 ## Contents

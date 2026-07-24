@@ -64,12 +64,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y latexmk texlive-latex-extra texlive-fonts-recommended
-      - name: Compile chairman manuscript (repo layout)
-        working-directory: chairman-counterexample/paper
-        run: latexmk -pdf -interaction=nonstopmode chairman_counterexample.tex
-      - name: Compile chairman manuscript (arXiv package, self-contained)
-        working-directory: chairman-counterexample/arxiv
-        run: latexmk -pdf -interaction=nonstopmode chairman_counterexample.tex
+      - name: Compile chairman manuscript and arXiv package
+        working-directory: chairman-counterexample
+        run: make arxiv
       - name: Compile planar-cost manuscript
         working-directory: planar-cost-lower-bound/paper
         run: latexmk -pdf -interaction=nonstopmode planar_cost_lower_bound.tex
@@ -79,6 +76,6 @@ jobs:
           name: result-package-manuscripts
           path: |
             chairman-counterexample/paper/chairman_counterexample.pdf
-            chairman-counterexample/arxiv/chairman_counterexample.pdf
+            chairman-counterexample/arxiv-upload/chairman_counterexample.pdf
             planar-cost-lower-bound/paper/planar_cost_lower_bound.pdf
           if-no-files-found: error
