@@ -38,6 +38,9 @@ jobs:
       - name: Exact certificate (7/6 strengthening and 9/8 instance)
         working-directory: chairman-counterexample/code
         run: python3 verify_stronger_bound.py
+      - name: Exact certificate (improved split, 4-2*sqrt(2))
+        working-directory: chairman-counterexample/code
+        run: python3 verify_improved_split.py
       - name: Independent MILP check (49x72 at budget 9/8)
         working-directory: chairman-counterexample/code
         run: python3 verify_stronger_milp.py

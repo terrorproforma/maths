@@ -47,8 +47,10 @@ $\varepsilon>0$ there are finite instances, still with unit maximum weight
 and fractional support two per column, on which every integral assignment
 incurs some row-and-prefix discrepancy at least $7/6-\varepsilon$; a concrete
 $49\times72$ instance forces discrepancy above $9/8$.  The constant $7/6$ is
-optimal for this three-column gadget.  We know of no constant upper bound for
-machine-dependent prefix discrepancy and pose the determination of the
+optimal for this gadget once the detector split is fixed at one half;
+releasing the split improves the constant to $4-2\sqrt2-\varepsilon$, with an
+exact rational witness forcing $239/204$.  We know of no constant upper bound
+for machine-dependent prefix discrepancy and pose the determination of the
 optimal constant as an open problem.
 \end{abstract}
 
@@ -384,15 +386,45 @@ retains fractional support two.
 \end{proof}
 
 \begin{remark}\label{rem:optimal}
-The constant $7/6$ is optimal for this three-column family.  Since
-$m_2+m_3=\frac12-p-\frac a2$,
+The constant $7/6$ is optimal for this three-column family \emph{as
+parameterized}, that is, with the detector split fixed at
+$x_{A,K}=x_{H,K}=\frac12$.  Since $m_2+m_3=\frac12-p-\frac a2$,
 \[
  M\le\min\Bigl\{\frac a2-p,\ \frac14-\frac p2-\frac a4\Bigr\},
 \]
 and the two bounds balance at $a=\frac13+\frac{2p}3$ with common value
 $\frac16-\frac{2p}3<\frac16$.  Hence $1+M<\frac76$ for every admissible
 $(p,a,q)$, and the supremum $7/6$ is approached only as $p\downarrow0$,
-which forces the number of blocks to grow.
+which forces the number of blocks to grow.  The half split itself is not
+optimal; see Remark~\ref{rem:improved}.
+\end{remark}
+
+\begin{remark}[An improved constant from the same three columns]
+\label{rem:improved}
+Free the detector split.  In the limit $p\downarrow0$, take block columns
+$J$, $K$, $L$ with supports as before, detector weights
+$d_{A,K}=d\in(0,1]$, $d_{H,K}=1$, and splits $x_{A,K}=x_2$,
+$x_{A,L}=x_3$.  The three violation heights of the forcing argument become
+\[
+ v_1=1+dx_2,
+ \qquad
+ v_A=1-d(1-x_2)+x_3,
+ \qquad
+ v_H=(1-x_2)+(1-x_3).
+\]
+Since $v_1$ increases in $x_2$ while $v_H$ decreases in both splits and
+$v_A$ increases in $x_3$, the max--min is attained where all three heights
+are equal: $x_3=d$ and $x_2=\frac{1-d}{1+d}$, with common value
+\[
+ \tau(d)=1+\frac{d(1-d)}{1+d},
+\]
+maximized at $d=\sqrt2-1$ with value $\sup_d\tau(d)=4-2\sqrt2\approx1.1716$.
+The rational choice $d=\frac5{12}$ gives $x_2=\frac7{17}$, $x_3=\frac5{12}$,
+and all three heights exactly $\frac{239}{204}>\frac76$.  The proof of
+Theorem~\ref{thm:seven-sixths} applies verbatim with these block constants,
+so for every $\eps>0$ some finite instance forces discrepancy at least
+$4-2\sqrt2-\eps$.  Deeper detector blocks improve the constant further; a
+systematic treatment is deferred to follow-up work.
 \end{remark}
 
 \begin{corollary}\label{cor:nine-eighths}
@@ -435,11 +467,12 @@ machine-dependent extension and every stronger statement containing it.
 
 \paragraph{An open problem.}
 Theorem~\ref{thm:seven-sixths} makes the failure quantitative, and
-Remark~\ref{rem:optimal} shows that the present gadget cannot push the
-constant beyond $7/6$.  Let $\kappa$ denote the supremum, over all finite
+Remarks~\ref{rem:optimal} and~\ref{rem:improved} locate the exact reach of
+the three-column gadget.  Let $\kappa$ denote the supremum, over all finite
 instances with positive machine-dependent weights, of the minimum over
 integral assignments of the maximum row-and-prefix discrepancy divided by
-$D=\max_{i,j}d_{ij}$.  We have shown $\kappa\ge7/6$.  In the opposite
+$D=\max_{i,j}d_{ij}$.  We have shown $\kappa\ge4-2\sqrt2$, and deeper
+detector blocks push the bound higher still.  In the opposite
 direction we are aware of no finite upper bound on $\kappa$ beyond the
 trivial $\kappa\le n$: the non-prefix version of the machine-dependent bound
 does hold \citep{LiuReis2026}, and for the common-weight prefix problem the

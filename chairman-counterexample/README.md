@@ -19,13 +19,12 @@ The mechanism: machine-dependent weights break the conservation identity that pr
 classical (common-weight) chairman problem. A three-column detector gadget forces one
 decision per block; five forced decisions make an accumulator row overflow.
 
-**Quantitative strengthening (7/6).** A balanced version of the same gadget forces
-discrepancy arbitrarily close to `7/6·D`: for every ε > 0 there is a finite instance (unit
-maximum weight, support two per column) on which every integral assignment incurs some
-prefix discrepancy ≥ 7/6 − ε, and 7/6 is optimal for this three-column family. A concrete
-49×72 instance forces discrepancy ≥ 3379/3000 > 9/8. No constant upper bound for
-machine-dependent prefix discrepancy appears to be known — posed as an open problem in the
-paper.
+**Quantitative strengthening.** A balanced version of the same gadget forces discrepancy
+arbitrarily close to `7/6·D` (concrete 49×72 instance ≥ 3379/3000 > 9/8), and 7/6 is
+optimal for the family with the detector split fixed at ½. Releasing the split improves
+the constant to `4 − 2√2 − ε ≈ 1.1716`, with an exact rational witness where all three
+violation heights equal `239/204`. No constant upper bound for machine-dependent prefix
+discrepancy appears to be known — posed as an open problem in the paper (κ ≥ 4 − 2√2).
 
 ## Verify
 
@@ -37,6 +36,7 @@ python3 code/verify_chairman_certificate.py    # exact rationals, self-contained
 python3 code/verify_chairman_milp.py           # independent MILP infeasibility (needs numpy+scipy/HiGHS)
 python3 code/verify_stronger_bound.py          # exact certificate for the 7/6 theorem and 9/8 instance
 python3 code/verify_stronger_milp.py           # independent MILP: 49x72 instance infeasible at budget 9/8
+python3 code/verify_improved_split.py          # exact certificate for the 4-2*sqrt(2) improved-split remark
 ```
 
 Expected: `final accumulator lower bound = 619/600`, `chairman certificate verified
