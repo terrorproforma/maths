@@ -19,6 +19,14 @@ The mechanism: machine-dependent weights break the conservation identity that pr
 classical (common-weight) chairman problem. A three-column detector gadget forces one
 decision per block; five forced decisions make an accumulator row overflow.
 
+**Quantitative strengthening (7/6).** A balanced version of the same gadget forces
+discrepancy arbitrarily close to `7/6·D`: for every ε > 0 there is a finite instance (unit
+maximum weight, support two per column) on which every integral assignment incurs some
+prefix discrepancy ≥ 7/6 − ε, and 7/6 is optimal for this three-column family. A concrete
+49×72 instance forces discrepancy ≥ 3379/3000 > 9/8. No constant upper bound for
+machine-dependent prefix discrepancy appears to be known — posed as an open problem in the
+paper.
+
 ## Verify
 
 Three independent checks:
@@ -27,10 +35,13 @@ Three independent checks:
 python3 code/verify_chairman.py                # exact rationals, reads data/chairman_instance.json
 python3 code/verify_chairman_certificate.py    # exact rationals, self-contained construction
 python3 code/verify_chairman_milp.py           # independent MILP infeasibility (needs numpy+scipy/HiGHS)
+python3 code/verify_stronger_bound.py          # exact certificate for the 7/6 theorem and 9/8 instance
+python3 code/verify_stronger_milp.py           # independent MILP: 49x72 instance infeasible at budget 9/8
 ```
 
 Expected: `final accumulator lower bound = 619/600`, `chairman certificate verified
-exactly`, and `MILP independently certifies infeasibility`.
+exactly`, `MILP independently certifies infeasibility`, `stronger-bound certificate
+verified exactly`, and `MILP independently certifies infeasibility at budget 9/8`.
 
 ## Build the paper
 

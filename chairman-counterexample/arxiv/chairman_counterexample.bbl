@@ -1,9 +1,23 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{3}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Banaszczyk(1998)]{Banaszczyk1998}
+W.~Banaszczyk.
+\newblock Balancing vectors and {Gaussian} measures of $n$-dimensional convex
+  bodies.
+\newblock \emph{Random Structures \& Algorithms}, 12\penalty0 (4):\penalty0
+  351--360, 1998.
+
+\bibitem[Bansal et~al.(2022)Bansal, Rohwedder, and
+  Svensson]{BansalRohwedderSvensson2022}
+N.~Bansal, L.~Rohwedder, and O.~Svensson.
+\newblock Flow time scheduling and prefix {Beck--Fiala}.
+\newblock In \emph{Proceedings of the 54th Annual ACM SIGACT Symposium on
+  Theory of Computing (STOC 2022)}, pages 331--342. ACM, 2022.
 
 \bibitem[Liu and Reis(2026)]{LiuReis2026}
 S.~Liu and V.~Reis.

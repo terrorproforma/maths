@@ -14,9 +14,10 @@ disclosures; all claims are unverified until independently audited.
 ## Results (one folder per independent result)
 
 - [`chairman-counterexample/`](chairman-counterexample/) — **counterexample to the
-  machine-dependent weighted-chairman conjectures** (Liu–Reis Conjectures 19 and 21).
-  11×15 rational instance, discrepancy ≥ 619/600 > 1. Three independent verifiers
-  (two exact-rational, one MILP infeasibility). Author: Angus Muffatti.
+  machine-dependent weighted-chairman conjectures** (Liu–Reis Conjectures 19 and 21),
+  plus a quantitative strengthening: prefix discrepancy can be forced arbitrarily close
+  to 7/6·D (optimal for the gadget family; concrete 49×72 instance > 9/8). Five
+  independent verifiers (exact-rational and MILP). Author: Angus Muffatti.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — **explicit
   fixed-parameter obstruction to the subtree-shuffling conjecture** at (d,p) = (7,15) for
   all k = 3m, via a weighted Horner suspension of the Alpöge map (attributed) and an

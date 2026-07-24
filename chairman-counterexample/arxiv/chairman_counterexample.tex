@@ -19,11 +19,12 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\disc}{\Delta}
+\newcommand{\eps}{\varepsilon}
 
 \title{Machine-Dependent Weighted Chairman Assignment:\\
-Counterexamples to Two Conjectures}
+Counterexamples to Two Conjectures and a $7/6$ Lower Bound}
 \author{Angus Muffatti}
-\date{23 July 2026}
+\date{24 July 2026}
 
 \begin{document}
 \maketitle
@@ -40,6 +41,15 @@ make an accumulator row attain discrepancy at least
 $619/600>1$.  The proof allows integral assignments outside the fractional
 support, and therefore refutes the unrestricted machine-dependent conjecture
 itself as well as the stronger unified support-preserving formulation.
+
+A balanced version of the same gadget strengthens the refutation: for every
+$\varepsilon>0$ there are finite instances, still with unit maximum weight
+and fractional support two per column, on which every integral assignment
+incurs some row-and-prefix discrepancy at least $7/6-\varepsilon$; a concrete
+$49\times72$ instance forces discrepancy above $9/8$.  The constant $7/6$ is
+optimal for this three-column gadget.  We know of no constant upper bound for
+machine-dependent prefix discrepancy and pose the determination of the
+optimal constant as an open problem.
 \end{abstract}
 
 \section{Introduction}
@@ -208,7 +218,7 @@ worst possible losses from assignments outside the fractional support.}
 \label{fig:gadget}
 \end{figure}
 
-\section{Accumulator contradiction}
+\section{Accumulator contradiction}\label{sec:accumulator}
 
 Apply Lemma~\ref{lem:force} independently to all five blocks.  Every
 hypothetical discrepancy-good assignment must satisfy
@@ -269,6 +279,142 @@ Our rational choice is
 The ideal margins are respectively $1/24,1/48,1/48$, while the accumulator
 margin is $1/24$.
 
+\section{A stronger lower bound: the constant $7/6$}\label{sec:stronger}
+
+The family does more than refute the unit bound.  Write
+\[
+ m_1=\frac a2-p,
+ \qquad
+ m_2=1-p-\frac a2-q,
+ \qquad
+ m_3=q-\frac12
+\]
+for the three forcing margins, and
+\[
+ M(p,a,q)=\min\{m_1,m_2,m_3\}.
+\]
+The three violation heights in the proof of Lemma~\ref{lem:force} are then
+$1+m_1$, $1+m_2$, and $1+m_3$, before the $\eta$ corrections.
+
+\begin{lemma}\label{lem:budget}
+Let $c\ge1$, and suppose an integral assignment satisfies
+$|\disc_i(t)|\le c$ on all rows and prefixes of the $N$-block instance with
+parameters $(p,a,q,\eta)$.  If
+\[
+ 1+M(p,a,q)-(3N-2)\eta>c,
+\]
+then the assignment sends $J_k$ to $A_k$ for every block $k$.  If moreover
+$Np-2N\eta>c$, no such assignment exists; that is, every integral assignment
+has some row and prefix with
+\[
+ \disc_i(t)\ \ge\ \min\bigl\{\,1+M(p,a,q)-(3N-2)\eta,\ Np-2N\eta\,\bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+The case analysis is that of Lemma~\ref{lem:force} verbatim, with the unit
+bound replaced by $c$.  The pre-block drift bound \eqref{eq:fresh} becomes
+$\disc\ge-3(N-1)\eta$ for the fresh rows, and $H_k$ may additionally absorb
+$J_k$ off support, so every displayed lower bound loses at most
+$(3N-2)\eta$.  The three terminal bounds in the three branches become
+$(1-p)+\frac a2$, $(1-p)-\frac a2+(1-q)$, and $\frac12+q$, that is,
+$1+m_1$, $1+m_2$, and $1+m_3$, each reduced by at most $(3N-2)\eta$; if each
+exceeds $c$, all three branches contradict the budget, forcing
+$J_k\mapsto A_k$.  The accumulator argument of
+Section~\ref{sec:accumulator} then gives $\disc_B(3N)\ge Np-2N\eta>c$, the
+final contradiction.
+The displayed guarantee follows by applying the argument with $c$ equal to
+the maximum prefix discrepancy of the given assignment.
+\end{proof}
+
+\begin{theorem}\label{thm:seven-sixths}
+For every $\eps>0$ there is a finite instance with strictly positive
+machine-dependent weights, maximum weight $D=1$, and every fractional column
+of support two, on which every integral assignment $y$ satisfies
+\[
+ |\disc_i(t)|\ \ge\ \frac76-\eps
+\]
+for some row $i$ and prefix $t$.
+\end{theorem}
+
+\begin{proof}
+Balance the margins.  For $p\in(0,\tfrac18)$ set
+\[
+ a=\frac13+\frac{2p}3,
+ \qquad
+ q=\frac23-\frac{2p}3 .
+\]
+Then
+\[
+ m_1=m_2=m_3=\frac16-\frac{2p}3,
+ \qquad
+ 1+M=\frac76-\frac{2p}3 .
+\]
+Assume without loss of generality $\eps\le\tfrac76$, and choose
+\[
+ p=\frac{3\eps}8,
+ \qquad
+ N=\Bigl\lceil\frac2p\Bigr\rceil,
+ \qquad
+ \eta=\frac{\eps}{13N}.
+\]
+Then
+\[
+ \frac{2p}3+(3N-2)\eta
+ \ \le\
+ \frac{\eps}4+3N\cdot\frac{\eps}{13N}
+ \ =\
+ \frac{25\eps}{52}
+ \ <\ \eps,
+\]
+so $1+M-(3N-2)\eta>\frac76-\eps$, and
+\[
+ Np-2N\eta\ \ge\ 2-\frac{2\eps}{13}\ \ge\ 2-\frac7{39}\ >\ \frac76 .
+\]
+By Lemma~\ref{lem:budget}, every integral assignment has a prefix
+discrepancy at least
+$\min\{1+M-(3N-2)\eta,\,Np-2N\eta\}>\frac76-\eps$.
+All weights lie in $\{\eta,a,1\}\subset(0,1]$, so $D=1$, and every column
+retains fractional support two.
+\end{proof}
+
+\begin{remark}\label{rem:optimal}
+The constant $7/6$ is optimal for this three-column family.  Since
+$m_2+m_3=\frac12-p-\frac a2$,
+\[
+ M\le\min\Bigl\{\frac a2-p,\ \frac14-\frac p2-\frac a4\Bigr\},
+\]
+and the two bounds balance at $a=\frac13+\frac{2p}3$ with common value
+$\frac16-\frac{2p}3<\frac16$.  Hence $1+M<\frac76$ for every admissible
+$(p,a,q)$, and the supremum $7/6$ is approached only as $p\downarrow0$,
+which forces the number of blocks to grow.
+\end{remark}
+
+\begin{corollary}\label{cor:nine-eighths}
+The concrete choice
+\[
+ N=24,\qquad p=\frac1{20},\qquad a=\frac{11}{30},
+ \qquad q=\frac{19}{30},\qquad\eta=\frac1{10000}
+\]
+gives an instance with $m=49$ rows, $n=72$ columns, and weights in
+$\{10^{-4},\,11/30,\,1\}$ on which every integral assignment has some
+row-and-prefix discrepancy at least
+\[
+ \frac{3379}{3000}\;>\;\frac98 .
+\]
+\end{corollary}
+
+\begin{proof}
+Here $m_1=m_2=m_3=\frac2{15}$, so $1+M=\frac{17}{15}$, and
+\[
+ 1+M-(3N-2)\eta=\frac{17}{15}-\frac{70}{10000}=\frac{3379}{3000},
+ \qquad
+ Np-2N\eta=\frac65-\frac{48}{10000}=\frac{11952}{10000},
+\]
+whose minimum is $\frac{3379}{3000}>\frac{3375}{3000}=\frac98$.
+Apply Lemma~\ref{lem:budget}.
+\end{proof}
+
 \section{Discussion}
 
 The counterexample exploits exactly what changes when a common job weight is
@@ -282,11 +428,34 @@ The result does not address the ordinary weighted-carpooling conjecture, in
 which a column has one common weight across all rows.  It rules out the
 machine-dependent extension and every stronger statement containing it.
 
+\paragraph{An open problem.}
+Theorem~\ref{thm:seven-sixths} makes the failure quantitative, and
+Remark~\ref{rem:optimal} shows that the present gadget cannot push the
+constant beyond $7/6$.  Let $\kappa$ denote the supremum, over all finite
+instances with positive machine-dependent weights, of the minimum over
+integral assignments of the maximum row-and-prefix discrepancy divided by
+$D=\max_{i,j}d_{ij}$.  We have shown $\kappa\ge7/6$.  In the opposite
+direction we are aware of no finite upper bound on $\kappa$ beyond the
+trivial $\kappa\le n$: the non-prefix version of the machine-dependent bound
+does hold \citep{LiuReis2026}, and for the common-weight prefix problem the
+best known bounds are $2m\cdot\max_jd_j$ and, via Banaszczyk's convex-geometry
+theorem \citep{Banaszczyk1998}, the $O(\sqrt{\log n})\cdot\max_jd_j$ bound of
+Bansal, Rohwedder, and Svensson \citep{BansalRohwedderSvensson2022}; whether
+either argument survives machine-dependent weights appears to be open.
+Determining whether $\kappa$ is finite, and if so its value, is the natural
+next question.
+
 \section*{Reproducibility and disclosure}
 
 The accompanying repository contains the full $11\times15$ rational instance
 as JSON, an exact \texttt{Fraction}-based verifier for every inequality in the
 forcing certificate, and an independent mixed-integer infeasibility check.
+For Section~\ref{sec:stronger} it further contains an exact verifier for the
+balanced-family certificate of Lemma~\ref{lem:budget} (including the
+$49\times72$ instance of Corollary~\ref{cor:nine-eighths} and sampled values
+of $\eps$ in Theorem~\ref{thm:seven-sixths}), and an independent
+mixed-integer check that the $49\times72$ instance admits no assignment with
+all prefix discrepancies at most $9/8$.
 A generative AI system (GPT-5.6 Pro) assisted with exploration, checking,
 code drafting, and exposition.  It is not an author.  The author assumes
 responsibility for independent verification, priority, attribution, and the
