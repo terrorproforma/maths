@@ -37,3 +37,12 @@ CONJECTURE_TARGETS.md
 FUTURE_WORK.md
 **/FUTURE_WORK.md
 PLANNING*.md
+
+# Active research (private until ready)
+kappa-investigation/
+
+# Personal workflow / instruction docs (kept local, not published)
+README-ARXIV.md
+SUBMISSION_CHECKLIST.md
+REVIEW_CHECKLIST.md
+cover_letter_template.md

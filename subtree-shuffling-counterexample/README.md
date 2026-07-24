@@ -38,7 +38,6 @@ The GitHub Actions workflow runs the verifier and tests, compiles the LaTeX manu
 - `tests/` — regression tests for the Jacobians, collisions, suspension, and coefficient formula.
 - `STATUS.md` — precise claim boundary and open checks.
 - `PROVENANCE.md` — origin of the map and contribution boundaries.
-- `REVIEW_CHECKLIST.md` — an audit guide for algebraists and combinatorialists.
 
 ## Importance
 

@@ -63,7 +63,6 @@ GitHub Actions runs the exact verifiers and compiles all three PDFs. The compile
 ├── README.md
 ├── Makefile
 ├── AI_DISCLOSURE.md
-├── SUBMISSION_CHECKLIST.md
 ├── code/
 │   ├── verify_dgg.py
 │   ├── verify_chairman.py
@@ -113,4 +112,4 @@ The repository contains the complete final derivations, exact data, exact certif
 
 ## Authorship and submission
 
-The manuscripts use `Anonymous for review`. Replace that placeholder with the legal author list, affiliations, acknowledgements, contribution statement, and corresponding-author details before submission. Do not list an AI system as an author. See `AI_DISCLOSURE.md` and `SUBMISSION_CHECKLIST.md`.
+The manuscripts use `Anonymous for review`. Replace that placeholder with the legal author list, affiliations, acknowledgements, contribution statement, and corresponding-author details before submission. Do not list an AI system as an author. See `AI_DISCLOSURE.md`.
