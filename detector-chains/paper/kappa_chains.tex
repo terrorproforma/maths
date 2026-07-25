@@ -310,17 +310,28 @@ $d_j=d_2$ and $f=1+d_2$ with $x_2=1$.
 
 \noindent
 The balance solution \eqref{eq:balance} is the unique split vector making
-\emph{all} $k$ heights equal, and it satisfies the first alternative.  We
-neither exclude the second alternative in general nor prove that
-equalizing the $A$-side heights among themselves is optimal; a linear
-program over the splits agrees with the balanced value at every weight
-vector we tested, to nine decimals at the certificate points of depths
-$4$, $5$ and $7$.  The direction of this residual uncertainty is worth
-noting: the second alternative has value $1+d_2$, which is exactly the
-admissibility cap of \eqref{eq:tau}, so were it ever attained the balanced
-design would be \emph{understating} the chain's strength.  Every bound
-below is safe either way, since any feasible design bounds $\kappa$ from
-below.
+\emph{all} $k$ heights equal, and it satisfies the first alternative.  The
+second alternative is not vacuous, so the lemma cannot be strengthened to
+$f=g$ on the closed box: at $k=4$ with $d=(\tfrac1{10},\tfrac15)$ the
+splits $x=(1,\tfrac12,\tfrac15)$ make all three $A$-side heights equal to
+$\tfrac{11}{10}$ while $\mathrm{term}_H=\tfrac{13}{10}$, and since
+$f\le\mathrm{dev}_2\le1+d_2=\tfrac{11}{10}$ everywhere on the box, that
+point maximizes $\min\{f,g\}$ with $f<g$.
+
+Admissibility is what separates the two alternatives.  Over $2000$ random
+nondecreasing weight vectors at depths $3$ to $7$, a linear program over
+the splits returned the balanced value at every one of the $1336$
+admissible vectors and the cap $1+d_2$ at every one of the $664$
+inadmissible ones, without exception in either class.  We do not prove
+this separation, but its consequence for the direction of error matters.
+At an admissible weight vector the balanced value is, empirically,
+exactly the split optimum, so \eqref{eq:tau} is not conservative there.
+At an inadmissible one it \emph{overstates} what the box permits --- by
+$\tfrac{123}{110}-\tfrac{11}{10}$ in the example above, where the balance
+solution would need $x_2>1$.  This is why admissibility is not a
+formality: every rung of Section~\ref{sec:certificates} is checked for it,
+and the accompanying verifier refuses to certify a rung unless
+$\tau\le1+d$ holds exactly.
 
 Call a weight $d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric
 balance design has all splits in $[0,1]$.  The interior ratios equal
@@ -585,9 +596,10 @@ upper bound would be the first for machine-dependent prefix discrepancy.
 instance-level lower bound we know, all mechanisms beyond it having
 failed to compose; but we see no conservation obstruction above it, and
 the block-game results show local strength is not the bottleneck.
-\item Is the balanced design optimal among all splits for fixed weights
-(Lemma~\ref{lem:tight} gives only that the helper height binds), and is
-the chain optimal among all single-block gadgets?  Our search
+\item Is the balanced design optimal among all splits at every admissible
+weight vector?  Lemma~\ref{lem:tight} gives only the dichotomy, and the
+$2000$-vector separation reported after it is evidence, not proof.  Is the
+chain in turn optimal among all single-block gadgets?  Our search
 evidence (some $16{,}000$ mixed-integer evaluations over tree-shaped
 punishment structures at depths $4$--$7$, spot-validated against
 exhaustive exact search) found nothing better, but this is not a proof.

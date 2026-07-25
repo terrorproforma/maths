@@ -7,6 +7,7 @@ paper:
 verify:
 	python3 code/verify_chain_certificate.py
 	python3 code/verify_kappa_certificate.py
+	python3 code/verify_split_optimality.py
 	python3 code/verify_block_games.py
 	python3 code/verify_composition_failure.py
 

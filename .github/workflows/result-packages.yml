@@ -62,6 +62,9 @@ jobs:
       - name: Exact full-instance bounds (7 rungs, to depth 40)
         working-directory: detector-chains/code
         run: python3 verify_kappa_certificate.py
+      - name: Split-optimality (exact counterexample and LP separation)
+        working-directory: detector-chains/code
+        run: python3 verify_split_optimality.py
       - name: Exhaustive block-game claims (stdlib only, no solver)
         working-directory: detector-chains/code
         run: python3 verify_block_games.py

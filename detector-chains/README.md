@@ -37,6 +37,7 @@ conjecture `κ < ∞` and sketch a scheduler-side route to a matching upper boun
 ```bash
 python3 code/verify_chain_certificate.py    # exact: chain block certificates, all depths
 python3 code/verify_kappa_certificate.py    # exact: full-instance bounds, 7 rungs to depth 40
+python3 code/verify_split_optimality.py     # exact counterexample + LP separation sweep
 python3 code/verify_block_games.py          # exact: Section 6 block games (stdlib only, no solver)
 python3 code/verify_composition_failure.py  # exact: the composition barrier, by schedule replay
 python3 code/beat_76_instance.py            # independent MILP: 119x236 instance beats 7/6
