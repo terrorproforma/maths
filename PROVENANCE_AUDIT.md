@@ -53,12 +53,19 @@ Jacobian counterexample map (attribution 2) as a prompt.
   ≥ 619/600. Constructed 23 July 2026 in the owner's portion. Standalone manuscript:
   `2026-rounding-counterexamples/papers/chairman-counterexample.tex`. Methodologically
   inspired by 1a but shares none of its content — cite Rybin for inspiration/context.
+- **Detector chains and the Lambert-W lower bound** (`detector-chains/`): the depth-k
+  chain generalization of the detector above, its closed form τ(k), the limit
+  κ ≥ 1 + W(1/e), the exact certificate ladder to depth 40, and the block-game study of
+  Section 6 (shapers, ladders, and the measured composition barrier). Constructed
+  24–25 July 2026 in the owner's portion, building on the owner's own chairman
+  counterexample; the refuted conjecture and the common-weight theorem it generalizes are
+  Liu and Reis's and are cited, not reused. No third-party content.
 - **Subtree-shuffling fixed-parameter certificate** ((d,p) = (7,15), integer left-kernel
   vector with nonzero sum): constructed in the owner's portion, building directly on 1b.
   The weighted Horner suspension, inverse-coefficient calculation, and tree separator are
   the owner's-session contributions; the starting map must be attributed to
   Alpöge–Mathew–Fable in every write-up.
-- The search logs, audits, figures, CI, and verification code for the two items above.
+- The search logs, audits, figures, CI, and verification code for the three items above.
 
 ## 3. Publication guidance
 
