@@ -6,11 +6,13 @@ on:
       - main
     paths:
       - "chairman-counterexample/**"
+      - "detector-chains/**"
       - "planar-cost-lower-bound/**"
       - ".github/workflows/result-packages.yml"
   pull_request:
     paths:
       - "chairman-counterexample/**"
+      - "detector-chains/**"
       - "planar-cost-lower-bound/**"
       - ".github/workflows/result-packages.yml"
 
@@ -45,6 +47,28 @@ jobs:
         working-directory: chairman-counterexample/code
         run: python3 verify_stronger_milp.py
 
+  detector-chain-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install MILP dependencies
+        run: pip install numpy scipy
+      - name: Exact chain-block certificates (all depths)
+        working-directory: detector-chains/code
+        run: python3 verify_chain_certificate.py
+      - name: Exact full-instance bounds (7 rungs, to depth 40)
+        working-directory: detector-chains/code
+        run: python3 verify_kappa_certificate.py
+      - name: Exhaustive block-game claims (stdlib only, no solver)
+        working-directory: detector-chains/code
+        run: python3 verify_block_games.py
+      - name: Independent MILP check (119x236 beats 7/6)
+        working-directory: detector-chains/code
+        run: python3 beat_76_instance.py
+
   planar-cost-certificates:
     runs-on: ubuntu-latest
     steps:
@@ -70,6 +94,9 @@ jobs:
       - name: Compile chairman manuscript and arXiv package
         working-directory: chairman-counterexample
         run: make arxiv
+      - name: Compile detector-chains manuscript
+        working-directory: detector-chains
+        run: make paper
       - name: Compile planar-cost manuscript
         working-directory: planar-cost-lower-bound/paper
         run: latexmk -pdf -interaction=nonstopmode planar_cost_lower_bound.tex
@@ -80,5 +107,6 @@ jobs:
           path: |
             chairman-counterexample/paper/chairman_counterexample.pdf
             chairman-counterexample/arxiv-upload/chairman_counterexample.pdf
+            detector-chains/paper/kappa_chains.pdf
             planar-cost-lower-bound/paper/planar_cost_lower_bound.pdf
           if-no-files-found: error

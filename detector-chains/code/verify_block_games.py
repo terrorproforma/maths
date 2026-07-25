@@ -208,20 +208,24 @@ def main() -> None:
           f"[{n3:,} nodes]")
     ok &= t is not None and t >= 0
 
-    # (iii) ladder stage at c = 1.48 lifts a 0.31 bank
+    # (iii) two ladder stages at c = 1.48 lift a bank 0.31 -> 0.43 -> 0.55
     blk = load("xladder_g148_s1.json")
-    t2, n4 = exits(blk, (F(31, 100), F(0), F(0), F(0)), F(37, 25),
-                   F(43, 100), F(31, 100))
-    print(f"(iii) ladder stage at c = 37/25, entry (0.31, 0):")
-    print(f"        exit margin = {float(t2):+.9f} >= 0  =>  every legal "
-          f"schedule exits with A >= 0.43 or H1 >= 0.31 [{n4:,} nodes]")
-    ok &= t2 is not None and t2 >= 0
+    print(f"(iii) ladder stages at c = 37/25 (same block, translated bank):")
+    for entry, nxt in ((F(31, 100), F(43, 100)), (F(43, 100), F(55, 100))):
+        t2, n4 = exits(blk, (entry, F(0), F(0), F(0)), F(37, 25),
+                       nxt, F(31, 100))
+        print(f"        entry ({float(entry):.2f}, 0): margin = "
+              f"{float(t2):+.9f} >= 0  =>  every legal schedule exits with "
+              f"A >= {float(nxt):.2f} or H1 >= 0.31 [{n4:,} nodes]")
+        ok &= t2 is not None and t2 >= 0
 
-    # (iv) a 0.65 bank fires above budget 1.60
+    # (iv) a 0.65 bank fires above budget 1.60 (monotone in the bank, so
+    #      any larger bank fires too)
     blk = load("lowh_g20_h0.json")
     t3, n5 = threat(blk, (F(13, 20), F(0), F(0), F(0)), deny_first=True)
     print(f"(iv)  firing block at bank (0.65, 0):")
-    print(f"        forced branch = {float(t3):.9f} > 8/5 [{n5:,} nodes]")
+    print(f"        forced branch = {float(t3):.9f} = {t3} > 8/5 "
+          f"[{n5:,} nodes]")
     ok &= t3 > F(8, 5)
 
     # (v) conjunctive pinning fails: no block pins BOTH banks

@@ -71,9 +71,12 @@ def main() -> None:
         tau, lb = instance_bound(k, dws, p, eta, N)
         assert lb > prev, f"rungs not monotone at {name}"
         prev = lb
-        print(f"{name}: tau = {float(tau):.6f}   "
-              f"instance LB = {float(lb):.6f}   "
+        print(f"{name}: tau = {float(tau):.9f}   "
+              f"instance LB = {float(lb):.9f}   "
               f"(m = {2*N+1}, n = {k*N}, p = {p})")
+        print(f"    tau exactly   = {tau.numerator}/{tau.denominator}")
+        print(f"    LB exactly    = {lb.numerator}/{lb.denominator}")
+        assert tau <= 1 + dws[0], f"{name}: design inadmissible (x_2 > 1)"
     assert lb > F(127, 100), "deepest rung should exceed 1.27"
     tau4, lb4 = instance_bound(4, [F(9, 25), F(3, 5)],
                                F(1, 100), F(1, 10 ** 4 * 4 * 300), 300)

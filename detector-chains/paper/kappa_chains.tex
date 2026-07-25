@@ -37,7 +37,7 @@ $D=\max_{i,j}d_{ij}$.  A companion paper refuted the conjecture $\kappa\le1$
 of Liu and Reis and proved $\kappa\ge4-2\sqrt2$ using a three-column
 detector gadget.  Here we replace the three-column detector by a
 \emph{chain} of $k-1$ detector columns and optimize the resulting family
-exactly.  The optimal chain value admits the closed form
+exactly.  The balanced chain design has the closed-form value
 \[
  \tau(k)\;=\;\max_{d}\;
  \frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d}
@@ -95,7 +95,7 @@ three statements.
 
 \begin{enumerate}
 \item \textbf{A closed form per depth} (Theorem~\ref{thm:tau}).  The
-optimal chain of depth $k$ forces prefix discrepancy arbitrarily close to
+balanced chain of depth $k$ forces prefix discrepancy arbitrarily close to
 \[
  \tau(k)=\max_{d\ \text{admissible}}
  \frac{d\bigl(k-1-(k-2)d^{1/(k-2)}\bigr)+1}{1+d},
@@ -265,6 +265,42 @@ By AM--GM, $R=\sum r_j\ge(k-2)\bigl(\prod r_j\bigr)^{1/(k-2)}
 \eqref{eq:tau} is decreasing in $R$, the geometric choice is optimal.
 \end{proof}
 
+Equalizing is not an arbitrary choice: the terminal helper height must bind
+at any optimum.
+
+\begin{lemma}\label{lem:tight}
+Fix the weights $d$ and let
+$f(x)=\min\{\mathrm{dev}_2,\ldots,\mathrm{dev}_{k-1},\mathrm{term}_A\}$ and
+$g(x)=\mathrm{term}_H$ as functions of the splits $x\in[0,1]^{k-1}$.  Then
+every maximizer of $\min\{f,g\}$ satisfies $f(x)=g(x)$.
+\end{lemma}
+
+\begin{proof}
+Each $A$-side height is nondecreasing in every coordinate: $\mathrm{dev}_j$
+involves $x_i$ ($i<j$) only through $+d_ix_i$ and $x_j$ through $+d_jx_j$,
+and similarly for $\mathrm{term}_A$; moreover each is \emph{strictly}
+increasing in at least one coordinate.  In contrast
+$g=\sum_{i<k}(1-x_i)+(1-x_k)$ is strictly decreasing in every coordinate.
+Suppose $f(x)>g(x)$.  Then some $x_i>0$, since $x=0$ gives $g=k>1=f$;
+decreasing that coordinate slightly raises $g$ and cannot increase $f$, so
+$\min\{f,g\}=g$ strictly increases, contradicting optimality.  Suppose
+$g(x)>f(x)$.  Then some $x_i<1$, since $x=\mathbf 1$ gives $g=0<f$;
+increasing every coordinate below $1$ slightly raises all $A$-side heights
+strictly, hence $f$, while $g$ decreases but retains slack for a small
+enough step, so $\min\{f,g\}=f$ strictly increases.  Both cases being
+impossible, $f=g$.
+\end{proof}
+
+\noindent
+The balance solution \eqref{eq:balance} is the unique split vector making
+\emph{all} $k$ heights equal, and it satisfies the conclusion of
+Lemma~\ref{lem:tight}.  We do not prove that equalizing the $A$-side
+heights among themselves is optimal; a linear program over the splits
+confirms it at every weight vector we tested (agreement to nine decimals
+at the certificate points of depths $4$, $5$, and $7$).  Nothing below
+depends on this: any feasible design yields a lower bound on $\kappa$, so
+the certificates stand regardless.
+
 Call a weight $d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric
 balance design has all splits in $[0,1]$.  The interior ratios equal
 $d^{1/(k-2)}\le1$ automatically, so admissibility is exactly the condition
@@ -281,10 +317,11 @@ For every $k\ge3$,
  \tau(k)\;=\;\max_{d\ \mathrm{admissible}}
  \frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d},
 \]
-and for every rational admissible point with strict margins and every
-$\eps>0$, suitable $(p,\eta,N)$ in Lemma~\ref{lem:budget} give instances
-forcing discrepancy $\ge\tau(k,d)-\eps$ with $D=1$.  In particular
-$\kappa\ge\tau(k,d)$ for every admissible pair.
+and for every admissible $(k,d)$ and every $\eps>0$, suitable
+$(p,\eta,N)$ in Lemma~\ref{lem:budget} give instances forcing discrepancy
+$\ge\tau(k,d)-\eps$ with $D=1$; hence $\kappa\ge\tau(k,d)$.  Taking $d$
+rational makes the whole certificate exactly checkable, which is how the
+instances of Section~\ref{sec:certificates} are verified.
 \end{theorem}
 
 \begin{proof}
@@ -428,15 +465,21 @@ $0.6931$ when the detector is granted;
 that, at every budget $c\le1.35$, every $c$-legal schedule exits with
 some designated row at height $\ge0.3088$.  Further stage games, each
 verified separately at its stated entry state, lift such banks in exact
-steps (for instance, at budget $1.48$, from $0.31$ through $0.55$), and a
-bank of $0.6588$ fires exactly: the denial of a unit detector from that
-height is worth $1.63$ on every play, exceeding the budget $1.60$ at
-which the corresponding stage guarantees were verified.  We emphasize
-that these are separate block games, each at its stated entry state;
-whether they can be made to occur in sequence inside one instance is
-precisely the composition question below.  At the level of components,
-however, no budget looks safe: for every $c$ we found stage games whose
-guarantees, \emph{if composable}, would force a violation beyond $c$.
+steps: at budget $1.48$ the same block, entered at $0.31$ and again at
+$0.43$, forces every legal schedule to exit at $0.43$ resp.\ $0.55$ (or
+else to hand back a helper bank), the two stages having identical exit
+margins $+0.1228$ because entry and threshold translate together.  A bank
+of $0.65$ then fires: the denial of a detector column of share $49/50$
+from that height is worth exactly $1.63$ on every play, above the budget
+$1.60$ at which the corresponding stage guarantees were verified (and
+firing is monotone in the bank, so any larger bank fires too).  We
+emphasize that these are separate block games, each at its stated entry
+state; whether they can be made to occur in sequence inside one instance
+is precisely the composition question below.  At the level of components,
+however, no budget we tested looks safe: for every budget up to $1.60$ we
+found stage games whose guarantees, \emph{if composable}, would force a
+violation beyond it, and the translation invariance just noted suggests
+the pattern continues.
 
 \paragraph{The composition barrier (measured).}
 None of this composes.  In a fixed instance the scheduler plays all
@@ -467,9 +510,10 @@ Two further data points support this.  First, a simple online rule
 (relieve the taller support row unless doing so would sink it below a
 fixed floor; otherwise relieve the other; otherwise dump on the row with
 most headroom) already achieves maximum prefix discrepancy $1.116$ on our
-strongest assembled instance and within $0.004$ of the exact optimum on
-the companion paper's instances; its worst case over adversarial search
-is below $2.2$ on everything we could construct.  Second, the mechanisms
+strongest assembled instance, and comes within $0.0040$ and $0.0021$ of
+the exact optimum on the companion paper's $11\times15$ and $49\times72$
+instances respectively; its worst case over adversarial search is below
+$2.2$ on everything we could construct.  Second, the mechanisms
 that defeat composition --- corridor slack, venting, disjunctive exits ---
 are exactly the ingredients a potential-function upper-bound proof would
 formalize: the scheduler maintains every row in a managed corridor and
@@ -517,8 +561,9 @@ upper bound would be the first for machine-dependent prefix discrepancy.
 instance-level lower bound we know, all mechanisms beyond it having
 failed to compose; but we see no conservation obstruction above it, and
 the block-game results show local strength is not the bottleneck.
-\item The chain family is optimal among single-pair detector chains by
-construction; is it optimal among all single-block gadgets?  Our search
+\item Is the balanced design optimal among all splits for fixed weights
+(Lemma~\ref{lem:tight} gives only that the helper height binds), and is
+the chain optimal among all single-block gadgets?  Our search
 evidence (some $16{,}000$ mixed-integer evaluations over tree-shaped
 punishment structures at depths $4$--$7$, spot-validated against
 exhaustive exact search) found nothing better, but this is not a proof.
