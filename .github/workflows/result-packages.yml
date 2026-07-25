@@ -65,6 +65,9 @@ jobs:
       - name: Exhaustive block-game claims (stdlib only, no solver)
         working-directory: detector-chains/code
         run: python3 verify_block_games.py
+      - name: Composition-failure witness (exact schedule replay)
+        working-directory: detector-chains/code
+        run: python3 verify_composition_failure.py
       - name: Independent MILP check (119x236 beats 7/6)
         working-directory: detector-chains/code
         run: python3 beat_76_instance.py

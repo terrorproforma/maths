@@ -265,41 +265,62 @@ By AM--GM, $R=\sum r_j\ge(k-2)\bigl(\prod r_j\bigr)^{1/(k-2)}
 \eqref{eq:tau} is decreasing in $R$, the geometric choice is optimal.
 \end{proof}
 
-Equalizing is not an arbitrary choice: the terminal helper height must bind
-at any optimum.
+Equalizing is not an arbitrary choice: the terminal helper height binds at
+every optimum except in one boundary configuration, which we isolate
+because a naive monotonicity argument overlooks it.
 
 \begin{lemma}\label{lem:tight}
-Fix the weights $d$ and let
-$f(x)=\min\{\mathrm{dev}_2,\ldots,\mathrm{dev}_{k-1},\mathrm{term}_A\}$ and
-$g(x)=\mathrm{term}_H$ as functions of the splits $x\in[0,1]^{k-1}$.  Then
-every maximizer of $\min\{f,g\}$ satisfies $f(x)=g(x)$.
+Fix the weights $d$ and, for splits $x\in[0,1]^{k-1}$, put
+\[
+ f(x)=\min\{\mathrm{dev}_2,\ldots,\mathrm{dev}_{k-1},\mathrm{term}_A\},
+ \qquad
+ g(x)=\mathrm{term}_H
+\]
+in the $p=0$ idealization.  At every maximizer of
+$\min\{f,g\}$, either $f(x)=g(x)$, or else $f(x)<g(x)$ and $x_2=1$, in
+which case $\min\{f,g\}=1+d_2$.
 \end{lemma}
 
 \begin{proof}
 Each $A$-side height is nondecreasing in every coordinate: $\mathrm{dev}_j$
 involves $x_i$ ($i<j$) only through $+d_ix_i$ and $x_j$ through $+d_jx_j$,
-and similarly for $\mathrm{term}_A$; moreover each is \emph{strictly}
-increasing in at least one coordinate.  In contrast
-$g=\sum_{i<k}(1-x_i)+(1-x_k)$ is strictly decreasing in every coordinate.
-Suppose $f(x)>g(x)$.  Then some $x_i>0$, since $x=0$ gives $g=k>1=f$;
-decreasing that coordinate slightly raises $g$ and cannot increase $f$, so
-$\min\{f,g\}=g$ strictly increases, contradicting optimality.  Suppose
-$g(x)>f(x)$.  Then some $x_i<1$, since $x=\mathbf 1$ gives $g=0<f$;
-increasing every coordinate below $1$ slightly raises all $A$-side heights
-strictly, hence $f$, while $g$ decreases but retains slack for a small
-enough step, so $\min\{f,g\}=f$ strictly increases.  Both cases being
-impossible, $f=g$.
+and $\mathrm{term}_A$ likewise has nonnegative coefficients.  In contrast
+$g=\sum_{i=2}^{k-1}(1-x_i)+(1-x_k)$ is strictly decreasing in every
+coordinate.
+
+Suppose $f(x)>g(x)$, so $\min\{f,g\}=g$.  At $x=0$ we have $g=k-1\ge2$
+while $f\le\mathrm{dev}_2=1$, so this case forces $x\ne0$.  Decreasing a
+positive coordinate slightly raises $g$ strictly and cannot raise $f$, and
+$f>g$ persists for a small enough step, so $\min\{f,g\}$ increases,
+contradicting optimality.
+
+Now suppose $g(x)>f(x)$, so $\min\{f,g\}=f$, and let $B$ be the set of
+$A$-side heights attaining $f$.  Raising every split that is below $1$ by
+a common small $\delta$ strictly increases any height in $B$ that has at
+least one split below $1$, while $g$ decreases but retains its slack; so
+if every member of $B$ had a split below $1$, then $f$ would strictly
+increase, a contradiction.  Hence some member of $B$ has all of its splits
+equal to $1$.  It cannot be $\mathrm{term}_A$, whose splits are all of
+$x_2,\ldots,x_k$: that would give $g=0<f$.  So it is some
+$\mathrm{dev}_j$ with $x_2=\cdots=x_j=1$, all drains before $j$ vanish,
+and $\mathrm{dev}_j=1+d_j$.  As $\mathrm{dev}_2=1+d_2$ is also a height
+and $f$ is the minimum, $d_j\le d_2$; the weights being nondecreasing,
+$d_j=d_2$ and $f=1+d_2$ with $x_2=1$.
 \end{proof}
 
 \noindent
 The balance solution \eqref{eq:balance} is the unique split vector making
-\emph{all} $k$ heights equal, and it satisfies the conclusion of
-Lemma~\ref{lem:tight}.  We do not prove that equalizing the $A$-side
-heights among themselves is optimal; a linear program over the splits
-confirms it at every weight vector we tested (agreement to nine decimals
-at the certificate points of depths $4$, $5$, and $7$).  Nothing below
-depends on this: any feasible design yields a lower bound on $\kappa$, so
-the certificates stand regardless.
+\emph{all} $k$ heights equal, and it satisfies the first alternative.  We
+neither exclude the second alternative in general nor prove that
+equalizing the $A$-side heights among themselves is optimal; a linear
+program over the splits agrees with the balanced value at every weight
+vector we tested, to nine decimals at the certificate points of depths
+$4$, $5$ and $7$.  The direction of this residual uncertainty is worth
+noting: the second alternative has value $1+d_2$, which is exactly the
+admissibility cap of \eqref{eq:tau}, so were it ever attained the balanced
+design would be \emph{understating} the chain's strength.  Every bound
+below is safe either way, since any feasible design bounds $\kappa$ from
+below.
 
 Call a weight $d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric
 balance design has all splits in $[0,1]$.  The interior ratios equal
@@ -499,8 +520,11 @@ designated rows to exit above useful thresholds against all legal plays
 scheduler always has a coordinate to wreck.  The bottom line is
 quantitative: the assembled machine built from components with
 stage-level guarantees at $c=1.35$ admits a schedule with maximum prefix
-discrepancy $\le1.116$ --- weaker than the plain depth-$4$ chain
-instance.  Block strength is unbounded; composition is the constraint.
+discrepancy exactly $27999/25000=1.11996$ --- weaker than the plain
+depth-$4$ chain instance, which forces $1.2017$.  (This is a witness, so
+it bounds that machine's min-max from above; the accompanying code replays
+the schedule in exact arithmetic.)  Block strength is unbounded;
+composition is the constraint.
 
 \paragraph{Conjecture and program.}
 \begin{conjecture}\label{conj:finite}
@@ -509,8 +533,8 @@ $\kappa<\infty$.
 Two further data points support this.  First, a simple online rule
 (relieve the taller support row unless doing so would sink it below a
 fixed floor; otherwise relieve the other; otherwise dump on the row with
-most headroom) already achieves maximum prefix discrepancy $1.116$ on our
-strongest assembled instance, and comes within $0.0040$ and $0.0021$ of
+most headroom) already achieves maximum prefix discrepancy $1.11996$ on
+our strongest assembled instance, and comes within $0.0040$ and $0.0021$ of
 the exact optimum on the companion paper's $11\times15$ and $49\times72$
 instances respectively; its worst case over adversarial search is below
 $2.2$ on everything we could construct.  Second, the mechanisms

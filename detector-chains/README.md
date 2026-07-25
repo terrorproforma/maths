@@ -38,6 +38,7 @@ conjecture `κ < ∞` and sketch a scheduler-side route to a matching upper boun
 python3 code/verify_chain_certificate.py    # exact: chain block certificates, all depths
 python3 code/verify_kappa_certificate.py    # exact: full-instance bounds, 7 rungs to depth 40
 python3 code/verify_block_games.py          # exact: Section 6 block games (stdlib only, no solver)
+python3 code/verify_composition_failure.py  # exact: the composition barrier, by schedule replay
 python3 code/beat_76_instance.py            # independent MILP: 119x236 instance beats 7/6
 ```
 
@@ -48,8 +49,14 @@ arithmetic, so its printed margins are proved properties of finite games, not sa
 by mixed-integer infeasibility.
 
 Expected: seven monotone rungs ending `1.272743`; five block-game claims verified
-(`1.687669747`, `0.693059556`, `+0.058804594`, `+0.122824202`, `1.630000000`,
-`−0.324240741`); `INFEASIBLE at 7/6`, `feasible at 1.19`.
+(`1.687669747`, `0.693059556`, `+0.058804594`, `+0.122824202` twice, `1.630000000`,
+`−0.324240741`); the assembled 1273-column machine admitting a schedule at exactly
+`27999/25000 = 1.119960`; `INFEASIBLE at 7/6`, `feasible at 1.19`.
+
+Note the two directions of verification. The block-game and certificate checkers are
+*exhaustive* — they quantify over all schedules — so their margins are proofs. The
+composition checker replays *one* schedule, which is all its claim needs: a single
+assignment's maximum prefix discrepancy bounds the instance's min-max from above.
 
 ## Build the paper
 
