@@ -1,0 +1,546 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=29mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\disc}{\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\W}{W}
+
+\title{Detector Chains and a Lambert-$W$ Lower Bound\\
+for Machine-Dependent Chairman Assignment}
+\author{Angus Muffatti}
+\date{25 July 2026 --- draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For fractional assignments with machine-dependent weights $d_{ij}>0$, let
+$\kappa$ denote the supremum, over all finite instances, of the minimum over
+integral assignments of the maximum row-and-prefix discrepancy divided by
+$D=\max_{i,j}d_{ij}$.  A companion paper refuted the conjecture $\kappa\le1$
+of Liu and Reis and proved $\kappa\ge4-2\sqrt2$ using a three-column
+detector gadget.  Here we replace the three-column detector by a
+\emph{chain} of $k-1$ detector columns and optimize the resulting family
+exactly.  The optimal chain value admits the closed form
+\[
+ \tau(k)\;=\;\max_{d}\;
+ \frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d}
+\]
+(the maximum over weights keeping the design feasible), and
+\[
+ \lim_{k\to\infty}\tau(k)\;=\;1+\W(1/e)\;\approx\;1.278465,
+\]
+where $\W$ is the Lambert $\W$ function; at the optimum the pleasant identity
+$\tau=1+d^*$ holds, with $\ln d^*=-(1+d^*)$.  Consequently
+$\kappa\ge1+\W(1/e)$.  Every rung is certified in exact rational
+arithmetic: we exhibit explicit instances with certified prefix
+discrepancy $1.2727$ (depth $40$), and an independent mixed-integer check
+confirms a concrete $119\times236$ instance beating $7/6$.  We further
+report an extensive, exactly verified experimental study of mechanisms
+beyond chains --- banked helpers, bank-manufacturing ``shaper'' blocks, and
+block games with forced values above $3/2$ at stated bank states --- all of
+which fail, measurably and instructively, to compose into instances above
+the chain limit.  We conjecture that $\kappa$ is finite and discuss a
+scheduler-side program for a matching upper bound, as well as the bounded
+weight-ratio parameterization $\kappa(\rho)$.
+\end{abstract}
+
+\section{Introduction}
+
+Let $x\in[0,1]^{m\times n}$ be a fractional assignment,
+$\sum_ix_{ij}=1$ for every column $j$, and let $d\in\R_{>0}^{m\times n}$ be
+a matrix of machine-dependent weights.  For an integral assignment
+$y\in\{0,1\}^{m\times n}$ with the same column sums, write
+\[
+ \disc_i(t)=\sum_{j=1}^{t}d_{ij}(x_{ij}-y_{ij})
+\]
+for the row-prefix discrepancy.  Liu and Reis \citep{LiuReis2026}, having
+proved the common-weight prefix guarantee that resolves a special case of
+the Morell--Skutella conjecture \citep{MorellSkutella2022}, conjectured
+that machine-dependent weights always admit $y$ with
+$|\disc_i(t)|\le D:=\max_{i,j}d_{ij}$ (their Conjecture 19; Conjecture 3 in
+the arXiv version).  The companion paper \citep{Muffatti2026} refuted this
+with an $11\times15$ rational instance and strengthened the refutation to a
+quantitative lower bound: writing
+\[
+ \kappa\;=\;\sup_{\text{instances}}\;
+ \min_{y}\;\max_{i,t}\;\frac{|\disc_i(t)|}{D},
+\]
+it proved $\kappa\ge4-2\sqrt2\approx1.1716$, via a three-column
+\emph{detector gadget} whose split was optimized, and promised a
+systematic treatment of deeper detectors.  This paper is that treatment.
+
+\paragraph{Results.}
+Our main construction generalizes the three-column detector to a
+\emph{detector chain} of depth $k$: one hypothesis column followed by
+$k-1$ chained detector columns on a fresh row pair, all coupled to a
+global accumulator row.  Optimizing the weights and splits exactly yields
+three statements.
+
+\begin{enumerate}
+\item \textbf{A closed form per depth} (Theorem~\ref{thm:tau}).  The
+optimal chain of depth $k$ forces prefix discrepancy arbitrarily close to
+\[
+ \tau(k)=\max_{d\ \text{admissible}}
+ \frac{d\bigl(k-1-(k-2)d^{1/(k-2)}\bigr)+1}{1+d},
+\]
+where admissibility means the balance splits lie in $[0,1]$
+(equivalently the displayed value is at most $1+d$), and
+$\tau(3)=4-2\sqrt2$ recovers the companion paper's constant.
+\item \textbf{A Lambert-$W$ limit} (Theorem~\ref{thm:limit}).
+$\tau(k)$ converges to $1+\W(1/e)$, where $d^*=\W(1/e)\approx0.27846$
+satisfies $\ln d^*=-(1+d^*)$ and the limiting optimal value is exactly
+$1+d^*$.  Hence $\kappa\ge1+\W(1/e)$.
+\item \textbf{Exact certificates} (Section~\ref{sec:certificates}).
+Every claim is machine-verified in exact rational arithmetic.  Concrete
+certified instances include a depth-$4$ family member
+($\tau=103/85$) whose $119\times236$ instance provably exceeds $7/6$
+(independent mixed-integer infeasibility check) and a depth-$40$ instance
+with certified discrepancy $\ge1.272743$, within $0.006$ of the limit.
+\end{enumerate}
+
+The second half of the paper (Section~\ref{sec:beyond}) reports what lies
+beyond chains.  It is experimental in the strict sense that every stated
+number is an exactly verified fact about a finite object, while the
+section's larger claims are explicitly conjectural.  In brief: block-level
+mechanisms exist whose forced values exceed $3/2$ \emph{given} favorable
+bank states, and ``shaper'' blocks exist that manufacture such states
+against every legal schedule at fixed budgets; yet every attempt to
+compose these components into an actual instance has failed, for reasons
+we can now name and measure (entry pollution, accumulator venting, and the
+failure of conjunctive bank pinning).  The evidence points to a
+\emph{composition barrier}: the constant $\kappa$ appears to be governed
+not by the strength of local gadgets, which is unbounded, but by a
+corridor-management game that the scheduler keeps winning.  We conjecture
+$\kappa<\infty$ and outline the upper-bound program this suggests.
+
+\paragraph{Why care.}
+Beyond settling the strength of the natural gadget family, the
+parameterized reading is relevant to scheduling practice: $\kappa$ prices
+\emph{unstructured heterogeneity} in prefix-fair scheduling.
+Section~\ref{sec:rho} records the bounded-ratio corollary: with all
+weights in $[D/\rho, D]$, the constructions degrade gracefully,
+$\kappa(\rho)\to1+\W(1/e)$ as $\rho\to\infty$, while $\kappa(1)=1$ by the
+common-weight theorem; the curve between is open and is, in our view, the
+right target for applications.
+
+\section{The chain gadget}\label{sec:gadget}
+
+Fix a depth $k\ge3$, a detector share $p\in(0,1)$, an off-support
+weight $\eta>0$, and a block count $N$.  The rows are
+$B,A_1,H_1,\ldots,A_N,H_N$; the columns come in $N$ consecutive blocks
+\[
+ J_b,\;C^b_2,\;C^b_3,\;\ldots,\;C^b_k\qquad(b=1,\ldots,N).
+\]
+Within block $b$ (write $A=A_b$, $H=H_b$), the nonzero fractional entries
+and exceptional weights are:
+\[
+\begin{array}{c|cc|cc}
+ \text{column} & x_A & x_{\cdot} & d_A & d_{\cdot}\\
+\hline
+ J   & 1-p & p\ (B) & 1 & 1\\
+ C_j & x_j & 1-x_j\ (H) & d_j & 1\qquad(j=2,\ldots,k)
+\end{array}
+\]
+with weights $d_2\le\cdots\le d_{k-1}\le d_k=1$ and splits
+$x_j\in[0,1]$ to be chosen; every unlisted weight equals $\eta$.  All
+weights are strictly positive and $D=1$.
+
+The forcing logic generalizes the three-column case.  Suppose a
+hypothetical assignment keeps all prefixes within a budget $c$, and
+suppose it denies $J$ to $A$.  Then $A$ sits near $1-p$, and each chain
+column presents the scheduler with a dilemma: assigning $C_j$ to $A$
+relieves $A$ by $d_j(1-x_j)$ but denies $H$ its share $1-x_j$, while any
+other choice denies $A$ the amount $d_jx_j$ and fires immediately.  The
+weights grow along the chain, so the relief purchased early is small
+while the punishment for late deviation stays high; the terminal column
+finally forces a violation on one of the two rows.
+
+\begin{lemma}[block heights]\label{lem:heights}
+Deny $J$ to $A$ and let the scheduler play the block columns arbitrarily.
+With the convention that sums over $i$ range over chain columns before the
+current one, every continuation attains one of the following prefix
+heights on $A$ or $H$:
+\begin{align*}
+ \mathrm{dev}_j&=(1-p)-\textstyle\sum_{i<j}d_i(1-x_i)+d_jx_j
+ &&(\text{first deviation at }C_j,\ j<k),\\
+ \mathrm{term}_A&=(1-p)-\textstyle\sum_{i<k}d_i(1-x_i)+x_k
+ &&(\text{terminal denied to }A),\\
+ \mathrm{term}_H&=\textstyle\sum_{i<k}(1-x_i)+(1-x_k)
+ &&(\text{full compliance}).
+\end{align*}
+These heights are exact up to the $\eta$-bookkeeping of
+Lemma~\ref{lem:budget}: a column sent to neither support row denies both,
+so it only raises the listed heights.
+\end{lemma}
+
+\begin{proof}
+If the first chain column not assigned to $A$ is $C_j$ with $j<k$, then at
+that prefix $A$ has received exactly the earlier chain columns and been
+denied $J$'s share and $C_j$'s share, giving $\mathrm{dev}_j$; this is
+attained at the prefix of $C_j$ itself, before any later
+column can repair it.  If all of $C_2,\ldots,C_{k-1}$ go to $A$ and $C_k$
+does not, $A$'s height at the terminal prefix is $\mathrm{term}_A$.  If
+every chain column goes to $A$, then $H$ has been denied its share
+$1-x_j$ of every chain column, and its height at the terminal prefix is
+$\mathrm{term}_H$.  Assignments off the support deny both rows and can
+only increase these values (they subtract nothing and cost the recipient
+only $\eta$, which Lemma~\ref{lem:budget} accounts).
+\end{proof}
+
+\begin{lemma}[generalized budget lemma]\label{lem:budget}
+Let $\tau$ be a value such that the $p=0$ idealizations of the heights of
+Lemma~\ref{lem:heights} (the same expressions with leading term $1$ in
+place of $1-p$) are all at least $\tau$.  Then every integral assignment
+of the $N$-block instance has some row-prefix discrepancy at least
+\[
+ \mathrm{LB}\;=\;\min\Bigl\{\ \tau-p-\bigl(k(N-1)+1\bigr)\eta,\quad
+ Np-N(k-1)\eta\ \Bigr\}.
+\]
+\end{lemma}
+
+\begin{proof}
+The fresh rows of block $b$ appear off support in at most $k(N-1)$ earlier
+columns, each costing $\eta$, so they enter the block no lower than
+$-k(N-1)\eta$.  Within the block, $A$ is on support in every column, so it
+takes no further $\eta$ hits; $H$ can additionally absorb $J$ off support
+once.  The heights of Lemma~\ref{lem:heights} lose exactly $p$ on the
+$A$-side entries (their first term is $1-p$ rather than $1$) and nothing
+on $\mathrm{term}_H$; combining, every height is at least
+$\tau-p-(k(N-1)+1)\eta$.  If this exceeds the running budget, denying any
+$J_b$ is impossible, so all $N$ detectors are assigned to their $A_b$;
+then $B$ is denied its share $p$ in every block and can be relieved only
+by off-support assignments of chain columns, each worth $\eta$, of which
+there are at most $N(k-1)$.  At the final prefix
+$\disc_B\ge Np-N(k-1)\eta$.  Applying the argument with the budget equal
+to the assignment's actual maximum prefix discrepancy yields the claim.
+\end{proof}
+
+\section{Optimizing the chain}\label{sec:optimize}
+
+Equalize the heights.  In the idealization $p\to0$, setting all
+$\mathrm{dev}_j$, $\mathrm{term}_A$, $\mathrm{term}_H$ equal to a common
+value $\tau$ forces the \emph{balance solution}
+\begin{equation}\label{eq:balance}
+ x_{j+1}=\frac{d_j}{d_{j+1}}\quad(2\le j\le k-1,\ d_k:=1),
+ \qquad
+ x_2=\frac{\tau-1}{d_2},
+\end{equation}
+as one checks by subtracting consecutive height expressions.  Substituting
+into $\mathrm{term}_H=\tau$ and writing
+\[
+ R\;=\;\sum_{j=2}^{k-1}\frac{d_j}{d_{j+1}}
+\]
+gives $(k-1)-\frac{\tau-1}{d_2}-R=\tau$, that is,
+\begin{equation}\label{eq:tau}
+ \tau\;=\;\frac{d_2\,(k-1-R)+1}{1+d_2}.
+\end{equation}
+
+\begin{lemma}[geometric weights are optimal]\label{lem:amgm}
+For fixed $d_2$, the value \eqref{eq:tau} is maximized when
+$d_2,\ldots,d_{k-1},1$ is a geometric progression, in which case
+$R=(k-2)\,d_2^{1/(k-2)}$.
+\end{lemma}
+
+\begin{proof}
+The ratios $r_j=d_j/d_{j+1}$ satisfy $\prod_{j=2}^{k-1}r_j=d_2/d_k=d_2$.
+By AM--GM, $R=\sum r_j\ge(k-2)\bigl(\prod r_j\bigr)^{1/(k-2)}
+=(k-2)d_2^{1/(k-2)}$, with equality iff all ratios are equal.  Since
+\eqref{eq:tau} is decreasing in $R$, the geometric choice is optimal.
+\end{proof}
+
+Call a weight $d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric
+balance design has all splits in $[0,1]$.  The interior ratios equal
+$d^{1/(k-2)}\le1$ automatically, so admissibility is exactly the condition
+$x_2=(\tau-1)/d\le1$, that is, $\tau(k,d)\le1+d$, where
+\[
+ \tau(k,d)\;:=\;\frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d}.
+\]  (Small $d$ can be inadmissible at large
+$k$; every table point of Section~\ref{sec:certificates} is verified
+admissible.)
+
+\begin{theorem}[closed form]\label{thm:tau}
+For every $k\ge3$,
+\[
+ \tau(k)\;=\;\max_{d\ \mathrm{admissible}}
+ \frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d},
+\]
+and for every rational admissible point with strict margins and every
+$\eps>0$, suitable $(p,\eta,N)$ in Lemma~\ref{lem:budget} give instances
+forcing discrepancy $\ge\tau(k,d)-\eps$ with $D=1$.  In particular
+$\kappa\ge\tau(k,d)$ for every admissible pair.
+\end{theorem}
+
+\begin{proof}
+Combine \eqref{eq:tau} with Lemma~\ref{lem:amgm} and write $d=d_2$;
+admissibility is precisely feasibility of the design.  For the
+quantitative statement take $p=\eps/3$, $N=\lceil(\tau+1)/p\rceil$, and
+$\eta=\eps/(3kN)$: then $\tau-p-(k(N-1)+1)\eta>\tau-\eps$ and
+$Np-N(k-1)\eta>\tau$, so Lemma~\ref{lem:budget} applies.
+\end{proof}
+
+\section{The limit is a Lambert-$W$ constant}\label{sec:limit}
+
+\begin{theorem}\label{thm:limit}
+\[
+ \lim_{k\to\infty}\tau(k)\;=\;1+\W(1/e),
+\]
+where $d^*=\W(1/e)$ is the unique root of $\ln d=-(1+d)$ in $(0,1)$.
+Consequently $\kappa\;\ge\;1+\W(1/e)\;\approx\;1.2784645$.
+\end{theorem}
+
+\begin{proof}
+Write $m=k-2$ and $\phi_m(d)=1+m\bigl(1-d^{1/m}\bigr)$, so that
+$\tau(k,d)=[d\,\phi_m(d)+1]/(1+d)$.  For fixed $d\in(0,1)$ the quantity
+$m(1-d^{1/m})=m(1-e^{\ln d/m})$ increases in $m$ to $-\ln d$ (apply
+$e^x\ge1+x$ with $x=\ln d/m$), so
+\[
+ \tau(k,d)\ \uparrow\ \tau_\infty(d):=\frac{d(1-\ln d)+1}{1+d}
+ \qquad(k\to\infty).
+\]
+Differentiating $\tau_\infty$, the numerator of the derivative is
+\[
+ (1+d)\frac{\partial}{\partial d}\bigl[d-d\ln d+1\bigr]
+ -\bigl[d(1-\ln d)+1\bigr]
+ \;=\;-\ln d-d-1,
+\]
+which decreases from $+\infty$ (as $d\downarrow0$) to $-2$ (at $d=1$); so
+$\tau_\infty$ increases on $(0,d^*]$ and decreases on $[d^*,1]$, where
+$\ln d^*=-(1+d^*)$, equivalently $d^*e^{d^*}=1/e$, i.e.\ $d^*=\W(1/e)$
+\citep{CorlessGonnetHareJeffreyKnuth1996}.  Substituting
+$\ln d^*=-(1+d^*)$,
+\[
+ \tau_\infty(d^*)=\frac{d^*(1+1+d^*)+1}{1+d^*}
+ =\frac{(1+d^*)^2}{1+d^*}=1+d^*.
+\]
+\emph{Upper bound.}  For any $k$ and any admissible $d$ we have
+$\tau(k,d)\le\tau_\infty(d)\le\tau_\infty(d^*)=1+d^*$, hence
+$\tau(k)\le1+d^*$ for every $k$.
+
+\emph{Lower bound.}  Fix $d\in(d^*,1)$.  Then
+$\tau_\infty(d)\le1+d^*<1+d$, so $\tau(k,d)<1+d$ for \emph{every} $k$:
+the pair $(k,d)$ is always admissible.  Since
+$\tau(k,d)\uparrow\tau_\infty(d)$, we get
+$\liminf_k\tau(k)\ge\tau_\infty(d)$, and letting $d\downarrow d^*$ (where
+$\tau_\infty$ is continuous) gives $\liminf_k\tau(k)\ge1+d^*$.  The two
+bounds give the limit.  Finally $\kappa\ge\tau(k,d)$ for every admissible
+pair by Theorem~\ref{thm:tau}, so $\kappa\ge\tau_\infty(d)$ for every
+$d>d^*$, and $\kappa\ge1+d^*$ follows.
+\end{proof}
+
+\begin{remark}
+The identity $\tau_\infty=1+d^*$ says: at the optimum, the limiting chain
+forces exactly one plus its own starting weight.  We do not know a direct
+combinatorial explanation; it drops out of the stationarity condition.
+\end{remark}
+
+\section{Exact certificates}\label{sec:certificates}
+
+All claims above are verified by machine in exact rational arithmetic.
+Two independent toolchains are used: a certificate checker that
+re-derives every inequality of Lemmas~\ref{lem:heights}
+and~\ref{lem:budget} for a given $(k,d,p,\eta,N)$ from scratch using
+exact fractions, and, for one concrete family member, an independent
+mixed-integer feasibility check of the assembled instance.
+
+\begin{center}
+\begin{tabular}{@{}llllr@{}}
+\toprule
+depth & weights & $\tau$ (exact) & $\tau$ (dec.) & certified instance LB\\
+\midrule
+$k=3$ & $d=5/12$ & $239/204$ & $1.171569$ & $1.161469$\\
+$k=4$ & $d=(9/25,3/5)$ & $103/85$ & $1.211765$ & $1.201665$\\
+$k=5$ & $d=(1/3,10/21,7/10)$ & $904/735$ & $1.229932$ & $1.219832$\\
+$k=7$ & near-geometric & $211933/170170$ & $1.245419$ & $1.235320$\\
+$k=12$ & $r=22/25$ & (exact rational) & $1.261401$ & $1.251301$\\
+$k=25$ & $r=473/500$ & (exact rational) & $1.270876$ & $1.269776$\\
+$k=40$ & $r=967/1000$ & (exact rational) & $1.273843$ & $\mathbf{1.272743}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Here $r$ denotes the common ratio of a rational geometric chain
+$d_j=r^{k-j}$, which keeps every balance split \eqref{eq:balance} rational
+($x_{j+1}=r$).  The certified instance lower bounds instantiate
+Lemma~\ref{lem:budget} with $p=1/100$, $N=300$ for $k\le12$ and
+$p=1/1000$, $N=3000$ for the deep rungs, $\eta=1/(10^4kN)$ throughout;
+each is an explicit finite instance with $D=1$ and every column of
+fractional support two.  The depth-$4$ member with $p=1/50$, $N=59$
+($m=119$, $n=236$) was additionally checked by an exact mixed-integer
+solver: infeasible at budget $7/6$, feasible at $1.19$.  This certifies
+the promise made in the companion paper that deeper detectors beat
+$4-2\sqrt2$: already $k=4$ reaches $103/85>4-2\sqrt2>7/6$.
+
+\section{Beyond chains: what is true, and what fails}\label{sec:beyond}
+
+Everything in this section is an exactly verified statement about finite
+\emph{block games}, together with an honest account of why none of it
+currently yields instances above the chain limit.  A block game fixes a
+bank state (starting heights on designated rows), a budget $c$, and a
+block of columns; all quantifiers over schedules are discharged by
+exhaustive search in exact arithmetic.
+
+\paragraph{Banked chains.}
+If the helper row enters a chain block at height $h\ge0$, the analysis of
+Sections~\ref{sec:gadget}--\ref{sec:optimize} goes through with
+$\mathrm{term}_H$ increased by $h$, giving
+\[
+ \tau(k,h)=\max_{d\ \mathrm{adm.}}
+ \frac{d\bigl(k-1+h-(k-2)d^{1/(k-2)}\bigr)+1}{1+d},
+ \qquad
+ \lim_k\tau(k,h)=1+\W(e^{h-1}),
+\]
+and on the compliant path the helper ends at exactly $\tau-1$.  Iterating
+$h\mapsto\tau(\cdot,h)-1$ has fixed point $h^*=1/e$, suggesting a bound of
+$1+1/e\approx1.3679$.  \emph{This is not a theorem}, and our experiments
+show why the natural proof fails: sustaining $h$ across blocks requires a
+guarantee over \emph{all} legal schedules, and a single legal gift of a
+terminal column to the helper resets its bank from $h$ to $h-1$.  The
+exists-a-schedule bookkeeping that suffices for one block does not
+compose.
+
+\paragraph{Super-threat blocks and shapers (exact).}
+Two block-game facts, each verified by exhaustive exact search over all
+schedules ($4^n$ plays, pruned):
+(i) there is an explicit $14$-column block that, entered at bank state
+$(1/2,9/20)$ on its two designated rows and with its detector column
+denied, forces every schedule to a prefix height of exactly
+$1.687669\ldots>3/2$, while admitting a legal escape play of value
+$0.6931$ when the detector is granted;
+(ii) there are \emph{cold shaper} blocks with no entry banks at all such
+that, at every budget $c\le1.35$, every $c$-legal schedule exits with
+some designated row at height $\ge0.3088$.  Further stage games, each
+verified separately at its stated entry state, lift such banks in exact
+steps (for instance, at budget $1.48$, from $0.31$ through $0.55$), and a
+bank of $0.6588$ fires exactly: the denial of a unit detector from that
+height is worth $1.63$ on every play, exceeding the budget $1.60$ at
+which the corresponding stage guarantees were verified.  We emphasize
+that these are separate block games, each at its stated entry state;
+whether they can be made to occur in sequence inside one instance is
+precisely the composition question below.  At the level of components,
+however, no budget looks safe: for every $c$ we found stage games whose
+guarantees, \emph{if composable}, would force a violation beyond $c$.
+
+\paragraph{The composition barrier (measured).}
+None of this composes.  In a fixed instance the scheduler plays all
+blocks on shared rows, and three exactly measured mechanisms defeat every
+assembly we tried.  \emph{Entry pollution}: stage guarantees proved at a
+bank state are vacuous when the scheduler arrives elsewhere in the
+$\pm c$ corridor, which it can, having parked rows anywhere within
+budget.  \emph{Accumulator venting}: when the accumulator nears the
+budget, one sacrificial receipt (a detector column granted to the
+accumulator itself) vents it by nearly a full weight, and pre-parking the
+pressured row makes the accompanying denial spike harmless; in our
+assembled $1273$-column machine the accumulator was observed climbing to
+$1.279$ and venting to $0.359$.  \emph{No conjunctive pinning}: exhaustive
+search over our block class shows no block can force \emph{both}
+designated rows to exit above useful thresholds against all legal plays
+(best exact deficits $-0.32$ to $-0.51$); exits are disjunctive, so the
+scheduler always has a coordinate to wreck.  The bottom line is
+quantitative: the assembled machine built from components with
+stage-level guarantees at $c=1.35$ admits a schedule with maximum prefix
+discrepancy $\le1.116$ --- weaker than the plain depth-$4$ chain
+instance.  Block strength is unbounded; composition is the constraint.
+
+\paragraph{Conjecture and program.}
+\begin{conjecture}\label{conj:finite}
+$\kappa<\infty$.
+\end{conjecture}
+Two further data points support this.  First, a simple online rule
+(relieve the taller support row unless doing so would sink it below a
+fixed floor; otherwise relieve the other; otherwise dump on the row with
+most headroom) already achieves maximum prefix discrepancy $1.116$ on our
+strongest assembled instance and within $0.004$ of the exact optimum on
+the companion paper's instances; its worst case over adversarial search
+is below $2.2$ on everything we could construct.  Second, the mechanisms
+that defeat composition --- corridor slack, venting, disjunctive exits ---
+are exactly the ingredients a potential-function upper-bound proof would
+formalize: the scheduler maintains every row in a managed corridor and
+can always afford one sacrificial relief before any accumulator bursts.
+Adapting the earliest-deadline analysis of \citep{LiuReis2026} with
+row-specific deadlines and such a potential is, in our view, the most
+promising route to any finite upper bound; even $\kappa\le O(1)$ would be
+the first such statement for machine-dependent weights.  In the other
+direction, any instance forcing more than $1+\W(1/e)$ must defeat the
+corridor mechanisms simultaneously on all rows, which our experiments
+consistently failed to arrange.
+
+\section{Bounded weight ratio}\label{sec:rho}
+
+For applications the relevant parameter is often the dynamic range of the
+weights rather than their absolute scale.  Define $\kappa(\rho)$ as
+$\kappa$ restricted to instances with $d_{ij}\in[D/\rho,D]$.  Here
+$\kappa(1)=1$: the upper bound is the common-weight theorem of Liu and
+Reis, and Tijdeman's classical lower bound $1-1/(2m-2)-\delta$ supplies
+the matching supremum \citep{Tijdeman1973,Meijer1973}.  Our constructions use tiny off-support
+weights, but only through the bookkeeping of Lemma~\ref{lem:budget}:
+setting $\eta=1/\rho$ there gives, for any admissible depth-$k$ point
+with value $\tau$ and any $p$,
+\[
+ \kappa(\rho)\ \ge\
+ \min\Bigl\{\tau-p-\tfrac{k(N-1)+1}{\rho},\ Np-\tfrac{N(k-1)}{\rho}\Bigr\},
+\]
+and choosing $N=\lceil2/p\rceil$, $p=2\sqrt{k/\rho}$ yields
+$\kappa(\rho)\ge\tau(k,d)-4\sqrt{k/\rho}$ once $\rho\ge16k$.  Since
+$\sup_{k,d}\tau(k,d)=1+\W(1/e)$, it follows that
+$\kappa(\rho)\to1+\W(1/e)$ as $\rho\to\infty$; for a concrete data point,
+$\rho\ge3.2\times10^4$ already gives $\kappa(\rho)>7/6$ via the depth-$4$
+witness.  We make no attempt to optimize the rate, which is certainly far
+from tight.  Determining the shape of $\kappa(\rho)$ between
+$\kappa(1)=1$ and the machine-dependent regime --- mild heterogeneity
+versus mixed fleets, in scheduling terms --- is open and seems the right
+quantitative target for practice.
+
+\section{Open problems}
+
+\begin{enumerate}
+\item Is $\kappa$ finite (Conjecture~\ref{conj:finite})?  Any finite
+upper bound would be the first for machine-dependent prefix discrepancy.
+\item Is $\kappa=1+\W(1/e)$?  The chain limit is the strongest
+instance-level lower bound we know, all mechanisms beyond it having
+failed to compose; but we see no conservation obstruction above it, and
+the block-game results show local strength is not the bottleneck.
+\item The chain family is optimal among single-pair detector chains by
+construction; is it optimal among all single-block gadgets?  Our search
+evidence (some $16{,}000$ mixed-integer evaluations over tree-shaped
+punishment structures at depths $4$--$7$, spot-validated against
+exhaustive exact search) found nothing better, but this is not a proof.
+\item Determine $\kappa(\rho)$ asymptotics and, for practice, its profile
+at moderate $\rho$.
+\end{enumerate}
+
+\section*{Reproducibility and disclosure}
+
+The accompanying repository contains exact verifiers for every inequality
+in Lemmas~\ref{lem:heights} and~\ref{lem:budget} at all seven table
+rungs, including the deep geometric chains ($\texttt{Fraction}$-exact
+throughout); the mixed-integer confirmation of the $119\times236$
+instance; the exhaustive block-game verifiers behind
+Section~\ref{sec:beyond} (branch-and-bound over all schedules in scaled
+integer arithmetic); and the experiment logs, including documented retractions of intermediate
+findings that deeper search or exact re-verification overturned.  Generative AI systems (GPT-5.6 Pro and
+Claude Fable 5) assisted with exploration, computation, verification code,
+and exposition.  They are not authors.  The author assumes responsibility
+for independent verification, priority, attribution, and the final text.
+
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}
