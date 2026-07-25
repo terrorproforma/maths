@@ -19,6 +19,12 @@ disclosures; all claims are unverified until independently audited.
   to 7/6·D for the ½-split gadget (concrete 49×72 instance > 9/8), improved to
   (4−2√2)·D − ε ≈ 1.1716·D by freeing the detector split (exact witness 239/204). Six
   independent verifiers (exact-rational and MILP). Author: Angus Muffatti.
+- [`detector-chains/`](detector-chains/) — **a Lambert-W lower bound for
+  machine-dependent chairman assignment** (working draft): deepening the companion
+  paper's detector to a chain of length k gives the closed form τ(k) and the limit
+  κ ≥ 1 + W(1/e) ≈ 1.2785, with exact certificates to depth 40 (deepest instance
+  1.272743) and exhaustive, solver-free verification of the block-game section.
+  Author: Angus Muffatti.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — **explicit
   fixed-parameter obstruction to the subtree-shuffling conjecture** at (d,p) = (7,15) for
   all k = 3m, via a weighted Horner suspension of the Alpöge map (attributed) and an
