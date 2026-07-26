@@ -228,14 +228,23 @@ def main() -> None:
           f"[{n5:,} nodes]")
     ok &= t3 > F(8, 5)
 
-    # (v) conjunctive pinning fails: no block pins BOTH banks
-    blk = load("conj_c130_a15_bm15.json")
-    t4, n6 = exits(blk, zero, F(13, 10), F(3, 20), F(-3, 20),
-                   conjunctive=True)
-    print(f"(v)   best conjunctive pin found, c = 13/10:")
-    print(f"        two-sided margin = {float(t4):+.9f} < 0  =>  some legal "
-          f"schedule wrecks a bank [{n6:,} nodes]")
-    ok &= t4 is not None and t4 < 0
+    # (v) conjunctive pinning fails: no block pins BOTH banks.  These are the
+    #     best candidates a hill-climb over the block class produced; each is
+    #     then evaluated exhaustively over all legal schedules.
+    print("(v)   best conjunctive pins found (hill-climbed blocks, each "
+          "evaluated exhaustively):")
+    for fn, c, a, b in (("conj_c130_a15_bm15.json", F(13, 10),
+                         F(3, 20), F(-3, 20)),
+                        ("conj_c135_a20_bm10.json", F(27, 20),
+                         F(1, 5), F(-1, 10)),
+                        ("conj_c135_a15_b15.json", F(27, 20),
+                         F(3, 20), F(3, 20))):
+        t4, n6 = exits(load(fn), zero, c, a, b, conjunctive=True)
+        print(f"        c = {float(c):.2f}, pin (A >= {float(a):+.2f}, "
+              f"H1 >= {float(b):+.2f}): two-sided margin = {float(t4):+.9f} "
+              f"< 0 [{n6:,} nodes]")
+        ok &= t4 is not None and t4 < 0
+    print("        => in every case some legal schedule wrecks a bank")
 
     print("\nblock-game claims verified exactly" if ok else
           "\n*** A CLAIM FAILED ***")

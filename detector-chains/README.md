@@ -43,16 +43,20 @@ python3 code/verify_composition_failure.py  # exact: the composition barrier, by
 python3 code/beat_76_instance.py            # independent MILP: 119x236 instance beats 7/6
 ```
 
-The first three need only the Python standard library and are exhaustive: the block-game
-checker searches *all* schedules of each block by branch-and-bound in scaled-integer
-arithmetic, so its printed margins are proved properties of finite games, not samples.
-`beat_76_instance.py` needs `numpy` + `scipy` (HiGHS) and confirms one concrete instance
-by mixed-integer infeasibility.
+All but the last need only the Python standard library: the block-game checker searches
+*all* schedules of each block by branch-and-bound in scaled-integer arithmetic, so its
+printed margins are proved properties of finite games, not samples. Two exceptions to
+note: the LP separation sweep inside `verify_split_optimality.py` needs `scipy` and skips
+itself with a message when it is absent (its exact counterexample check always runs), and
+`beat_76_instance.py` needs `numpy` + `scipy` (HiGHS) throughout, confirming one concrete
+instance by mixed-integer infeasibility. `make verify` runs the standard-library set;
+`make verify-milp` runs the solver-dependent check; `make verify-all` runs both.
 
 Expected: seven monotone rungs ending `1.272743`; five block-game claims verified
 (`1.687669747`, `0.693059556`, `+0.058804594`, `+0.122824202` twice, `1.630000000`,
-`−0.324240741`); the assembled 1273-column machine admitting a schedule at exactly
-`27999/25000 = 1.119960`; `INFEASIBLE at 7/6`, `feasible at 1.19`.
+and the three conjunctive deficits `−0.324240741`, `−0.489237780`, `−0.509413299`); the
+assembled 1273-column machine admitting a schedule at exactly `27999/25000 = 1.119960`,
+with its accumulator venting `27999/25000 → 3999/25000` at column 977; `INFEASIBLE at 7/6`, `feasible at 1.19`.
 
 Note the two directions of verification. The block-game and certificate checkers are
 *exhaustive* — they quantify over all schedules — so their margins are proofs. The

@@ -265,9 +265,21 @@ By AM--GM, $R=\sum r_j\ge(k-2)\bigl(\prod r_j\bigr)^{1/(k-2)}
 \eqref{eq:tau} is decreasing in $R$, the geometric choice is optimal.
 \end{proof}
 
-Equalizing is not an arbitrary choice: the terminal helper height binds at
-every optimum except in one boundary configuration, which we isolate
-because a naive monotonicity argument overlooks it.
+Two splits of the balance solution can leave the unit box, so record the
+condition under which the design is realizable.  Call a weight
+$d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric balance
+design has all splits in $[0,1]$.  The interior ratios equal
+$d^{1/(k-2)}\le1$ automatically, so admissibility is exactly the condition
+$x_2=(\tau-1)/d\le1$, that is, $\tau(k,d)\le1+d$, where
+\[
+ \tau(k,d)\;:=\;\frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d}.
+\]
+(Small $d$ can be inadmissible at large $k$; every table point of
+Section~\ref{sec:certificates} is verified admissible.)
+
+Equalizing is also not an arbitrary choice: the terminal helper height
+binds at every optimum except in one boundary configuration, which we
+isolate because a naive monotonicity argument overlooks it.
 
 \begin{lemma}\label{lem:tight}
 Fix the weights $d$ and, for splits $x\in[0,1]^{k-1}$, put
@@ -332,16 +344,6 @@ solution would need $x_2>1$.  This is why admissibility is not a
 formality: every rung of Section~\ref{sec:certificates} is checked for it,
 and the accompanying verifier refuses to certify a rung unless
 $\tau\le1+d$ holds exactly.
-
-Call a weight $d\in(0,1]$ \emph{admissible} for depth $k$ if the geometric
-balance design has all splits in $[0,1]$.  The interior ratios equal
-$d^{1/(k-2)}\le1$ automatically, so admissibility is exactly the condition
-$x_2=(\tau-1)/d\le1$, that is, $\tau(k,d)\le1+d$, where
-\[
- \tau(k,d)\;:=\;\frac{d\bigl(k-1-(k-2)\,d^{1/(k-2)}\bigr)+1}{1+d}.
-\]  (Small $d$ can be inadmissible at large
-$k$; every table point of Section~\ref{sec:certificates} is verified
-admissible.)
 
 \begin{theorem}[closed form]\label{thm:tau}
 For every $k\ge3$,
@@ -495,7 +497,9 @@ $1.687669\ldots>3/2$, while admitting a legal escape play of value
 $0.6931$ when the detector is granted;
 (ii) there are \emph{cold shaper} blocks with no entry banks at all such
 that, at every budget $c\le1.35$, every $c$-legal schedule exits with
-some designated row at height $\ge0.3088$.  Further stage games, each
+some designated row at height $\ge0.3088$ --- verified at $c=1.35$, which
+suffices for all smaller budgets because lowering $c$ only removes legal
+schedules and so can only raise the minimum.  Further stage games, each
 verified separately at its stated entry state, lift such banks in exact
 steps: at budget $1.48$ the same block, entered at $0.31$ and again at
 $0.43$, forces every legal schedule to exit at $0.43$ resp.\ $0.55$ (or
@@ -522,13 +526,19 @@ $\pm c$ corridor, which it can, having parked rows anywhere within
 budget.  \emph{Accumulator venting}: when the accumulator nears the
 budget, one sacrificial receipt (a detector column granted to the
 accumulator itself) vents it by nearly a full weight, and pre-parking the
-pressured row makes the accompanying denial spike harmless; in our
-assembled $1273$-column machine the accumulator was observed climbing to
-$1.279$ and venting to $0.359$.  \emph{No conjunctive pinning}: exhaustive
-search over our block class shows no block can force \emph{both}
-designated rows to exit above useful thresholds against all legal plays
-(best exact deficits $-0.32$ to $-0.51$); exits are disjunctive, so the
-scheduler always has a coordinate to wreck.  The bottom line is
+pressured row makes the accompanying denial spike harmless.  In the
+assembled $1273$-column machine below this is visible exactly: along the
+certified schedule the accumulator's prefix height peaks at
+$\tfrac{27999}{25000}$ and one column later stands at
+$\tfrac{3999}{25000}$, a net relief of $\tfrac{24}{25}$, because that
+detector column --- on which the accumulator carries weight $1$ --- is
+granted to the accumulator itself.  \emph{No conjunctive pinning}:
+hill-climbing over our block class, evaluating each candidate exhaustively
+over all its legal schedules, produced no block forcing \emph{both}
+designated rows to exit above useful thresholds; the best candidates leave
+exact deficits of $-0.3242$, $-0.4892$ and $-0.5094$.  Exits are
+disjunctive, so the scheduler always has a coordinate to wreck.  The
+bottom line is
 quantitative: the assembled machine built from components with
 stage-level guarantees at $c=1.35$ admits a schedule with maximum prefix
 discrepancy exactly $27999/25000=1.11996$ --- weaker than the plain
@@ -616,10 +626,12 @@ throughout); the mixed-integer confirmation of the $119\times236$
 instance; the exhaustive block-game verifiers behind
 Section~\ref{sec:beyond} (branch-and-bound over all schedules in scaled
 integer arithmetic); and the experiment logs, including documented retractions of intermediate
-findings that deeper search or exact re-verification overturned.  Generative AI systems (GPT-5.6 Pro and
-Claude Fable 5) assisted with exploration, computation, verification code,
-and exposition.  They are not authors.  The author assumes responsibility
-for independent verification, priority, attribution, and the final text.
+findings that deeper search or exact re-verification overturned.
+Generative AI systems (GPT-5.6 Pro, Claude Opus 5, and Claude Fable 5)
+assisted with exploration, computation, verification code, adversarial
+review, and exposition.  They are not authors.  The author assumes
+responsibility for independent verification, priority, attribution, and
+the final text.
 
 \bibliographystyle{abbrvnat}
 \bibliography{references}

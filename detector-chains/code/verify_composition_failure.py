@@ -79,6 +79,8 @@ def floor_rule(inst, eta=ETA, theta=THETA):
     h = [F(0)] * M
     peak = F(0)
     rowpeak = [F(0)] * M
+    prev_B = F(0)
+    vent = (None, F(0), F(0), F(0))       # (column, before, after, drop)
     for j, (rp, rq, _, _, _) in enumerate(inst):
         for i in range(M):
             h[i] += dx[i][j]
@@ -91,18 +93,21 @@ def floor_rule(inst, eta=ETA, theta=THETA):
             cands = [i for i in range(M) if i not in (rp, rq)]
             r = min(cands, key=lambda i: abs(h[i] - dd[i][j])) if cands else a
         h[r] -= dd[r][j]
+        if prev_B - h[0] > vent[3]:       # largest prefix-to-prefix relief on B
+            vent = (j, prev_B, h[0], prev_B - h[0])
+        prev_B = h[0]
         for i in range(M):
             av = abs(h[i])
             if av > rowpeak[i]:
                 rowpeak[i] = av
             if av > peak:
                 peak = av
-    return peak, rowpeak
+    return peak, rowpeak, vent
 
 
 def main() -> None:
     inst = build()
-    peak, rowpeak = floor_rule(inst)
+    peak, rowpeak, vent = floor_rule(inst)
     names = ("B", "A", "H1", "H2")
     print(f"assembled machine: {M} rows, {len(inst)} columns, "
           f"{N_SB} super-blocks, eta = 1/100000")
@@ -110,6 +115,13 @@ def main() -> None:
           f"{peak.numerator}/{peak.denominator} = {float(peak):.6f}")
     print("  per-row peaks: " + "  ".join(
         f"{names[i]}={float(rowpeak[i]):.6f}" for i in range(M)))
+    j, before, after, drop = vent
+    print(f"  accumulator venting: at column {j} the prefix height falls "
+          f"{before.numerator}/{before.denominator} -> "
+          f"{after.numerator}/{after.denominator}")
+    print(f"    (net relief {drop.numerator}/{drop.denominator} = "
+          f"{float(drop):.6f}; that column is granted to the accumulator "
+          f"itself, whose weight there is 1)")
     chain4 = F(103, 85)
     print(f"\ncomparison: the depth-4 chain block forces {float(chain4):.6f} "
           f"(tau = 103/85)")
