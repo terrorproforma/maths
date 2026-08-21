@@ -1,5 +1,7 @@
 # Chronometric Emergence / Null-Relational Chronometry
 
+**Author: Angus Muffatti**
+
 Ongoing research programme on the emergence and operational calibration of proper duration from conformal/null structure, interacting field spectra, universal scale locking, QCD threshold transmission, cyclic protection, cosmological state selection, and nonequilibrium transport.
 
 This directory is the live research home for the project. It contains the consolidated manuscript, bibliography, provenance/source ledger, acceptance and version matrices, and reproducibility/verification code.
@@ -20,6 +22,10 @@ The current correlator-level frontier is pointwise hard/soft matched retarded po
 ## Research hygiene
 
 Claims are intentionally separated into established background, derived results, candidate novelty, conditional model results, and open problems. Superseded and failed constructions remain documented because they constrain what a defensible final theory can claim.
+
+## Authorship
+
+All original research, manuscripts, notes, calculations, and project files in this directory are authored by **Angus Muffatti**, with AI assistance disclosed where applicable. Third-party results and prior work remain explicitly attributed in the bibliography and provenance records.
 
 ## Binary working package
 
