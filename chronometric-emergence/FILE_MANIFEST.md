@@ -2,7 +2,7 @@
 
 **Author: Angus Muffatti**
 
-This manifest records the complete source-controlled chronometric-emergence package currently published on `main`.
+This manifest records the complete source-controlled chronometric-emergence package currently published on `main`. The permanent CI definition is `.github/workflows/chronometric-emergence.yml`.
 
 ```text
 chronometric-emergence/FILE_MANIFEST.md
