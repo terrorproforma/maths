@@ -1,0 +1,10 @@
+claim,status,scope_or_limitation
+"The pre-HPC programme is complete as a declared executable truncation.","SUPPORTED","Analytic setup, reduced pointwise kernels, regression tests, vertex/ghost initialization, singlet BSE control, resource tiers, and stop conditions are specified."
+"The pointwise hard/Born/LPM/HTL/overlap table is an exact arbitrary-off-shell Standard-Model Higgs self-energy.","NOT CLAIMED","The table is a reduced PT/BFM benchmark anchored to controlled on-shell and integrated rates."
+"The declared factorization-scale dependence cancels.","SUPPORTED IN THE REDUCED MODEL","Maximum relative spread where the signal exceeds 1e-9 is 5.603e-16."
+"The finite transverse vertex basis is the complete thermal non-Abelian basis.","NOT CLAIMED","Four transverse tensors are used as a separable-BSE initialization; the production basis must be expanded and evolved."
+"The declared common-scalar matter-ghost kernel satisfies the STI.","SUPPORTED","Maximum numerical residual is 1.714e-15."
+"The complete finite-temperature matrix-valued matter-ghost problem is solved.","OPEN","It remains a functional-equation and HPC acceptance target."
+"A finite three-loop 3PI truncation is automatically gauge invariant.","REJECTED","Ward, Slavnov-Taylor, Nielsen, KMS, conservation, and singlet-observable diagnostics must be monitored explicitly."
+"The H-dagger-H control correlator includes a conserving ladder.","SUPPORTED AS A REDUCED BSE","The separable ladder has an algebraic residual of 2.651e-16 and a nonnegative positive-frequency spectrum."
+"The package is ready for a pilot PT/BFM-constrained two-time run.","SUPPORTED","The pilot equations, grids, resource model, checkpointing, and acceptance thresholds are defined."
