@@ -17,7 +17,7 @@ Maintained by **Angus Muffatti**. All results are AI-assisted and carry explicit
 
 ## Physics
 
-- [`chronometric-emergence/`](chronometric-emergence/) — ongoing theoretical-physics programme on null/conformal structure, universal spectral clock factorisation, QCD scale locking, cyclic protection, cosmological state selection, and nonequilibrium transport. Author: Angus Muffatti.
+- [`chronometric-emergence/`](chronometric-emergence/) — ongoing theoretical-physics programme on null/conformal structure, universal spectral clock factorisation, QCD scale locking, cyclic protection, cosmological state selection, and nonequilibrium transport. Its [`working/`](chronometric-emergence/working/) directory is the **complete response-by-response archive from v0.1 through v1.8**, with each iteration's own paper/LaTeX, code, results, arrays, figures, matrices and research package. Author: Angus Muffatti.
 
 ## Archived combined packages
 
