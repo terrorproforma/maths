@@ -1,0 +1,16 @@
+{
+  "version": "v1.7",
+  "author": "Angus Muffatti",
+  "result": "Physical target corrected to kernel + vertices + singlet control",
+  "metrics": [
+    0.0011585159,
+    1.53e-15,
+    7.07e-14,
+    5.24e-16,
+    1.42e-12,
+    0.688,
+    0.838,
+    0.000944
+  ],
+  "provenance": "regenerated"
+}

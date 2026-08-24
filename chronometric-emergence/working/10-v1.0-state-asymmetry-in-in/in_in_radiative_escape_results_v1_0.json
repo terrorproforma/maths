@@ -1,0 +1,12 @@
+{
+  "version": "v1.0",
+  "author": "Angus Muffatti",
+  "result": "Vacuum, selector and state functionals separate through two loops",
+  "metrics": [
+    5.09e-08,
+    1.76e-06,
+    0.0619,
+    -0.000172
+  ],
+  "provenance": "regenerated"
+}

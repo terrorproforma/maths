@@ -1,0 +1,227 @@
+---
+title: "Spectral Chronometry: Universal Clock Factorisation and the Higgs-Dilaton Test"
+author: "Angus Muffatti"
+version: "v0.3"
+---
+
+> Archive reconstruction from the surviving project ledger. Historical sandbox binaries were ephemeral; see RECOVERY_PROVENANCE.md.
+
+## 10. Clock spectral fields
+
+A local clock is represented not by a coordinate label but by a positive transition frequency $\omega_A(x)$. The invariant quantity is its phase accumulation
+
+$$
+d\Phi_A=\omega_A ds_g.
+$$
+
+Each individual clock defines a representative
+
+$$
+g^{(A)}_{\mu\nu}
+=\left(\frac{\omega_A}{\omega_{A*}}\right)^2g_{\mu\nu},
+$$
+
+for which its intrinsic rate is constant. The nontrivial question is whether every clock defines the same representative.
+
+## 11. Universal clock factorisation theorem
+
+**Theorem.** Let $U\subset\mathcal M$ be connected and let $\{\omega_A\}$ be positive clock spectral fields. The following are equivalent:
+
+1. There exists $\widehat g\in[g]$ and positive constants $\bar\omega_A$ such that $\Phi_A[\gamma]=\bar\omega_A\int_\gamma ds_{\widehat g}$ for every timelike curve $\gamma$ in $U$.
+2. Every pairwise ratio is constant: $d\ln(\omega_A/\omega_B)=0$.
+3. There is one positive Weyl-weight $-1$ scalar $\chi$ and constants $c_A$ such that $\omega_A=c_A\chi$.
+
+**Proof.** Write $\widehat g=e^{2\sigma}g$. Equality of phase integrands gives $\omega_A=\bar\omega_Ae^\sigma$, proving constant ratios. If all ratios are constant, choose one reference clock and set $\chi$ proportional to its spectrum; the other spectra are constant multiples. Conversely, if $\omega_A=c_A\chi$, then $\widehat g=(\chi/\chi_*)^2g$ gives
+
+$$
+\Phi_A=c_A\chi_*\int ds_{\widehat g}.
+$$
+
+Uniqueness is up to one global multiplicative unit convention. $\square$
+
+The theorem is elementary once stated. Its value is that it turns the phrase "all clocks measure the same proper time" into an exact integrability condition.
+
+## 12. Chronometric shear and clock-space rank
+
+Define
+
+$$
+\boxed{
+\mathcal S_{AB}=d\ln\frac{\omega_A}{\omega_B}.
+}
+$$
+
+This is invariant under Weyl rescaling. A useful clock-space decomposition begins with
+
+$$
+\ell_A=\ln\omega_A,
+$$
+
+where conformal gauge shifts all components in the common direction $(1,\ldots,1)$. Physical clock disagreement lives in the quotient of log-spectrum space by that common direction.
+
+With positive weights $w_A$ satisfying $\sum_Aw_A=1$, define
+
+$$
+B^A_\mu=-\partial_\mu\ln\omega_A,
+\qquad
+W_\mu=\sum_Aw_AB^A_\mu,
+$$
+
+$$
+\Sigma^A_\mu=B^A_\mu-W_\mu.
+$$
+
+Then $\Sigma^A$ and $\mathcal S_{AB}$ are gauge invariant, and
+
+$$
+\mathfrak C_{\mu\nu}=\sum_Aw_A\Sigma^A_\mu\Sigma^A_\nu
+$$
+
+is positive semidefinite. It vanishes exactly when one chronometric metric exists.
+
+Suppose spectra depend on $r$ nonuniversal dimensionless fields $q^I$:
+
+$$
+\delta\ln\omega_A
+=\delta\ln\chi+K_{AI}\delta q^I.
+$$
+
+Clock ratios obey
+
+$$
+\delta\ln\frac{\omega_A}{\omega_B}
+=(K_{AI}-K_{BI})\delta q^I,
+$$
+
+so
+
+$$
+\boxed{
+\operatorname{rank}\left[\delta\ln(\omega_A/\omega_B)\right]\le r.
+}
+$$
+
+One nonuniversal scalar predicts a rank-one network across arbitrarily many clocks. Exact universal chronometry is rank zero.
+
+## 13. The role of electromagnetism
+
+Source-free Maxwell theory in four dimensions is conformally invariant. It transports phase, null structure, polarisation, and causal information, but it does not select an absolute spectral scale. A free wave's frequency is state data.
+
+Matter interactions create bound-state gaps. A hydrogenic scale is schematically
+
+$$
+E_{\mathrm{Ry}}\sim m_e\alpha_{\mathrm{em}}^2,
+\qquad
+m_e=\frac{y_eh}{\sqrt2}.
+$$
+
+If $E_A=c_A\chi$, then
+
+$$
+d\Phi_A=\frac{E_A}{\hbar}ds_g
+=c_A\chi_*ds_{\widehat g}.
+$$
+
+The division of labour is therefore:
+
+$$
+\boxed{
+\begin{aligned}
+\chi&:\text{ universal normalisation},\\
+\text{Higgs and QCD}&:\text{ transmission into material spectra},\\
+\text{electromagnetism}&:\text{ phase organisation, transport, and readout}.
+\end{aligned}}
+$$
+
+The correct statement is not "the Higgs and photons create time." It is that a deeper scale field calibrates duration, material sectors relay the scale, and electromagnetic phase makes the count operational.
+
+## 14. Why the Standard Model Higgs is insufficient by itself
+
+A general clock frequency has the structure
+
+$$
+\omega_A
+=h\,F_A\left(
+\alpha_{\mathrm{em}},g_s,y_f,
+\frac{\Lambda_{\mathrm{QCD}}}h,
+\frac{M_{\mathrm{P}}}h,\ldots
+\right).
+$$
+
+The ordinary Higgs sets elementary electroweak masses, but it does not impose
+
+$$
+d\ln\frac{\Lambda_{\mathrm{QCD}}}h=0,
+\qquad
+d\ln\frac{M_{\mathrm{P}}}h=0.
+$$
+
+Nuclear clocks depend on confinement, quark masses, nuclear magnetic moments, and many-body structure. The Higgs is a relay, not automatically a universal source.
+
+Higgs-only induced gravity would require
+
+$$
+M_{\mathrm{P}}^2=\xi_hv^2,
+$$
+
+so
+
+$$
+\xi_h\sim10^{32},
+$$
+
+far beyond the minimal phenomenologically plausible range [@Atkins2012]. Using the sole radial Higgs mode as a local Weyl compensator also removes the physical scalar remaining after the electroweak Goldstones are eaten. A second radial direction is structurally required.
+
+## 15. Higgs-dilaton and deeper-scale completion
+
+Introduce a positive scalar $\chi$ and impose
+
+$$
+\boxed{
+h=\alpha\chi,
+\qquad
+\Lambda_{\mathrm{QCD}}=c_Q\chi,
+\qquad
+M_{\mathrm{P}}=c_P\chi.
+}
+$$
+
+If all dimensionless couplings are fixed, every physical gap is
+
+$$
+\omega_A=c_A\chi.
+$$
+
+Write
+
+$$
+h=\rho\sin\theta,
+\qquad
+\chi=\rho\cos\theta.
+$$
+
+The radial coordinate $\rho$ is the common scale; the angular coordinate $\theta$ measures Higgs/dilaton alignment. A pure radial fluctuation rescales every clock together and is invisible to local ratios. An angular fluctuation produces
+
+$$
+\delta\ln\frac{\omega_A}{\omega_B}
+=(K_A-K_B)\delta\theta.
+$$
+
+A healthy globally scale-invariant representative has
+
+$$
+F(h,\chi)=\xi_hh^2+\xi_\chi\chi^2,
+$$
+
+$$
+V(h,\chi)=\frac\lambda4(h^2-\alpha^2\chi^2)^2+\beta\chi^4.
+$$
+
+In the Einstein frame, the scalar field-space metric
+
+$$
+G_{ij}=\frac{M_{\mathrm{P}}^2}{F}\delta_{ij}
++\frac{3M_{\mathrm{P}}^2}{2F^2}F_{,i}F_{,j}
+$$
+
+is positive for positive Jordan kinetic signs and $F>0$. In the exact global scale limit, one radial dilaton direction can remain flat; local Weyl symmetry can gauge it; quantum breaking can lift it. These are different physical theories and should not be conflated [@Shaposhnikov2009; @Foot2007].
