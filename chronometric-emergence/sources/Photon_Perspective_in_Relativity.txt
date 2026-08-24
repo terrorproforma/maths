@@ -1,0 +1,436 @@
+## First working model is done
+
+I turned the idea into a **20-page research note**, with a concrete theorem, an effective dynamical mechanism, a microscopic proof of principle, explicit failure conditions, and symbolic verification.
+
+### Files
+
+- [Working paper - PDF](sandbox:/mnt/data/chronometry_from_crossed_null_phases.pdf)
+- [Complete LaTeX source](sandbox:/mnt/data/chronometry_from_crossed_null_phases.tex)
+- [Symbolic verification script](sandbox:/mnt/data/verify_crossed_null_chronometry.py)
+- [Complete research package](sandbox:/mnt/data/chronometry_research_package_v0.1.zip)
+
+## The result that survived scrutiny
+
+Begin with two physical, circle-valued phases whose gradients are null:
+
+\[
+k_a=\nabla_a\phi_+,
+\qquad
+\ell_a=\nabla_a\phi_-,
+\]
+
+\[
+g^{ab}k_ak_b
+=
+g^{ab}\ell_a\ell_b
+=
+0.
+\]
+
+When they are not parallel, define the crossed invariant
+
+\[
+C=-\frac12g^{ab}k_a\ell_b>0.
+\]
+
+Now define
+
+\[
+\boxed{
+h_{ab}=C\,g_{ab}
+}
+\]
+
+and
+
+\[
+\boxed{
+T=\frac{\phi_++\phi_-}{2},
+\qquad
+R=\frac{\phi_+-\phi_-}{2}.
+}
+\]
+
+Then, exactly,
+
+\[
+h^{ab}\nabla_aT\nabla_bT=-1,
+\]
+
+\[
+h^{ab}\nabla_aR\nabla_bR=+1,
+\]
+
+\[
+h^{ab}\nabla_aT\nabla_bR=0.
+\]
+
+So:
+
+\[
+\boxed{
+\text{two crossed null phases}
+\Longrightarrow
+\text{one unit clock direction}
++
+\text{one unit ruler direction}.
+}
+\]
+
+More importantly, under
+
+\[
+g_{ab}\rightarrow\Omega^2g_{ab},
+\]
+
+we have
+
+\[
+C\rightarrow\Omega^{-2}C,
+\]
+
+and therefore
+
+\[
+h_{ab}=Cg_{ab}
+\]
+
+does not change. The null phases select a unique representative of the conformal geometry.
+
+Causal order is already known to determine the conformal class of a sufficiently well-behaved spacetime, while an additional scale or volume structure is needed to recover the full metric. ([arxiv.org](https://arxiv.org/html/2507.01907v1)) Our construction proposes that crossed physical phases can supply precisely that missing local scale.
+
+## The especially clean part
+
+Under independent null rescalings,
+
+\[
+k\rightarrow ak,
+\qquad
+\ell\rightarrow b\ell,
+\]
+
+define
+
+\[
+\alpha=\frac12\ln(ab),
+\qquad
+\eta=\frac12\ln\frac{a}{b}.
+\]
+
+These have completely different physical meanings:
+
+\[
+\boxed{
+\alpha=\text{clock/Weyl scale},
+\qquad
+\eta=\text{rapidity}.
+}
+\]
+
+When \(a=e^\eta\) and \(b=e^{-\eta}\),
+
+\[
+dT'
+=
+\cosh\eta\,dT+\sinh\eta\,dR,
+\]
+
+\[
+dR'
+=
+\sinh\eta\,dT+\cosh\eta\,dR.
+\]
+
+That is exactly a Lorentz boost.
+
+This gives the crucial correction to our earlier target:
+
+> A Lorentz-invariant mechanism should **not** fix one universal ratio of the null frequencies. That would create a preferred frame. It should fix their **product**, while the ratio remains the state’s ordinary rapidity.
+
+In flat spacetime, write
+
+\[
+\phi_+=\omega_+(t-x),
+\qquad
+\phi_-=\omega_-(t+x).
+\]
+
+Then
+
+\[
+C=\omega_+\omega_-,
+\]
+
+while
+
+\[
+\eta
+=
+\frac12\ln\frac{\omega_+}{\omega_-}.
+\]
+
+Thus
+
+\[
+\boxed{
+\omega_+\omega_-=\text{clock/mass scale}^{\,2},
+\qquad
+\omega_+/\omega_-=\text{motion}.
+}
+\]
+
+And the two waves factorize as
+
+\[
+\boxed{
+e^{i\phi_+}+e^{i\phi_-}
+=
+2e^{iT}\cos R.
+}
+\]
+
+The average phase \(T\) is the temporal carrier; the difference \(R\) supplies stationary ruler nodes. It is the algebraic skeleton of a standing-wave clock.
+
+## The proposed physical mechanism
+
+I introduced a mass-squared order parameter \(\Sigma\) and the effective potential
+
+\[
+V(C,\Sigma)
+=
+\frac{\kappa}{2}(C-\Sigma)^2
++
+\frac{\beta}{4}\Sigma^2
+\left(
+\ln\frac{\Sigma}{\Lambda^2}
+-\frac12
+\right)
++
+\frac{\beta}{8}\Lambda^4.
+\]
+
+Here:
+
+- \(C\) is the crossed-null phase scale.
+- \(\Sigma\) is a composite order parameter.
+- \(\Lambda\) is generated through dimensional transmutation rather than inserted as a classical mass.
+- The first term dynamically locks the null-pair scale to the generated mass scale.
+
+Its homogeneous minimum is
+
+\[
+\boxed{
+C=\Sigma=\Lambda^2.
+}
+\]
+
+The Hessian there is
+
+\[
+H=
+\begin{pmatrix}
+\kappa&-\kappa\\
+-\kappa&\kappa+\beta/2
+\end{pmatrix},
+\]
+
+with
+
+\[
+H_{11}=\kappa>0,
+\qquad
+\det H=\frac{\kappa\beta}{2}>0.
+\]
+
+So for
+
+\[
+\kappa>0,
+\qquad
+\beta>0,
+\]
+
+the locked configuration is a strict local minimum.
+
+At that minimum,
+
+\[
+\boxed{
+h_{ab}=\Lambda^2g_{ab}.
+}
+\]
+
+The same interaction that generates a mass gap now supplies the conformal factor that turns causal geometry into chronometric geometry.
+
+Quantum generation of a scale through broken scale/Weyl symmetry is established physics, although the exact locking to crossed phases is our proposed addition. ([arxiv.org](https://arxiv.org/pdf/2003.12256))
+
+## There is already a microscopic proof of principle
+
+The Gross-Neveu family contains massless left- and right-moving fields that interact and dynamically generate a mass gap. Recent exact work describes the left and right movers interacting as they cross and gives the static gap in the form
+
+\[
+m=\Lambda e^{-\pi/g}
+\]
+
+for its stated conventions. ([arxiv.org](https://arxiv.org/html/2605.05111v2))
+
+A massive momentum decomposes into null components as
+
+\[
+p_+=\frac{m}{\sqrt2}e^\eta,
+\qquad
+p_-=\frac{m}{\sqrt2}e^{-\eta}.
+\]
+
+Therefore
+
+\[
+\boxed{
+2p_+p_-=m^2,
+}
+\]
+
+while
+
+\[
+\boxed{
+\frac{p_+}{p_-}=e^{2\eta}.
+}
+\]
+
+The interaction fixes the product by generating \(m\). The ratio remains rapidity. This is almost exactly the microscopic pattern we need:
+
+\[
+\boxed{
+\text{left-moving null sector}
++
+\text{right-moving null sector}
++
+\text{interaction}
+\longrightarrow
+\text{timelike massive sector}.
+}
+\]
+
+Cross-flowing null dust has previously been shown to admit an internal time through its equivalent anisotropic-fluid rest frame, whereas one null stream has no time standard. ([arxiv.org](https://arxiv.org/pdf/gr-qc/0605116)) The present construction goes further by connecting the crossed phases directly to conformal scale and clock calibration.
+
+## Does time now “fall out”?
+
+In a qualified but meaningful sense, **yes**:
+
+\[
+\boxed{
+\begin{aligned}
+\text{causal order}
+&\longrightarrow
+\text{before/after},\\
+\text{crossed null phases}
+&\longrightarrow
+\text{timelike direction},\\
+\text{interaction-generated gap}
+&\longrightarrow
+\text{clock scale},\\
+\text{relative phase cycles}
+&\longrightarrow
+\text{elapsed duration}.
+\end{aligned}
+}
+\]
+
+A fundamental external parameter called “time” is no longer required as the thing that calibrates physical change. Proper duration is reconstructed from field relations.
+
+But this does **not** derive absolutely everything from nothing:
+
+- Causal ordering is still primitive.
+- The arrow of time is not yet derived; entropy and boundary conditions remain separate.
+- A global time coordinate is not guaranteed.
+- The construction begins with a conformal causal structure rather than deriving the entire differentiable manifold.
+- A real clock needs an observable relative phase between levels, not an unobservable global quantum phase.
+
+Clock protocols fixing conformal gauge already exist in EPS/Weyl geometry; the difference here is that the clock protocol itself is proposed to arise from crossed null phases and a generated mass gap. ([arxiv.org](https://arxiv.org/pdf/1410.1284))
+
+## A second useful result: the clock-universality criterion
+
+All physical clocks recover one metric only when their energy gaps factorize as
+
+\[
+\boxed{
+\Delta E_A(x)=c_A\sigma(x),
+}
+\]
+
+where \(c_A\) is constant for each clock species and \(\sigma(x)\) is one common scale field.
+
+Equivalently,
+
+\[
+\boxed{
+d\ln\left(\frac{\Delta E_A}{\Delta E_B}\right)=0
+}
+\]
+
+for every pair of good clocks.
+
+This is a useful dividing line:
+
+- One common varying scale means one emergent chronometric metric.
+- Varying dimensionless frequency ratios mean there is **no** universal time metric.
+- The latter would appear as differential atomic-clock drift or an equivalence-principle violation.
+
+## What is plausibly new
+
+Not new individually:
+
+- null-pair algebra;
+- Lorentz boosts as reciprocal null scaling;
+- double-null coordinates;
+- cross-null dust giving an internal time;
+- clocks fixing conformal gauge;
+- dimensional transmutation;
+- mass from interacting massless fields.
+
+The potentially original package is:
+
+\[
+\boxed{
+h_{ab}
+=
+-\frac12
+\left(
+g^{cd}\nabla_c\phi_+\nabla_d\phi_-
+\right)g_{ab}
+}
+\]
+
+together with:
+
+1. exact unit clock/ruler phases \(T\) and \(R\);
+2. the decomposition of null normalization into Weyl scale and rapidity;
+3. dynamical locking of that scale to a transmuted order parameter;
+4. the rank-one spectral condition for universal clock time.
+
+My initial literature search found close precedents for every ingredient, but not this exact combined construction. That is **not yet a priority claim**; double-null reference fields, relativistic superfluids, Weyl compensators, and phase-clock literature need a much more systematic search.
+
+## Current honest status
+
+The crossed-null conformal-completion theorem is exact.
+
+The locking potential is a concrete and symbolically verified effective model.
+
+The Gross-Neveu mechanism proves that the required null-to-timelike dynamical move is physically possible.
+
+The theory is not complete until we derive and test:
+
+\[
+\text{full field equations}
+\rightarrow
+\text{ghost/gradient stability}
+\rightarrow
+\text{microscopic 3+1D realization}
+\rightarrow
+\text{non-circular gravity coupling}
+\rightarrow
+\text{one new dimensionless prediction}.
+\]
+
+That is now the actual research frontier—not whether the initial idea can be written down coherently.

@@ -1,0 +1,24 @@
+target,status,basis
+Causal/conformal starting point,ASSUMED,"The programme reconstructs duration calibration, not causal order itself."
+Crossed-null kinematic identities,PASS,Exact algebra; interpretation useful but not novel by itself.
+Exact-null constrained dynamics,FAIL,Transverse quadratic principal symbol is rank-deficient.
+Soft-null two-phase EFT,PASS,Positive Hamiltonian and subluminal modes for 0 < epsilon < 1.
+Universal clock factorisation theorem,PASS,Necessary and sufficient common spectral factor.
+Healthy conventional scale generator,PASS AS EFT,Hidden two-derivative gauge/scalar model; gravity remains EFT.
+Turok 36-field origin,OPEN,"Must pass physical spectral positivity, unitarity, condensate and matter-coupling tests."
+All-orders QCD threshold lock,PASS AS WILSONIAN EFT,Exact threshold recursion; coefficients calculable order by order.
+Leading non-universal QCD transmission,PASS,2/27 for one extra colour fundamental.
+Radiatively protected long-range ratio mode,PASS CONDITIONALLY,Exact Z6 and shift-spurion structure required.
+Environmental screening,PASS,"Earth, Sun and laboratory sources remain unscreened in benchmark."
+Cosmological branch selection,PASS CONDITIONALLY,Strong low-fa attractor benchmark; inflation/domain conditions remain.
+Exact-symmetry asymmetric reheating,PASS AS EFT,Asymmetry stored in state; UV completion and full perturbations open.
+Two-loop CTP radiative escape,PASS CONDITIONALLY,No persistent forbidden harmonic in displayed graph.
+Original bosonic preheating portal,FAIL,Tachyonic/resonant production invalidates kinematic closure.
+Fermionic parent cascade,PASS AT RESOLVED ORDER,Pauli-limited and selector-gated; nonlinear gauge-plasma run incomplete.
+Three-loop transient matching,PASS AT RESOLVED ORDER,Factorised hard function and negligible benchmark correction.
+RG completion,PASS AT RESOLVED ORDER,Explicit hard-scale dependence cancels; residual coupling band small.
+Microscopic thermalisation,PASS,AMY-derived hierarchy exceeds reheaton decay by >10^6.
+Complete electroweak/Yukawa LPM,OPEN,Current leading kinetic uncertainty.
+Full 3+1D non-Abelian 2PI/KB,OPEN,Distinct HPC project; not implied by reduced calculations.
+UV-complete quantum gravity,OPEN,No claim made.
+Absolute novelty/priority,UNESTABLISHED,Candidate conjunction only; broader specialist priority review required.
