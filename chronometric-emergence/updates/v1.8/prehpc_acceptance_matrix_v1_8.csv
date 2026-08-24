@@ -1,0 +1,10 @@
+target,verdict,basis
+"Pointwise hard/LPM/Born matched benchmark","PASS AS REDUCED PT/BFM BENCHMARK","Exact v1.6 on-shell/integrated anchors; exact thermal Born pair cut; causal/KMS off-shell construction."
+"Hard-soft factorization-scale cancellation","PASS IN DECLARED ASYMPTOTIC MODEL","Maximum relevant relative residual 5.603e-16."
+"Exact full-plane Standard-Model Pi_H^R","NOT CLAIMED","Requires full differential real/virtual/HTL/LPM matching beyond the reduced benchmark."
+"Finite transverse vertex form factors","PASS AS SEPARABLE-BSE CLOSURE","Median transverse fraction 9.218e-05; exactly transverse numerically."
+"Declared ghost/matter-ghost STI","PASS","Maximum STI residual 1.714e-15."
+"Complete finite-temperature non-Abelian STI","PARTIAL","General matrix-valued matter-ghost kernels and the full thermal tensor basis remain a functional-equation/HPC acceptance target."
+"H^dagger H conserving ladder control","PASS AS SEPARABLE BSE","Maximum equation residual 2.651e-16; positive-frequency spectrum nonnegative."
+"Naive finite 3PI gauge invariance","REJECTED","Finite 3PI truncations must be monitored and constrained by PT/BFM, Ward/ST, and Nielsen diagnostics."
+"HPC launch readiness","PASS FOR PILOT","Equations, data schema, resource tiers, regression arrays, and numerical acceptance gates are specified."
