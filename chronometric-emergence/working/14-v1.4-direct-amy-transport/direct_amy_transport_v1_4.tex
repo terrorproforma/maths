@@ -1,0 +1,195 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=22mm]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Direct AMY LPM Transport and Full-Angle Screened Thermalisation},
+  pdfauthor={Angus Muffatti},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Direct AMY LPM Transport and Full-Angle Screened Thermalisation}
+\author{Angus Muffatti}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{quote}
+Archive reconstruction from the surviving project ledger. Historical
+sandbox binaries were ephemeral; see RECOVERY\_PROVENANCE.md.
+\end{quote}
+
+\hypertarget{direct-amy-upgrade}{%
+\subsection{50. Direct AMY upgrade}\label{direct-amy-upgrade}}
+
+The v1.4 calculation directly solved the isotropic AMY transverse LPM
+equation for the QCD splitting channels and replaced angle-averaged
+elastic scattering by deterministic full-angle screened quadrature. At
+the reheating benchmark
+
+\[
+\frac{M_D}{T}=0.01,
+\qquad
+\alpha_s=0.0393544,
+\qquad
+y_D=0.30,
+\qquad
+\frac pT=3,
+\]
+
+the dimensionless rates are
+
+\[
+\frac{\Gamma_{g\to gg}}T=0.261356,
+\]
+
+\[
+\frac{\Gamma_{q\to gq}}T=0.204516,
+\qquad
+\frac{\Gamma_{D\to gD}}T=0.201417,
+\]
+
+\[
+\frac{\Gamma_{g,\mathrm{elastic}}}T=0.106177,
+\qquad
+\frac{\Gamma_{q,\mathrm{elastic}}}T=0.0119151,
+\]
+
+and
+
+\[
+\boxed{
+\frac{\Gamma_{H\leftrightarrow qD}}T
+=3.18544\times10^{-4}.
+}
+\]
+
+The QCD rates are fast. The slow mode is the scalar-Yukawa conversion
+\(H\leftrightarrow qD\). At
+
+\[
+T_0=1.002\times10^8\,\mathrm{GeV},
+\]
+
+the kinetic rate is
+
+\[
+\Gamma_{\mathrm{kin}}=3.1918\times10^4\,\mathrm{GeV}.
+\]
+
+Compared with
+
+\[
+\Gamma_R=1.47850065\times10^{-2}\,\mathrm{GeV},
+\]
+
+one obtains
+
+\[
+\boxed{
+\frac{\Gamma_{\mathrm{kin}}}{\Gamma_R}
+=2.1588\times10^6.
+}
+\]
+
+Even a conservative factor-of-two normalisation uncertainty leaves
+\(1.0794\times10^6\). The correction to the desired reheating branch is
+negligible.
+
+\begin{figure}
+\hypertarget{fig:rates}{%
+\centering
+\includegraphics[width=0.84\textwidth,height=\textheight]{figures/kinetic_rate_hierarchy.png}
+\caption{The slow portal conversion remains more than six orders of
+magnitude faster than reheaton decay.}\label{fig:rates}
+}
+\end{figure}
+
+\hypertarget{what-v1.4-did-and-did-not-solve}{%
+\subsection{51. What v1.4 did and did not
+solve}\label{what-v1.4-did-and-did-not-solve}}
+
+The direct AMY calculation substantially closes the QCD kinetic problem.
+It does not yet contain the complete electroweak/Yukawa LPM structure of
+\(H\leftrightarrow qD\). The outstanding calculation requires:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  the complete helicity and Higgs-doublet source structure;
+\item
+  simultaneous \(SU(3)_c\), \(SU(2)_L\), and \(U(1)_Y\) soft collision
+  kernels;
+\item
+  thermal widths and asymptotic masses;
+\item
+  exact matching to the scalar retarded self-energy;
+\item
+  insertion into a reduced gauge-covariant Schwinger-Keldysh model.
+\end{enumerate}
+
+Only after that does a full \(3+1\) dimensional non-Abelian
+2PI/Kadanoff-Baym computation become the rational next expenditure. The
+QCD sector is already far too fast to be the weak link.
+
+\end{document}

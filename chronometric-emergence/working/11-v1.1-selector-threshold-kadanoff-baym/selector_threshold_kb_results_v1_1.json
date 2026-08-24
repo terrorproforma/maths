@@ -1,0 +1,16 @@
+{
+  "version": "v1.1",
+  "author": "Angus Muffatti",
+  "result": "Three-loop transient graph; bosonic portal fails; fermionic cascade",
+  "metrics": [
+    3,
+    1.22e-05,
+    330,
+    2.35e-13,
+    7.11e-15,
+    0.00390625,
+    1.14e-07,
+    460.4
+  ],
+  "provenance": "regenerated"
+}
