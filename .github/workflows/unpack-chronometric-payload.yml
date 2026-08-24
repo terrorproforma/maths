@@ -8,6 +8,14 @@ on:
     paths:
       - '_bootstrap/chronometric_payload.part.*'
       - '.github/workflows/unpack-chronometric-payload.yml'
+      - '_bootstrap/TRIGGER'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '_bootstrap/chronometric_payload.part.*'
+      - '.github/workflows/unpack-chronometric-payload.yml'
+      - '_bootstrap/TRIGGER'
   workflow_dispatch:
 
 permissions:
@@ -20,6 +28,7 @@ jobs:
       - name: Check out triggering branch
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Reconstruct and extract payload
@@ -27,7 +36,8 @@ jobs:
         run: |
           set -euo pipefail
           test -f _bootstrap/chronometric_payload.part.00
-          cat _bootstrap/chronometric_payload.part.* > /tmp/chronometric_payload.tar.xz
+          cat _bootstrap/chronometric_payload.part.* | base64 --decode > /tmp/chronometric_payload.tar.xz
+          xz --test /tmp/chronometric_payload.tar.xz
           mkdir -p /tmp/chronometric_payload
           tar -xJf /tmp/chronometric_payload.tar.xz -C /tmp/chronometric_payload
           echo 'Extracted payload:'
@@ -92,6 +102,8 @@ jobs:
 
       - name: Commit extracted project
         shell: bash
+        env:
+          TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
         run: |
           set -euo pipefail
           git config user.name 'Angus Muffatti'
@@ -102,4 +114,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Publish complete chronometric emergence research project'
-          git push origin HEAD:${GITHUB_REF_NAME}
+          git push origin HEAD:"${TARGET_BRANCH}"
