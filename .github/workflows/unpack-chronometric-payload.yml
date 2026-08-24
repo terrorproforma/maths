@@ -3,6 +3,7 @@ name: Unpack chronometric research payload
 on:
   push:
     branches:
+      - main
       - populate-chronometric-emergence-v1-8
     paths:
       - '_bootstrap/chronometric_payload.part.*'
@@ -16,10 +17,9 @@ jobs:
   unpack-and-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out payload branch
+      - name: Check out triggering branch
         uses: actions/checkout@v4
         with:
-          ref: populate-chronometric-emergence-v1-8
           fetch-depth: 0
 
       - name: Reconstruct and extract payload
@@ -31,11 +31,11 @@ jobs:
           mkdir -p /tmp/chronometric_payload
           tar -xJf /tmp/chronometric_payload.tar.xz -C /tmp/chronometric_payload
           echo 'Extracted payload:'
-          find /tmp/chronometric_payload -maxdepth 4 -type f -print | sort
+          find /tmp/chronometric_payload -maxdepth 5 -type f -print | sort
 
           mkdir -p chronometric-emergence
           if [ -d /tmp/chronometric_payload/chronometric-emergence ]; then
-            rsync -a --delete-excluded /tmp/chronometric_payload/chronometric-emergence/ chronometric-emergence/
+            rsync -a /tmp/chronometric_payload/chronometric-emergence/ chronometric-emergence/
           elif [ -d /tmp/chronometric_payload/chronometric_emergence_full_package ]; then
             rsync -a /tmp/chronometric_payload/chronometric_emergence_full_package/ chronometric-emergence/
           else
@@ -102,4 +102,4 @@ jobs:
             exit 0
           fi
           git commit -m 'Publish complete chronometric emergence research project'
-          git push origin HEAD:populate-chronometric-emergence-v1-8
+          git push origin HEAD:${GITHUB_REF_NAME}
