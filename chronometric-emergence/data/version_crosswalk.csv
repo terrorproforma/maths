@@ -1,0 +1,15 @@
+version,research_stage,decisive_result,integrated_status
+v0.1,Crossed-null phase theorem,Kinematic construction; homogeneous lock only,PARTIAL
+v0.2,Dynamical audit and soft-null repair,Exact-null action fails; healthy soft-null EFT survives,PASS/PARTIAL
+v0.3,Universal spectral chronometry,"Factorisation theorem, chronometric shear, Higgs-only obstruction",PASS
+v0.4,Universal scale locking,Conventional hidden-sector scale generator; Turok-36 acceptance protocol,PASS/PARTIAL
+v0.5,QCD lock and controlled defect,All-orders threshold recursion; leading 2/27 transmission,PASS
+v0.6,Cyclic protection,"Z6 vacuum mass O(epsilon^6), visible response O(epsilon)",PASS/PARTIAL
+v0.7,Environmental response,"Earth, Sun and laboratory sources unscreened; finite-size theorem",PASS
+v0.8,Cosmological vacuum selection,Low-fa strong-attractor ridge selects a nonzero branch,PASS/CONDITIONAL
+v0.9,State-selected reheating,Exact action symmetry with asymmetric occupation state,PASS/CONDITIONAL
+v1.0,Closed-time-path audit,"Vacuum, selector and state functionals separate through two loops",PASS/CONDITIONAL
+v1.1,"Mixed topology, KB and UV repair",Three-loop transient graph; bosonic portal fails; fermionic cascade,PASS/PARTIAL
+v1.2,Exact matching and nonlinear cascade,Factorised matching; corrected replica branching,PASS/PARTIAL
+v1.3,RG and explicit collision kernel,Scale instability removed; BGK closure eliminated,PASS/PARTIAL
+v1.4,Direct AMY transport,QCD transport solved; electroweak/Yukawa LPM becomes bottleneck,PASS/PARTIAL
