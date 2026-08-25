@@ -1,0 +1,124 @@
+{
+  "version": "v1.6",
+  "point": {
+    "alpha_s": 0.0393544,
+    "g2": 0.57,
+    "g1": 0.39,
+    "y_t": 0.58,
+    "y_d": 0.3,
+    "m_d_over_t": 0.01,
+    "T0_GeV": 100200000.0,
+    "Gamma_R_GeV": 0.0147850065
+  },
+  "project_scope": {
+    "exact": [
+      "Integrated strict-LO hard+soft 2<->2 reaction coefficient at leading order in y_D^2.",
+      "v1.5 direct LPM integral and exact susceptibility-weighted on-shell match.",
+      "KMS and causality identities of the reconstructed grid."
+    ],
+    "numerical": [
+      "Full-angle screened hard-cut momentum shape, normalized to the exact integrated coefficient.",
+      "Direct momentum-resolved LPM shape from the impact-parameter solver."
+    ],
+    "not_claimed": [
+      "An exact arbitrary-off-shell two-loop plus LPM scalar self-energy over the full omega-k plane.",
+      "A Ward-complete non-Abelian 3+1D 2PI/Kadanoff-Baym evolution."
+    ]
+  },
+  "matrix_element_checks": {
+    "electron_coefficients": [
+      4.0,
+      1.0,
+      4.0
+    ],
+    "electron_expected": [
+      4.0,
+      1.0,
+      4.0
+    ],
+    "electron_max_residual": 0.0,
+    "qD_U1_coefficients": [
+      -1.3333333333333333,
+      0.3333333333333333,
+      1.3333333333333333
+    ],
+    "qD_U1_expected": [
+      -1.3333333333333333,
+      0.3333333333333333,
+      1.3333333333333333
+    ],
+    "qD_U1_max_residual": 0.0,
+    "qD_SU3_coefficients": [
+      32.0,
+      16.0,
+      16.0
+    ],
+    "qD_SU2_coefficients": [
+      0.0,
+      9.0,
+      0.0
+    ]
+  },
+  "hard_2to2": {
+    "g3": 0.703236784949235,
+    "A_Q": 3.6291572037639286,
+    "A_D": 2.7051572037639287,
+    "A_Q_by_group": {
+      "SU3": 2.6375572037639285,
+      "SU2": 0.9746999999999999,
+      "U1": 0.016900000000000002
+    },
+    "A_D_by_group": {
+      "SU3": 2.6375572037639285,
+      "SU2": 0.0,
+      "U1": 0.06760000000000001
+    },
+    "GammaY_hard_over_T3": 0.0005321732995929927,
+    "GammaH_hard_occ_over_T": 0.0007982599493894891,
+    "GammaY_hard_by_group_over_T3": {
+      "SU3": 0.00043452860370485704,
+      "SU2": 9.125452076368472e-05,
+      "U1": 6.390175124450917e-06
+    },
+    "top_four_fermion_chemical_only_over_T3": 3.980971189711415e-05,
+    "electron_formula_rewrite_residual": 0.0
+  },
+  "lpm": {
+    "I_LPM": 0.0008895208215709909,
+    "GammaY_LPM_over_T3": 0.00024017062182416757,
+    "GammaH_LPM_occ_over_T": 0.0003602559327362514,
+    "shape_quadrature_normalization": 1.0046657717365042
+  },
+  "combined": {
+    "GammaY_total_over_T3": 0.0007723439214171602,
+    "GammaH_total_occ_over_T": 0.0011585158821257404,
+    "GammaH_total_occ_GeV_at_T0": 116083.29138899919,
+    "GammaH_total_over_Gamma_R": 7851419.706105587,
+    "hard_to_LPM_occupation_ratio": 2.215813472734415,
+    "hard_fraction_of_total": 0.6890366905672246,
+    "adiabatic_lag": 1.2736550043584588e-07,
+    "B5_shift_bound_for_B5_0p00529888708": 6.748954046972381e-10
+  },
+  "hard_shape": {
+    "max_screen_shape_relative_envelope": 0.24915350618122312,
+    "median_screen_shape_relative_envelope": 0.08902272966501168,
+    "max_MC_relative_error": 0.04242541768846302,
+    "normalization": 3.1984543949062447e-06,
+    "statement": "Screening changes only the provisional momentum shape; exact integrated normalization is held fixed."
+  },
+  "retarded_grid": {
+    "oddness_max_abs": 2.949029909160572e-17,
+    "noise_min": 5.304549202039541e-07,
+    "max_relative_on_shell_match_residual": 0.0015875314705530415,
+    "KMS_ratio_max_abs_residual": 2.220446049250313e-16,
+    "memory_scale_over_T": 1.0351365195128108,
+    "scope": "Causal KMS-complete near-shell reconstruction; not exact arbitrary-off-shell hard thermal self-energy."
+  },
+  "wigner": {
+    "relative_entropy_nonincrease_max_step": -2.996814835715166e-11,
+    "final_relative_entropy_fraction": 3.183467556971571e-11,
+    "equation": "[K^2-m_H^2-RePi_R,G^<]_PB^cov = Pi^<G^> - Pi^>G^<",
+    "gauge_covariance": "The Wigner transform is defined with straight Wilson lines to the midpoint; the numerical benchmark uses the homogeneous singlet projection."
+  },
+  "runtime_seconds": 17.160430192947388
+}

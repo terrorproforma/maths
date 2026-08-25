@@ -1,0 +1,9 @@
+Target,Verdict,Evidence / limitation
+Direct isotropic AMY LPM equation,PASS,Radial solve; deep-LPM validation.
+Full-angle screened 2<->2 moments,PASS,Deterministic angular quadrature with Bose/Pauli factors.
+Parameter table,PASS,108 rows plus differential NPZ table.
+Intrinsic f_a dependence,FACTORIZES,No dependence at fixed dimensionless plasma state.
+H<->qD normalization,PARTIAL,Factor-two prefactor band retained.
+Cascade re-run,PASS AT ENERGY LEVEL,Hierarchy >10^6; B5 shift <10^-8.
+Reduced two-time benchmark,PASS AS SURROGATE,"AMY-calibrated memory kernel and two-time F,rho."
+Full 3+1D non-Abelian 2PI/KB,OPEN,Gauge-covariant HPC implementation required.

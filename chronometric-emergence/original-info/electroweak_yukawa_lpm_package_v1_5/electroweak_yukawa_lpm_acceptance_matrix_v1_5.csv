@@ -1,0 +1,11 @@
+target,verdict,result
+Complete chiral/helicity source,PASS,Weyl overlap gives vector source 2P; two Higgs components and Nc=3 included.
+"Simultaneous SU3, SU2, U1 kernels",PASS,Casimir/hypercharge interference coefficients implemented exactly.
+Thermal masses,PASS,"Higgs thermal and Q,D asymptotic masses included with vectorlike-D Debye corrections."
+Thermal widths,PASS IN LPM SENSE,Soft self-energies and exchange interference included jointly; gauge-invariant H width extracted.
+Published normalization validation,PASS,Direct electron result differs from fit by 0.898%.
+Exact scalar retarded-self-energy matching,PASS INTEGRATED,Exact susceptibility-weighted on-shell identity; pointwise Pi_R(k) table remains open.
+Portal normalization band,CLOSED,Factor-two v1.4 band replaced by direct numerical LPM coefficient.
+Reduced gauge-covariant SK model,PASS AS BENCHMARK,Wilson-line-dressed exponential-memory model matched to the LPM width and KMS structure.
+Complete leading-order portal rate,PARTIAL,LPM collinear sector complete; hard Yukawa-assisted 2<->2 cuts remain and can only increase the rate.
+Full non-Abelian 3+1D 2PI/KB,OPEN,Requires Ward-consistent two-time gauge-field evolution and HPC implementation.

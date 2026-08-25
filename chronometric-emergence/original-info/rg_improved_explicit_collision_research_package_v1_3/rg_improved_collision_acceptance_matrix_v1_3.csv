@@ -1,0 +1,17 @@
+Target,Verdict,Evidence
+Full SM Higgs-doublet multiplicity,PASS,weak-channel factor=2
+Relativistic vectorlike contribution to g*,PASS,g*=117.25
+RG completion of large hard logarithm,PASS,completed spread=5.939e-15
+Residual matching-scale band,PASS,0.9647 to 1.0375
+"Finite Gamma^(0,0) tensor",PASS,"Complete finite one-loop tensor for the declared minimal renormalizable scalar-bilinear basis, with full Higgs-doublet gauge/Yukawa diagonal terms. Higher-dimensional Wilson-line operators and finite Gamma^(r,s) tensors with r+s>0 remain UV-completion dependent; their minimum epsilon powers are exact."
+"Finite Gamma^(r,s), r+s>0",PARTIAL,minimum powers exact; finite tensors depend on the Wilson-line UV completion
+Explicit 1<->2 gain/loss kernel,PASS,transitions=514
+Thermal masses,PASS,"H, D, q, and g asymptotic masses included"
+LPM effect,PARTIAL,formation-time reduction included; full transverse integral equation not solved
+Explicit 2<->2 gain/loss kernel,PASS,transitions=14289
+Detailed balance,PASS,max equilibrium residual=8.568e-17
+Collision energy conservation,PASS,max relative error=1.443e-15
+Entropy production,PASS,completion=0.996771
+Timescale separation,PASS,Gamma_kin/Gamma_R=1.729e+06
+BGK replacement in cosmological cascade,PASS AS ADIABATIC ELIMINATION,microscopic relaxation is >10^6 faster than R decay
+Full non-Abelian two-time KB evolution,OPEN,requires gauge-covariant 2PI truncation and HPC implementation

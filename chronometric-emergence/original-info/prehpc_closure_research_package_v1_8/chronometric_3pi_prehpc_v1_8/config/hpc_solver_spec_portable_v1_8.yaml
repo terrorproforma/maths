@@ -1,0 +1,130 @@
+project:
+  name: chronometric-qdh-ptbfm-3pi
+  version: 1.8
+  purpose: >-
+    Three-loop 3PI/Kadanoff-Baym pilot constrained by PT/BFM background identities,
+    explicit quantum STI residuals, Nielsen pole diagnostics, and a conserving
+    H-dagger-H Bethe-Salpeter control correlator.
+  warning: >-
+    A finite 3PI truncation is not assumed gauge invariant. Gauge consistency is
+    an explicit monitored acceptance property, not an axiom.
+
+physics:
+  temperature_GeV: 1.002e8
+  gauge_groups:
+    SU3:
+      coupling: 0.7032015697
+      debye_mass_over_T: 1.03514
+    SU2:
+      coupling: 0.57
+      debye_mass_over_T: 0.771784
+    U1:
+      coupling: 0.39
+      debye_mass_over_T: 0.543829
+  yukawa_qDH: 0.30
+  asymptotic_masses_over_T:
+    H: 0.43820657
+    Q: 0.50345964
+    D: 0.41808756
+  dynamical_two_point_functions:
+    - H
+    - Q
+    - D
+    - gluon
+    - W
+    - B
+    - SU3_ghost
+    - SU2_ghost
+    - U1_ghost
+  dynamical_three_point_vertices:
+    - H-Q-D
+    - gluon-Q-Q
+    - gluon-D-D
+    - W-Q-Q
+    - W-H-H
+    - B-Q-Q
+    - B-D-D
+    - B-H-H
+    - three-gluon
+    - three-W
+    - gauge-ghost-ghost
+  composite_control_operator: H_dagger_H
+
+truncation:
+  nPI: 3PI
+  loop_order: 3
+  background_gauge: PT_BFM_background_Feynman
+  quantum_gauges_to_scan: [0.0, 0.5, 1.0, 2.0]
+  longitudinal_vertices: line_integral_Ball_Chiu_or_STI
+  transverse_vertices: separable_BSE_seed_then_dynamic_3PI
+  ghost_closure: explicit_dressing_and_matter_ghost_kernel
+  singlet_control: conserving_Bethe_Salpeter_ladder
+  hard_soft_matching:
+    separation_scales_qstar_over_T: [0.15, 0.25, 0.40]
+    formula: Born_plus_regularized_hard_plus_HTL_plus_LPM_minus_overlap
+    pointwise_regression_table: inputs/prehpc_closure_arrays_v1_8.npz
+
+pilot_grid:
+  geometry: homogeneous_with_spherical_harmonic_momentum_expansion
+  radial_momentum:
+    points: 96
+    minimum_over_T: 0.03
+    maximum_over_T: 30.0
+    mapping: logarithmic_plus_linear_IR_patch
+  angular_moments:
+    lmax: 4
+    modes: 25
+  time:
+    steps: 4096
+    dt_times_T: 0.02
+    memory_window_steps: 256
+    integrator: causal_predictor_corrector_Gauss_Radau
+  frequency_validation:
+    points: 1601
+    minimum_over_T: -16.0
+    maximum_over_T: 16.0
+
+renormalization:
+  scheme: MSbar_plus_finite_PT_BFM_matching
+  hard_scale_over_T: 6.283185307179586
+  initial_surface_counterterms: enabled
+  composite_operator_counterterms: enabled
+  enforce_same_kernel_for_self_energy_and_BSE: true
+  factorization_scale_scan: true
+
+parallelization:
+  mpi_axis: momentum_cells
+  gpu_axis: memory_time_tiles_and_vertex_components
+  halo_exchange: angular_moment_neighbours
+  checkpoint_interval_steps: 128
+  deterministic_reductions: true
+  precision:
+    propagators: float64
+    vertices: complex128
+    scratch: float64
+
+acceptance:
+  on_shell_width_relative_error_max: 1.0e-3
+  factorization_scale_relative_spread_max: 1.0e-5
+  background_Ward_relative_residual_max: 1.0e-8
+  quantum_STI_relative_residual_max: 1.0e-6
+  nielsen_complex_pole_relative_spread_max: 1.0e-6
+  KMS_relative_residual_max: 1.0e-7
+  equal_time_commutator_relative_error_max: 1.0e-7
+  energy_relative_drift_max: 1.0e-6
+  gauge_charge_relative_drift_max: 1.0e-7
+  singlet_spectral_negative_tolerance: 1.0e-10
+  singlet_BSE_equation_residual_max: 1.0e-8
+  memory_window_observable_change_max: 5.0e-3
+  gauge_parameter_physical_observable_change_max: 1.0e-3
+
+outputs:
+  checkpoint_format: HDF5
+  observables:
+    - complex_poles_and_residues
+    - integrated_portal_reaction_rate
+    - H_dagger_H_spectral_function
+    - sector_energy_and_charges
+    - KMS_and_fluctuation_dissipation_residuals
+    - Ward_STI_and_Nielsen_residuals
+    - factorization_scale_residuals

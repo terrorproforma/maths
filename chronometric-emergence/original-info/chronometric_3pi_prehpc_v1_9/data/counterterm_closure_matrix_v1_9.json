@@ -1,0 +1,290 @@
+[
+  {
+    "external_signature": "A_SU3 A_SU3",
+    "superficial_degree": 2,
+    "local_operator_family": "F_SU3_munu F_SU3^munu plus gauge-fixing longitudinal structures",
+    "counterterm_parameters": "delta_Z_A_SU3; delta_xi_SU3; delta_tr_L2_SU3",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Transverse pole/residue and longitudinal STI condition at the subtraction point.",
+    "notes": "Truncation-only longitudinal counterterm is fixed to vanish as the approximation is improved."
+  },
+  {
+    "external_signature": "A_SU2 A_SU2",
+    "superficial_degree": 2,
+    "local_operator_family": "F_SU2_munu F_SU2^munu plus gauge-fixing longitudinal structures",
+    "counterterm_parameters": "delta_Z_A_SU2; delta_xi_SU2; delta_tr_L2_SU2",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Transverse pole/residue and longitudinal STI condition at the subtraction point.",
+    "notes": "Truncation-only longitudinal counterterm is fixed to vanish as the approximation is improved."
+  },
+  {
+    "external_signature": "A_U1 A_U1",
+    "superficial_degree": 2,
+    "local_operator_family": "F_U1_munu F_U1^munu plus gauge-fixing longitudinal structures",
+    "counterterm_parameters": "delta_Z_A_U1; delta_xi_U1; delta_tr_L2_U1",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Transverse pole/residue and longitudinal STI condition at the subtraction point.",
+    "notes": "Truncation-only longitudinal counterterm is fixed to vanish as the approximation is improved."
+  },
+  {
+    "external_signature": "cbar_SU3 c_SU3",
+    "superficial_degree": 2,
+    "local_operator_family": "cbar D^2 c",
+    "counterterm_parameters": "delta_Z_c_SU3",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Ghost residue at subtraction point.",
+    "notes": ""
+  },
+  {
+    "external_signature": "cbar_SU2 c_SU2",
+    "superficial_degree": 2,
+    "local_operator_family": "cbar D^2 c",
+    "counterterm_parameters": "delta_Z_c_SU2",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Ghost residue at subtraction point.",
+    "notes": ""
+  },
+  {
+    "external_signature": "Hdag H",
+    "superficial_degree": 2,
+    "local_operator_family": "|D H|^2 and Hdag H",
+    "counterterm_parameters": "delta_Z_H; delta_m_H2",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Thermal-vacuum matched pole and residue.",
+    "notes": ""
+  },
+  {
+    "external_signature": "Qbar Q",
+    "superficial_degree": 1,
+    "local_operator_family": "Qbar i slash D Q",
+    "counterterm_parameters": "delta_Z_Q",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Chiral fermion residue; no gauge-invariant Q mass.",
+    "notes": ""
+  },
+  {
+    "external_signature": "Dbar D",
+    "superficial_degree": 1,
+    "local_operator_family": "Dbar i slash D D and M_D Dbar D",
+    "counterterm_parameters": "delta_Z_D; delta_M_D",
+    "closure_class": "bulk two-point",
+    "renormalization_conditions": "Vectorlike pole mass and residue.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU3 A_SU3 A_SU3",
+    "superficial_degree": 1,
+    "local_operator_family": "three-gauge vertex",
+    "counterterm_parameters": "delta_g_AAA_SU3",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "PT/BFM background coupling plus quantum STI matching.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU3 cbar_SU3 c_SU3",
+    "superficial_degree": 1,
+    "local_operator_family": "ghost-gauge vertex",
+    "counterterm_parameters": "delta_g_Acc_SU3",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Taylor/STI subtraction condition.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU2 A_SU2 A_SU2",
+    "superficial_degree": 1,
+    "local_operator_family": "three-gauge vertex",
+    "counterterm_parameters": "delta_g_AAA_SU2",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "PT/BFM background coupling plus quantum STI matching.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU2 cbar_SU2 c_SU2",
+    "superficial_degree": 1,
+    "local_operator_family": "ghost-gauge vertex",
+    "counterterm_parameters": "delta_g_Acc_SU2",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Taylor/STI subtraction condition.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU3 Qbar Q",
+    "superficial_degree": 0,
+    "local_operator_family": "matter-gauge vertex",
+    "counterterm_parameters": "delta_g_AQQ_SU3",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU2 Qbar Q",
+    "superficial_degree": 0,
+    "local_operator_family": "matter-gauge vertex",
+    "counterterm_parameters": "delta_g_AQQ_SU2",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_U1 Qbar Q",
+    "superficial_degree": 0,
+    "local_operator_family": "matter-gauge vertex",
+    "counterterm_parameters": "delta_g_AQQ_U1",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU3 Dbar D",
+    "superficial_degree": 0,
+    "local_operator_family": "matter-gauge vertex",
+    "counterterm_parameters": "delta_g_ADD_SU3",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_U1 Dbar D",
+    "superficial_degree": 0,
+    "local_operator_family": "matter-gauge vertex",
+    "counterterm_parameters": "delta_g_ADD_U1",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_SU2 Hdag H",
+    "superficial_degree": 1,
+    "local_operator_family": "scalar-gauge vertex",
+    "counterterm_parameters": "delta_g_AHH_SU2",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Scalar background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A_U1 Hdag H",
+    "superficial_degree": 1,
+    "local_operator_family": "scalar-gauge vertex",
+    "counterterm_parameters": "delta_g_AHH_U1",
+    "closure_class": "bulk three-point split vertex",
+    "renormalization_conditions": "Scalar background Ward and quantum STI conditions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "H Qbar D plus h.c.",
+    "superficial_degree": 0,
+    "local_operator_family": "y_D Qbar_L H D_R plus h.c.",
+    "counterterm_parameters": "delta_y_D",
+    "closure_class": "bulk Yukawa vertex",
+    "renormalization_conditions": "Symmetric Euclidean subtraction point or on-shell thermal matching.",
+    "notes": ""
+  },
+  {
+    "external_signature": "A3^4",
+    "superficial_degree": 0,
+    "local_operator_family": "A3^4",
+    "counterterm_parameters": "delta_lambda_AAAA_SU3",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "W^4",
+    "superficial_degree": 0,
+    "local_operator_family": "W^4",
+    "counterterm_parameters": "delta_lambda_AAAA_SU2",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "W^2 Hdag H",
+    "superficial_degree": 0,
+    "local_operator_family": "W^2 Hdag H",
+    "counterterm_parameters": "delta_lambda_WWHH",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "B^2 Hdag H",
+    "superficial_degree": 0,
+    "local_operator_family": "B^2 Hdag H",
+    "counterterm_parameters": "delta_lambda_BBHH",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "W B Hdag H",
+    "superficial_degree": 0,
+    "local_operator_family": "W B Hdag H",
+    "counterterm_parameters": "delta_lambda_WBHH",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "(Hdag H)^2",
+    "superficial_degree": 0,
+    "local_operator_family": "(Hdag H)^2",
+    "counterterm_parameters": "delta_lambda_H",
+    "closure_class": "bulk four-point bare-at-3PI",
+    "renormalization_conditions": "Four-point amplitude at a symmetric subtraction point.",
+    "notes": "Four-point vertices are not dynamical at three-loop 3PI but their renormalized bare values and split counterterms are required."
+  },
+  {
+    "external_signature": "O_H = Hdag H insertion",
+    "superficial_degree": 2,
+    "local_operator_family": "Z_O O_H and mixing with identity/Hdag H",
+    "counterterm_parameters": "delta_Z_O; delta_c_O1; delta_c_OH",
+    "closure_class": "composite operator",
+    "renormalization_conditions": "Normalize the one-insertion vertex at the subtraction point.",
+    "notes": ""
+  },
+  {
+    "external_signature": "O_H O_H",
+    "superficial_degree": 0,
+    "local_operator_family": "local J_O^2 contact term",
+    "counterterm_parameters": "delta_zeta_OO",
+    "closure_class": "composite contact",
+    "renormalization_conditions": "Subtracted singlet susceptibility/BSE correlator.",
+    "notes": ""
+  },
+  {
+    "external_signature": "initial alpha_2",
+    "superficial_degree": "boundary",
+    "local_operator_family": "vacuum/thermal-matched two-point initial kernel",
+    "counterterm_parameters": "delta_alpha2_species",
+    "closure_class": "initial surface",
+    "renormalization_conditions": "Match the interacting Euclidean-leg state at high momentum.",
+    "notes": "Pilot default uses an imaginary-time leg plus UV-soft finite deformation."
+  },
+  {
+    "external_signature": "initial alpha_3",
+    "superficial_degree": "boundary",
+    "local_operator_family": "initial cubic correlation kernels matching all retained V3/U channels",
+    "counterterm_parameters": "delta_alpha3_vertex_families",
+    "closure_class": "initial surface",
+    "renormalization_conditions": "Asymptote to interacting vacuum/thermal three-point functions.",
+    "notes": ""
+  },
+  {
+    "external_signature": "initial alpha_4",
+    "superficial_degree": "boundary",
+    "local_operator_family": "initial four-point correlations for V4 and BSE consistency",
+    "counterterm_parameters": "delta_alpha4_quartic_families",
+    "closure_class": "initial correlation data",
+    "renormalization_conditions": "UV difference from equilibrium must fall faster than the power-counting bound.",
+    "notes": "Treated as nonlocal initial data; only local divergent pieces are counterterms."
+  },
+  {
+    "external_signature": "Z6 harmonic p<6",
+    "superficial_degree": "forbidden without charge",
+    "local_operator_family": "exp(i p a/f_a) times compensating selector/state/spurion charge",
+    "counterterm_parameters": "no state-independent bulk counterterm",
+    "closure_class": "exact selection rule",
+    "renormalization_conditions": "Enforce Z6 covariance and epsilon spurion power counting.",
+    "notes": "Any persistent unaccompanied p<6 coefficient is a hard failure."
+  }
+]

@@ -1,0 +1,16 @@
+Requirement,Verdict,Evidence,Limitation_or_next_action
+Exact nonlinear environmental equation,PASS,"Derived from V_Z6(x)+sum rho_A A_A(x); exact periodic and matter nonlinearities retained",Relativistic fluids require free-energy/EOS source rather than dust density
+Earth nonlinear spherical profile,PASS,"Adaptive BVP converged; screening factor 1.000000; surface delta x=-1.032e-16",PREM-inspired profile rather than full tabulated PREM
+Sun nonlinear spherical profile,PASS,"Adaptive BVP converged; screening factor 1.000000; surface delta x=-3.145e-13",Analytic profile matched to bulk and central density rather than full standard solar model
+Laboratory tungsten profile,PASS,"Adaptive BVP converged; screening factor 1.000000; surface delta x=-2.218e-32",Only spherical 5 cm source treated
+Homogeneous spinodal,PASS,"Exact t*=0.17272340294; benchmark rho_spinodal=46.2497 g/cm^3",Local criterion alone does not decide a finite body
+Finite-size adjacent-phase conversion,EXCLUDED_FOR_BENCHMARK,"Capacity bound q_conv=0.633135; max solar sub-sphere q/q_conv=1.016e-12",Strict proof stated for spherical converted cores; arbitrary geometry has capacity dependence
+Standard thin-shell screening,ABSENT,"m_eff R is at most O(1.34e-5); nonlinear/linear charge ratio unity",Additional UV derivative or chameleon operators could alter result
+Solar-core local branch,DESTABILIZED_IN_INFINITE_MEDIUM,"Central density 150 g/cm^3 exceeds local spinodal; modeled spinodal patch extends to 0.162 R_sun",Finite Sun remains on asymptotic branch because of gradient energy
+Visible 2/27 QCD response,PRESERVED,"No environmental charge suppression; d_g=7.407e-8",Perturbative threshold matching has O(alpha_s) corrections
+Clock-equivalence-principle consistency line,PRESERVED_CONDITIONALLY,"Same unscreened scalar profile enters clock and free-fall observables",Assumes one scalar, pure-QCD spurion dominance, no screening and common source
+Benchmark clock observability,FAIL_AT_CURRENT_PARAMETERS,"K=1 shifts: Earth surface 7.64e-24; solar surface 2.33e-20; annual solar modulation 3.61e-24",Optimize M f_a epsilon N subject to constraints
+Nonspherical laboratory screening,OPEN,"Spherical compactness is 32 orders below conversion threshold",Can be checked with finite-element solver but cannot plausibly bridge present margin
+Neutron stars,OPEN,"Current nonrelativistic treatment not valid",Solve TOV plus scalar and realistic EOS
+Cosmological vacuum/domain selection,OPEN_AND_DECISIVE,"Positive homogeneous visible density tilts degenerate Z6 vacua",Solve finite-temperature FRW evolution through replicated-sector decoupling and QCD crossover
+Novelty claim,CANDIDATE_NARROW_RESULT,"Restricted conjunction: 2/27 protected threshold + local-spinodal/finite-size separation + chronometric interpretation",Requires systematic backward/forward citation analysis

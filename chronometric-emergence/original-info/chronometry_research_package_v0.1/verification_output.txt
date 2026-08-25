@@ -1,0 +1,14 @@
+[PASS] Crossed-null Gram matrix: diag(-1, +1).
+[PASS] Reciprocal null rescaling is a Lorentz boost.
+[PASS] Flat-space clock/ruler and geometric-mean scale formulas.
+[PASS] Locked vacuum: C = Sigma = Lambda^2.
+[PASS] Hessian positive for kappa > 0 and beta > 0.
+       Hessian =
+⎡κ    -κ  ⎤
+⎢         ⎥
+⎢    β    ⎥
+⎢-κ  ─ + κ⎥
+⎣    2    ⎦
+       det(H) = beta*kappa/2
+
+All symbolic checks passed.

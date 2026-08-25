@@ -1,0 +1,278 @@
+{
+  "version": "v1.3",
+  "symbolic_RG_identity": {
+    "fixed_plus_running_minus_hard": "0",
+    "mu_derivative_of_completed_function": "0",
+    "hierarchical_limit": "pi**2/3"
+  },
+  "matching": {
+    "M_GeV": 1002000.0,
+    "mR_GeV": 1000000000.0,
+    "mh_GeV": 125.25,
+    "TR_GeV": 100200000.0,
+    "gstar_SM": 106.75,
+    "delta_gstar_vectorlike_D": 10.5,
+    "gstar_full": 117.25,
+    "Gamma_R_full_multiplicity_GeV": 0.014785006547211363,
+    "muH_full_multiplicity_GeV": 19276.61131049671,
+    "weak_doublet_channel_factor": 2.0,
+    "D_fixed_at_M": 3.2898675407466484,
+    "D_hard_RG_completed": 3.289867540746647,
+    "I3_hard": 6.579735081490116,
+    "portal_U_M_from_mR": 0.9440687868936988,
+    "C_QH_mR": 1.1765534378167943e-12,
+    "C_QH_M": 1.1107473767553118e-12,
+    "C3_full_GeV2": 0.00015889617801549176,
+    "transient_amplitude_full_GeV4": 4290.196806418277,
+    "ratio_to_thermal_focusing": 3.0528690005111204e-12,
+    "fixed_I3_halfM": 102.40731316816465,
+    "fixed_I3_M": 6.579735081490119,
+    "fixed_I3_2M": -96.93509122787192,
+    "completed_I3_min": 6.579735081490091,
+    "completed_I3_max": 6.57973508149013,
+    "completed_I3_relative_spread": 5.939426129289556e-15,
+    "residual_coupling_band_min_over_central": 0.9646856702495266,
+    "residual_coupling_band_max_over_central": 1.0374548276406148,
+    "running_at_M": {
+      "g3": 0.8157049215091974,
+      "g2": 0.6053399163552646,
+      "gY": 0.3765508422381145,
+      "yt": 0.685020331242361,
+      "yD": 0.3,
+      "lambda_H": 0.02509586763414964,
+      "lambda_Q": 0.1109582637373678
+    },
+    "running_at_mR": {
+      "g3": 0.6972677207040228,
+      "g2": 0.5767785027125643,
+      "gY": 0.39478769087474197,
+      "yt": 0.5847892747388306,
+      "yD": 0.24725822524508143,
+      "lambda_H": -0.009698978534802944,
+      "lambda_Q": 0.12157706235121264
+    },
+    "interpretation": "The explicit fixed-order logarithm is exactly removed at the resolved order. The remaining approximately few-percent scale band comes from ordinary one-loop coupling and portal running, not from the enormous raw D_FFS logarithm."
+  },
+  "transient_gamma": {
+    "basis": [
+      "QdagQ",
+      "R2_over_2",
+      "HdagH"
+    ],
+    "Gamma00": [
+      [
+        0.0009368685513973992,
+        0.0015831434944115277,
+        0.0
+      ],
+      [
+        0.0031662869888230555,
+        0.0012665147955292224,
+        0.0006332573977646111
+      ],
+      [
+        0.0,
+        0.00015831434944115277,
+        0.009777869052091848
+      ]
+    ],
+    "Gamma00_spectral_norm": 0.009804182511567802,
+    "full_epsilon0_tensor_shape": [
+      18,
+      18
+    ],
+    "spurion_power_matrix": [
+      [
+        0,
+        1,
+        2,
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        2,
+        3,
+        2
+      ],
+      [
+        2,
+        1,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        3,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        1,
+        0
+      ]
+    ],
+    "leading_norm_matrix": [
+      [
+        0.009804182511567802,
+        2.6471292781233064e-15,
+        7.147249050932928e-28,
+        1.9297572437518907e-40,
+        7.147249050932928e-28,
+        2.6471292781233064e-15
+      ],
+      [
+        2.6471292781233064e-15,
+        0.009804182511567802,
+        2.6471292781233064e-15,
+        7.147249050932928e-28,
+        1.9297572437518907e-40,
+        7.147249050932928e-28
+      ],
+      [
+        7.147249050932928e-28,
+        2.6471292781233064e-15,
+        0.009804182511567802,
+        2.6471292781233064e-15,
+        7.147249050932928e-28,
+        1.9297572437518907e-40
+      ],
+      [
+        1.9297572437518907e-40,
+        7.147249050932928e-28,
+        2.6471292781233064e-15,
+        0.009804182511567802,
+        2.6471292781233064e-15,
+        7.147249050932928e-28
+      ],
+      [
+        7.147249050932928e-28,
+        1.9297572437518907e-40,
+        7.147249050932928e-28,
+        2.6471292781233064e-15,
+        0.009804182511567802,
+        2.6471292781233064e-15
+      ],
+      [
+        2.6471292781233064e-15,
+        7.147249050932928e-28,
+        1.9297572437518907e-40,
+        7.147249050932928e-28,
+        2.6471292781233064e-15,
+        0.009804182511567802
+      ]
+    ],
+    "largest_nearest_harmonic_entry_estimate": 2.6471292781233064e-15,
+    "completeness_statement": "Complete finite one-loop tensor for the declared minimal renormalizable scalar-bilinear basis, with full Higgs-doublet gauge/Yukawa diagonal terms. Higher-dimensional Wilson-line operators and finite Gamma^(r,s) tensors with r+s>0 remain UV-completion dependent; their minimum epsilon powers are exact."
+  },
+  "explicit_collision_kernel": {
+    "alpha_s_at_reheating": 0.0393544,
+    "yD": 0.3,
+    "thermal_parameters": {
+      "g_s_squared": 0.4945419757057366,
+      "m_Debye_squared_over_T2": 0.9890839514114732,
+      "m_gluon_squared_over_T2": 0.4945419757057366,
+      "m_quark_squared_over_T2": 0.16484732523524553,
+      "m_Higgs_squared_over_T2": 0.19202499999999995
+    },
+    "species": [
+      {
+        "name": "H",
+        "degeneracy": 4.0,
+        "fermion": false,
+        "mass_over_T": 0.4382065722921097
+      },
+      {
+        "name": "D",
+        "degeneracy": 12.0,
+        "fermion": true,
+        "mass_over_T": 0.4061370769029165
+      },
+      {
+        "name": "q",
+        "degeneracy": 72.0,
+        "fermion": true,
+        "mass_over_T": 0.4060139470944878
+      },
+      {
+        "name": "g",
+        "degeneracy": 16.0,
+        "fermion": false,
+        "mass_over_T": 0.703236784949235
+      }
+    ],
+    "transition_counts": {
+      "1to2_total": 514,
+      "2to2_total": 14289,
+      "1to2_by_channel": {
+        "g<->gg": 53,
+        "q<->qg": 103,
+        "D<->Dg": 103,
+        "g<->qqbar": 68,
+        "g<->DDbar": 68,
+        "H<->qD": 119
+      },
+      "2to2_by_channel": {
+        "gg<->gg": 1484,
+        "qg<->qg": 1741,
+        "Dg<->Dg": 1741,
+        "qq<->qq": 2069,
+        "DD<->DD": 2069,
+        "qD<->qD": 2069,
+        "gg<->qqbar": 1558,
+        "gg<->DDbar": 1558
+      }
+    },
+    "equilibrium_energy_T4": 30.178478518178416,
+    "initial_entropy_T3": 14.35244547393586,
+    "equilibrium_entropy_T3": 39.933084282808224,
+    "final_entropy_T3": 39.850477027074035,
+    "final_entropy_completion": 0.9967707117734081,
+    "final_energy_weighted_L1_distance": 0.039535161792891606,
+    "equilibrium_collision_max_residual": 8.56790966844455e-17,
+    "equilibrium_energy_derivative_residual": 1.6177811532852781e-31,
+    "max_relative_energy_error": 1.4432899320127035e-15,
+    "minimum_recorded_entropy_increment": 0.0030188311981262927,
+    "steps": 5000,
+    "runtime_seconds": 8.202193021774292,
+    "tau_90": 1840.0,
+    "tau_95": 2480.0,
+    "tau_99": 3920.0,
+    "t_99_GeV_inverse_at_TR": 3.912175648702595e-05,
+    "Gamma_kinetic_99_GeV": 25561.224489795917,
+    "Gamma_kinetic_over_Gamma_R": 1728861.2222236102,
+    "scope": "Explicit isotropic quantum master-equation discretisation of AMY-motivated 1<->2 and Debye-screened 2<->2 kernels. The LPM rate uses a formation-time approximation rather than a numerical solution of the full transverse integral equation."
+  },
+  "reheating_update": {
+    "late_nu_to_unit_R_energy_ratio": 0.3618139786299055,
+    "B5_required_for_T5_over_T0_eq_1_over_4": 0.005298887076380955,
+    "B0": 0.9947011129236191,
+    "tan_theta": 0.07298708691575644,
+    "old_v1_2_B5": 0.005274370843322566,
+    "relative_B5_shift": 0.004648181515227945,
+    "reason": "The vectorlike Dirac colour triplet contributes Delta g*=10.5 while relativistic, increasing the reheaton width required for fixed T0. The slightly earlier R decay changes the differential redshift between the prompt nu0 energy and later R-decay radiation."
+  },
+  "scope": {
+    "passed": "Full unbroken Higgs-doublet multiplicity in the declared matching; exact cancellation of the resolved fixed-order matching logarithm; finite one-loop minimal transient tensor; explicit energy-conserving isotropic quantum 1<->2 and 2<->2 collision benchmark.",
+    "not_claimed": "Exact full-angle AMY collision integrals, a numerical solution of the AMY transverse LPM integral equation, or a non-Abelian 3+1D two-time 2PI/Kadanoff-Baym evolution."
+  }
+}

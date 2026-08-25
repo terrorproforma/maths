@@ -1,5 +1,0 @@
-author: Angus Muffatti
-version: v1.8
-truncation: PT/BFM-constrained three-loop 3PI
-pilot_gpus: 8
-production_gpus: 128

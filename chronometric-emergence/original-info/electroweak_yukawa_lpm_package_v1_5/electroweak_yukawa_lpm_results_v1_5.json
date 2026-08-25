@@ -1,0 +1,119 @@
+{
+  "version": "v1.5",
+  "electron_validation": {
+    "direct_solver": 0.0004088813462299887,
+    "published_fit": 0.00040524218119757327,
+    "relative_difference": 0.008980222694638884
+  },
+  "benchmark": {
+    "point": {
+      "alpha_s": 0.0393544,
+      "g2": 0.57,
+      "g1": 0.39,
+      "y_t": 0.58,
+      "lambda_h": 0.03,
+      "y_d": 0.3,
+      "m_d_over_t": 0.01
+    },
+    "integral_n8": 0.0008935468372289982,
+    "integral_n10": 0.0008911698775845106,
+    "integral_central": 0.0008895208215709909,
+    "integral_numerical_uncertainty": 2.3769596444875784e-06,
+    "gamma_chem_over_T3": 0.00024017062182416757,
+    "higgs_susceptibility_over_T2": 0.6666666666666666,
+    "gamma_occ_over_T": 0.0003602559327362514,
+    "gamma_pole_amplitude_over_T": 0.0001801279663681257,
+    "gamma_occ_GeV_at_T0": 36097.644460172385,
+    "Gamma_R_GeV": 0.0147850065,
+    "gamma_occ_over_Gamma_R": 2441503.455556302,
+    "adiabatic_correction": 4.0958369226315423e-07,
+    "absolute_B5_shift_bound": 2.170337735111924e-09,
+    "v1_4_proxy_gamma_occ_over_T": 0.000318544215852566,
+    "relative_change_from_v1_4_proxy": 0.13094482589189793,
+    "born_decay_open": false,
+    "masses_over_T": {
+      "H": 0.4382065722921097,
+      "Q": 0.503460351204785,
+      "D": 0.41808770041134374
+    },
+    "debye_masses_over_T": {
+      "SU3": 1.0351365195128108,
+      "SU2": 0.7717836484404161,
+      "U1": 0.5438290172471492
+    },
+    "interpretation": "The LPM width is a conservative lower bound on the complete leading-order qD contribution because hard Yukawa-assisted 2<->2 cuts are not included."
+  },
+  "group_coefficients": {
+    "SU3": {
+      "c0": 1.3333333333333333,
+      "cp": 0.0,
+      "ck": 0.0,
+      "g_squared": 0.49454197570573666,
+      "m_Debye_over_T": 1.0351365195128108
+    },
+    "SU2": {
+      "c0": 0.0,
+      "cp": 0.0,
+      "ck": 0.75,
+      "g_squared": 0.32489999999999997,
+      "m_Debye_over_T": 0.7717836484404161
+    },
+    "U1": {
+      "c0": -0.05555555555555555,
+      "cp": 0.16666666666666666,
+      "ck": 0.08333333333333334,
+      "g_squared": 0.1521,
+      "m_Debye_over_T": 0.5438290172471492
+    }
+  },
+  "group_decomposition": {
+    "SU3": {
+      "integral": 0.0007281956631568967,
+      "gamma_occ_over_T": 0.0002949192435785432
+    },
+    "EW": {
+      "integral": 0.0001852123597391807,
+      "gamma_occ_over_T": 7.501100569436819e-05
+    },
+    "SU3+SU2": {
+      "integral": 0.0008829076351195573,
+      "gamma_occ_over_T": 0.00035757759222342073
+    },
+    "SU3+U1": {
+      "integral": 0.0007403360788475622,
+      "gamma_occ_over_T": 0.00029983611193326273
+    },
+    "full": {
+      "integral": 0.0008946548780523477,
+      "gamma_occ_over_T": 0.00036233522561120087
+    }
+  },
+  "retarded_self_energy_matching": {
+    "rank_one_stoichiometric_kernel": "Gamma_AB = nu_A nu_B Gamma_Y",
+    "exact_integrated_identity": "Gamma_Y=(g_H/T) integral_k f_B(1+f_B) Gamma_H^occ(k)",
+    "Gamma_H_occ(k)": "-Im Pi_H^R(E_k,k)/E_k",
+    "pole_amplitude_width": "-Im Pi_H^R(E_k,k)/(2E_k)",
+    "computed_quantity": "susceptibility-weighted qD contribution to Higgs occupation width"
+  },
+  "thermal_width_treatment": {
+    "statement": "Soft gauge self-energy widths and exchange/vertex interference are included together in the LPM collision kernel; adding separate fermion widths to deltaE would double count at this order.",
+    "gauge_invariant_extracted_H_occupation_width_over_T": 0.0003602559327362514,
+    "memory_scale_over_T": 1.0351365195128108
+  },
+  "reduced_SK": {
+    "gamma_occupation_over_T": 0.0003602559327362514,
+    "memory_scale_over_T": 1.0351365195128108,
+    "gamma_over_memory_scale": 0.0003480274591276198,
+    "max_normalized_memory_vs_markov_difference": 0.0003449187332627002,
+    "equal_time_spectral_derivative_estimate": 0.9999999998183401,
+    "pole_amplitude_width_over_T": 0.0001801279663681257
+  },
+  "scope": {
+    "LPM": "direct leading-order isotropic impact-parameter solve with simultaneous SU3xSU2xU1 kernels",
+    "helicity": "complete chiral Weyl source, two Higgs-doublet components, particles/antiparticles, Nc=3",
+    "self_energy": "exact integrated on-shell retarded-self-energy matching; no pointwise Pi_R table",
+    "SK": "Wilson-line-dressed exponential-memory gauge-singlet reduction, not full non-Abelian 2PI",
+    "total_portal_rate": "LPM-resummed collinear contribution only; hard Yukawa-assisted 2<->2 cuts remain to be added and can only increase the rate."
+  },
+  "runtime_seconds": 31.13005828857422
+}

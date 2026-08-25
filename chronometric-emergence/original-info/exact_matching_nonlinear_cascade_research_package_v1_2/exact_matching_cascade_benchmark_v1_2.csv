@@ -1,0 +1,17 @@
+Parameter,Value
+m_phi_GeV,10000000000.0
+Phi_end_GeV,5.96e+16
+m_N0_GeV,3000000000.0
+m_N_hidden_GeV,50000000000000.0
+m_R_GeV,1000000000.0
+M_D_GeV,1002000.0
+y_phi,0.0007006
+Gamma_phi_GeV,100.0
+Gamma_Q_GeV,1.0
+Gamma_N_GeV,0.1
+Gamma_R_GeV,0.014135
+B5_corrected,0.005274370843322566
+tan_theta_corrected,0.07281715001820041
+epsilon,2.7e-13
+f_a_GeV,24350000000.0
+N,6

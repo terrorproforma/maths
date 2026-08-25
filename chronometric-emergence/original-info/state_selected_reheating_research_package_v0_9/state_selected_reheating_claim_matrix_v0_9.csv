@@ -1,0 +1,9 @@
+Claim,Status,Closest precedent,Novelty boundary,Required follow-up
+Asymmetric reheating with an exact exchange symmetry,Established,Craig-Koren-Trott arXiv:1611.07977,Not novel by itself,None
+Hard sector-specific reheating spurions generically spoil cyclic radiative protection,Established,Delaunay et al. arXiv:2607.28721,Our model must evade rather than ignore this no-go,Two-loop in-in effective action with transient selector background
+Exact Z6 action with asymmetry stored only in a transient one-hot cosmological state,Candidate contribution,State-dependent symmetry breaking has precedents but no exact match found,Potentially novel mechanism-level synthesis,Systematic citation chaining and non-arXiv database search
+Chiral two-orbit reheaton yielding B5/B0=1/256 and xi5=1/4,Candidate construction,Nearest-neighbour clockwork and replicated reheating are known,Exact combination with cyclic chronometry not found,Classify all renormalisable Z6 orbit tensors
+Fixed branching ratios imply zero linear visible-hidden radiation isocurvature,Established,Standard sudden-decay/delta-N formalism,Application to the present model only,Full Einstein-Boltzmann transfer
+Thermal/QCD focusing damps chronometric perturbations by about 10^-6 by recombination,Candidate numerical result,Attractor erasure of axion isocurvature is known,Specific transfer in the v0.8-v0.9 chronometric potential,Independent code and full metric-source perturbations
+Selector restoration removes persistent domain walls while preserving vacuum Z6,Candidate model feature,Inflation and Lazarides-Shafi mechanisms are established,Transient one-hot selector implementation may be new,Lattice transition and defect simulation
+Combined Z6 reheaton plus 2/27 QCD chronometric transmission,Candidate paper claim,Ingredients separately established,No exact indexed match found,Priority audit and specialist review

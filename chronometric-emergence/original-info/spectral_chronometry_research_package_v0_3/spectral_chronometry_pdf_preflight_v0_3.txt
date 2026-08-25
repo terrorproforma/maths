@@ -1,0 +1,6 @@
+PDF: /mnt/data/spectral_chronometry_higgs_dilaton_v0_3.pdf
+Pages: 20
+Encrypted: False
+Openable (PyMuPDF): True
+Likely scanned: False
+XFA present: False

@@ -1,0 +1,108 @@
+{
+  "topology": {
+    "primitive_allowed_graph": {
+      "vertices": 6,
+      "internal_lines": 8,
+      "loop_order": 3,
+      "connected": true,
+      "one_particle_irreducible": true,
+      "bridges": [],
+      "edge_connectivity": 2
+    },
+    "forbidden_direct_R_DD_graph": {
+      "vertices": 4,
+      "internal_lines": 5,
+      "loop_order": 2,
+      "connected": true,
+      "one_particle_irreducible": true,
+      "bridges": [],
+      "edge_connectivity": 2
+    },
+    "forbidden_direct_QQ_HH_graph": {
+      "vertices": 4,
+      "internal_lines": 5,
+      "loop_order": 2,
+      "connected": true,
+      "one_particle_irreducible": true,
+      "bridges": [],
+      "edge_connectivity": 2
+    },
+    "conclusion": "The first primitive allowed connected 1PI graph is three-loop. A direct R Dbar D or Q^2 H^dagger H portal lowers the topological order to two and must be absent as a hard UV interaction; loop-induced versions count toward the same three-loop microscopic order."
+  },
+  "z6_charge": {
+    "max_general_identity_residual": 2.2875174865912096e-14,
+    "max_symmetric_lower_harmonic": 2.4230347267646374e-14,
+    "max_onehot_residual": 4.794569825980851e-15
+  },
+  "three_loop_NDA": {
+    "C3_GeV2_for_unit_loop_function": 1.2227581709773202e-05,
+    "transient_onehot_amplitude_GeV4": 330.1447061638765,
+    "ratio_to_thermal_focusing": 2.349282759296068e-13,
+    "selector_Q2_decay_factor_after_5_Gamma_inverse": 0.006737946999085467,
+    "amplitude_after_5_Gamma_inverse_GeV4": 2.2244975321608447
+  },
+  "gaussian_KB": {
+    "coordinates": 20,
+    "momentum_modes": 10,
+    "time_steps": 1801,
+    "stored_time_slices": 301,
+    "dt_in_mR_inverse": 0.04,
+    "tmax_in_mR_inverse": 72.0,
+    "minimum_K_eigenvalue": 0.08473055669189793,
+    "symplectic_max_error": 7.105427357601002e-15,
+    "late_H5_to_H0_excess_energy_ratio": 0.00390625,
+    "late_effective_T5_to_T0": 0.25,
+    "late_R1_to_H0_leakage_ratio": 1.1364009105579719e-07,
+    "selector_energy_remaining_fraction": 0.42894700985063855,
+    "reheaton_energy_remaining_fraction": 0.5318125740342378,
+    "numerical_scope": "exact Gaussian non-Markovian surrogate; not full nonlinear gauge-plasma 2PI"
+  },
+  "preheating_and_UV": {
+    "direct_scalar_portal": {
+      "g_phiR_GeV": 10129362.5867055,
+      "Phi_tach_selected_GeV": 98722895092.37941,
+      "Phi_tach_hidden_GeV": 5032853702651.465,
+      "Phi_end_estimate_GeV": 5.964507523677038e+16,
+      "Phi_at_H_equals_Gamma_GeV": 59645075236.770386,
+      "q_end": 6041.665935845766,
+      "q_at_H_equals_Gamma": 0.006041665935845766,
+      "verdict": "fails generically unless the portal turns on late or the coherent amplitude is bounded below the hidden tachyonic threshold"
+    },
+    "selector_quench": {
+      "sudden_high_k_power": -3.9984774929451006,
+      "sudden_energy_at_K1000": 3.8737337109136356,
+      "smooth_energy_at_K1000": 1.2697883526866087e-05,
+      "physical_mR_tauQ": 1000000000.0,
+      "verdict": "smooth selector decay is UV soft; an abrupt matching step creates the artificial k^-4 boundary tail"
+    },
+    "fermionic_parent_repair": {
+      "mN_selected_GeV": 3000000000.0,
+      "mN_hidden_GeV": 50000000000000.0,
+      "y_phi": 0.0007006239020497412,
+      "kstar_GeV": 4130398529792.3975,
+      "hidden_Landau_Zener_exponent": 460.36888841050745,
+      "hidden_occupation_suppression": 1.1596638612044478e-200,
+      "verdict": "passes at linear production level; full backreaction and cascade Boltzmann/KB evolution remain to be simulated"
+    }
+  },
+  "discrete_gauge_completion": {
+    "cells": 6,
+    "links_per_cell": 3,
+    "first_local_winding_operator_dimension": 18,
+    "four_dimensional_power_counting": "renormalizable moose before heavy messengers are integrated out",
+    "perturbative_discrete_anomaly_checks": {
+      "sum_q_mod_3": 0,
+      "sum_q3_mod_3": 0,
+      "mixed_SU3_squared_sum_in_2T_units_mod_3": 0
+    },
+    "vectorlike_parent_sectors": "cancel ordinary continuous gauge anomalies orbit by orbit",
+    "global_Dai_Freed_or_cobordism_anomaly": "not evaluated; mandatory UV acceptance test"
+  },
+  "scope": {
+    "full_symbolic_field_theory_equations_in_report": true,
+    "exact_three_loop_master_integral_evaluated": false,
+    "full_nonlinear_nonabelian_3plus1D_KB_numerics": false,
+    "exact_gaussian_two_time_surrogate": true,
+    "preheating_linear_and_UV_tail_tests": true
+  }
+}

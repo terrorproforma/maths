@@ -1,0 +1,86 @@
+{
+  "benchmark": {
+    "hidden_gauge_beta_coefficient": 7.166666666666667,
+    "hidden_gauge_coupling": 0.5,
+    "hidden_gauge_pole_ratio_mu_over_f": 7.262837412114232e-20,
+    "hidden_vector_mass_GeV": 6.0875e+17,
+    "higgs_mass_GeV": 125.25,
+    "higgs_radial_mixing_angle_flat_estimate": 6.008541811771749e-46,
+    "higgs_vev_GeV": 246.22,
+    "lambda_chi_at_cw_minimum": 0.0004452591078032422,
+    "lambda_h_carone_convention": 0.25876695486292917,
+    "lambda_portal": 2.6458032036227333e-33,
+    "radial_mass_einstein_GeV": 1.9420318643349796e+16,
+    "radial_mass_jordan_GeV": 5.138133351193484e+16,
+    "reduced_planck_GeV": 2.435e+18,
+    "xi_chi": 1.0,
+    "xi_h": 0.0
+  },
+  "document_version": "0.4",
+  "mass_matrix": {
+    "both_eigenvalues_positive": true,
+    "determinant_positive": true,
+    "eigenvalues_GeV2": [
+      15687.562500000002,
+      2.640041433464678e+33
+    ],
+    "mass_matrix_GeV2": [
+      [
+        15687.5625,
+        -1.5862799337782343e-12
+      ],
+      [
+        -1.5862799337782343e-12,
+        2.640041433464678e+33
+      ]
+    ],
+    "trace_positive": true
+  },
+  "random_scan": {
+    "domain": {
+      "M_P_reduced_GeV": 2.435e+18,
+      "g_X": [
+        0.2,
+        0.8
+      ],
+      "xi_chi": [
+        0.5,
+        2.0
+      ],
+      "xi_h": [
+        -0.1,
+        0.3
+      ]
+    },
+    "failed": 0,
+    "first_five_failures": [],
+    "maximum_values_in_passed_scan": {
+      "lambda_portal": 5.291590482720011e-33,
+      "mixing_angle": 6.371146019318755e-44
+    },
+    "minimum_values_in_passed_scan": {
+      "hidden_vector_mass_GeV": 1.7436168892352813e+17,
+      "lambda_chi": 1.1405155440360214e-05,
+      "radial_mass_GeV": 5906534086790563.0
+    },
+    "pass_fraction": 1.0,
+    "passed": 20000,
+    "points": 20000
+  },
+  "scope_warning": "The matter and scalar sectors are conventional two-derivative renormalized QFTs. Gravity is treated as an effective field theory below its cutoff. The script does not establish a UV-complete, perturbatively renormalizable and conventionally unitary quantum theory of gravity.",
+  "symbolic": {
+    "cw_expected_lambda": "9*g**4/(128*pi**2)",
+    "cw_lambda_stationary": "9*g**4/(128*pi**2)",
+    "cw_positive_curvature_for_g_f_positive": true,
+    "cw_radial_curvature": "9*f**2*g**4/(128*pi**2)",
+    "cw_stationarity_verified": true,
+    "einstein_frame_mass_on_valley": "M_P0*c_A*sqrt(lambda_H)/sqrt(lambda_H*xi_chi + lambda_p*xi_h)",
+    "einstein_frame_radial_coupling": "0",
+    "fifth_force_decoupling_verified": true,
+    "higgs_lock_residual": "0",
+    "higgs_lock_verified": true,
+    "kl_large_Q_leading_coefficient": "M0",
+    "kl_positive_density_obstruction": "A non-negative spectral measure has M0=int rho(s) ds >= 0. An exact propagator whose leading falloff is 1/Q^4 requires M0=0; positivity then forces rho=0. Therefore a nontrivial elementary 1/p^4 field cannot possess a conventional positive Kallen-Lehmann density.",
+    "xi_effective": "xi_chi + lambda_p*xi_h/lambda_H"
+  }
+}

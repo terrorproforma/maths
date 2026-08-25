@@ -1,0 +1,40 @@
+{
+  "mediator_completion": {
+    "determinant": "F*(kp**2 + kx**2 - omega**2)*(F*M2*kp**2 + F*M2*kx**2 - F*M2*omega**2 + F*kp**4 + 2*F*kp**2*kx**2 - 2*F*kp**2*omega**2 + F*kx**4 - 2*F*kx**2*omega**2 + F*omega**4 - kx**2*lam**2 - lam**2*omega**2)",
+    "dimensionless_dispersion_rule": "Omega_H^2 alpha(theta)=(1-c_perp^2)^2(1+cos^2(theta))^2",
+    "heavy_gap_at_zero_momentum": "Omega_H^2=M^2+lambda^2/F=M^2(1+epsilon)",
+    "low_energy_series": "(-epsilon*kx**2 + kp**2 + kx**2)/(epsilon + 1) + epsilon**2*(kp**2 + 2*kx**2)**2/(M**2*(epsilon + 1)**3)",
+    "nonluminal_roots": [
+      "M2/2 + kp**2 + kx**2 + mu2/2 - sqrt(4*mu2*(kp**2 + 2*kx**2) + (M2 + mu2)**2)/2",
+      "M2/2 + kp**2 + kx**2 + mu2/2 + sqrt(4*mu2*(kp**2 + 2*kx**2) + (M2 + mu2)**2)/2"
+    ],
+    "positive_hamiltonian_domain": "F>0, M^2>0, lambda^2<F M^2"
+  },
+  "mimetic_reduction": {
+    "cross_invariant": "C=-1/2 p.q=-T^2=R^2",
+    "metric_map": "h_ab=C g_ab=-(g^{cd} T_c T_d) g_ab (standard mimetic map)",
+    "null_constraints": "p^2=q^2=0 imply T.R=0 and R^2=-T^2"
+  },
+  "numerical_scan": {
+    "healthy_negative_root_violations": 0,
+    "healthy_samples": 20000,
+    "seed": 732451,
+    "smallest_healthy_omega_squared_seen": 1.2956960504517667e-10,
+    "unhealthy_parallel_tachyons": 2000,
+    "unhealthy_samples": 2000
+  },
+  "plots": [
+    "phase_speed_anisotropy_v0_2.pdf",
+    "mediator_dispersion_v0_2.pdf"
+  ],
+  "repaired_eft": {
+    "branches": [
+      "omega_1^2=k^2",
+      "omega_2^2=(F k^2-a k_x^2)/(F+a)"
+    ],
+    "determinant": "-F*(kp**2 + kx**2 - omega**2)*(-F*kp**2 - F*kx**2 + F*omega**2 + a*kx**2 + a*omega**2)",
+    "hamiltonian_block_determinant": "-(-F + a)/(F + a)",
+    "healthy_domain": "F>0 and 0<a<F, equivalently 0<epsilon=a/F<1",
+    "speed_sum_rule": "c_parallel^2=2 c_perp^2-1"
+  }
+}

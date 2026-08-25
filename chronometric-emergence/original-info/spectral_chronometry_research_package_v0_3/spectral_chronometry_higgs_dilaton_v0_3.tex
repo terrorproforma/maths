@@ -1,0 +1,1077 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=22mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,shapes.geometric,fit}
+
+\definecolor{navy}{HTML}{17365D}
+\definecolor{slate}{HTML}{394B59}
+\definecolor{lightblue}{HTML}{EAF1F8}
+\definecolor{lightgray}{HTML}{F3F5F7}
+\definecolor{lightgreen}{HTML}{EAF6EE}
+\definecolor{lightred}{HTML}{FBECEC}
+\definecolor{amber}{HTML}{FFF3D6}
+\definecolor{deepgreen}{HTML}{1E6B3A}
+\definecolor{deepred}{HTML}{9B1C1C}
+\definecolor{deepamber}{HTML}{8A5B00}
+\definecolor{purple}{HTML}{5B3F8C}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navy,
+  citecolor=navy,
+  urlcolor=navy,
+  pdftitle={Spectral Chronometry and the Higgs-Dilaton Completion},
+  pdfsubject={Priority audit, universal-clock theorem and Higgs-only viability test}
+}
+
+\setstretch{1.055}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.56em}
+\setlist[itemize]{leftmargin=1.55em,itemsep=0.20em,topsep=0.24em}
+\setlist[enumerate]{leftmargin=1.75em,itemsep=0.20em,topsep=0.24em}
+\captionsetup{font=small,labelfont=bf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{slate}Spectral Chronometry}
+\fancyhead[R]{\small\color{slate}Formalization v0.3}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{conjecture}[definition]{Conjecture}
+\newtheorem{failure}[definition]{Failure mode}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\Lag}{\mathcal{L}}
+\newcommand{\Order}{\prec}
+\newcommand{\UV}{\mathrm{UV}}
+\newcommand{\IR}{\mathrm{IR}}
+\newcommand{\MP}{M_{\mathrm P}}
+\newcommand{\Boxed}[1]{\boxed{\displaystyle #1}}
+\newcommand{\Pass}{\textcolor{deepgreen}{\textbf{PASS}}}
+\newcommand{\Fail}{\textcolor{deepred}{\textbf{FAIL}}}
+\newcommand{\Partial}{\textcolor{deepamber}{\textbf{PARTIAL}}}
+\newcommand{\Candidate}{\textcolor{navy}{\textbf{\scriptsize CANDIDATE}}}
+\newcommand{\Established}{\textcolor{purple}{\textbf{\tiny ESTABLISHED}}}
+
+\newcommand{\statusbox}[2]{%
+\begin{center}
+\fcolorbox{#1}{#1!7}{\parbox{0.92\textwidth}{#2}}
+\end{center}}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{11mm}
+
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\vspace{7mm}
+
+{\fontsize{21}{25}\selectfont\bfseries\color{navy} Spectral Chronometry and the\\ Higgs--Dilaton Completion\par}
+\vspace{3mm}
+{\Large A priority audit, universal-clock theorem and Higgs-only viability test\par}
+\vspace{2mm}
+{\large From conformal causal order to operational proper duration\par}
+
+\vspace{10mm}
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\colorbox{lightblue}{\parbox{0.95\textwidth}{
+\textbf{Main conclusion.} The broad claim that massless propagation supplies conformal geometry while Higgs-generated mass supplies clocks is not new. The Standard Model Higgs is also not, by itself, a satisfactory universal chronometric field. The viable formulation is sharper: a family of physical clocks defines one common proper-time metric if and only if every local transition frequency factorizes into a clock-dependent constant times one shared Weyl-weighted scalar. A Higgs--dilaton or deeper quantum-scale order parameter can satisfy this condition when it locks the electroweak, QCD and gravitational scales. Electromagnetism then supplies phase transport and readout; it does not supply the common scale.
+}}
+\end{minipage}
+\end{center}
+
+\vfill
+
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X@{}}
+Document status: & Technical research note; not peer reviewed \\
+Version: & 0.3 \\
+Date: & 15 August 2026 \\
+Accompanying files: & Literature priority matrix, search protocol, symbolic checks and machine-readable results \\
+Primary question: & Can proper duration be reconstructed from universal field spectra, and is the Standard Model Higgs sufficient to supply the required scale?
+\end{tabularx}
+
+\vspace{8mm}
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\begin{abstract}
+This note formalizes an operational route from conformal causal geometry to metric proper time. Let $(\M,[g])$ be a Lorentzian conformal spacetime and let each ideal clock transition have a positive local angular frequency $\omega_A(x)$ of Weyl weight $-1$. The accumulated phase $\dd\Phi_A=\omega_A\dd s_g$ is conformally invariant. We prove that one metric $\widehat g\in[g]$ calibrates every clock species if and only if all ratios $\omega_A/\omega_B$ are spacetime constants. Equivalently, there is one positive scalar $\chi$ and constants $c_A$ such that $\omega_A=c_A\chi$, in which case $\widehat g=(\chi/\chi_*)^2g$ is unique up to one global choice of units. The gauge-invariant one-forms
+\[
+ \mathcal S_{AB}=\dd\ln(\omega_A/\omega_B)
+\]
+are the obstruction to universal metric time. We package them as a clock-space ``chronometric shear'' and show that a single non-universal scalar produces a rank-one pattern of differential clock drift.
+
+A systematic priority search finds substantial direct precedent for almost every broad ingredient: EPS reconstruction of conformal geometry, clock protocols fixing conformal gauge, electroweak symmetry breaking completing massless spacetime geometry, Higgs/gravitational-scalar adaptation of atomic standards, phase-counting definitions of physical time, and Higgs--dilaton models in which all mass scales share one source. No exact indexed match was found for the multi-clock factorization theorem, its clock-space quotient formulation, and the resulting Higgs-only obstruction taken together. This is a candidate novel formulation, not yet a definitive priority claim.
+
+The Standard Model Higgs modulus $h=\sqrt{2H^\dagger H}$ is sufficient as a low-energy relay for sectors whose gaps all scale with $h$, but it is not a satisfactory universal scale in the ordinary Standard Model plus general relativity. Clock spectra also depend on the QCD confinement scale, gauge couplings, nuclear matrix elements and the Planck scale; these are not dynamically locked to $h$ in the minimal theory. A Higgs-only physical metric becomes degenerate where $h=0$, induced gravity requires an enormous non-minimal coupling, and a local Weyl implementation using only the Higgs radial mode removes the physical scalar that should represent the observed Higgs. The minimal robust completion therefore contains a deeper scale field $\chi$: a gauge compensator, physical dilaton/cosmon, or composite order parameter generated by dimensional transmutation. The Higgs locks to it through $h=\alpha\chi$, QCD must satisfy $\Lambda_{\rm QCD}=c_Q\chi$, and the gravitational scale must also be proportional to $\chi$. In this regime every material frequency has the form $\omega_A=c_A\chi$ and electromagnetic phase cycles operationally realize the proper duration of $\widehat g$.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Executive verdict}
+
+The answer separates into three levels.
+
+\begin{table}[H]
+\centering
+\caption{Answer to ``Is the Higgs enough?''}
+\label{tab:levels}
+\begin{tabularx}{\textwidth}{@{}p{0.19\textwidth}p{0.13\textwidth}X@{}}
+\toprule
+Proposal & Verdict & Reason \\
+\midrule
+Standard Model Higgs alone & \Fail & It calibrates electroweak masses but does not, in the ordinary theory, uniquely set $\Lambda_{\rm QCD}$, $\MP$, all dimensionless couplings, or all nuclear clock structure. The metric $h^2g$ degenerates in the electroweak-symmetric phase. \\
+Higgs plus a Weyl compensator & \Pass & A common scale field can define a regular invariant metric and leave the observed Higgs as an angular or misalignment mode. If the compensator is pure gauge, this is a clean operational reconstruction but not a new propagating mechanism. \\
+Higgs plus a physical or composite scale field & \Candidate & A dilaton, cosmon or confining order parameter can dynamically generate the common scale and lock electroweak, QCD and gravitational masses. This is the strongest route to genuinely emergent chronometric calibration, but it faces fifth-force, anomaly, stability and UV-completion tests. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\statusbox{navy}{\textbf{Recommended formulation.}
+\begin{center}
+\begin{tabular}{c}
+\textbf{causal/conformal structure + universal scale order parameter}\\
+\textbf{+ phase-bearing interactions}\\[1mm]
+$\boldsymbol{\Downarrow}$\\[1mm]
+\textbf{operational proper duration}
+\end{tabular}
+\end{center}
+The scale order parameter calibrates; the Higgs transmits that scale into charged-particle masses; QCD must be locked to the same source; electromagnetic interactions organize and read out stable phase cycles.}
+
+The phrase ``the Higgs creates time'' is therefore too strong and already has close precedent. The sharper thesis is:
+
+\begin{quote}
+A universal proper-time metric is the geometric representation of common-mode scaling across the complete spectrum of viable clocks. The Higgs can relay that common mode, but a deeper field or dynamical condensate is required to make it universal and non-degenerate.
+\end{quote}
+
+\section{Priority and novelty audit}
+
+\subsection{Search protocol}
+
+The literature search was designed as a priority falsification exercise. It used primary literature and targeted the following clusters:
+
+\begin{enumerate}
+  \item EPS, Weyl geometry, standard clocks and conformal gauge fixing;
+  \item massless spacetime and electroweak symmetry breaking;
+  \item Higgs fields, gravitational scalars, Weyl gauge and atomic standards;
+  \item physical time from wave-function oscillations and phase counts;
+  \item Higgs--dilaton, cosmon and scale-invariant Standard Model constructions;
+  \item QCD-scale dependence of atomic and nuclear clocks;
+  \item universal versus non-universal scalar couplings and local position invariance;
+  \item exact-phrase searches for universal chronometric metrics, spectral clock factorization, clock-space geometry and chronometric shear.
+\end{enumerate}
+
+The search date was 15 August 2026. Exact queries and inclusion criteria are supplied in the accompanying search protocol. Search-engine absence is not proof of priority; the conclusions below are deliberately conservative.
+
+\subsection{Broad claims that are already established}
+
+\small\begin{longtable}{@{}p{0.245\textwidth}p{0.585\textwidth}p{0.12\textwidth}@{}}
+\caption{Priority boundary for the broad claims.}\label{tab:priority}\\
+\toprule
+Claim & Closest established precedent & Status \\
+\midrule
+\endfirsthead
+\toprule
+Claim & Closest established precedent & Status \\
+\midrule
+\endhead
+Light propagation determines conformal causal structure but not metric scale. & The EPS programme reconstructs conformal and projective structures from light rays and free fall; later work shows clock protocols select a conformal representative. \cite{EPS,Perlick,Fatibene2015} & \Established \\
+Full spacetime geometry may emerge only when mass appears at electroweak breaking. & Bradonji\'c explicitly proposed that projective structure and full pseudo-Riemannian geometry appear with massive particles at the electroweak transition. \cite{Bradonjic2009} & \Established \\
+Massless modes define causal cones; massive modes provide Compton clocks and scale. & Rainer states this division almost verbatim and identifies the Higgs mechanism as the missing link to develop. \cite{Rainer2026} & \Established \\
+Physical time can be defined by counting field oscillations. & Wetterich defines photon and massive-particle clock systems by counting wave-function oscillations and studies their frame invariance. \cite{WetterichTime2024} & \Established \\
+Atomic clocks can adapt to a Higgs/gravitational scalar scale gauge. & Scholz relates a gravitational scalar, the Higgs ground state and atomic-clock measurement gauge; Hobson--Lasenby derive invariant proper time using a mass-generating compensator. \cite{Scholz2014,Hobson2020} & \Established \\
+Higgs--dilaton coupling can alter clock rates. & Nguyen explicitly derives dilaton-dependent clock rates in a Higgs--dilaton model. \cite{Nguyen2025} & \Established \\
+All particle and gravitational scales can originate from one scalar source. & Higgs--dilaton, scale-invariant Standard Model and cosmon scaling solutions are extensive literatures. \cite{Shaposhnikov2009,Bars2014,WetterichQG2026} & \Established \\
+One clock normalization can select a metric from a conformal class. & EPS clock congruences fix conformal gauge; a recent formal treatment likewise proves that one bona fide clock scale breaks dilation freedom. \cite{Fatibene2015,SingleClock2025} & \Established \\
+\bottomrule
+\end{longtable}
+
+\subsection{Restricted candidate contribution}
+
+The broad physical narrative is therefore not a priority claim. The possible contribution is the following package:
+
+\begin{enumerate}
+  \item a necessary-and-sufficient \emph{multi-clock} factorization theorem;
+  \item a quotient geometry of log spectra in which Weyl transformations are common-mode translations;
+  \item gauge-invariant chronometric shear one-forms that obstruct a single proper-time metric;
+  \item a conditional Higgs-only no-go result expressed directly in this language;
+  \item a radial/angular Higgs--dilaton interpretation in which the common radial mode calibrates time and angular modes generate differential clock drift;
+  \item integration with the crossed-null product/rapidity decomposition developed in the preceding report.
+\end{enumerate}
+
+Exact searches for the phrases and algebraic conjunction above did not locate an indexed match. However, each element is close to known work on standard clocks, local position invariance, universal scalar coupling and clock sensitivity vectors. The right novelty claim is therefore:
+
+\statusbox{amber}{\textbf{Candidate novelty, stated conservatively.} The proposed contribution is a new synthesis and obstruction formalism for universal clock calibration, not a new Higgs mechanism, a new theory of Weyl geometry, or the first claim that mass is required for metric time. Priority remains provisional until citation-network tracing and specialist review are complete.}
+
+\section{Conformal clock data}
+
+Work in natural units $c=\hbar=1$ unless explicitly restored. Let $(\M,[g])$ be a time-oriented Lorentzian conformal manifold. Representatives satisfy
+\[
+ g_{\mu\nu}\longrightarrow g'_{\mu\nu}=\Omega^2(x)g_{\mu\nu},\qquad \Omega>0.
+\]
+For a timelike curve $\gamma$,
+\[
+ \dd s_{g'}=\Omega\,\dd s_g.
+\]
+
+\begin{definition}[Clock spectral field]
+An ideal local clock transition $A$ is represented by a positive scalar field $\omega_A(x)$ of Weyl weight $-1$,
+\[
+ \omega_A\longrightarrow\omega'_A=\Omega^{-1}\omega_A,
+\]
+such that its accumulated phase along a timelike worldline is
+\[
+ \Phi_A[\gamma]=\int_\gamma \omega_A\,\dd s_g.
+\]
+\end{definition}
+
+The phase is representative-independent:
+\[
+ \omega'_A\dd s_{g'}=(\Omega^{-1}\omega_A)(\Omega\dd s_g)=\omega_A\dd s_g.
+\]
+This is the elementary invariant that a real clock supplies. A metric representative and a local frequency separately depend on scale convention; the tick count does not.
+
+Each clock can individually define an operational metric. Choose one fixed laboratory reference value $\omega_{A*}>0$ and set
+\[
+ g^{(A)}_{\mu\nu}=\left(\frac{\omega_A}{\omega_{A*}}\right)^2g_{\mu\nu}.
+\]
+Then
+\[
+ \Phi_A=\omega_{A*}\int_\gamma\dd s_{g^{(A)}}.
+\]
+The central question is not whether one clock defines a metric. It is whether \emph{all} clocks define the same one.
+
+\section{Universal spectral chronometry theorem}
+
+\begin{theorem}[Universal clock factorization]
+Let $U\subset\M$ be connected and let $\{\omega_A\}_{A\in\mathcal I}$ be positive clock spectral fields on $U$. The following are equivalent:
+
+\begin{enumerate}[label=(\roman*)]
+  \item There exists a metric $\widehat g\in[g]$ and positive constants $\bar\omega_A$ such that, for every timelike curve in $U$,
+  \[
+    \Phi_A[\gamma]=\bar\omega_A\int_\gamma\dd s_{\widehat g}.
+  \]
+  \item Every pairwise ratio is constant on $U$:
+  \[
+    \dd\ln\!\left(\frac{\omega_A}{\omega_B}\right)=0
+    \qquad\text{for all }A,B.
+  \]
+  \item There is one positive Weyl-weight $-1$ scalar $\chi(x)$ and positive constants $c_A$ such that
+  \[
+    \omega_A(x)=c_A\chi(x)
+    \qquad\text{for all }A.
+  \]
+\end{enumerate}
+
+When these conditions hold,
+\[
+ \widehat g_{\mu\nu}=\left(\frac{\chi}{\chi_*}\right)^2g_{\mu\nu}
+\]
+is unique up to one global multiplicative constant, corresponding to the choice of units.
+\end{theorem}
+
+\begin{proof}
+Write $\widehat g=e^{2\sigma}g$. If (i) holds, equality of the phase integrands on every timelike curve gives
+\[
+ \omega_A=\bar\omega_Ae^\sigma.
+\]
+Hence $\omega_A/\omega_B=\bar\omega_A/\bar\omega_B$ is constant, proving (ii).
+
+If (ii) holds, select one clock $A_0$ and define $\chi=\omega_{A_0}/c_{A_0}$ for any positive constant $c_{A_0}$. Constant ratios define constants
+\[
+ c_A=c_{A_0}\frac{\omega_A}{\omega_{A_0}},
+\]
+so $\omega_A=c_A\chi$, proving (iii).
+
+If (iii) holds, define $\widehat g=(\chi/\chi_*)^2g$. Then
+\[
+ \omega_A\dd s_g=c_A\chi\dd s_g=c_A\chi_*\dd s_{\widehat g},
+\]
+which proves (i) with $\bar\omega_A=c_A\chi_*$. A second solution differs by a constant because the ratio of its conformal factor to $\chi$ must be constant on connected $U$.
+\end{proof}
+
+\begin{corollary}[Universal point-particle metric]
+If every inertial mass factorizes as $m_A=c_A\chi$, then
+\[
+ S_A=-\int m_A\dd s_g=-c_A\chi_*\int\dd s_{\widehat g}.
+\]
+All freely falling species therefore couple to the same metric $\widehat g$. If the factorization fails, different species define inequivalent conformal matter metrics.
+\end{corollary}
+
+This theorem is simple, but it identifies exactly what ``all clocks measure the same proper time'' means dynamically: the complete local spectrum may vary only in one common scale direction.
+
+\section{Clock-space geometry and chronometric shear}
+
+Consider $N$ clock species and define the log-spectrum vector
+\[
+ \bm\ell(x)=\begin{pmatrix}\ln\omega_1(x)&\cdots&\ln\omega_N(x)\end{pmatrix}^{\!T}.
+\]
+A Weyl transformation acts as
+\[
+ \bm\ell\longrightarrow\bm\ell-(\ln\Omega)\bm 1,
+\qquad
+ \bm 1=(1,\ldots,1)^T.
+\]
+Thus Weyl gauge acts only along the common-mode direction $\bm1$. Physical relative spectra live in the quotient
+\[
+ \mathbb R^N/\langle\bm1\rangle.
+\]
+
+Choose positive weights $w_A$ with $\sum_Aw_A=1$ and define
+\[
+ B^A_\mu=-\partial_\mu\ln\omega_A,
+\qquad
+ W_\mu=\sum_Aw_AB^A_\mu.
+\]
+Each $B^A$ transforms as
+\[
+ B^A_\mu\longrightarrow B^A_\mu+\partial_\mu\ln\Omega,
+\]
+so the weighted mean $W_\mu$ transforms exactly as an integrable Weyl scale connection.
+
+\begin{definition}[Chronometric shear]
+The clock-species shear one-forms are
+\[
+ \Sigma^A_\mu=B^A_\mu-W_\mu,
+ \qquad
+ \sum_Aw_A\Sigma^A_\mu=0.
+\]
+Equivalently, pairwise shear is
+\[
+ \mathcal S^{AB}_\mu
+ =\partial_\mu\ln\left(\frac{\omega_A}{\omega_B}\right)
+ =-B^A_\mu+B^B_\mu.
+\]
+\end{definition}
+
+The shear is Weyl invariant. It cannot be removed by changing conformal frame.
+
+\begin{proposition}[Obstruction criterion]
+A universal chronometric metric exists on connected $U$ if and only if
+\[
+ \Sigma^A_\mu=0
+ \quad\text{for every }A,
+\]
+or equivalently $\mathcal S^{AB}=0$ for every pair.
+\end{proposition}
+
+A useful positive-semidefinite obstruction tensor in clock space is
+\[
+ \mathfrak C_{\mu\nu}
+ =\sum_Aw_A\Sigma^A_\mu\Sigma^A_\nu.
+\]
+It vanishes exactly when the clock ensemble is common-mode. It is not a replacement for spacetime nonmetricity; it is an operational measure of species-dependent failure to reconstruct one metric.
+
+\subsection{Rank of non-universality}
+
+Suppose spectra depend on $r$ dimensionless fields $\vartheta^I$ in addition to one common scale $\chi$:
+\[
+ \omega_A=c_A\chi\exp\!\left[K_{AI}\vartheta^I+O(\vartheta^2)\right].
+\]
+Then
+\[
+ \mathcal S^{AB}_\mu
+ =(K_{AI}-K_{BI})\partial_\mu\vartheta^I+O(\vartheta\partial\vartheta).
+\]
+The matrix of differential clock drifts has rank at most $r$. In particular, one non-universal scalar predicts a rank-one pattern across an arbitrarily large clock network. This is a falsifiable structural statement, not merely a bound on one coupling.
+
+\section{What role can electromagnetism play?}
+
+In four dimensions source-free Maxwell theory is conformally invariant. It naturally transports null phase and records causal/conformal geometry, but it does not by itself select an absolute clock scale. A free plane wave has an arbitrary frequency fixed by state preparation.
+
+Matter plus electromagnetism supplies stable bound-state gaps. For a hydrogenic electronic scale,
+\[
+ E_{\rm Ry}\sim m_e\alpha_{\rm em}^2,
+\qquad
+ m_e=\frac{y_eh}{\sqrt2}.
+\]
+A coherent transition accumulates
+\[
+ \dd\Phi_A=\omega_A\dd s_g,
+ \qquad
+ \omega_A=\frac{\Delta E_A}{\hbar}.
+\]
+If $\Delta E_A=c_A\chi$, then
+\[
+ \dd\Phi_A=c_A\chi\dd s_g=c_A\chi_*\dd\widehat\tau.
+\]
+The electromagnetic signal or local oscillator makes the phase count accessible; the common scale field makes the count universally interpretable as duration.
+
+\statusbox{navy}{\textbf{Correct division of labour.}
+\begin{center}
+\begin{tabular}{c}
+\textbf{scale field calibrates}\\[-1mm]
+$\boldsymbol{\downarrow}$\\[-1mm]
+\textbf{Higgs and QCD transmit the scale}\\[-1mm]
+$\boldsymbol{\downarrow}$\\[-1mm]
+\textbf{EM and other interactions structure and read out spectra}
+\end{tabular}
+\end{center}
+A photon is an excellent phase carrier but a poor autonomous clock standard: its frequency is not self-normalizing.}
+
+\section{Higgs-only test}
+
+Let
+\[
+ h(x)=\sqrt{2H^\dagger H}
+\]
+be the gauge-invariant Higgs modulus. A generic clock gap may be written
+\[
+ \omega_A
+ =h\,F_A\!\left(
+ \alpha_{\rm em},g_s,y_f,
+ \frac{\Lambda_{\rm QCD}}{h},
+ \frac{\MP}{h},
+ \ldots
+ \right).
+\]
+The Higgs is a universal chronometric field only if every dimensionless argument is fixed and every $F_A$ is therefore a spacetime constant.
+
+\subsection{Why the ordinary Standard Model does not satisfy the condition}
+
+\begin{enumerate}
+  \item The Higgs mass parameter is a free dimensionful relevant parameter in the ordinary Standard Model. The electroweak scale is not derived from the Higgs field itself.
+  \item The gravitational scale $\MP$ is independent. If the observed Higgs modulus alone induced gravity through $\MP^2=\xi_hv^2$, then
+  \[
+    \xi_h\simeq\left(\frac{2.435\times10^{18}\,\mathrm{GeV}}{246.22\,\mathrm{GeV}}\right)^2
+    \simeq9.8\times10^{31}.
+  \]
+  This is mathematically possible as a parametrization but is not a viable minimal completion: such a coupling is far above collider bounds and would decouple the observed Higgs. \cite{Atkins2012}
+  \item Proton and nuclear masses are dominated by the QCD confinement scale, not by the Higgs contribution to light-quark masses. Atomic and nuclear clock ratios depend differently on $m_e$, $m_q$, $\Lambda_{\rm QCD}$, $\alpha_{\rm em}$ and nuclear moments. \cite{Sherrill2023,Kawasaki2025}
+  \item The ordinary theory does not dynamically impose
+  \[
+    \dd\ln(\Lambda_{\rm QCD}/h)=0.
+  \]
+  Consequently a variation of $h$ alone produces nonzero chronometric shear between electronic and hadronic clocks.
+  \item The putative metric
+  \[
+    \widehat g^{(H)}_{\mu\nu}=\left(\frac{h}{v}\right)^2g_{\mu\nu}
+  \]
+  is degenerate at $h=0$. A Higgs-only ontology therefore either declares metric duration absent in the electroweak-symmetric phase or requires a second field to keep the chronometric metric regular.
+\end{enumerate}
+
+\begin{proposition}[Conditional Higgs-only obstruction]
+Assume a region contains two viable clock species $A,B$ whose frequency ratio depends nontrivially on $q=\Lambda_{\rm QCD}/h$. If $\dd q\neq0$, then no metric in $[g]$ calibrates both clocks with constant intrinsic frequencies.
+\end{proposition}
+
+\begin{proof}
+By assumption,
+\[
+ \frac{\omega_A}{\omega_B}=G(q,\ldots),
+ \qquad
+ \frac{\partial G}{\partial q}\neq0.
+\]
+Hence
+\[
+ \dd\ln(\omega_A/\omega_B)
+ =\frac{\partial\ln G}{\partial\ln q}\dd\ln q+\cdots
+\]
+is nonzero whenever the indicated variation is not cancelled by another parameter. The universal factorization theorem then excludes one common chronometric metric.
+\end{proof}
+
+This is conditional rather than absolute. A deeper scale-invariant dynamics could enforce $\Lambda_{\rm QCD}/h=\text{constant}$. But once that dynamics is introduced, the Higgs is no longer the independent source of scale; it is one field locked to the common source.
+
+\subsection{Degree-of-freedom problem for a local Weyl Higgs-only model}
+
+A complex Higgs doublet contains four real scalar degrees of freedom. Electroweak breaking uses three as longitudinal modes of $W^\pm$ and $Z$, leaving one physical Higgs amplitude. If the same radial amplitude is also the sole local Weyl compensator, the Weyl gauge removes that remaining mode in the simplest scalar-only implementation. There is then no physical Higgs boson. This issue was noted explicitly in early conformal-compensator discussions. \cite{Navarro2005}
+
+Viable local Weyl models therefore add a gravitational scalar, an $R^2$ scalar mode, a Weyl gauge sector, or another scalar direction. The Weyl field can eat the common radial dilaton while an angular field remains as the observed Higgs. \cite{Ghilencea2019}
+
+\subsection{Global scale symmetry does not rescue the minimal Higgs alone}
+
+With global scale symmetry, the radial mode is physical rather than gauge. Spontaneous breaking then produces a massless dilaton at the classical level. Identifying this single mode with the observed massive Higgs requires explicit or anomalous scale breaking. The classically scale-invariant Standard Model alone does not yield a viable Coleman--Weinberg electroweak vacuum because the top contribution destabilizes the minimal potential; extra fields or dynamics are normally introduced. \cite{Foot2007}
+
+\section{The deeper field: Higgs--dilaton spectral completion}
+
+Introduce a positive scalar $\chi$ representing the common scale. It may be:
+
+\begin{itemize}
+  \item a Weyl compensator, hence gauge rather than physical;
+  \item a physical dilaton or cosmon associated with approximate global scale symmetry;
+  \item a composite order parameter generated by dimensional transmutation in a hidden strongly coupled sector;
+  \item a scalar mode originating in a Weyl or higher-curvature gravitational sector.
+\end{itemize}
+
+The minimal spectral lock is
+\[
+ h=\alpha\chi,
+ \qquad
+ \Lambda_{\rm QCD}=c_Q\chi,
+ \qquad
+ \MP=c_P\chi,
+ \qquad
+ g_i,y_f,\alpha_{\rm em}=\text{constants}.
+\]
+Then every gap has the form
+\[
+ \omega_A=c_A\chi,
+\]
+and the theorem produces
+\[
+ \widehat g_{\mu\nu}=\left(\frac{\chi}{\chi_*}\right)^2g_{\mu\nu}.
+\]
+
+\subsection{Healthy globally scale-invariant representative}
+
+A standard two-scalar Jordan-frame starting point is
+\[
+\begin{aligned}
+S=\int\dd^4x\sqrt{-g}\Bigg[&
+\frac12F(h,\chi)R
+-\frac12(\nabla h)^2
+-\frac12(\nabla\chi)^2
+-V(h,\chi)\\
+&-\frac14F_{\mu\nu}F^{\mu\nu}
++\Lag_{\rm gauge+Yukawa}
+\Bigg],
+\end{aligned}
+\]
+with
+\[
+ F(h,\chi)=\xi_hh^2+\xi_\chi\chi^2,
+\]
+and, in the scale-symmetric limit,
+\[
+ V(h,\chi)=\frac{\lambda}{4}(h^2-\alpha^2\chi^2)^2+\beta\chi^4.
+\]
+For $F>0$, transformation to the Einstein metric $g^E_{\mu\nu}=F\,g_{\mu\nu}/\MP^2$ gives scalar field-space metric
+\[
+ G_{ij}=\frac{\MP^2}{F}\delta_{ij}
+ +\frac{3\MP^2}{2F^2}F_{,i}F_{,j},
+\]
+which is positive definite for positive Jordan kinetic terms and $F>0$. Thus the minimal global Higgs--dilaton kinetic sector need not contain a ghost.
+
+For $\beta=0$, the vacuum valley is
+\[
+ h=\alpha\chi.
+\]
+At any nonzero point on this valley the potential Hessian is
+\[
+ H_V=2\lambda\alpha^2\chi^2
+ \begin{pmatrix}
+ 1&-\alpha\\
+ -\alpha&\alpha^2
+ \end{pmatrix},
+\]
+with eigenvalues
+\[
+ 0,
+ \qquad
+ 2\lambda\alpha^2\chi^2(1+\alpha^2).
+\]
+For $\lambda>0$, the angular/Higgs direction is stable while the common radial/dilaton direction is flat. A gauge symmetry can remove the flat direction; quantum scale breaking can generate a potential for it; an exact global symmetry leaves a physical massless dilaton.
+
+\subsection{Radial scale versus Higgs alignment}
+
+Write
+\[
+ h=\rho\sin\theta,
+ \qquad
+ \chi=\rho\cos\theta.
+\]
+Under a common Weyl rescaling, $\rho$ carries scale while $\theta$ is invariant. The lock $h=\alpha\chi$ fixes
+\[
+ \tan\theta_0=\alpha.
+\]
+This gives the clean physical interpretation:
+
+\[
+\boxed{
+\rho=\text{common chronometric scale},
+\qquad
+\theta=\text{dimensionless Higgs/dilaton alignment}
+}
+\]
+
+In a local Weyl theory, $\rho$ is gauge or is eaten by the Weyl vector, while an angular mode can remain as the observed Higgs. In a global theory, $\rho$ is a physical dilaton and $\theta$ is the Higgs-like orthogonal excitation. This radial/angular separation is why a deeper field is structurally superior to Higgs-only chronometry.
+
+\section{Three meanings of ``deeper field''}
+
+\begin{table}[H]
+\centering
+\caption{Candidate common-scale mechanisms.}
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.23\textwidth}X@{}}
+\toprule
+Mechanism & What emerges & Main cost \\
+\midrule
+Local Weyl compensator & A gauge-invariant metric $\widehat g=(\chi/\chi_*)^2g$ and common mass normalization. & The scale mode may be pure gauge. The construction can be physically equivalent to a frame choice unless the Weyl/gravity sector supplies new observables. \\
+Physical dilaton/cosmon & A dynamical field controls all mass scales and can evolve cosmologically. & Generic fifth forces, clock-ratio drift and a light scalar must be suppressed by exact universality, screening, a mass, or proximity to a scaling fixed point. \\
+Composite order parameter & Dimensional transmutation dynamically generates $\chi$ and makes chronometric scale genuinely collective. & A complete $3+1$D UV model must lock Higgs, QCD and gravity without introducing uncontrolled operators or anomalies. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The deepest version is the composite or quantum-scaling route:
+\[
+ \text{dimensionless microscopic couplings}
+ \longrightarrow
+ \Lambda_*
+ \longrightarrow
+ \langle\chi\rangle
+ \longrightarrow
+ (v,\Lambda_{\rm QCD},\MP)
+ \longrightarrow
+ \{\omega_A\}.
+\]
+This replaces an inserted clock scale by a dynamically generated order parameter. Scale-invariant Standard Model and quantum-gravity scaling solutions already demonstrate the required pattern in principle, including regimes where the Fermi, confinement and Planck scales are all proportional to a cosmon field. \cite{Shaposhnikov2009,WetterichScale2024,WetterichQG2026}
+
+\section{A minimal operational Higgs--dilaton model}
+
+The following axioms define a precise effective theory of chronometric calibration.
+
+\begin{definition}[Spectral chronometry model]
+A model consists of:
+\begin{enumerate}
+  \item a conformal spacetime $(\M,[g])$;
+  \item a positive Weyl-weight $-1$ scalar $\chi$;
+  \item a Higgs modulus $h$ with potential that stabilizes $h/\chi=\alpha$;
+  \item quantum running or additional dynamics that fixes $\Lambda_{\rm QCD}/\chi$ and all relevant dimensionless couplings;
+  \item clock transitions whose gaps are functions of these fields and couplings;
+  \item a physical metric $\widehat g=(\chi/\chi_*)^2g$.
+\end{enumerate}
+\end{definition}
+
+The matter action can be expressed entirely through invariant combinations. For example, a fermion mass term obeys
+\[
+ m_f(x)=\frac{y_fh(x)}{\sqrt2}
+ =\frac{y_f\alpha}{\sqrt2}\chi(x).
+\]
+Then
+\[
+ S_f\supset-\int\sqrt{-g}\,m_f\bar\psi\psi
+\equiv
+-\int\sqrt{-\widehat g}\,m_{f*}\bar{\widehat\psi}\widehat\psi,
+\]
+after the corresponding Weyl field redefinitions. The physical mass in the chronometric frame is constant.
+
+The operational proper time is
+\[
+ \dd\widehat\tau=\frac{\chi}{\chi_*}\dd s_g.
+\]
+For transition $A$,
+\[
+ \dd\Phi_A=c_A\chi_*\dd\widehat\tau.
+\]
+No external coordinate parameter is identified with physical time. Proper duration is the common parameter that linearizes all stable clock phases.
+
+\subsection{What is and is not emergent}
+
+The construction derives:
+\begin{itemize}
+  \item one local metric scale from a universal spectral field;
+  \item one proper-duration functional from common clock phases;
+  \item universal free-fall metric coupling when all inertial masses share the factor;
+  \item an experimental obstruction when spectra do not share it.
+\end{itemize}
+
+It does not derive:
+\begin{itemize}
+  \item the manifold or causal order;
+  \item the Lorentzian conformal class itself;
+  \item Einstein's field equations;
+  \item a global foliation or universal present;
+  \item the thermodynamic arrow of time;
+  \item the existence of quantum phase and interactions.
+\end{itemize}
+
+Thus the accurate claim is ``metric duration emerges from universal spectral calibration,'' not ``all time emerges from nothing.''
+
+\section{Connection to crossed-null chronometry}
+
+Choose two normalized null directions $k^\mu,\ell^\mu$ with
+\[
+ k^2=\ell^2=0,
+ \qquad
+ k\cdot\ell=-1.
+\]
+A massive momentum in their timelike plane may be written
+\[
+ p^\mu=\frac{m}{\sqrt2}
+ \left(e^\eta k^\mu+e^{-\eta}\ell^\mu\right).
+\]
+The two null coefficients are
+\[
+ p_+=\frac{m}{\sqrt2}e^\eta,
+ \qquad
+ p_-=\frac{m}{\sqrt2}e^{-\eta}.
+\]
+Therefore
+\[
+ 2p_+p_-=m^2,
+ \qquad
+ \frac{p_+}{p_-}=e^{2\eta}.
+\]
+If $m=c\chi$, then
+\[
+\boxed{
+\begin{aligned}
+\chi&:\ \text{fixes the product of the null components},\\
+\eta&:\ \text{fixes their ratio (rapidity)}.
+\end{aligned}
+}
+\]
+This connects the earlier null-pair result to the Higgs--dilaton model without claiming that literal photons form every clock. The null decomposition is kinematics; the common scale field supplies the dynamics that selects the mass shell.
+
+\section{Non-circularity and the ``just units'' objection}
+
+A universal rescaling of every mass and frequency is not locally observable through dimensionless matter experiments. If
+\[
+ \omega_A=c_A\chi
+\]
+for every clock, all ratios are constant. A simultaneous change of $\chi$ can be represented either as changing masses in $g$ or as changing the metric scale in $\widehat g$. This is precisely Weyl frame equivalence.
+
+There are two possible interpretations.
+
+\subsection{Gauge interpretation}
+
+If local Weyl symmetry is exact, $\chi$ is a compensator. Then no experiment detects its value alone. The achievement is conceptual and geometric: proper time is a gauge-invariant composite of conformal geometry and spectral scale. This is not a new fifth force.
+
+\subsection{Physical order-parameter interpretation}
+
+If $\chi$ is a physical dilaton, cosmon or condensate, it has independent dynamics. Exact universal coupling makes its common motion invisible to local clock ratios, but gravity, cosmology, boundary conditions and imperfect universality can expose it. This route can yield new physics, but it must pass strong equivalence-principle and clock constraints.
+
+\statusbox{amber}{\textbf{Non-circularity criterion.} The theory is physically stronger than a change of units only if it either (i) derives the gravitational scale and dynamics from the same order parameter, (ii) predicts controlled non-universal residuals, or (iii) supplies a microscopic generation mechanism for $\chi$ unavailable in the original metric description.}
+
+\section{Predictions and falsification tests}
+
+\subsection{Exact universal-clock null test}
+
+For every pair of clock species,
+\[
+ \boxed{
+ \mathcal S^{AB}_\mu
+ =\partial_\mu\ln\left(\frac{\omega_A}{\omega_B}\right)=0
+ }
+\]
+is necessary and sufficient for one local chronometric metric. This is closely related to local position invariance, but here it has a geometric interpretation: nonzero shear means that no conformal gauge makes both clocks constant standards.
+
+\subsection{Single misalignment mode}
+
+Let
+\[
+ \vartheta=\ln\left(\frac{h}{\alpha\chi}\right).
+\]
+Near the locked vacuum,
+\[
+ \delta\ln\omega_A=\delta\ln\chi+K_A\delta\vartheta.
+\]
+Hence
+\[
+ \boxed{
+ \delta\ln\left(\frac{\omega_A}{\omega_B}\right)
+ =(K_A-K_B)\delta\vartheta
+ }
+\]
+and the network of clock-ratio residuals has rank one. Two independent mismatch fields generically give rank two, and so forth.
+
+\subsection{Higgs-only residual}
+
+For an electronic scale versus a hadronic/nuclear scale, schematically
+\[
+ \delta\ln\left(\frac{\nu_{\rm e}}{\nu_{\rm N}}\right)
+ \simeq
+ \delta\ln\left(\frac{h}{\Lambda_{\rm QCD}}\right)
+ +K_\alpha\delta\ln\alpha_{\rm em}
+ +K_q\delta\ln\left(\frac{m_q}{\Lambda_{\rm QCD}}\right)
+ +\cdots.
+\]
+A Higgs-only changing background predicts nonzero differential drift unless QCD and all dimensionless factors are locked to it.
+
+\subsection{Universal mode invisibility}
+
+If only $\chi$ changes and factorization is exact,
+\[
+ \delta\ln(\omega_A/\omega_B)=0
+\]
+for every pair. Clock comparisons alone cannot detect the common mode. Detection then requires gravitational/cosmological dynamics or a controlled violation of exact universality. This is both a limitation and a consistency check.
+
+\subsection{Clock-network rank test}
+
+With $N$ clocks sampled over spacetime, form a matrix of fractional ratio changes against $P$ environmental or temporal samples. After subtracting common mode, the minimal number of non-universal scalar fields is bounded below by the observed matrix rank. A one-field Higgs--dilaton misalignment model predicts rank no greater than one at linear order. This is the most concrete new data-analysis signature of the formalism.
+
+\section{Viability scorecard}
+
+\small\begin{longtable}{@{}p{0.25\textwidth}p{0.14\textwidth}p{0.51\textwidth}@{}}
+\caption{Status of the formalized programme.}\label{tab:scorecard}\\
+\toprule
+Question & Status & Assessment \\
+\midrule
+\endfirsthead
+\toprule
+Question & Status & Assessment \\
+\midrule
+\endhead
+Broad conceptual novelty & \Fail & Prior art already links massless conformal structure, Higgs/mass generation and physical clocks. \\
+Multi-clock factorization theorem & \Candidate & Exact and useful; no direct indexed match found. It may still be judged a sharpened reformulation of universal coupling and local position invariance. \\
+Clock-space shear formalism & \Candidate & The quotient/common-mode construction appears distinctive in this context. Specialist review is needed. \\
+Standard Model Higgs alone & \Fail & Not universal, not pre-EW regular, and not a self-contained origin of Planck and QCD scales. \\
+Higgs as low-energy relay & \Pass & Electron and electroweak masses inherit $h$; EM bound states convert those masses into phase standards. \\
+Higgs--dilaton EFT & \Pass & Healthy global versions exist; the common radial scale and angular Higgs direction are structurally natural. \\
+Local Weyl completion & \Partial & Removes the dilaton ghost/flat mode in gauge formulations, but can reduce the claimed emergence to gauge-invariant bookkeeping. \\
+Physical/composite scale origin & \Partial & Dimensional transmutation and scaling solutions are real mechanisms. A complete model tailored to chronometric universality remains to be built. \\
+Universal QCD lock & \Partial & Realized in quantum-scale-invariant scaling scenarios, but not in ordinary SM+GR and not yet derived in a specific proposed UV theory. \\
+New prediction & \Pass & Chronometric shear and its rank structure provide falsifiable consistency tests, though atomic-clock sensitivity analysis already supplies much of the experimental machinery. \\
+\bottomrule
+\end{longtable}
+
+\section{Recommended research programme}
+
+\subsection{Paper A: theorem and priority paper}
+
+A compact first paper should make only the following claims:
+
+\begin{enumerate}
+  \item define conformal clock spectral fields and invariant phase;
+  \item prove the universal clock factorization theorem;
+  \item introduce clock-space quotient and chronometric shear;
+  \item establish the conditional Higgs-only obstruction;
+  \item separate established antecedents from the restricted contribution;
+  \item derive the rank-$r$ clock-network signature.
+\end{enumerate}
+
+This paper can stand without committing to one UV model.
+
+\subsection{Paper B: Higgs--dilaton dynamics}
+
+The second paper must perform the actual model work:
+
+\begin{enumerate}
+  \item choose global scale symmetry, gauged Weyl symmetry, or a composite condensate;
+  \item derive the full Einstein-frame scalar kinetic matrix and prove ghost/gradient stability on cosmological and laboratory backgrounds;
+  \item compute the one-loop effective potential and verify that $h/\chi$ is stabilized;
+  \item derive the renormalization prescription that makes $\Lambda_{\rm QCD}/\chi$ constant;
+  \item calculate couplings of the orthogonal Higgs/dilaton mode to electrons, photons, gluons and nucleons;
+  \item confront fifth-force, collider, equivalence-principle and atomic-clock limits;
+  \item determine whether the common radial mode is gauge, heavy, screened or cosmologically slow.
+\end{enumerate}
+
+\subsection{Paper C: microscopic generation}
+
+The deepest version should replace an inserted $\chi$ potential by a $3+1$D dynamical mechanism:
+\[
+ \text{asymptotically free hidden sector}
+ \longrightarrow
+ \text{composite scalar }\chi
+ \longrightarrow
+ h=\alpha\chi
+ \longrightarrow
+ \Lambda_{\rm QCD},\MP\propto\chi.
+\]
+It must show that the scale appears without a primitive dimensionful parameter and that all dimensionless ratios are radiatively stable.
+
+\section{Conclusion}
+
+The literature check changes the sales pitch but not the underlying opportunity.
+
+\[
+\boxed{
+\begin{aligned}
+&\text{``Higgs plus electromagnetism creates time''} &&\text{is too broad and not new},\\[1mm]
+&\text{``all clock spectra share one common scale field''} &&\text{is the exact condition for metric time},\\[1mm]
+&\text{``the Higgs alone supplies that field''} &&\text{fails in the ordinary minimal theory},\\[1mm]
+&\text{``a deeper scale field locks Higgs, QCD and gravity''} &&\text{is the viable research direction}.
+\end{aligned}
+}
+\]
+
+The most natural ontology is therefore not that the Higgs itself is time. It is that a deeper radial scale order parameter supplies the common normalization of all massive spectra; the Higgs is the electroweak alignment through which that scale enters charged matter; electromagnetic and other interactions turn the resulting gaps into countable phases. Proper duration is the universal common-mode parameter reconstructed by those phases.
+
+The genuinely hard question is no longer whether the idea can be stated coherently. It is whether a concrete quantum theory can force
+\[
+ v:\Lambda_{\rm QCD}:\MP=\text{constant ratios}
+\]
+while remaining stable, anomaly-consistent and experimentally viable. Solving that would turn the formulation from an elegant operational theorem into a physical mechanism.
+
+\appendix
+
+\section{Proof in line-bundle language}
+
+A conformal manifold may be described using density bundles. A frequency is a section of the inverse length bundle $L^{-1}$, while $\dd s_g$ is a section of $L$. Their product is a scalar. For any nonvanishing clock field $\omega_A$, the ratio $\omega_A/\omega_B$ is a genuine dimensionless scalar. A common metric scale is a nonvanishing section $\chi\in\Gamma(L^{-1})$. The factorization theorem states that the projective map
+\[
+ x\longmapsto [\omega_1(x):\cdots:\omega_N(x)]
+\]
+into positive projective clock space is constant if and only if the clock family is generated by one section $\chi$. This is the coordinate-free content of common-mode spectral scaling.
+
+\section{Symbolic checks}
+
+The accompanying Python script verifies:
+
+\begin{enumerate}
+  \item Weyl invariance of $\omega_A\dd s_g$ and $\widehat g=(\chi/\chi_*)^2g$;
+  \item the equivalence of constant ratios and common factorization for symbolic positive fields;
+  \item the Hessian and eigenvalues of $V=\lambda(h^2-\alpha^2\chi^2)^2/4$ on the vacuum valley;
+  \item positivity of the global-model Einstein-frame kinetic matrix for $F>0$;
+  \item the crossed-null identities $2p_+p_-=m^2$ and $p_+/p_-=e^{2\eta}$;
+  \item rank-one differential clock drift for one mismatch field;
+  \item the Higgs-only induced-gravity coupling estimate.
+\end{enumerate}
+
+\section{Priority statement suitable for a manuscript}
+
+A defensible draft statement is:
+
+\begin{quote}
+Previous work has shown that clock protocols can select representatives of conformal spacetime geometry, that electroweak mass generation may complete an otherwise massless spacetime structure, that Higgs/gravitational scalar sectors can determine atomic measurement gauge, and that physical time can be represented by field-oscillation counts. We do not claim priority for these observations. Our restricted contribution is to formulate universal chronometric geometry as a common-factor problem for a complete family of local spectral gaps, prove the associated necessary-and-sufficient criterion, identify gauge-invariant differential clock-ratio fields as the obstruction to a single metric, and apply this criterion to distinguish a Higgs relay from a universal Higgs--dilaton scale field.
+\end{quote}
+
+\begin{thebibliography}{99}
+
+\bibitem{EPS}
+J. Ehlers, F. A. E. Pirani and A. Schild,
+``The Geometry of Free Fall and Light Propagation,''
+in \emph{General Relativity: Papers in Honour of J. L. Synge} (1972).
+
+\bibitem{Perlick}
+V. Perlick,
+``Characterization of Standard Clocks by Means of Light Rays and Freely Falling Particles,''
+\emph{Gen. Rel. Grav.} \textbf{19}, 1059 (1987).
+
+\bibitem{Fatibene2015}
+L. Fatibene, S. Garruto and M. Polistina,
+``Breaking the Conformal Gauge by Fixing Time Protocols,''
+\emph{Int. J. Geom. Meth. Mod. Phys.} \textbf{12}, 1550044 (2015), arXiv:1410.1284.
+
+\bibitem{Bradonjic2009}
+K. Bradonji\'c,
+``Massless spacetime: On spacetime geometry above the electroweak symmetry breaking scale,''
+arXiv:0905.4547 (2009).
+
+\bibitem{Rugh2008}
+S. E. Rugh and H. Zinkernagel,
+``On the physical basis of cosmic time,''
+arXiv:0805.1947 (2008).
+
+\bibitem{Rainer2026}
+M. Rainer,
+``Gravitation and Spacetime: Emergent from Spinor Interactions -- How?,''
+arXiv:2601.00070 (2026).
+
+\bibitem{WetterichTime2024}
+C. Wetterich,
+``Physical time for the beginning universe,''
+arXiv:2408.01524 (2024).
+
+\bibitem{Scholz2014}
+E. Scholz,
+``Higgs and gravitational scalar fields together induce Weyl gauge,''
+arXiv:1407.6811 (2014).
+
+\bibitem{Hobson2020}
+M. P. Hobson and A. N. Lasenby,
+``Weyl gauge theories of gravity do not predict a second clock effect,''
+\emph{Phys. Rev. D} \textbf{102}, 084040 (2020), arXiv:2009.06407.
+
+\bibitem{Nguyen2025}
+H. K. Nguyen,
+``A mechanism to generate varying speed of light via Higgs--dilaton coupling: Theory and cosmological applications,''
+arXiv:2408.02583v5 (2025).
+
+\bibitem{Shaposhnikov2009}
+M. Shaposhnikov and D. Zenh\"ausern,
+``Scale invariance, unimodular gravity and dark energy,''
+\emph{Phys. Lett. B} \textbf{671}, 187 (2009), arXiv:0809.3395.
+
+\bibitem{Bars2014}
+I. Bars, P. Steinhardt and N. Turok,
+``Local conformal symmetry in physics and cosmology,''
+\emph{Phys. Rev. D} \textbf{89}, 043515 (2014), arXiv:1307.1848.
+
+\bibitem{Ghilencea2019}
+D. M. Ghilencea and H. M. Lee,
+``Weyl gauge symmetry and its spontaneous breaking in the Standard Model and inflation,''
+\emph{Phys. Rev. D} \textbf{99}, 115007 (2019), arXiv:1809.09174.
+
+\bibitem{WetterichScale2024}
+C. Wetterich,
+``Dark energy evolution from quantum gravity,''
+arXiv:2407.03465 (2024).
+
+\bibitem{WetterichQG2026}
+C. Wetterich,
+``Fermi scale from quantum gravity scaling solution,''
+arXiv:2601.16731v2 (2026).
+
+\bibitem{Sherrill2023}
+N. Sherrill et al.,
+``Analysis of atomic-clock data to constrain variations of fundamental constants,''
+arXiv:2302.04565 (2023).
+
+\bibitem{Kawasaki2025}
+A. Kawasaki,
+``Quantum Sensing Using Atomic Clocks for Nuclear and Particle Physics,''
+arXiv:2411.19424v3 (2025).
+
+\bibitem{SingleClock2025}
+K. Svozil,
+``Causal Rigidity and the Single-Unit Universe: Integrating the Alexandrov--Zeeman and Unruh Clock Scales,''
+arXiv:2511.20728 (2025; revised 2026).
+
+\bibitem{Navarro2005}
+I. Navarro and K. Van Acoleyen,
+``Compactifications of conformal gravity,''
+arXiv:hep-th/0504086 (2005).
+
+\bibitem{Foot2007}
+R. Foot, A. Kobakhidze, K. L. McDonald and R. R. Volkas,
+``A solution to the hierarchy problem from an almost decoupled hidden sector within a classically scale invariant theory,''
+arXiv:0709.2750 (2007).
+
+\bibitem{Atkins2012}
+M. Atkins and X. Calmet,
+``Bounds on the Nonminimal Coupling of the Higgs Boson to Gravity,''
+\emph{Phys. Rev. Lett.} \textbf{110}, 051301 (2013), arXiv:1211.0281.
+
+\bibitem{Brown2009}
+H. R. Brown and O. Pooley,
+``The behaviour of rods and clocks in general relativity, and the meaning of the metric field,''
+arXiv:0911.4440 (2009).
+
+\bibitem{Uzan2011}
+J.-P. Uzan,
+``Varying Constants, Gravitation and Cosmology,''
+\emph{Living Rev. Relativity} \textbf{14}, 2 (2011), arXiv:1009.5514.
+
+\bibitem{ClockReview2026}
+S. Gavhale et al.,
+``Solar System and Atomic Clock Bounds on Locally Coupled Scalar Fields,''
+arXiv:2606.27388 (2026).
+
+\bibitem{Condeescu2026}
+C. Condeescu,
+``World-Line Actions in Weyl Geometry,''
+arXiv:2607.26868 (2026).
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,1010 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,margin=21mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning,shapes.geometric,fit}
+
+\definecolor{navy}{HTML}{17365D}
+\definecolor{slate}{HTML}{394B59}
+\definecolor{lightblue}{HTML}{EAF1F8}
+\definecolor{lightgray}{HTML}{F3F5F7}
+\definecolor{lightgreen}{HTML}{EAF6EE}
+\definecolor{lightred}{HTML}{FBECEC}
+\definecolor{amber}{HTML}{FFF3D6}
+\definecolor{deepgreen}{HTML}{1E6B3A}
+\definecolor{deepred}{HTML}{9B1C1C}
+\definecolor{deepamber}{HTML}{8A5B00}
+\definecolor{purple}{HTML}{5B3F8C}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navy,
+  citecolor=navy,
+  urlcolor=navy,
+  pdftitle={Universal Scale Locking and Spectral Chronometry},
+  pdfsubject={A renormalized 3+1-dimensional candidate model and Turok-36 acceptance tests}
+}
+
+\setstretch{1.045}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.52em}
+\setlist[itemize]{leftmargin=1.55em,itemsep=0.18em,topsep=0.22em}
+\setlist[enumerate]{leftmargin=1.75em,itemsep=0.18em,topsep=0.22em}
+\captionsetup{font=small,labelfont=bf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{slate}Universal Scale Locking}
+\fancyhead[R]{\small\color{slate}Technical note v0.4}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{failure}[definition]{Failure mode}
+\newtheorem{criterion}[definition]{Acceptance criterion}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\Lag}{\mathcal{L}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\MP}{M_{\mathrm P}}
+\newcommand{\QCD}{\mathrm{QCD}}
+\newcommand{\UV}{\mathrm{UV}}
+\newcommand{\IR}{\mathrm{IR}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Pass}{\textcolor{deepgreen}{\textbf{PASS}}}
+\newcommand{\Fail}{\textcolor{deepred}{\textbf{FAIL}}}
+\newcommand{\Partial}{\textcolor{deepamber}{\textbf{PARTIAL}}}
+\newcommand{\Open}{\textcolor{purple}{\textbf{OPEN}}}
+\newcommand{\Conditional}{\textcolor{navy}{\textbf{COND.}}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\newcommand{\statusbox}[2]{%
+\begin{center}
+\fcolorbox{#1}{#1!7}{\parbox{0.92\textwidth}{#2}}
+\end{center}}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\vspace*{8mm}
+
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\vspace{7mm}
+
+{\fontsize{21}{25}\selectfont\bfseries\color{navy} Universal Scale Locking and\\ Spectral Chronometry\par}
+\vspace{3mm}
+{\Large A renormalized $3+1$-dimensional candidate model, phenomenological stress test, and acceptance protocol for Turok's 36-field sector\par}
+
+\vspace{9mm}
+
+\begin{center}
+\begin{minipage}{0.93\textwidth}
+\colorbox{lightblue}{\parbox{0.96\textwidth}{
+\textbf{Main conclusion.} A conventional two-derivative hidden gauge sector can generate one scalar order parameter $\chi$ by dimensional transmutation. A Higgs portal then fixes $h/\chi$, a non-minimal curvature coupling fixes $\MP/\chi$, and the dilatation Ward identity can lock $\Lambda_{\QCD}/\chi$. Along that locked trajectory every material clock frequency has the form $\omega_A=c_A\chi$, so one operational proper-time metric exists. In the exact locking limit the radial mode decouples from matter in the Einstein frame, eliminating composition-dependent fifth forces; in the benchmark it is also extremely heavy and essentially unmixed with the observed Higgs. The matter theory is renormalizable and conventionally unitary. Gravity remains an effective field theory below its cutoff. Turok's 36 fourth-order fields are therefore treated as an optional microscopic replacement for the safe hidden sector, not as an assumption. They are admissible only if an invariant composite channel has a positive spectral density and a unitary physical $S$-matrix.
+}}
+\end{minipage}
+\end{center}
+
+\vfill
+
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X@{}}
+Document status: & Technical research note; not peer reviewed \\
+Version: & 0.4 \\
+Date: & 16 August 2026 \\
+Core construction: & $G_{\rm SM}\times SU(2)_X$ scale-free matter theory on curved spacetime, with a hidden Coleman--Weinberg scale, Higgs portal, induced Einstein term, and local-RG QCD matching \\
+Accompanying files: & Symbolic/numerical verification script, machine-readable results, acceptance matrix, and source package \\
+Central limitation: & No claim of a complete perturbatively renormalizable and conventionally unitary quantum theory of gravity
+\end{tabularx}
+
+\vspace{7mm}
+{\color{navy}\rule{\textwidth}{1.2pt}}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+\begin{abstract}
+We construct a concrete four-dimensional candidate for a universal spectral scale. The classically scale-free matter sector has gauge group $G_{\rm SM}\times SU(2)_X$, the ordinary Higgs doublet $H$, and one hidden scalar doublet $\Phi$. The hidden gauge interaction generates a vacuum scale $f$ by the Coleman--Weinberg mechanism. On the scalar valley, the gauge-invariant Higgs modulus $h=\sqrt{2H^\dagger H}$ satisfies $h=\zeta_h\chi$, where $\chi=\sqrt{2\Phi^\dagger\Phi}$ and $\zeta_h^2=\lambda_p/\lambda_H$. A non-minimal coupling $F(H,\Phi)R/2$ yields $\MP^2=(\xi_\chi+\xi_H\zeta_h^2)f^2$. QCD is matched at a physical scale proportional to $\chi$ and its local dilatation Ward identity supplies the standard anomaly coupling $\sigma(\beta_s/2g_s)G^2/f$, implying $\Lambda_{\QCD}=c_Q\chi$ on the locked trajectory. Thus
+\[
+ h=\zeta_h\chi,\qquad \Lambda_{\QCD}=c_Q\chi,\qquad \MP=\sqrt{\xi_{\rm eff}}\,\chi.
+\]
+All particle and bound-state gaps are then homogeneous of degree one in $\chi$, $\omega_A=c_A\chi$, provided the dimensionless couplings and threshold ratios are fixed. The chronometric metric $\widehat g_{\mu\nu}=(\chi/\chi_*)^2g_{\mu\nu}$ calibrates every such clock.
+
+The scalar and gauge matter sector is a conventional two-derivative renormalized QFT. We give the one-loop hidden-sector beta functions, the radiative minimum and its positive curvature, the scalar mass matrix, and a Planck-scale benchmark. For $g_X=0.5$, $\xi_\chi=1$ and $f=2.435\times10^{18}\,\mathrm{GeV}$, the required portal is $\lambda_p=2.65\times10^{-33}$, the hidden radial mass is $5.14\times10^{16}\,\mathrm{GeV}$ before Einstein-frame canonical normalization, the hidden vector mass is $6.09\times10^{17}\,\mathrm{GeV}$, and the flat-space Higgs-radial mixing estimate is $6.0\times10^{-46}$. A 20,000-point weak-coupling scan found positive scalar eigenvalues and bounded scalar potentials throughout the stated domain.
+
+The exact locking condition also removes the scalar fifth force: after transforming to the Einstein frame, $m_A^E=\MP^{(0)}m_A(\chi)/\sqrt{F(\chi)}$ is independent of $\chi$ whenever $m_A\propto\chi$ and $F\propto\chi^2$. Clock-ratio drift is the invariant measure of any failure of this cancellation. Present optical-clock networks reach fractional ratio uncertainties at or below $3.2\times10^{-18}$, while nuclear clocks now probe couplings to photons, quarks and the strong sector, making this failure mode directly testable.
+
+Finally, we formulate a hard acceptance protocol for replacing the safe hidden sector by Boyle--Turok's 36 dimension-zero Fradkin--Tseytlin fields. An exact elementary $1/p^4$ propagator cannot have a nontrivial conventional non-negative K\"all\'en--Lehmann density: its $1/p^2$ spectral moment must vanish, forcing a positive measure to vanish. Therefore the 36-field proposal can support the present construction only if a gauge/Weyl-invariant composite order parameter develops a conventional positive $1/p^2$ pole in the infrared, and if the physical subspace satisfies the optical theorem, reflection positivity, condensate stability, and acceptable matter-coupling tests. Recent work claims a Krein-space resolution, while a contemporaneous critique argues that ghosts, unitarity violation and a confining fifth force remain. The issue is not settled.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Executive verdict}
+
+\begin{table}[H]
+\centering
+\caption{Current status of the requested construction.}
+\begin{tabularx}{\textwidth}{@{}L{0.285\textwidth}L{0.13\textwidth}Y@{}}
+\toprule
+Requirement & Status & Result \\
+\midrule
+Renormalized $3+1$D matter theory & \Pass & All flat-space matter operators have canonical dimension at most four; curved-space renormalization includes the required non-minimal and curvature counterterms. \\
+One generated field $\chi$ & \Pass & Hidden asymptotically free gauge dynamics generates $f=\langle\chi\rangle$ by dimensional transmutation. \\
+Lock $h$ to $\chi$ & \Pass & The portal valley gives $h^2=(\lambda_p/\lambda_H)\chi^2$. \\
+Lock $\MP$ to $\chi$ & \Pass & $F=\xi_\chi\chi^2+\xi_Hh^2$ gives $\MP^2=\xi_{\rm eff}f^2$. \\
+Lock $\Lambda_{\QCD}$ to $\chi$ & \Partial & Exact at the renormalized dilaton/local-RG EFT level and along a common-scale RG trajectory; a fully explicit all-orders microscopic UV completion remains to be built. \\
+Healthy observed Higgs & \Pass & Positive scalar eigenvalues; benchmark mixing is negligibly small. \\
+Fifth-force constraints & \Pass & Exact common scaling cancels the radial coupling in the Einstein frame; residuals are additionally short-ranged because the radial mode is heavy. \\
+Clock constraints & \Pass & Exact lock predicts no differential clock drift. Non-universal corrections are directly bounded by precision ratio networks. \\
+Collider constraints & \Pass & The benchmark changes Higgs couplings only at order $\theta^2\sim10^{-91}$ and places hidden states far above collider reach. \\
+Cosmological consistency & \Conditional & Safe if breaking occurs before the observable hot Big Bang, hidden states are not repopulated, and Higgs-vacuum survival and the cosmological constant are separately addressed. \\
+Lorentzian unitarity: matter & \Pass & Standard two-derivative gauge theory, positive kinetic matrix, anomaly-free hidden matter content, BRST physical subspace. \\
+Positive spectral density & \Pass & Required for gauge-invariant composite operators in the conventional model; can be checked perturbatively and on the lattice. \\
+Full quantum gravity & \Open & Einstein gravity is used as a low-energy EFT. Known local finite-derivative perturbatively renormalizable gravity introduces a spin-two ghost. \\
+Turok 36-field completion & \Open & Admissible only after the four acceptance conditions in Sec.~\ref{sec:turok} are demonstrated in the interacting theory. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\statusbox{navy}{\textbf{Strongest defensible claim.}
+\[
+\boxed{
+\begin{gathered}
+\text{one generated spectral scale}
+\;\Longrightarrow\;
+\{h,\Lambda_{\QCD},\MP,\omega_A\}\propto\chi\\[1mm]
+\Longrightarrow\;
+\text{one operational proper-time metric}
+\end{gathered}
+}
+\]
+This is a candidate mechanism for the emergence of \emph{duration calibration}. It does not derive causal order, the arrow of time, or the existence of spacetime events.}
+
+\section{Why the safe core should not begin with the 36 fields}
+
+The Turok connection remains interesting, but it should be treated as a possible microscopic replacement for a sector whose infrared requirements are already clear. This reverses the usual order of speculation: first construct a low-energy theory that is demonstrably healthy, then ask whether the 36-field theory can flow to it.
+
+Boyle and Turok proposed 36 dimension-zero fourth-order scalar fields to cancel the Standard Model Weyl anomaly and vacuum-energy contributions under specific assumptions, including an emergent rather than fundamental Higgs \cite{BoyleTurok2022}. Their 2026 programme proposes a Krein-space quantization and hidden ghost parity, claiming perturbative causality, an optical theorem and positive tree-level transition probabilities \cite{BatemanTurok2026}. Cline and Hell dispute this, arguing that the spectrum still contains a ghost, that conventional unitarity is violated, and that coupling the fields to matter generates an unacceptable confining fifth force \cite{ClineHell2026}. These are not cosmetic disagreements; they concern the probability interpretation of the theory.
+
+The core model below therefore uses only ordinary two-derivative fields. It tells us exactly what a successful 36-field completion must reproduce:
+
+\begin{enumerate}
+  \item one gauge/Weyl-invariant scalar operator with a stable nonzero vacuum scale;
+  \item a positive-residue infrared scalar pole or an equivalent positive spectral continuum;
+  \item universal coupling to the trace/scale channel, rather than arbitrary composition-dependent couplings;
+  \item an infrared effective action with no negative-norm states or gradient instabilities.
+\end{enumerate}
+
+If the 36-field theory passes those tests, its collective singlet may replace the hidden $SU(2)_X$ order parameter $\chi$. If it does not, the universal-scale construction survives without it.
+
+\section{Field content and renormalized action}
+
+\subsection{Gauge and scalar content}
+
+Take
+\[
+G=G_{\rm SM}\times SU(2)_X,
+\]
+where $SU(2)_X$ is a hidden gauge group. In addition to the massless-limit Standard Model fields, introduce a single complex scalar doublet $\Phi$ under $SU(2)_X$ and no hidden chiral fermions. This hidden sector is gauge-anomaly free and its gauge coupling is asymptotically free. Define the gauge-invariant radial variables
+\[
+ h=\sqrt{2H^\dagger H},\qquad
+ \chi=\sqrt{2\Phi^\dagger\Phi}.
+\]
+In unitary gauges,
+\[
+ H=\frac{1}{\sqrt2}\binom{0}{h},\qquad
+ \Phi=\frac{1}{\sqrt2}\binom{0}{\chi}.
+\]
+
+\subsection{Jordan-frame action}
+
+The renormalized matter-plus-gravity EFT is
+\begin{align}
+S_J=\int \dd^4x\sqrt{-g}\Bigg[&
+\frac12F(H,\Phi)R
+-(D_\mu H)^\dagger(D^\mu H)
+-(D_\mu\Phi)^\dagger(D^\mu\Phi)
+\nonumber\\
+&-V_0(H,\Phi)
+-\frac14X^a_{\mu\nu}X^{a\mu\nu}
++\Lag_{\rm SM}^{m_H^2=0}
++\Lag_{\rm grav}^{(4)}
+\Bigg],
+\label{eq:action}
+\end{align}
+where
+\begin{align}
+F(H,\Phi)&=2\xi_\chi\Phi^\dagger\Phi+2\xi_HH^\dagger H,
+\label{eq:F}\\
+V_0(H,\Phi)&=
+\frac{\lambda_\chi}{2}(\Phi^\dagger\Phi)^2
+-\lambda_p(H^\dagger H)(\Phi^\dagger\Phi)
++\frac{\lambda_H}{2}(H^\dagger H)^2.
+\label{eq:potential}
+\end{align}
+No scalar mass, Einstein-Hilbert mass, or cosmological constant is inserted as a classical scale in the symmetry limit. In radial variables,
+\[
+F=\xi_\chi\chi^2+\xi_Hh^2,
+\qquad
+V_0=\frac{\lambda_\chi}{8}\chi^4
+-\frac{\lambda_p}{4}h^2\chi^2
++\frac{\lambda_H}{8}h^4.
+\]
+
+Curved-space renormalization requires a basis of local curvature operators,
+\begin{equation}
+\Lag_{\rm grav}^{(4)}=
+\alpha_C C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}
++\alpha_RR^2+\alpha_EE_4+\alpha_\Box\Box R,
+\label{eq:curvaturect}
+\end{equation}
+plus gauge-fixing and ghost terms. The $\xi_i$ couplings and curvature-squared coefficients are generated under renormalization even if set to special values at one scale. Standard Model effective-potential calculations in curved spacetime exhibit precisely this structure \cite{Markkanen2018}.
+
+\subsection{What ``renormalized'' means here}
+
+There are two distinct statements:
+
+\begin{itemize}
+  \item The matter theory on a prescribed curved background is power-counting renormalizable: all required matter operators have dimension at most four and all curved-space divergences are absorbed into Eq.~\eqref{eq:curvaturect} and the non-minimal couplings.
+  \item The dynamical metric is treated as a gravitational EFT. Curvature-squared operators are inserted perturbatively as higher-order corrections and are not resummed into additional asymptotic particles below the EFT cutoff.
+\end{itemize}
+
+This distinction is essential. Promoting a finite local $C^2$ term to the fundamental kinetic operator makes gravity perturbatively renormalizable but introduces a massive spin-two pole with the wrong sign in the conventional quantization. A recent scale-invariant hidden-condensation model explicitly retains this spin-two ghost in its cosmological analysis \cite{Wami2026}. Our construction declines that bargain. A UV completion of gravity may be asymptotically safe, nonlocal, string-like, or something else, but it is not established here.
+
+\section{Dimensional transmutation in the hidden sector}
+
+The hidden $SU(2)_X$ sector is a controlled proof of principle for generating one scale. The same scalar-gauge architecture has long been studied as a scale-invariant Higgs-portal model \cite{CaroneRamos2013}.
+
+At one loop, retaining the dominant hidden gauge contribution, the radial effective potential is
+\begin{equation}
+V_X(\chi)=\frac{\lambda_\chi}{8}\chi^4
++\frac{9g_X^4}{1024\pi^2}\chi^4
+\left[
+\ln\left(\frac{g_X^2\chi^2}{4\mu_X^2}\right)-\frac32
+\right].
+\label{eq:CW}
+\end{equation}
+Choose the renormalization point $\mu_X=g_Xf/2$. The condition $V_X'(f)=0$ gives
+\begin{equation}
+\boxed{
+\lambda_\chi(f)=\frac{9g_X^4(f)}{128\pi^2}
+}
+\label{eq:lambdachi}
+\end{equation}
+and the radial curvature is
+\begin{equation}
+\boxed{
+m_{\chi,J}^2=V_X''(f)=\frac{9g_X^4(f)}{128\pi^2}f^2>0.
+}
+\label{eq:mchi}
+\end{equation}
+Thus the condensate is a strict local minimum in the perturbative domain.
+
+The relevant one-loop beta functions in the conventions of Eq.~\eqref{eq:potential} are \cite{CaroneRamos2013}
+\begin{align}
+16\pi^2\beta_{\lambda_\chi}
+&=12\lambda_\chi^2+4\lambda_p^2-9g_X^2\lambda_\chi+\frac94g_X^4,
+\label{eq:betalchi}\\
+16\pi^2\beta_{\lambda_p}
+&=\lambda_p\left(
+6\lambda_\chi-4\lambda_p+6\lambda_H+6y_t^2
+-\frac92g_2^2-\frac9{10}g_1^2-\frac92g_X^2
+\right),
+\label{eq:betaportal}\\
+16\pi^2\beta_{g_X}&=-\frac{43}{6}g_X^3.
+\label{eq:betagx}
+\end{align}
+Equation~\eqref{eq:betaportal} shows that the decoupling limit $\lambda_p\to0$ is multiplicatively stable within the nongravitational QFT. The hierarchy encoded in a tiny portal is therefore technically natural in the ordinary Wilsonian sense, although Planck-scale threshold corrections remain a quantum-gravity sensitivity rather than a solved hierarchy mechanism.
+
+\section{The three locks}
+
+\subsection{Electroweak lock}
+
+For fixed $\chi\neq0$, minimization with respect to $h$ gives
+\[
+\frac{\partial V_0}{\partial h}
+=\frac{h}{2}\left(\lambda_Hh^2-\lambda_p\chi^2\right)=0.
+\]
+On the electroweak branch,
+\begin{equation}
+\boxed{
+h^2=\frac{\lambda_p}{\lambda_H}\chi^2
+\equiv \zeta_h^2\chi^2.
+}
+\label{eq:hlock}
+\end{equation}
+At the vacuum,
+\[
+v=\zeta_h f.
+\]
+The physical Higgs is predominantly the angular/misalignment direction orthogonal to the common radial scale when $f\gg v$.
+
+\subsection{Gravitational lock}
+
+Along the same valley,
+\begin{equation}
+F=\left(\xi_\chi+\xi_H\zeta_h^2\right)\chi^2
+\equiv\xi_{\rm eff}\chi^2.
+\label{eq:Feff}
+\end{equation}
+The induced reduced Planck mass is therefore
+\begin{equation}
+\boxed{
+\MP^2=\xi_{\rm eff}f^2.
+}
+\label{eq:Mpllock}
+\end{equation}
+Choosing $f\sim\MP$ and $\xi_{\rm eff}=O(1)$ avoids the very large non-minimal coupling required if the observed Higgs alone generated the Planck scale.
+
+\subsection{QCD lock}
+
+The QCD lock is subtler because $\Lambda_{\QCD}$ is an RG-invariant scale rather than a polynomial vacuum expectation value. At a physical matching point $\mu_*=\kappa\chi$, define the dimensionless strong coupling and all threshold ratios. The RG invariant is schematically
+\begin{equation}
+\Lambda_{\QCD}(\chi)=
+\kappa\chi
+\exp\left[-\int^{g_s(\kappa\chi)}\frac{\dd g}{\beta_s(g)}\right]
+\mathcal T\!\left(
+\frac{m_q(\chi)}{\chi},\ldots
+\right),
+\label{eq:qcdlock}
+\end{equation}
+where $\mathcal T$ contains heavy-quark threshold matching. Since $m_q=y_qh/\sqrt2\propto\chi$, every threshold argument is constant on the locked trajectory. If the boundary values of the dimensionless couplings are also fixed, then
+\begin{equation}
+\boxed{
+\Lambda_{\QCD}=c_Q\chi,
+\qquad
+\frac{\partial\ln\Lambda_{\QCD}}{\partial\ln\chi}=1.
+}
+\label{eq:qcdlockboxed}
+\end{equation}
+Scaling solutions in which the Fermi scale, particle masses and QCD confinement scale all grow proportionally to one cosmon field are known in the quantum-gravity/scale-invariant literature \cite{Wetterich2026}.
+
+For local fluctuations write
+\[
+\chi=f\,e^{\sigma/f}.
+\]
+The dilatation Ward identity gives the low-energy anomaly interaction
+\begin{equation}
+\boxed{
+\Lag_{\sigma gg}=\frac{\sigma}{f}
+\frac{\beta_s(g_s)}{2g_s}G^a_{\mu\nu}G^{a\mu\nu}
++\frac{\sigma}{f}\sum_q(1+\gamma_{m_q})m_q\bar q q+\\cdots .
+}
+\label{eq:anomaly}
+\end{equation}
+This is the local implementation of Eq.~\eqref{eq:qcdlockboxed}. It is a renormalized dilaton EFT statement. What remains unbuilt is a completely explicit all-orders microscopic theory in which the same hidden transmutation scale fixes the UV boundary condition of QCD without invoking the compensator description. That is why the QCD row in Table~1 is marked \Partial rather than \Pass.
+
+\subsection{Unified locking equation}
+
+Combining Eqs.~\eqref{eq:hlock}, \eqref{eq:Mpllock} and \eqref{eq:qcdlockboxed},
+\begin{equation}
+\boxed{
+\left(
+\frac{h}{\chi},
+\frac{\Lambda_{\QCD}}{\chi},
+\frac{\MP}{\chi}
+\right)
+=
+\left(
+\zeta_h,
+c_Q,
+\sqrt{\xi_{\rm eff}}
+\right)
+=\text{constants}.
+}
+\label{eq:triplelock}
+\end{equation}
+The construction locks scales; it does not yet predict the extremely small numerical values of $\zeta_h$ or $c_Q$. Those remain dimensionless hierarchy data unless a UV fixed point makes them irrelevant and calculable.
+
+\section{From scale locking to proper duration}
+
+Let $\omega_A$ denote any local clock gap: an electronic transition, hyperfine transition, vibrational mode, nuclear transition, or other stable spectral difference. Dimensional analysis in the renormalized locked theory gives
+\begin{equation}
+\omega_A(\chi)=
+\chi\,
+F_A\left(
+\alpha_i,y_f,\zeta_h,c_Q,\xi_{\rm eff},\ldots
+\right).
+\label{eq:freqgeneral}
+\end{equation}
+If the dimensionless arguments are spacetime constants, then
+\begin{equation}
+\boxed{
+\omega_A=c_A\chi
+}
+\label{eq:factorization}
+\end{equation}
+for every clock species $A$.
+
+Given an initially conformal metric $[g]$, define
+\begin{equation}
+\boxed{
+\widehat g_{\mu\nu}=\left(\frac{\chi}{\chi_*}\right)^2g_{\mu\nu}.
+}
+\label{eq:clockmetric}
+\end{equation}
+Here $\chi_*$ fixes only the global human choice of units. Along a timelike worldline,
+\[
+\dd s_{\widehat g}=\frac{\chi}{\chi_*}\dd s_g,
+\]
+and the measured phase becomes
+\begin{equation}
+\dd\Phi_A=\omega_A\dd s_g=c_A\chi_*\dd s_{\widehat g}.
+\label{eq:phase}
+\end{equation}
+Every clock therefore accumulates phase at a constant species-dependent rate with respect to the same proper duration.
+
+The invariant obstruction is the chronometric-shear one-form
+\begin{equation}
+\boxed{
+\mathcal S_{AB}=\dd\ln\frac{\omega_A}{\omega_B}.
+}
+\label{eq:shear}
+\end{equation}
+Exact locking gives $\mathcal S_{AB}=0$. A nonzero value cannot be removed by a conformal change of units; it is physical disagreement among clock species. Optical clock ratios have now been compared with fractional uncertainties at or below $3.2\times10^{-18}$ \cite{Aeppli2025}, and a thorium-229 nuclear clock is already being used to constrain drifts and oscillations involving photon, quark and strong-sector couplings \cite{Thorium2026}. This makes Eq.~\eqref{eq:shear} an experimental quantity, not merely a philosophical ornament.
+
+\section{Healthy Higgs and scalar spectrum}
+
+In the basis $(\delta h,\delta\chi)$, the flat-space one-loop mass matrix is well approximated by
+\begin{equation}
+\M^2\simeq
+\begin{pmatrix}
+\lambda_p f^2+\Delta_h & -\lambda_pvf\\
+-\lambda_pvf & \dfrac{9g_X^4}{128\pi^2}f^2+\lambda_pv^2
+\end{pmatrix},
+\label{eq:massmatrix}
+\end{equation}
+where $\Delta_h$ denotes the usual Standard Model radiative contribution in the chosen scheme. This is the same structural mass matrix found in the hidden-$SU(2)$ Coleman--Weinberg model \cite{CaroneRamos2013}.
+
+For $m_\chi^2\gg m_h^2$, the mixing angle is approximately
+\begin{equation}
+\theta\simeq\frac{\lambda_pvf}{m_\chi^2-m_h^2}.
+\label{eq:mixing}
+\end{equation}
+The Einstein-frame scalar kinetic metric is positive for $F>0$ and positive Jordan-frame scalar kinetic terms. Along the radial direction and for negligible $v/f$, canonical normalization contributes approximately
+\[
+Z_\chi\simeq1+6\xi_\chi,
+\]
+so $m_{\chi,E}\simeq m_{\chi,J}/\sqrt{Z_\chi}$. No scalar ghost appears.
+
+The observed Higgs remains physical because only the common high-scale radial direction plays the role of the scale field. The electroweak Higgs is the light, almost orthogonal fluctuation. This avoids the defect of trying to use the sole Higgs radial mode as a local Weyl compensator, which would gauge away the scalar that is experimentally observed.
+
+Current singlet-extension analyses combine Higgs precision, electroweak observables and direct heavy-scalar searches, with future colliders expected to cover much of the phenomenologically mixed region \cite{Bosse2026}. Our benchmark lies in the extreme alignment limit and is not close to current collider sensitivity.
+
+\section{Fifth-force cancellation}
+
+Perform the Einstein-frame transformation
+\begin{equation}
+ g^E_{\mu\nu}=\frac{F}{(\MP^{(0)})^2}g^J_{\mu\nu}.
+\label{eq:einstein}
+\end{equation}
+A Jordan-frame mass $m_A(\chi)$ becomes
+\begin{equation}
+ m_A^E(\chi)=\frac{\MP^{(0)}}{\sqrt{F(\chi)}}m_A(\chi).
+\label{eq:massE}
+\end{equation}
+On the locked trajectory,
+\[
+F=\xi_{\rm eff}\chi^2,
+\qquad
+m_A=c_A\chi,
+\]
+so
+\begin{equation}
+\boxed{
+ m_A^E=\frac{c_A\MP^{(0)}}{\sqrt{\xi_{\rm eff}}},
+\qquad
+\alpha_A\equiv\frac{\partial\ln m_A^E}{\partial\varphi}=0.
+}
+\label{eq:fifthcancel}
+\end{equation}
+Here $\varphi$ is the canonically normalized radial scalar. The universal radial mode therefore does not mediate a composition-dependent force in the exact limit. This is the precise mechanism behind the suppression of fifth forces in fully scale-invariant matter sectors discussed by Ferreira, Hill and Ross and in later Jordan-frame analyses \cite{Ferreira2016,Copeland2022}.
+
+If locking is imperfect, then
+\begin{equation}
+\alpha_A-\alpha_B
+=\frac{\partial}{\partial\varphi}
+\ln\frac{m_A}{m_B}
+=\frac{\partial}{\partial\varphi}
+\ln\frac{\omega_A}{\omega_B}.
+\label{eq:alphashear}
+\end{equation}
+The same non-universal derivative controls both equivalence-principle violation and chronometric shear. This is a useful synthesis: clock comparisons and fifth-force searches measure different kinematic manifestations of one failure of universal scale factorization.
+
+Even if a small universal coupling remains because the anomaly or UV thresholds are imperfect, the benchmark radial mass is so large that its Yukawa range is negligible. The model therefore has two independent safeguards: decoupling by exact common scaling and short range from a heavy radial mode.
+
+\section{Benchmark point}
+
+Take
+\[
+\MP=2.435\times10^{18}\,\mathrm{GeV},\quad
+v=246.22\,\mathrm{GeV},\quad
+m_h=125.25\,\mathrm{GeV},
+\]
+\[
+\xi_\chi=1,
+\qquad
+\xi_H=0,
+\qquad
+g_X(f)=0.50,
+\qquad
+f=\MP.
+\]
+In the potential convention of Eq.~\eqref{eq:potential},
+\[
+\lambda_H=\frac{m_h^2}{v^2}=0.25877.
+\]
+The required portal is
+\begin{equation}
+\boxed{
+\lambda_p=\lambda_H\frac{v^2}{f^2}
+=2.646\times10^{-33}.
+}
+\end{equation}
+The hidden quartic at the radiative minimum, hidden vector mass and radial masses are
+\begin{align}
+\lambda_\chi(f)&=4.453\times10^{-4},\\
+m_X&=\frac12g_Xf=6.088\times10^{17}\,\mathrm{GeV},\\
+m_{\chi,J}&=5.138\times10^{16}\,\mathrm{GeV},\\
+m_{\chi,E}&\simeq\frac{m_{\chi,J}}{\sqrt7}
+=1.942\times10^{16}\,\mathrm{GeV}.
+\end{align}
+The flat-space mixing estimate is
+\begin{equation}
+\boxed{|	heta|\simeq6.0\times10^{-46}.}
+\end{equation}
+Consequently, a universal Higgs coupling modifier $\cos\theta$ differs from unity only at order $10^{-91}$.
+
+\begin{table}[H]
+\centering
+\caption{Benchmark phenomenological summary.}
+\begin{tabularx}{\textwidth}{@{}p{0.29\textwidth}p{0.25\textwidth}X@{}}
+\toprule
+Observable or constraint & Benchmark result & Interpretation \\
+\midrule
+Scalar eigenvalues & $m_h^2>0$, $m_\chi^2>0$ & No tachyon in the two-scalar sector. \\
+Higgs mixing & $6.0\times10^{-46}$ & Collider-safe by an absurd margin. \\
+Fifth-force range & $m_{\chi,E}^{-1}$ & Microscopic beyond any macroscopic test; exact locking also cancels the source coupling. \\
+Clock-ratio variation & zero at leading order & Any observed nonzero shear would falsify exact locking or reveal an additional light field. \\
+Hidden vectors & $6.1\times10^{17}\,\mathrm{GeV}$ & Must not be repopulated after inflation; no collider production. \\
+Portal naturalness & $\beta_{\lambda_p}\propto\lambda_p$ & Stable within the matter QFT; quantum-gravity threshold sensitivity remains. \\
+QCD ratio & $c_Q=\Lambda_{\QCD}/f$ & Fixed but not predicted by the minimal model. \\
+Vacuum energy & tuned & The construction does not solve the cosmological-constant problem. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The accompanying script verified the symbolic identities and scanned 20,000 points with
+\[
+0.20<g_X<0.80,
+\qquad
+0.50<\xi_\chi<2.00,
+\qquad
+-0.10<\xi_H<0.30.
+\]
+Every point in this deliberately conservative domain had a positive effective Planck coefficient, positive scalar determinant, positive radial curvature, bounded tree-level quartic form, and $g_X<1$. This is a consistency scan, not a global phenomenological fit.
+
+\section{Collider, clock and cosmological constraints}
+
+\subsection{Collider constraints}
+
+The only accessible new-particle effect in a generic low-scale singlet model is Higgs-scalar mixing, modified Higgs self-interactions, or direct production of the additional scalar. The benchmark suppresses all three because $f$ is Planckian and the portal is $O(10^{-33})$. It therefore satisfies collider constraints trivially but is also effectively untestable at colliders. This is a feature for consistency and a vice for discovery.
+
+\subsection{Clock constraints}
+
+Exact universal scaling predicts
+\[
+\frac{\dot\omega_A}{\omega_A}-
+\frac{\dot\omega_B}{\omega_B}=0
+\]
+for every pair. A residual light field $q^I$ gives
+\[
+\delta\ln\frac{\omega_A}{\omega_B}
+=\sum_I(K_{AI}-K_{BI})\delta q^I.
+\]
+A one-field failure therefore produces a rank-one covariance pattern across a clock network. Electronic, hyperfine and nuclear clocks have distinct sensitivity vectors, so a mixed network can distinguish variation in $\alpha_{\rm em}$, quark masses and the strong scale. The model passes present constraints by predicting no low-frequency radial motion and no differential coupling at leading order.
+
+\subsection{Cosmological conditions}
+
+A minimal viable cosmological history must satisfy:
+
+\begin{enumerate}
+  \item The $SU(2)_X$ transition and settling of $\chi$ occur before the observable radiation era, preferably before or during inflation.
+  \item Inflationary Hubble fluctuations are small compared with $m_{\chi,E}$, suppressing radial isocurvature.
+  \item Reheating does not thermally repopulate the hidden vectors or other stable hidden relics; a sufficient benchmark condition is $T_R\ll m_X$.
+  \item The electroweak vacuum survives inflation and reheating. This can require an appropriate Higgs-curvature coupling, sufficiently low inflationary scale, or additional UV threshold stabilization; it is not guaranteed by the tiny portal.
+  \item The enormous vacuum contribution at the scale-breaking minimum is cancelled or sequestered by a separate cosmological-constant mechanism.
+\end{enumerate}
+
+A recent classically scale-invariant hidden-condensation model links Planck generation, Higgs induction, inflation and dark relics, but does so in quadratic gravity containing a spin-two ghost \cite{Wami2026}. Our benchmark is deliberately less ambitious: it is compatible with a conventional post-inflationary cosmology under the conditions above, but it does not claim to explain inflation, dark matter or dark energy.
+
+\section{Lorentzian unitarity and positive spectral density}
+
+\subsection{Conventional model}
+
+The hidden matter Lagrangian has at most two time derivatives, positive-sign scalar and Yang--Mills kinetic terms, and no hidden chiral anomaly. Gauge fixing introduces Faddeev--Popov ghosts only in the standard unphysical BRST sector. The physical $S$-matrix is defined on gauge-invariant BRST cohomology.
+
+The correct radial observable is not the gauge-dependent elementary component $\chi$ in a chosen gauge but the invariant composite
+\begin{equation}
+\mathcal O_\chi(x)=\Phi^\dagger\Phi(x)-\frac{f^2}{2}.
+\label{eq:Ochi}
+\end{equation}
+Its two-point function must admit
+\begin{equation}
+ i\int\dd^4x\,e^{ip\cdot x}
+\langle0|T\mathcal O_\chi(x)\mathcal O_\chi(0)|0\rangle
+=
+\int_0^\infty\dd s\,
+\frac{\rho_\chi(s)}{p^2-s+i0},
+\qquad
+\rho_\chi(s)\ge0.
+\label{eq:KL}
+\end{equation}
+At weak coupling,
+\[
+\rho_\chi(s)=Z_\chi\delta(s-m_\chi^2)+\rho_{XX}(s)+\cdots,
+\qquad Z_\chi>0.
+\]
+The Fr\"ohlich--Morchio--Strocchi framework explains why gauge-invariant composite operators can share the pole masses found in a convenient Higgs gauge, and this mapping has perturbative and lattice support \cite{Maas2024}. Reflection positivity is properly required of gauge-invariant Schwinger functions, not of gauge-dependent elementary components \cite{Hayashi2021}.
+
+\subsection{Gravitational boundary}
+
+The same conventional proof is not supplied for quantum gravity. The EFT $S$-matrix is perturbatively unitary order by order for energies below its cutoff when higher-curvature operators are treated as insertions. It is not legitimate to resum a truncated $C^2$ term, retain the extra ghost pole as a physical asymptotic state, and then claim conventional positivity. The UV gravitational completion is therefore explicitly outside the proved domain of this note.
+
+\section{Stable condensate conditions}
+
+The weakly coupled construction has four distinct stability tests.
+
+\begin{criterion}[Local potential stability]
+At the vacuum,
+\[
+V_{\rm eff}'(f)=0,
+\qquad
+V_{\rm eff}''(f)>0.
+\]
+Equation~\eqref{eq:mchi} satisfies this at one loop.
+\end{criterion}
+
+\begin{criterion}[Bounded scalar directions]
+At scales where the tree quartic approximation is valid,
+\begin{equation}
+\lambda_H>0,
+\qquad
+\lambda_\chi>0,
+\qquad
+\lambda_\chi\lambda_H>\lambda_p^2.
+\label{eq:bounded}
+\end{equation}
+The full RG-improved effective potential, rather than the tree potential alone, must be used near a Coleman--Weinberg minimum.
+\end{criterion}
+
+\begin{criterion}[Kinetic and gradient stability]
+The Einstein-frame field-space metric must be positive definite and every propagating mode must have positive high-frequency residue and real characteristic speed. For $F>0$, ordinary scalar kinetic signs and the present two-field action, this holds near the benchmark vacuum.
+\end{criterion}
+
+\begin{criterion}[Metastable lifetime]
+The bounce action for decay to any deeper vacuum must make the lifetime longer than the cosmological history being modeled. This requires a multi-loop RG-improved vacuum study and is not established by the one-loop local Hessian alone.
+\end{criterion}
+
+The first three conditions pass at the benchmark. The fourth is \Conditional{} because the Standard Model Higgs quartic may run negative at high scale for central input values; curved-space effects and threshold matching matter \cite{Markkanen2018}.
+
+\section{Acceptance protocol for Turok's 36-field completion}
+\label{sec:turok}
+
+\subsection{Possible mapping}
+
+Let $\varphi^I$, $I=1,\ldots,36$, denote the dimension-zero Fradkin--Tseytlin fields. A candidate collective order parameter could be a renormalized invariant such as
+\begin{equation}
+\mathcal O_2=
+\frac1{36}G_{IJ}g^{\mu\nu}
+\nabla_\mu\varphi^I\nabla_\nu\varphi^J,
+\qquad
+\chi^2\sim Z_{\mathcal O}|\langle\mathcal O_2\rangle|,
+\label{eq:FTmap}
+\end{equation}
+or an infrared mass gap $\chi=m_{\rm gap}^{\rm FT}$. The low-energy matching target is not the microscopic field itself but the effective action
+\begin{equation}
+\Gamma_{\IR}[\chi,H,g]=\int\sqrt{-g}\left[
+\frac12(\xi_\chi\chi^2+2\xi_HH^\dagger H)R
+-\frac12Z_\chi(\partial\chi)^2
+-V_{\rm eff}(\chi,H)+\cdots
+\right],
+\label{eq:IRtarget}
+\end{equation}
+with $Z_\chi>0$ and the locking structure already derived.
+
+\subsection{A conventional spectral no-go for an elementary $1/p^4$ field}
+
+Suppose a local scalar observable had a conventional non-negative Euclidean spectral representation
+\[
+G(Q^2)=\int_0^\infty\dd s\,\frac{\rho(s)}{Q^2+s},
+\qquad \rho(s)\ge0.
+\]
+At large $Q^2$,
+\begin{equation}
+G(Q^2)=\frac{1}{Q^2}\int\rho(s)\dd s
+-\frac{1}{Q^4}\int s\rho(s)\dd s+O(Q^{-6}).
+\label{eq:KLexpansion}
+\end{equation}
+For the leading behavior to be exactly $1/Q^4$, the zeroth moment must vanish:
+\[
+\int_0^\infty\rho(s)\dd s=0.
+\]
+With $\rho\ge0$, this forces $\rho=0$ almost everywhere. Therefore
+\begin{equation}
+\boxed{
+\begin{gathered}
+\text{A nontrivial elementary }1/p^4\text{ propagator cannot have}\\
+\text{a conventional positive K\"all\'en--Lehmann density.}
+\end{gathered}
+}
+\label{eq:p4nogo}
+\end{equation}
+This does not logically exclude an indefinite-metric/Krein construction, a constrained gauge system, or a healthy composite infrared pole. It does mean that ``positive spectral density'' cannot be established for the elementary fourth-order field in the ordinary positive-Hilbert-space sense. The burden shifts to the physical invariant composite sector.
+
+\subsection{Four mandatory tests}
+
+\begin{criterion}[Lorentzian unitarity]
+Specify the physical state space and prove
+\begin{equation}
+2\,\mathrm{Im}\,\M_{i\to i}
+=
+\sum_{n\in\mathcal H_{\rm phys}}
+\int\dd\Pi_n\,|\M_{i\to n}|^2
+\ge0
+\label{eq:optical}
+\end{equation}
+for amplitudes involving the candidate $\chi$ channel and Standard Model states. The proof must survive loops, mixing, curved backgrounds used in cosmology, and the continuum limit. A generalized Born rule is not sufficient unless it yields unambiguous positive probabilities for the complete interacting observable algebra.
+\end{criterion}
+
+\begin{criterion}[Positive physical spectral density]
+Choose a gauge/Weyl-invariant operator $\mathcal O_\chi$ and show either Eq.~\eqref{eq:KL} with $\rho_\chi\ge0$ or an equally strong alternative reconstruction theorem. Euclidean lattice data should satisfy reflection positivity for the invariant correlator, and the infrared pole residue must be positive. Equation~\eqref{eq:p4nogo} forbids using the elementary $1/p^4$ propagator itself as the positive observable.
+\end{criterion}
+
+\begin{criterion}[Stable condensate]
+Demonstrate a continuum, regulator-independent nonzero order parameter, a convex effective action, $V_{\rm eff}''>0$, $Z_\chi>0$, real dispersion relations, and a sufficiently long vacuum lifetime. A lattice signal for $\langle(\partial\varphi)^2\rangle$ is suggestive only after finite-volume scaling, continuum extrapolation and operator renormalization.
+\end{criterion}
+
+\begin{criterion}[Acceptable matter coupling]
+After coupling to the Standard Model and gravity, calculate the static potential and clock sensitivities. Require:
+\begin{align}
+&\alpha_A-\alpha_B
+=\partial_\varphi\ln(m_A/m_B)
+\quad\text{consistent with equivalence-principle and clock limits},\\
+&V(r)\ \text{not linearly confining at macroscopic distances},\\
+&\text{no negative-residue pole in mixed Higgs--}\chi\text{ or graviton--}\chi\text{ correlators}.
+\end{align}
+The preferred interaction is the universal trace channel, with non-universal operators demonstrably irrelevant or sufficiently suppressed.
+\end{criterion}
+
+\subsection{Decision rule}
+
+\begin{table}[H]
+\centering
+\caption{Decision rule for using the 36-field sector.}
+\begin{tabularx}{\textwidth}{@{}L{0.31\textwidth}L{0.18\textwidth}Y@{}}
+\toprule
+Outcome & Decision & Consequence \\
+\midrule
+All four tests pass & Adopt as UV candidate & Replace the hidden $SU(2)_X$ generator with the 36-field singlet while retaining the same low-energy locking action. \\
+Optical theorem only in Krein space, but no positive invariant spectrum & Reject as physical chronon & The construction may remain a formal regulator or auxiliary sector, not the source of measurable clock scale. \\
+Stable condensate but non-universal matter force & Reject or sequester & It cannot calibrate universal duration; it would produce chronometric shear and equivalence-principle violation. \\
+No stable positive-residue composite pole & Reject & There is no healthy infrared field $\chi$ to perform the required lock. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Novelty boundary}
+
+The particle-physics ingredients are not individually new:
+
+\begin{itemize}
+  \item hidden-sector dimensional transmutation transmitted through a Higgs portal is established;
+  \item induced Planck scales and Higgs--dilaton models are established;
+  \item scale-invariant trajectories with $\Lambda_{\QCD}\propto\chi$ are established;
+  \item exact scale symmetry can suppress fifth forces when all masses share one source;
+  \item gauge-invariant composite spectra and positivity are established requirements;
+  \item the 36-field anomaly-cancellation proposal and the ghost dispute are public prior art.
+\end{itemize}
+
+The plausible contribution is the combined selection framework:
+
+\begin{enumerate}
+  \item formulate $h/\chi$, $\Lambda_{\QCD}/\chi$ and $\MP/\chi$ as the three necessary scale locks;
+  \item prove that the same lock makes Einstein-frame masses constant and chronometric shear vanish;
+  \item identify fifth-force non-universality and differential clock drift as the same derivative obstruction;
+  \item use conventional spectral positivity as a hard acceptance test for any proposed microscopic ``time field,'' including Turok's 36-field sector;
+  \item separate a demonstrably healthy infrared model from the optional speculative UV completion.
+\end{enumerate}
+
+This is a stronger and safer paper than claiming that the Higgs, electromagnetism or the 36 fields literally ``create time.'' The precise claim is that a dynamically generated universal spectral factor can supply the conformal normalization from which physical duration is reconstructed.
+
+\section{What remains to be done}
+
+A publishable next-stage programme should execute the following in order.
+
+\begin{enumerate}
+  \item \textbf{Two-loop RG and matching.} Run the full Standard Model plus hidden-sector couplings, including $\xi_i$, threshold matching, and the RG-improved two-field potential from the electroweak scale to $f$.
+  \item \textbf{All-orders QCD lock.} Construct an explicit microscopic conformal or asymptotically safe matching sector, or prove within the local RG that $\partial\ln\Lambda_{\QCD}/\partial\ln\chi=1$ including thresholds and anomalous dimensions.
+  \item \textbf{Vacuum lifetime.} Calculate the multi-field bounce in curved spacetime and determine the inflation/reheating domain in which the Higgs vacuum survives.
+  \item \textbf{Quantum-gravity threshold control.} Establish why the tiny portal is not spoiled at $f\sim\MP$, perhaps via an asymptotically safe fixed point, sequestering, or compositeness.
+  \item \textbf{Clock response matrix.} Calculate $K_{AI}$ for electronic, hyperfine, molecular and nuclear clocks in the first controlled non-universal deformation of the model.
+  \item \textbf{Turok tests.} Compute the invariant composite two-point function, its spectral density, mixed matter amplitudes and static potential in the proposed 36-field theory; perform a lattice reflection-positivity and condensate study.
+  \item \textbf{Dimensionless prediction.} The exact theory predicts zero chronometric shear. A useful nontrivial prediction requires a specified small misalignment sector, for example a rank-one relation among three independent clock ratios and an associated equivalence-principle signal.
+\end{enumerate}
+
+\statusbox{deepgreen}{\textbf{Bottom line.} A renormalized, conventionally unitary $3+1$D matter model can lock the Higgs, Planck and QCD scales to one generated field and satisfy present fifth-force, clock and collider constraints in a decoupled Planck-scale benchmark. The construction is a controlled infrared proof of principle, not a completed theory of quantum gravity. Turok's 36 fields could supply the microscopic origin of $\chi$, but only after they produce a positive physical composite spectrum and pass the explicit unitarity, condensate and matter-coupling tests above.}
+
+\appendix
+
+\section{Analytic benchmark formulas}
+
+With $\xi_Hv^2\ll\xi_\chi f^2$,
+\begin{align}
+f&\simeq\frac{\MP}{\sqrt{\xi_\chi}},\\
+\lambda_p&=\lambda_H\frac{v^2}{f^2},\\
+m_X&=\frac12g_Xf,\\
+m_{\chi,J}&=\frac{3g_X^2}{\sqrt{128}\,\pi}f,\\
+m_{\chi,E}&\simeq\frac{m_{\chi,J}}{\sqrt{1+6\xi_\chi}},\\
+\theta&\simeq\frac{\lambda_pvf}{m_{\chi,J}^2-m_h^2}.
+\end{align}
+
+The hidden coupling runs in the unbroken theory as
+\begin{equation}
+\frac1{g_X^2(\mu)}=
+\frac1{g_X^2(f)}+
+\frac{43}{48\pi^2}\ln\frac{\mu}{f},
+\qquad \mu>f,
+\end{equation}
+which is asymptotically free.
+
+\section{Verification summary}
+
+The accompanying Python script verifies symbolically:
+
+\begin{itemize}
+  \item $V_X'(f)=0$ gives $\lambda_\chi=9g_X^4/(128\pi^2)$;
+  \item $V_X''(f)=9g_X^4f^2/(128\pi^2)>0$;
+  \item the Higgs valley $h^2=(\lambda_p/\lambda_H)\chi^2$;
+  \item $F=\xi_{\rm eff}\chi^2$ on that valley;
+  \item $m_A^E=\MP^{(0)}c_A/\sqrt{\xi_{\rm eff}}$ and hence $\partial_\chi\ln m_A^E=0$;
+  \item the K\"all\'en--Lehmann large-momentum moment obstruction for a positive elementary $1/p^4$ propagator.
+\end{itemize}
+
+It also computes the benchmark, diagonalizes the scalar matrix using high precision, and scans 20,000 random weak-coupling points. All machine-readable results are supplied separately.
+
+\begin{thebibliography}{99}
+
+\bibitem{ColemanWeinberg1973}
+S. Coleman and E. Weinberg,
+``Radiative Corrections as the Origin of Spontaneous Symmetry Breaking,''
+\emph{Phys. Rev. D} \textbf{7}, 1888 (1973).
+
+\bibitem{CaroneRamos2013}
+C. D. Carone and R. Ramos,
+``Classical scale-invariance, the electroweak scale and vector dark matter,''
+arXiv:1307.8428 (2013),
+\url{https://arxiv.org/abs/1307.8428}.
+
+\bibitem{HurKo2011}
+T. Hur and P. Ko,
+``Scale invariant extension of the standard model with strongly interacting hidden sector,''
+arXiv:1103.2571 (2011),
+\url{https://arxiv.org/abs/1103.2571}.
+
+\bibitem{Kannike2015}
+K. Kannike, G. H\"utsi, L. Pizza, A. Racioppi, M. Raidal, A. Salvio and A. Strumia,
+``Dynamically Induced Planck Scale and Inflation,''
+arXiv:1502.01334 (2015),
+\url{https://arxiv.org/abs/1502.01334}.
+
+\bibitem{Shaposhnikov2009}
+M. Shaposhnikov and D. Zenh\"ausern,
+``Scale invariance, unimodular gravity and dark energy,''
+arXiv:0809.3395 (2008),
+\url{https://arxiv.org/abs/0809.3395}.
+
+\bibitem{Wetterich2026}
+C. Wetterich,
+``Fermi scale from quantum gravity scaling solution,''
+arXiv:2601.16731 (2026),
+\url{https://arxiv.org/abs/2601.16731}.
+
+\bibitem{Ferreira2016}
+P. G. Ferreira, C. T. Hill and G. G. Ross,
+``No fifth force in a scale invariant universe,''
+arXiv:1612.03157 (2016),
+\url{https://arxiv.org/abs/1612.03157}.
+
+\bibitem{Copeland2022}
+E. J. Copeland, P. Millington and S. Sevillano Mu\~noz,
+``Fifth forces and broken scale symmetries in the Jordan frame,''
+arXiv:2111.06357 (2022),
+\url{https://arxiv.org/abs/2111.06357}.
+
+\bibitem{Markkanen2018}
+T. Markkanen, S. Nurmi, A. Rajantie and S. Stopyra,
+``The 1-loop effective potential for the Standard Model in curved spacetime,''
+arXiv:1804.02020 (2018),
+\url{https://arxiv.org/abs/1804.02020}.
+
+\bibitem{Maas2024}
+A. Maas,
+``The Fr\"ohlich--Morchio--Strocchi mechanism: an underestimated legacy,''
+arXiv:2305.01960 (2024),
+\url{https://arxiv.org/abs/2305.01960}.
+
+\bibitem{Hayashi2021}
+Y. Hayashi and K.-I. Kondo,
+``Reconstructing confined particles with complex singularities,''
+arXiv:2112.08575 (2021),
+\url{https://arxiv.org/abs/2112.08575}.
+
+\bibitem{BoyleTurok2022}
+L. Boyle and N. Turok,
+``Cancelling the vacuum energy and Weyl anomaly in the standard model with dimension-zero scalar fields,''
+arXiv:2110.06258v2 (2022),
+\url{https://arxiv.org/abs/2110.06258}.
+
+\bibitem{ClineHell2026}
+J. M. Cline and A. Hell,
+``Pathologies of dimension-zero scalar fields,''
+arXiv:2603.05683 (2026),
+\url{https://arxiv.org/abs/2603.05683}.
+
+\bibitem{BatemanTurok2026}
+S. Bateman and N. Turok,
+``Escape from Ostrogradsky via Hidden Ghost Parity,''
+arXiv:2607.00096 (2026),
+\url{https://arxiv.org/abs/2607.00096}.
+
+\bibitem{Wami2026}
+J. P. Garc\'es, J. Kubo, M. Lindner and M. Reinig,
+``Dark matter in scale-invariant gravity with hidden-sector condensation,''
+arXiv:2608.12456 (2026),
+\url{https://arxiv.org/abs/2608.12456}.
+
+\bibitem{Bosse2026}
+M. Bosse et al.,
+``Constraining the real scalar singlet extension of the SM,''
+arXiv:2606.12533 (2026),
+\url{https://arxiv.org/abs/2606.12533}.
+
+\bibitem{Aeppli2025}
+A. Aeppli et al.,
+``Atomic clock frequency ratios with fractional uncertainty $\le 3.2\times10^{-18}$,''
+arXiv:2512.21428 (2025),
+\url{https://arxiv.org/abs/2512.21428}.
+
+\bibitem{Thorium2026}
+L. Toscani De Col et al.,
+``A thorium-229 optical nuclear clock with feedback loop,''
+arXiv:2606.04997 (2026),
+\url{https://arxiv.org/abs/2606.04997}.
+
+\end{thebibliography}
+
+\end{document}

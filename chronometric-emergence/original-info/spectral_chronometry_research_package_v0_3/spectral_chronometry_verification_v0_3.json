@@ -1,0 +1,102 @@
+{
+  "checks": {
+    "chronometric_obstruction_tensor": {
+      "analytic_form": "C_{mu nu} = sum_A w_A Sigma^A_mu Sigma^A_nu is a Gram/covariance tensor",
+      "minimum_eigenvalue_over_5000_samples": 5.785487294910332e-05,
+      "pass": true
+    },
+    "clock_network_rank_bound": {
+      "claim": "rank(differential log-frequency network) <= number of independent nonuniversal scalar fields",
+      "pass": true,
+      "trials": [
+        {
+          "maximum_allowed_rank": 1,
+          "measured_matrix_rank": 1,
+          "number_of_mismatch_fields": 1,
+          "pass": true
+        },
+        {
+          "maximum_allowed_rank": 2,
+          "measured_matrix_rank": 2,
+          "number_of_mismatch_fields": 2,
+          "pass": true
+        },
+        {
+          "maximum_allowed_rank": 3,
+          "measured_matrix_rank": 3,
+          "number_of_mismatch_fields": 3,
+          "pass": true
+        },
+        {
+          "maximum_allowed_rank": 4,
+          "measured_matrix_rank": 4,
+          "number_of_mismatch_fields": 4,
+          "pass": true
+        }
+      ]
+    },
+    "einstein_frame_kinetic_metric": {
+      "analytic_eigenvalues": [
+        "M_P^2/F",
+        "M_P^2/F + 3 M_P^2 |grad F|^2/(2 F^2)"
+      ],
+      "domain": "M_P > 0 and F > 0",
+      "expected_determinant": "M_P**4*(2*F + 3*v_1**2 + 3*v_2**2)/(2*F**3)",
+      "minimum_numeric_eigenvalue_over_10000_samples": 1.5034045024739093e-07,
+      "pass": true,
+      "symbolic_determinant": "M_P**4*(2*F + 3*v_1**2 + 3*v_2**2)/(2*F**3)"
+    },
+    "higgs_dilaton_hessian": {
+      "determinant": "0",
+      "eigenvalues": [
+        "0",
+        "2*X**2*alpha**2*lambda*(alpha**2 + 1)"
+      ],
+      "hessian_on_valley": "Matrix([[2*X**2*alpha**2*lambda, -2*X**2*alpha**3*lambda], [-2*X**2*alpha**3*lambda, 2*X**2*alpha**4*lambda]])",
+      "pass": true,
+      "stability_condition": "lambda > 0, alpha != 0, chi != 0",
+      "trace": "2*X**2*alpha**2*lambda*(alpha**2 + 1)"
+    },
+    "higgs_only_induced_gravity": {
+      "higgs_vev_GeV": 246.22,
+      "interpretation": "Using the observed Higgs VEV as the sole source of the reduced Planck mass requires an enormous nonminimal coupling.",
+      "order_of_magnitude": "10^32",
+      "pass": true,
+      "reduced_planck_mass_GeV": 2.435e+18,
+      "xi_required": 9.780279746755758e+31
+    },
+    "higgs_only_viability_logic": {
+      "higgs_as_sole_local_weyl_compensator": {
+        "reason": "After three electroweak Goldstones are eaten, the remaining radial Higgs degree is also used to fix local scale; the minimal construction therefore lacks the observed physical radial Higgs excitation.",
+        "verdict": "PHENOMENOLOGICALLY_DISFAVORED_IN_MINIMAL_FORM"
+      },
+      "higgs_locked_to_deeper_scale_field": {
+        "reason": "A separate radial scale field can normalize gravity and all mass sectors while an angular Higgs-like excitation remains physical.",
+        "verdict": "VIABLE_EFT_DIRECTION"
+      },
+      "ordinary_standard_model": {
+        "reason": "The Higgs sets electroweak masses but does not by itself set the Planck scale or guarantee that QCD and all spectral standards share one local factor.",
+        "verdict": "INSUFFICIENT"
+      },
+      "pass": true
+    },
+    "null_component_decomposition": {
+      "2_p_plus_p_minus_minus_m2": "0",
+      "pass": true,
+      "ratio_minus_exp_2eta": "0"
+    },
+    "universal_factorization": {
+      "d_log_ratio": "0",
+      "interpretation": "A common positive scalar factor cancels from every dimensionless clock ratio.",
+      "pass": true
+    },
+    "weyl_invariance": {
+      "metric_difference": "0",
+      "pass": true,
+      "phase_difference": "0"
+    }
+  },
+  "failed_checks": [],
+  "status": "PASS",
+  "title": "Spectral Chronometry and Higgs-Dilaton Completion v0.3 verification"
+}

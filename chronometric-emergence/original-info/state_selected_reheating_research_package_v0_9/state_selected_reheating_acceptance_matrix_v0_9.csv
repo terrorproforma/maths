@@ -1,0 +1,15 @@
+requirement,verdict,reason
+Exact microscopic Z6 action,PASS,All couplings are orbit tensors; numerical cyclic-shift residual is zero to floating precision.
+xi0=1 and xi5=0.25,PASS,tan(theta)=1/16 gives B5/B0=1/256 and xi5=(B5/B0)^(1/4)=1/4.
+Other sectors negligibly populated,PASS perturbatively,They have no tree decay channel; conservative gravity-only temperature floor is below one percent.
+Preserve protected Z6 vacuum potential,PASS conditionally,"Vacuum couplings are exactly orbit-symmetric; asymmetry is a transient selector state, not a hard sector spurion."
+Kinematic selection of one reheaton orbit,PASS,Only R0 lies below m_phi/2 in the displayed benchmark.
+No domain walls in observable patch,PASS conditionally,Selector chooses one branch during inflation and restores to the unique symmetric origin; chronometric U(1) is broken before inflation and not thermally restored.
+Adiabatic visible/hidden radiation,PASS at linear order,One parent and fixed branching fractions imply zeta0=zeta5 and S50=0.
+Selector/reheaton isocurvature,PASS benchmark,Orthogonal selector and reheaton masses exceed H_star by large factors.
+Chronometric isocurvature,PASS benchmark,Numerical thermal/QCD focusing damps delta x by more than five orders by recombination; spectral impact is below 1e-22.
+Delta N_eff,PASS,One complete adjacent copy at xi=0.25 gives about 0.029.
+Inflation spectrum,PASS phenomenologically,"Low-scale hilltop-hybrid benchmark matches As and ns, predicts negligible r and local non-Gaussianity."
+Nonperturbative preheating,OPEN,Requires lattice evolution to verify that no unwanted reheaton orbit is resonantly produced.
+UV discrete-gauge completion,OPEN,Needed to make exact Z6 robust against quantum-gravity violations.
+Higgs naturalness of direct portal,CONDITIONAL,Displayed trilinear is simple but gives a TeV-scale Higgs mass correction; a fermionic thermalizer portal is cleaner.

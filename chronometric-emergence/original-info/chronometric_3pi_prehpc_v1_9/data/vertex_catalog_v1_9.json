@@ -1,0 +1,247 @@
+{
+  "conventions": {
+    "phase": "unbroken electroweak phase; vanishing scalar one-point functions",
+    "boson_superfield": [
+      "A3_mu^a",
+      "W_mu^i",
+      "B_mu",
+      "H_A"
+    ],
+    "grassmann_superfield": [
+      "c3^a",
+      "c2^i",
+      "Q_L",
+      "D_L",
+      "D_R"
+    ],
+    "note": "U(1) ghost is free and is omitted from interacting skeletons."
+  },
+  "bosonic_cubic_V3": [
+    {
+      "id": "A3A3A3",
+      "groups": [
+        "SU3"
+      ],
+      "legs": [
+        "A3",
+        "A3",
+        "A3"
+      ]
+    },
+    {
+      "id": "WWW",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "id": "WHH",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "H",
+        "Hdag"
+      ]
+    },
+    {
+      "id": "BHH",
+      "groups": [
+        "U1"
+      ],
+      "legs": [
+        "B",
+        "H",
+        "Hdag"
+      ]
+    }
+  ],
+  "bosonic_quartic_V4_0": [
+    {
+      "id": "A3A3A3A3",
+      "groups": [
+        "SU3"
+      ],
+      "legs": [
+        "A3",
+        "A3",
+        "A3",
+        "A3"
+      ]
+    },
+    {
+      "id": "WWWW",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "W",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "id": "WWHH",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "W",
+        "H",
+        "Hdag"
+      ]
+    },
+    {
+      "id": "BBHH",
+      "groups": [
+        "U1"
+      ],
+      "legs": [
+        "B",
+        "B",
+        "H",
+        "Hdag"
+      ]
+    },
+    {
+      "id": "WBHH",
+      "groups": [
+        "SU2",
+        "U1"
+      ],
+      "legs": [
+        "W",
+        "B",
+        "H",
+        "Hdag"
+      ]
+    },
+    {
+      "id": "HHHH",
+      "groups": [],
+      "legs": [
+        "H",
+        "Hdag",
+        "H",
+        "Hdag"
+      ]
+    }
+  ],
+  "boson_grassmann_U": [
+    {
+      "id": "A3_c3_c3bar",
+      "groups": [
+        "SU3"
+      ],
+      "legs": [
+        "A3",
+        "c3",
+        "c3bar"
+      ]
+    },
+    {
+      "id": "W_c2_c2bar",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "c2",
+        "c2bar"
+      ]
+    },
+    {
+      "id": "A3_Q_Qbar",
+      "groups": [
+        "SU3"
+      ],
+      "legs": [
+        "A3",
+        "Q",
+        "Qbar"
+      ]
+    },
+    {
+      "id": "W_Q_Qbar",
+      "groups": [
+        "SU2"
+      ],
+      "legs": [
+        "W",
+        "Q",
+        "Qbar"
+      ]
+    },
+    {
+      "id": "B_Q_Qbar",
+      "groups": [
+        "U1"
+      ],
+      "legs": [
+        "B",
+        "Q",
+        "Qbar"
+      ]
+    },
+    {
+      "id": "A3_D_Dbar",
+      "groups": [
+        "SU3"
+      ],
+      "legs": [
+        "A3",
+        "D",
+        "Dbar"
+      ]
+    },
+    {
+      "id": "B_D_Dbar",
+      "groups": [
+        "U1"
+      ],
+      "legs": [
+        "B",
+        "D",
+        "Dbar"
+      ]
+    },
+    {
+      "id": "H_Qbar_D",
+      "groups": [
+        "SU2",
+        "U1"
+      ],
+      "legs": [
+        "H",
+        "Qbar",
+        "D"
+      ]
+    },
+    {
+      "id": "Hdag_Dbar_Q",
+      "groups": [
+        "SU2",
+        "U1"
+      ],
+      "legs": [
+        "Hdag",
+        "Dbar",
+        "Q"
+      ]
+    }
+  ],
+  "excluded_at_declared_order": [
+    "Dynamical four-point vertices: V4 is fixed to its renormalized classical value at three-loop 3PI.",
+    "Operators of canonical dimension greater than four.",
+    "Broken-phase cubic Higgs vertices; the pilot is initialized in the unbroken high-temperature phase.",
+    "Hard Z6-breaking or shift-breaking portals not carrying the declared epsilon spurion."
+  ]
+}

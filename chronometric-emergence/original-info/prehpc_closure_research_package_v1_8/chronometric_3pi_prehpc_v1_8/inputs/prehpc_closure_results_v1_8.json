@@ -1,0 +1,133 @@
+{
+  "version": "v1.8",
+  "point": {
+    "alpha_s": 0.0393544,
+    "g2": 0.57,
+    "g1": 0.39,
+    "y_d": 0.3,
+    "m_h_over_t": 0.43820657,
+    "m_q_over_t": 0.50345964,
+    "m_d_over_t": 0.41808756,
+    "m_debye3_over_t": 1.03514,
+    "m_debye2_over_t": 0.771784,
+    "m_debye1_over_t": 0.543829,
+    "T0_GeV": 100200000.0,
+    "Gamma_R_GeV": 0.0147850065,
+    "lambda_bse": 0.08,
+    "transverse_kernel_scale": 5.0
+  },
+  "controlled_prior_anchors": {
+    "GammaH_total_occ_over_T_v1_6": 0.0011585158821257404,
+    "GammaH_total_occ_GeV_at_T0": 116083.29138899919,
+    "GammaH_over_GammaR": 7851419.706105587,
+    "v1_7_background_Ward_fermion_residual": 1.5330634542970396e-15
+  },
+  "pointwise_matching": {
+    "grid_shape": [
+      36,
+      1601
+    ],
+    "k_over_T_range": [
+      0.15,
+      12.0
+    ],
+    "omega_over_T_range": [
+      -16.0,
+      16.0
+    ],
+    "factorization_scales_qstar_over_T": [
+      0.15,
+      0.25,
+      0.4
+    ],
+    "factorization_scale_max_absolute_residual": 1.1102230246251565e-16,
+    "factorization_scale_max_relative_residual_where_signal_gt_1e-9": 5.603002881892547e-16,
+    "on_shell_max_interpolation_residual": 3.19677934185855e-16,
+    "oddness_max_absolute_residual": 8.881784197001252e-16,
+    "KMS_noise_minimum": 0.0002901633548574561,
+    "Born_pair_threshold_s_over_T2": 0.84924924182784,
+    "status": "Reduced PT/BFM pointwise matching benchmark with exact on-shell/integrated anchors and exact q_* cancellation in the declared asymptotic model; not an exact full-plane Standard-Model self-energy."
+  },
+  "vertex_and_STI_closure": {
+    "samples": 600,
+    "gauge_kernel_expansion_parameter": 0.005852497117557813,
+    "STI_max_relative_residual": 1.7138771607123813e-15,
+    "STI_rms_relative_residual": 4.0207773565894743e-16,
+    "transverse_contraction_max_relative_residual": 1.569579194711672e-16,
+    "transverse_to_longitudinal_vertex_norm_median": 9.217993661714825e-05,
+    "transverse_to_longitudinal_vertex_norm_max": 0.0003661168798571388,
+    "tau_component_medians": [
+      0.00411847525819721,
+      0.0018024642788382994,
+      0.0014409375256758668,
+      0.0011321644093954487
+    ],
+    "tau_component_maxima": [
+      0.004613956646761612,
+      0.0020193983252384984,
+      0.0016142212249726875,
+      0.0012683156527201484
+    ],
+    "ghost_matter_kernel_factor_range": [
+      1.0407824939502743,
+      1.110038419267517
+    ],
+    "basis_scope": "Four finite transverse tensors in a separable thermal BSE. A general finite-temperature non-Abelian fermion-gauge vertex has a larger tensor basis; this is a controlled pre-HPC ansatz, not the exact Standard-Model vertex.",
+    "closure_scope": "Exact STI for the declared common scalar matter-ghost kernel H=Hbar=h I. Nontrivial matrix-valued matter-ghost kernels remain an HPC/functional-equation acceptance target."
+  },
+  "singlet_BSE": {
+    "grid_shape": [
+      25,
+      321
+    ],
+    "lambda_bse_at_k0": 0.08,
+    "BSE_equation_max_absolute_residual": 2.6511453657341725e-16,
+    "positive_frequency_minimum": 4.906142071711426e-06,
+    "KMS_noise_minimum": 5.240494480477449e-05,
+    "spectral_weight_ratio_range": [
+      1.0001095970051594,
+      1.0035812257627768
+    ],
+    "peak_shift_over_T_range": [
+      0.0,
+      0.0
+    ],
+    "max_vertex_enhancement": 1.0058782261960106,
+    "status": "Conserving separable ladder benchmark with K=delta Sigma/delta G in the declared scalar proxy. It upgrades the pole convolution but is not the full Standard-Model composite-operator Bethe-Salpeter kernel."
+  },
+  "resource_model": {
+    "component_assumptions": {
+      "two_point_real_components": 96,
+      "three_point_complex_components": 72,
+      "workspace_overhead_factor": 5.0
+    },
+    "decomposition": "radial momentum x spherical harmonics; distribute momentum cells over MPI ranks, memory-time tiles over GPUs",
+    "required_algorithmic_controls": [
+      "finite memory window with convergence scan",
+      "PT/BFM background Ward residual monitor",
+      "quantum STI residual monitor",
+      "Nielsen pole monitor",
+      "KMS and equal-time commutator monitor",
+      "energy/charge conservation",
+      "factorization-scale cancellation",
+      "H^dagger H BSE control spectrum"
+    ]
+  },
+  "scientific_scope": {
+    "completed_pre_HPC": [
+      "declared pointwise hard/LPM/Born/HTL/overlap benchmark",
+      "factorization-scale regression test",
+      "finite transverse separable-BSE form factors",
+      "declared ghost/matter-ghost STI closure",
+      "conserving singlet ladder control",
+      "HPC equations, resource tiers, acceptance gates"
+    ],
+    "not_claimed": [
+      "exact arbitrary-off-shell full Standard-Model thermal self-energy",
+      "complete finite-temperature 24-tensor non-Abelian vertex",
+      "exact matrix-valued quark-ghost scattering kernel",
+      "automatic gauge invariance of a finite 3PI truncation"
+    ],
+    "correct_HPC_target": "PT/BFM-constrained three-loop 3PI plus conserving Bethe-Salpeter control, with explicit Ward/ST/Nielsen residual minimization; not naive 3PI."
+  }
+}

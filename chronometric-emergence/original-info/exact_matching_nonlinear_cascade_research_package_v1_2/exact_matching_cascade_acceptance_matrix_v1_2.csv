@@ -1,0 +1,14 @@
+Target,Verdict,Evidence
+Exact factorised I3,PASS,I3(M)=6.57973508
+Finite-difference matching check,PASS,relative error=4.050e-16
+Transient amplitude negligible,PASS,V3/Vthermal=1.546e-12
+Exact harmonic/spurion grading,PASS,cross-harmonic p<-q mixing begins at epsilon^d6(p-q)
+Full gamma_pq transient matrix,PARTIAL,"epsilon^0 scalar block and all-orders power selection are explicit; finite gauge/Yukawa tensors Gamma^(r,s) remain model dependent"
+Pauli blocking,PASS,max fN=0.999929
+Heavy replica suppression,PASS,log10 bound=-8562.6
+Preheating backreaction,PASS,rhoN/rhotot=9.284e-08
+Two-body energy kinematics,PASS,max residual=4.452e-16
+Collision-step energy conservation,PASS,max residual=1.733e-16
+Target T5/T0 after full cascade,PASS,ratio=0.250000001
+Original tan theta=1/16 after cascade,FAIL,nu0 energy dilutes sector-5 ratio; branch must be retuned
+Full non-Abelian 3+1D KB evolution,OPEN,requires HPC 2PI/lattice implementation

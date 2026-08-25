@@ -1,0 +1,10 @@
+quantity,value
+"alpha_s(2piT0)",3.9354377604941662e-02
+"alpha_s(2piT5)",4.1644499672777627e-02
+"NLO/LO correction sector0",6.1756591920050813e-02
+"NLO/LO correction sector5",6.5350350546097266e-02
+"NLO phasor amplitude / LO",1.0618750831455916e+00
+"NLO phase shift [rad]",-1.7177637900128717e-04
+"selector/reheaton overlap fraction",1.4035569920204050e-02
+"forbidden harmonic / p6",5.0866177561648794e-08
+"late/early memory RMS",1.7551732564542076e-06

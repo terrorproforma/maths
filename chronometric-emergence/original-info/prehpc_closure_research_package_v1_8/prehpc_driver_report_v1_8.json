@@ -1,0 +1,11 @@
+{
+  "checks": {
+    "factorization_scale": true,
+    "on_shell_anchor": true,
+    "STI": true,
+    "singlet_BSE": true,
+    "singlet_positivity": true,
+    "KMS_noise_positivity": true
+  },
+  "all_pass": true
+}

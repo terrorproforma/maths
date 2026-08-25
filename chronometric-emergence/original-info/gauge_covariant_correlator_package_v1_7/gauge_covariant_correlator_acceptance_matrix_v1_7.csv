@@ -1,0 +1,10 @@
+target,verdict,basis
+Unique gauge-independent conventional off-shell elementary Pi_H,FAIL AS STATED,Nielsen identities permit gauge dependence of conventional off-shell two-point functions. PT/BFM effective self-energies can be defined only with a declared rearrangement and vertex closure.
+Exact on-shell hard+LPM anchor,PASS,Inherited from v1.6 integrated and on-shell matching.
+PT/BFM near-shell retarded kernel,PASS AS BENCHMARK,"Causal, KMS-complete and exactly anchored on shell; transverse-vertex envelope reported."
+Longitudinal background Ward closure,PASS,Line-integral scalar and fermion vertices satisfy numerical Ward identities.
+Full non-Abelian quantum ST closure,PARTIAL,Requires ghost dressing and matter-ghost kernels or PT/BFM conversion; transverse vertices remain dynamic.
+Gauge-singlet HdaggerH control correlator,PASS AS BASELINE,Positive odd spectral function and KMS noise from dressed pole convolution; conserving ladder corrections open.
+Pointwise exact hard/soft thermal cuts over full plane,OPEN,Requires differential hard/soft subtraction and generalized LPM/Born interpolation in a declared gauge.
+Bare-vertex 2PI as final gauge dynamics,REJECT,Finite truncation does not self-consistently close the propagator-vertex ST system.
+Three-loop 3PI / Bethe-Salpeter closure,RECOMMENDED NEXT HPC TARGET,Propagators and three-point vertices are dynamic and can be constrained by background Ward identities.

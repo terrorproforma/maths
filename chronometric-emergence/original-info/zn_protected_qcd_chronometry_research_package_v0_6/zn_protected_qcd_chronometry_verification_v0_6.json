@@ -1,0 +1,238 @@
+{
+  "F_identity": {
+    "symbolic": "24*2**(1 - N)/((N - 4)*(N - 3)*(N - 2)*(N - 1))",
+    "expected": "24*2**(1 - N)/((N - 4)*(N - 3)*(N - 2)*(N - 1))",
+    "pass": true
+  },
+  "root_of_unity": {
+    "max_variation_for_m_less_than_N": 1.1546319456101628e-14,
+    "pass": true
+  },
+  "coleman_weinberg_fourier": {
+    "tests": [
+      {
+        "N": 5,
+        "epsilon": 0.02,
+        "numerical_cosine_amplitude": 7.599333535557977e-12,
+        "leading_prediction": 7.599088773175335e-12,
+        "relative_error": 3.220943851932291e-05
+      },
+      {
+        "N": 6,
+        "epsilon": 0.03,
+        "numerical_cosine_amplitude": 1.73138132394377e-13,
+        "leading_prediction": 1.7311674111390056e-13,
+        "relative_error": 0.0001235656374929729
+      },
+      {
+        "N": 8,
+        "epsilon": 0.08,
+        "numerical_cosine_amplitude": 1.4265008618216753e-14,
+        "leading_prediction": 1.4228968052537678e-14,
+        "relative_error": 0.0025329008784053765
+      },
+      {
+        "N": 10,
+        "epsilon": 0.12,
+        "numerical_cosine_amplitude": 3.412470126986898e-16,
+        "leading_prediction": 3.64672888252733e-16,
+        "relative_error": 0.06423805089071521
+      }
+    ],
+    "max_relative_error": 0.06423805089071521,
+    "pass": true
+  },
+  "qcd_threshold": {
+    "computed": 0.07407407407407407,
+    "expected": 0.07407407407407407,
+    "pass": true
+  },
+  "N6_benchmark": {
+    "F6": 0.00625,
+    "kappa0_at_pi_over_2": "epsilon",
+    "mass_squared_coefficient": "27/(320*pi**2)",
+    "expected_mass_squared_coefficient": "27/(320*pi**2)",
+    "pass": true
+  },
+  "mass_positivity_scan": {
+    "points": 100000,
+    "minimum_Mk_over_M": 0.0001775939637412849,
+    "pass": true
+  },
+  "benchmarks": [
+    {
+      "N": 5,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.1642938606853176e-05,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 6,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.797152632822382e-06,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 8,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 9.567925292002075e-08,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 10,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.1517121255268937e-09,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 12,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 1.1684929476255145e-10,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 20,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.551566478855944e-16,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 24,
+      "epsilon": 0.1,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 7.049183312212365e-19,
+      "d_g_at_maximal_slope": 0.007407407407407408
+    },
+    {
+      "N": 5,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.164293860685317e-10,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 6,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.797152632822381e-12,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 8,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 9.567925292002071e-16,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 10,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.151712125526893e-19,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 12,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 1.168492947625514e-22,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 20,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.5515664788559426e-36,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 24,
+      "epsilon": 0.001,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 7.0491833122123616e-43,
+      "d_g_at_maximal_slope": 7.407407407407407e-05
+    },
+    {
+      "N": 5,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 1.0006375785853132e-17,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 6,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.79715263282238e-21,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 8,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 9.56792529200207e-28,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 10,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.1517121255268917e-34,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 12,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 1.1684929476255138e-40,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 20,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 3.5515664788559406e-66,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    },
+    {
+      "N": 24,
+      "epsilon": 1e-06,
+      "M_GeV": 10000.0,
+      "f_GeV": 2.435e+18,
+      "mass_eV": 7.049183312212357e-79,
+      "d_g_at_maximal_slope": 7.407407407407407e-08
+    }
+  ],
+  "N6_suppression_relative_to_naive": {
+    "ratio": "9*epsilon**4/80",
+    "expected": "9*epsilon**4/80",
+    "pass": true
+  },
+  "overall_pass": true
+}

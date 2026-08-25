@@ -1,0 +1,11 @@
+target,verdict,basis
+Project-level publication value,PASS AS CANDIDATE PROGRAMME,"Contains falsifiable factorisation, rank and clock/EP relations; absolute priority still requires specialist review."
+Strict-LO integrated hard 2<->2 portal cuts,PASS,"Representation-general hard+soft formula with Q,D thermal charges and exact group decomposition."
+Hard matrix-element group factors,PASS AT TREE LEVEL,U1 result reproduces published e_R coefficients; SU3/SU2 traces implemented for declared representations.
+Momentum-resolved hard on-shell shape,PASS AS MATCHED NUMERICAL SHAPE,"Full-angle screened phase space, normalized to exact integrated rate; screening-shape envelope reported."
+Momentum-resolved LPM width,PASS,Direct v1.5 impact-parameter solver evaluated as dI/dk and normalized to exact integral.
+Combined on-shell Pi_R,PASS,"Im Pi_R(Ek,k)=-Ek Gamma_occ(k), with exact integrated LPM+hard normalization."
+KMS noise kernel,PASS,Detailed-balance ratio and positivity checked numerically.
+Arbitrary off-shell Pi_R grid,PARTIAL,Causal near-shell dispersive reconstruction; exact full thermal cut away from shell remains open.
+Covariant Wigner transport,PASS AS REDUCED BENCHMARK,Wilson-line definition and matched collision/noise kernel; homogeneous singlet numerical relaxation.
+Full Ward-consistent non-Abelian 3+1D 2PI/KB,OPEN,"Requires dynamical gauge correlators, vertices and a Ward-preserving truncation."

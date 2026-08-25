@@ -1,0 +1,12 @@
+Requirement,Verdict,Reason
+Finite-temperature heavy-threshold evolution,PASS,Exact fermion thermal function at leading order in epsilon.
+Replicated-sector entropy evolution,PASS within decoupled-sector approximation,Each populated sector conserves entropy independently.
+QCD crossover,PASS at leading lock defect,Lattice trace anomaly and dF/dlnLambda=Theta are included.
+Matter domination,PASS,Homogeneous baryon locking is included and delays the tachyonic release.
+Unique vacuum in moderate-focusing benchmark,FAIL,Initial inflationary phase remains visible in the final basin.
+Unique vacuum in strong-attractor benchmark,PASS numerically for sampled phases,All 12 tested homogeneous phases select the same adjacent vacuum.
+Permanent global domain-wall cure,CONDITIONAL,Requires pre-inflation breaking/no restoration or an additional technically safe bias.
+Dark-radiation bound,PASS for one xi=0.25 adjacent copy,Approximate Delta Neff is below the 2026 95% bound.
+Misalignment abundance,PASS on low-f ridge,The scalar is a negligible matter component.
+Largest generic chronometric shear,EP-limited,Cosmology admits the working d_g=1e-6 cap but does not exceed it.
+N=6 choice,PREFERRED,"Smallest even N>4, largest adjacent-vacuum slope, and lowest replicated-sector burden."

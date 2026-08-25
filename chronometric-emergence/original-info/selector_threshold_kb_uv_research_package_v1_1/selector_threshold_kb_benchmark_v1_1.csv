@@ -1,0 +1,9 @@
+quantity,value,unit
+first_mixed_loop_order,3,loops
+three_loop_transient_amplitude,330.1447061638765,GeV^4
+KB_symplectic_error,7.105427357601002e-15,dimensionless
+KB_T5_over_T0,0.25,dimensionless
+KB_replica_leakage,1.1364009105579719e-07,dimensionless
+direct_portal_q_end,6041.665935845766,dimensionless
+hidden_fermion_suppression_exponent,460.36888841050745,dimensionless
+first_winding_operator_dimension,18,operator dimension

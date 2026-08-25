@@ -1,0 +1,31 @@
+target,status,basis
+Causal/conformal starting point,ASSUMED,"The programme reconstructs duration calibration, not causal order or the manifold."
+Crossed-null kinematic identities,PASS,"Exact algebra; useful organising language, not a novelty claim."
+Exact-null constrained dynamics,FAIL,Transverse quadratic principal symbol is rank deficient.
+Soft-null two-phase EFT,PASS,Positive Hamiltonian and real subluminal modes for 0 < epsilon < 1.
+Universal clock factorisation theorem,PASS,Necessary-and-sufficient common spectral factor for one clock metric.
+Chronometric shear and clock-rank formalism,PASS AS FORMALISM,Weyl-invariant obstruction and rank-r response criterion; novelty still under audit.
+Healthy conventional scale generator,PASS AS EFT,Two-derivative hidden gauge/scalar sector; gravity remains EFT.
+Turok 36-field microscopic origin,OPEN,"Physical composite spectrum, unitarity, condensate and matter coupling are unresolved."
+All-orders QCD threshold lock,PASS AS WILSONIAN EFT,Exact threshold recursion with coefficients calculable order by order.
+Leading non-universal QCD transmission,PASS,2/27 for one extra colour fundamental; interpretation as chronometric transmission is project-specific.
+Radiatively protected ratio mode,PASS CONDITIONALLY,"Requires exact Z6, shift-spurion counting and UV quality."
+Environmental screening,PASS,"Earth, Sun and laboratory benchmark sources remain unscreened."
+Cosmological branch selection,PASS CONDITIONALLY,Strong low-fa attractor benchmark; domain and inflation assumptions remain.
+Exact-symmetry asymmetric reheating,PASS AS EFT,"Action symmetric, state asymmetric; UV completion and full likelihood open."
+Two-loop CTP radiative escape,PASS CONDITIONALLY,No persistent forbidden harmonic in displayed interaction graph.
+Original bosonic preheating portal,FAIL,Tachyonic/resonant production invalidates kinematic closure.
+Fermionic parent cascade,PASS AT RESOLVED ORDER,Pauli-limited and selector-gated; full gauge two-time evolution open.
+Three-loop transient matching,PASS AT RESOLVED ORDER,Factorised hard function; benchmark correction negligible.
+RG completion,PASS AT RESOLVED ORDER,Explicit hard-scale logarithms cancel; residual running band small.
+QCD AMY transport,PASS,QCD redistribution is far faster than reheaton decay.
+Electroweak/Yukawa LPM,PASS AT RESOLVED ORDER,Complete collinear SU3xSU2xU1 kernel and integrated retarded match.
+Gauge-assisted hard 2<->2 portal rate,PASS AT INTEGRATED LO,Exact integrated leading gauge-assisted reaction coefficient and group decomposition.
+Momentum-resolved hard cut shape,PASS AS MATCHED NUMERICAL SHAPE,Full-angle screened phase space normalized to exact integral; local shape systematic remains.
+Momentum-frequency Pi_R table,PARTIAL,On-shell exact normalization plus causal KMS near-shell reconstruction; arbitrary off-shell cuts not exact.
+Covariant Wigner benchmark,PASS AS REDUCED MODEL,Wilson-line dressed homogeneous singlet relaxation; not full gauge dynamics.
+Full 3+1D non-Abelian 2PI/KB,OPEN,Distinct Ward-consistent HPC project.
+Two-loop full scalar vacuum/tunnelling,OPEN,Needed for a stable UV benchmark.
+Discrete-gauge anomaly and Wilson-line UV completion,OPEN,Perturbative checks are not a full cobordism/Dai-Freed analysis.
+Emergent Einstein gravity,OPEN,No derivation claimed.
+Absolute novelty/priority,UNESTABLISHED,Restricted candidate conjunction only; independent specialist search and review required.

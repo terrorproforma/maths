@@ -1,0 +1,164 @@
+{
+  "benchmark": {
+    "N": 6,
+    "tan_theta": 0.0625,
+    "m_R": 1000000000.0,
+    "m_S": 6000000000.0,
+    "m_inflaton_vac": 10000000000.0,
+    "T_visible": 100200000.0,
+    "v_Q": 10000000000.0,
+    "kappa_Q": 0.25,
+    "lambda_QR": 0.5,
+    "H_star": 100000000.0,
+    "gamma_phi": 100.0,
+    "gamma_Q": 1.0,
+    "cg_grav": 0.039788735772973836,
+    "m_X_GeV": 1065920621.0727023,
+    "m_Y_GeV": 5988640348.991746,
+    "sqrt_mu2_GeV": 1476139670.508265,
+    "mu2_GeV2": 2.178988326848249e+18,
+    "eigenvalue_light_GeV2": 9.999999999999999e+17,
+    "eigenvalue_heavy_GeV2": 3.6e+19,
+    "determinant_GeV4": 3.5999999999999863e+37,
+    "trace_GeV2": 3.7e+19,
+    "Gamma_R_GeV": 0.014134993605126,
+    "Gamma0_GeV": 0.014079993630008777,
+    "Gamma5_GeV": 5.4999975117221784e-05,
+    "B0": 0.9961089494163423,
+    "B5": 0.003891050583657587,
+    "B5_over_B0": 0.00390625,
+    "xi5": 0.25,
+    "mu_h_GeV": 18848.106975163857,
+    "mu0_GeV": 18811.401766083603,
+    "mu5_GeV": 1175.7126103802252,
+    "Delta_Neff": 0.02891796875,
+    "Gamma_grav_one_GeV": 6.710613237476034e-12,
+    "Bgrav_one": 4.747517703186265e-10,
+    "xi_grav_one": 0.004667847383328832,
+    "loop_cross_sector_quartic_estimate": 3.0975971972044967e-24,
+    "delta_mH2_GeV2_estimate": 2240900.584918296,
+    "sqrt_delta_mH2_GeV_estimate": 1496.9637887799076,
+    "m_Q_perp_GeV": 5000000000.0,
+    "m_Q_perp_over_Hstar": 50.0,
+    "selector_delta_m2_GeV2": 5e+19,
+    "other_reheaton_mass_GeV": 7141428428.54285,
+    "inflaton_half_mass_GeV": 5000000000.0,
+    "R0_kinematically_open": 1.0,
+    "S0_kinematically_closed": 1.0,
+    "other_orbits_kinematically_closed": 1.0,
+    "rate_hierarchy_gamma_phi_over_gamma_Q": 100.0,
+    "rate_hierarchy_gamma_Q_over_gamma_R": 70.74640625499498,
+    "A_s": 2.1e-09,
+    "n_s": 0.9682,
+    "epsilon_V": 1.0171688265925882e-14,
+    "eta_V": -0.01589999999996951,
+    "r": 1.627470122548141e-13,
+    "H_star_GeV": 100000000.0,
+    "V_quarter_GeV": 20536659213295.176,
+    "fNL_local_single_clock": 0.013250000000000022,
+    "hilltop_c2": 0.01589999999996951,
+    "phi_star_over_Mpl": 8.970453398992528e-06,
+    "phi_c_over_Mpl": 2.1508242224399648e-05,
+    "phi_c_GeV": 52372569816413.14,
+    "N_star": 55.0,
+    "max_absolute_Z6_invariance_residual": 2.1316282072803006e-14,
+    "delta_ln_B0": 0.0,
+    "delta_ln_B5": 0.0,
+    "zeta0_over_zetaR": 1.0,
+    "zeta5_over_zetaR": 1.0,
+    "S50_over_zetaR": 0.0,
+    "selector_mass_over_H": 50.0,
+    "reheaton_mass_over_H": 10.0,
+    "f_a_GeV": 24350000000.0,
+    "epsilon_chronometric": 2.7000000000000006e-13,
+    "delta_x_initial": 0.0006536137293301656,
+    "z_recombination_sample": 1094.9022309959948,
+    "delta_x_recombination": -6.620125666430926e-10,
+    "transfer_recombination": 1.0128498483676807e-06,
+    "delta_x_endpoint": 2.332627777141179e-06,
+    "z_endpoint": 71.1003818504544,
+    "transfer_endpoint": 0.003568816982366168,
+    "delta_ln_LambdaQCD_over_chi_recombination": 1.3240251332861854e-23,
+    "delta_ln_LambdaQCD_over_chi_endpoint": 4.6652555542823587e-20,
+    "integration_success": 1.0
+  },
+  "random_scan": {
+    "points": 50000,
+    "positive_ordered_points": 50000,
+    "minimum_eigenvalue_GeV2": 1.0000364604126432e+17,
+    "minimum_gap_GeV2": 5.4469842848709146e+17,
+    "max_branching_identity_error": 1.0408340855860843e-17
+  },
+  "acceptance": [
+    {
+      "requirement": "Exact microscopic Z6 action",
+      "verdict": "PASS",
+      "reason": "All couplings are orbit tensors; numerical cyclic-shift residual is zero to floating precision."
+    },
+    {
+      "requirement": "xi0=1 and xi5=0.25",
+      "verdict": "PASS",
+      "reason": "tan(theta)=1/16 gives B5/B0=1/256 and xi5=(B5/B0)^(1/4)=1/4."
+    },
+    {
+      "requirement": "Other sectors negligibly populated",
+      "verdict": "PASS perturbatively",
+      "reason": "They have no tree decay channel; conservative gravity-only temperature floor is below one percent."
+    },
+    {
+      "requirement": "Preserve protected Z6 vacuum potential",
+      "verdict": "PASS conditionally",
+      "reason": "Vacuum couplings are exactly orbit-symmetric; asymmetry is a transient selector state, not a hard sector spurion."
+    },
+    {
+      "requirement": "Kinematic selection of one reheaton orbit",
+      "verdict": "PASS",
+      "reason": "Only R0 lies below m_phi/2 in the displayed benchmark."
+    },
+    {
+      "requirement": "No domain walls in observable patch",
+      "verdict": "PASS conditionally",
+      "reason": "Selector chooses one branch during inflation and restores to the unique symmetric origin; chronometric U(1) is broken before inflation and not thermally restored."
+    },
+    {
+      "requirement": "Adiabatic visible/hidden radiation",
+      "verdict": "PASS at linear order",
+      "reason": "One parent and fixed branching fractions imply zeta0=zeta5 and S50=0."
+    },
+    {
+      "requirement": "Selector/reheaton isocurvature",
+      "verdict": "PASS benchmark",
+      "reason": "Orthogonal selector and reheaton masses exceed H_star by large factors."
+    },
+    {
+      "requirement": "Chronometric isocurvature",
+      "verdict": "PASS benchmark",
+      "reason": "Numerical thermal/QCD focusing damps delta x by more than five orders by recombination; spectral impact is below 1e-22."
+    },
+    {
+      "requirement": "Delta N_eff",
+      "verdict": "PASS",
+      "reason": "One complete adjacent copy at xi=0.25 gives about 0.029."
+    },
+    {
+      "requirement": "Inflation spectrum",
+      "verdict": "PASS phenomenologically",
+      "reason": "Low-scale hilltop-hybrid benchmark matches As and ns, predicts negligible r and local non-Gaussianity."
+    },
+    {
+      "requirement": "Nonperturbative preheating",
+      "verdict": "OPEN",
+      "reason": "Requires lattice evolution to verify that no unwanted reheaton orbit is resonantly produced."
+    },
+    {
+      "requirement": "UV discrete-gauge completion",
+      "verdict": "OPEN",
+      "reason": "Needed to make exact Z6 robust against quantum-gravity violations."
+    },
+    {
+      "requirement": "Higgs naturalness of direct portal",
+      "verdict": "CONDITIONAL",
+      "reason": "Displayed trilinear is simple but gives a TeV-scale Higgs mass correction; a fermionic thermalizer portal is cleaner."
+    }
+  ]
+}

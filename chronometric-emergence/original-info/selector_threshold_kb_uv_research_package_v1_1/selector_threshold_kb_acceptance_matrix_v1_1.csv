@@ -1,0 +1,12 @@
+claim,verdict,basis
+First mixed primitive 1PI topology,PASS,"Three loops: I=8, V=6; no bridge, edge connectivity two."
+Absence of lower hard portals,CONDITIONAL,Direct R Dbar D and Q^2 H^dagger H interactions must be absent as tree-level UV spurions.
+Transient selector-charge theorem,PASS,Every p<6 harmonic carries Q_p or a state-density Fourier charge and vanishes with it.
+Three-loop mixed coefficient,PASS as NDA,Finite and tiny on benchmark; exact three-loop integral not evaluated.
+Formal nonlinear 2PI/KB equations,PASS,"Derived in technical paper for R,H,D,q,g and selector background."
+Complete numerical two-time propagation,PARTIAL PASS,Exact non-Markovian Gaussian surrogate passes; full nonlinear non-Abelian 3+1D run remains HPC work.
+Smooth selector restoration UV quality,PASS,Exponential high-k tail; no large initial-surface counterterms from the physical smooth decay.
+Original direct scalar inflaton portal,FAIL GENERICALLY,Tachyonic/resonant production occurs at early coherent amplitudes despite late kinematic closure.
+Fermionic parent cascade repair,PASS at linear level,Pauli-limited selected production; heavy replicas exponentially suppressed.
+Wilson-line continuous-shift protection,PASS as construction skeleton,Local phase breaking first requires a full 18-link winding operator for L=3.
+Gauged Z6/domain-wall removal,CONDITIONAL PASS,Perturbative anomaly sums cancel for complete vectorlike orbits; global anomaly analysis remains open.

@@ -1,0 +1,63 @@
+{
+  "all_checks_passed": true,
+  "clock_shear": {
+    "S_Sr_over_CaF": "dtheta*epsilon_Psi/27",
+    "S_Sr_over_Cs": "2*dtheta*epsilon_Psi/27",
+    "qcd_lock_defect": "2*dtheta*epsilon_Psi/27",
+    "rank_one_relation": "S_Sr/Cs = 2 S_Sr/CaF"
+  },
+  "document_version": "0.5",
+  "equivalence_principle": {
+    "Delta_Qm_Ti_minus_Pt": -0.0033248854234576635,
+    "MICROSCOPE_rough_95_percent_eta_envelope": 6.881975845356424e-15,
+    "Qe_Pt": 0.0040897482120914545,
+    "Qe_Ti": 0.002039284026947526,
+    "Qm_Pt": -0.006951675237216675,
+    "Qm_Ti": -0.010276560660674339,
+    "beta_Sr_over_CaF_over_eta_TiPt": 150.38112184931555,
+    "beta_Sr_over_Cs_over_eta_TiPt": 300.7622436986311,
+    "implied_beta_Sr_over_CaF_envelope": 1.0349192481645908e-12,
+    "implied_beta_Sr_over_Cs_envelope": 2.0698384963291816e-12,
+    "warning": "Envelope is model-conditional and is not a likelihood reanalysis."
+  },
+  "generated_utc_note": "Deterministic calculation; timestamp intentionally omitted.",
+  "numerical_stability_scan": {
+    "completion_tested": "positive-curvature lifted radial completion",
+    "failed": 0,
+    "global_scale_limit": "m_chi_sq = 0 gives one expected zero eigenvalue and one positive ratio eigenvalue",
+    "minimum_determinant": 2.1503350213755863e-40,
+    "minimum_eigenvalue": 4.803325637928884e-30,
+    "minimum_trace": 1.000144720264623e-12,
+    "positive_definite": 50000,
+    "samples": 50000
+  },
+  "qcd_one_loop": {
+    "A_Psi_7_to_6": "19/21",
+    "A_bottom_5_to_4": "23/25",
+    "A_charm_4_to_3": "25/27",
+    "A_top_6_to_5": "21/23",
+    "D_Psi_to_3": "2/27",
+    "Lambda7_exponent_in_Lambda3": "19/27",
+    "asymptotic_freedom_b7_positive": true,
+    "b_coefficients": {
+      "3": "9",
+      "4": "25/3",
+      "5": "23/3",
+      "6": "7",
+      "7": "19/3"
+    },
+    "each_heavy_mass_exponent_in_Lambda3": "2/27",
+    "fundamental_representation": "2/27",
+    "general_Dirac_representation": "4*T_R/27"
+  },
+  "symbolic_checks": {
+    "alignment_hessian": "Matrix([[2*f**2*lambda_S*r**4, -2*f**2*lambda_S*r**3], [-2*f**2*lambda_S*r**3, 2*f**2*lambda_S*r**2]])",
+    "alignment_hessian_determinant": "0",
+    "alignment_hessian_trace": "2*f**2*lambda_S*r**2*(r**2 + 1)",
+    "completed_hessian": "Matrix([[2*f**2*lambda_S*r**4 + m_chi_sq, -2*f**2*lambda_S*r**3], [-2*f**2*lambda_S*r**3, 2*f**2*lambda_S*r**2]])",
+    "completed_hessian_determinant": "2*f**2*lambda_S*m_chi_sq*r**2",
+    "completed_hessian_trace": "2*f**2*lambda_S*r**4 + 2*f**2*lambda_S*r**2 + m_chi_sq",
+    "exact_defect_recursion": "delta_low = A delta_high + (1-A) epsilon_mass",
+    "threshold_misalignment_epsilon": "r*y_S/(r*y_S + y_chi)"
+  }
+}

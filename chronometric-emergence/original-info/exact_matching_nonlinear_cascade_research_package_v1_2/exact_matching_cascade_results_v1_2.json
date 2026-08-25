@@ -1,0 +1,169 @@
+{
+  "version": "v1.2",
+  "symbolic_matching": {
+    "symbolic_residual": "0",
+    "hierarchical_limit_D_at_Q_eq_M": "pi**2/3",
+    "closed_form_latex": "- \\log{\\left(\\frac{x}{Q^{2}} \\right)}^{2} + 2 \\log{\\left(\\frac{x - z}{Q^{2}} \\right)} \\log{\\left(\\frac{x}{z} \\right)} - 2 \\operatorname{Li}_{2}\\left(\\frac{z}{x}\\right) + \\frac{\\pi^{2}}{3}"
+  },
+  "exact_matching": {
+    "I3_MSbar_at_mu_eq_M": 6.579735081490119,
+    "D_FFS_at_mu_eq_M": 3.2898675407466484,
+    "mR2_times_K_RRH": 0.999999999999517,
+    "finite_difference_D_FFS": 3.289867540746647,
+    "finite_difference_relative_error": 4.049608724513645e-16,
+    "C3_GeV2": 8.045424833758169e-05,
+    "transient_amplitude_GeV4": 2172.2647051147055,
+    "ratio_to_thermal_focusing": 1.545765818768025e-12,
+    "I3_scale_halfM": 102.40731316816465,
+    "I3_scale_M": 6.579735081490119,
+    "I3_scale_2M": -96.93509122787192,
+    "hierarchical_limit_2pi2_over3": 6.579736267392906,
+    "hierarchical_relative_error": 1.802356110403455e-07
+  },
+  "transient_gamma": {
+    "one_loop_scalar_diagonal_block": [
+      [
+        0.0006332573977646111,
+        0.0031662869888230555,
+        0.0
+      ],
+      [
+        0.0031662869888230555,
+        0.0012665147955292222,
+        0.00031662869888230555
+      ],
+      [
+        0.0,
+        0.00031662869888230555,
+        0.0008232346170939944
+      ]
+    ],
+    "gamma_epsilon_benchmark": 0.002,
+    "epsilon_benchmark": 2.7e-13,
+    "minimum_spurion_power_matrix_mod6": [
+      [
+        0,
+        1,
+        2,
+        3,
+        2,
+        1
+      ],
+      [
+        1,
+        0,
+        1,
+        2,
+        3,
+        2
+      ],
+      [
+        2,
+        1,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        3,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        2,
+        3,
+        2,
+        1,
+        0
+      ]
+    ],
+    "largest_estimated_nearest_harmonic_entry_at_benchmark": 8.54897486982225e-16,
+    "circulant_epsilon0_fourier_offdiagonal_max": 1.804364039588168e-15,
+    "exact_spurion_selection_rule": "gamma_(A,p)(B,q) = sum_(r,s>=0) delta_(p-q,r-s) epsilon^(r+s) Gamma_AB^(r,s), with replica charge conserved mod 6",
+    "leading_order_rule": "gamma_(A,p)(B,q) = delta_pq [Gamma_quad^T + p gamma_epsilon I] + O(epsilon)",
+    "coefficient_RGE": "mu dC_(A,p)/dmu = sum_(B,q) gamma_(A,p)(B,q) C_(B,q)",
+    "correction_to_v1_1": "Exact Z6 alone does not make the invariant transient-operator basis all-orders block diagonal. Block diagonality is exact at epsilon^0; cross-harmonic mixing is power suppressed by the restored shift symmetry.",
+    "state_charge_warning": "Occupation harmonics N_p obey collision/Kadanoff-Baym kernels, not the local-operator anomalous-dimension matrix."
+  },
+  "preheating": {
+    "crossings": 320,
+    "final_scale_factor": 6.3850269673338085,
+    "initial_inflaton_energy_GeV4": 1.77608e+53,
+    "final_inflaton_energy_GeV4": 6.822982067613744e+50,
+    "final_N_energy_GeV4": 6.334792428785534e+43,
+    "N_energy_fraction": 9.284491411315979e-08,
+    "max_N_occupation": 0.9999290241249355,
+    "minimum_hidden_Landau_Zener_exponent": 19716.22054732716,
+    "hidden_production_log10_bound": -8562.645787691697,
+    "gaussian_tail_slope_per_GeV2": -1.2212656467367393e-22,
+    "gaussian_tail_fit_R2": 0.9999922691958726
+  },
+  "cascade": {
+    "Gamma_phi_GeV": 100.0,
+    "Gamma_Q_GeV": 1.0,
+    "Gamma_N_GeV": 0.1,
+    "Gamma_R_GeV": 0.014135,
+    "Gamma_thermalisation_surrogate_GeV": 0.25,
+    "R_energy_fraction_per_N_decay": 0.5555555555555556,
+    "late_nu_to_unit_R_energy_ratio": 0.3555132800582124,
+    "B5_reconstructed_from_full_lattice": 0.005274370739526118,
+    "branch_reconstruction_relative_error": 1.967939894301043e-08,
+    "original_B5_1_over_257": 0.0038910505836575876,
+    "original_B5_dynamic_T5_over_T0": 0.2316343097808975,
+    "instantaneous_no_redshift_B5": 0.007003891050583658,
+    "instantaneous_B5_dynamic_T5_over_T0": 0.2684549101518495,
+    "corrected_B5": 0.005274370843322566,
+    "corrected_B0": 0.9947256291566774,
+    "corrected_amplitude_ratio_tan_theta": 0.07281715001820041,
+    "final_scale_factor": 20584762.79780802,
+    "final_phi_energy_GeV4": 1.6419422476382446e-291,
+    "final_N_energy_GeV4": 1.9891289943106852e-56,
+    "final_R_energy_GeV4": 4.5056467275379046e+18,
+    "final_sector0_energy_GeV4": 1.1005647615935433e+30,
+    "final_sector5_energy_GeV4": 4.2990811849085933e+27,
+    "final_E5_over_E0": 0.0039062500771729364,
+    "final_T5_over_T0": 0.25000000123476696,
+    "final_visible_energy_fractions": {
+      "H": 0.03748716524954485,
+      "D": 0.09836331665913704,
+      "q": 0.09840380878005513,
+      "g": 0.14994866099817925,
+      "spectator": 0.6157970483130837
+    },
+    "final_adjacent_energy_fractions": {
+      "H": 0.037487165242649556,
+      "D": 0.09774394285034717,
+      "q": 0.09840380876195491,
+      "g": 0.14994866097059792,
+      "spectator": 0.6164164221744505
+    },
+    "max_collision_energy_relative_residual": 1.733127374523552e-16,
+    "max_two_body_kinematic_energy_relative_residual": 4.452288789763086e-16,
+    "rejected_fermion_number_density_GeV3": 1.419734841055788e+36,
+    "final_selector_charge_fraction": 0.0,
+    "unselected_sector_preheating_log10_bound": -8562.645787691697,
+    "H0_exponential_tail_slope_per_GeV": -7.515100408377655e-08,
+    "H0_exponential_tail_R2": 0.9999999759716973,
+    "g0_exponential_tail_slope_per_GeV": -7.515930042077841e-08,
+    "g0_exponential_tail_R2": 0.9999999999999779,
+    "interpretation": "The old tan(theta)=1/16 branching no longer gives T5/T0=1/4 once the nu0 daughter thermalises in sector 0. A fully redshift-corrected branch below 1/(257 f_R) restores the target ratio after the earlier nu0 injection has diluted relative to the later R-decay radiation."
+  },
+  "scope": {
+    "exact": "Factorised zero-momentum MSbar matching in the explicitly normalized scalar proxy; exact Z6 harmonic selection rule.",
+    "numerical": "Nonlinear expanding quantum-kinetic momentum lattice with Pauli blocking, exact two-body decay kinematics, and energy-conserving quantum-BGK thermalisation.",
+    "not_claimed": "A full three-loop Standard-Model-doublet matching with every gauge component, or a full non-Abelian 3+1D two-time 2PI/Kadanoff-Baym plasma simulation."
+  }
+}

@@ -1,4 +1,0 @@
-name,Nr,lmax,Nt,Nmem,Ngpu,angular_modes,momentum_cells,raw_two_time_GB,raw_vertex_GB,estimated_total_GB_with_5x_overhead,estimated_GB_per_GPU
-unit-test,32,1,512,64,1,4,128,0.012582912,0.009437184,0.11010048,0.11010048
-pilot-isotropic/low-anisotropy,96,4,4096,256,8,25,2400,0.9437184,0.3538944,6.488064,0.811008
-production-angular-moment,192,6,16384,512,128,49,9408,7.398752256,1.387266048,43.93009152,0.34320384

@@ -1,0 +1,143 @@
+{
+  "version": "v1.4",
+  "benchmark": {
+    "alpha_s": 0.0393544,
+    "M_D_over_T": 0.01,
+    "y_D": 0.3,
+    "p_over_T": 3.0,
+    "Gamma_g_split_over_T": 0.2613559475889969,
+    "Gamma_q_split_over_T": 0.204516072092299,
+    "Gamma_D_split_over_T": 0.20141661957056833,
+    "Gamma_g_to_qq_over_T": 0.000535099371714104,
+    "Gamma_g_to_DD_over_T": 7.720399742325475e-05,
+    "Gamma_H_to_qD_over_T": 0.000318544215852566,
+    "Gamma_g_elastic_over_T": 0.10617691039648859,
+    "Gamma_q_elastic_over_T": 0.011915065778397002,
+    "Gamma_QCD_slow_over_T": 0.21333168534896535,
+    "Gamma_kinetic_over_T": 0.000318544215852566,
+    "D_energy_weight": 0.9872649276623621,
+    "f_a_GeV": 24350000000.0,
+    "intrinsic_rate_dlnfa": 0.0
+  },
+  "validation": [
+    {
+      "eta": 10.0,
+      "exact": 3.0360219039836682,
+      "deep_LPM": 3.011851217633564,
+      "relative_difference": 0.008025192681694023
+    },
+    {
+      "eta": 100.0,
+      "exact": 11.046138890179401,
+      "deep_LPM": 11.008655609266487,
+      "relative_difference": 0.003404891772739517
+    },
+    {
+      "eta": 1000.0,
+      "exact": 38.94762530768213,
+      "deep_LPM": 38.8829150148548,
+      "relative_difference": 0.001664234607991879
+    }
+  ],
+  "elastic_bundles": {
+    "0.02": {
+      "g_gg": 0.04008781930200946,
+      "g_gg_classical": 0.02897763195119312,
+      "g_gq": 0.007751486199031982,
+      "g_gq_classical": 0.0071040656904436976,
+      "g_pair": 0.0009299190602816852,
+      "g_pair_classical": 0.0011939528285649626,
+      "q_qg": 0.002396237624208121,
+      "q_qg_classical": 0.0021124663538306335,
+      "q_qq": 0.0017100010645836646,
+      "q_qq_classical": 0.002088460163281515,
+      "q_ann": 0.0002004295725351662,
+      "q_ann_classical": 0.0001443130663466024,
+      "g_total": 0.04876922456132313,
+      "q_total": 0.004306668261326952
+    },
+    "0.0393544": {
+      "g_gg": 0.08097783303829455,
+      "g_gg_classical": 0.0572100481597267,
+      "g_gq": 0.022519531059341243,
+      "g_gq_classical": 0.020578491518909694,
+      "g_pair": 0.0026795462988528007,
+      "g_pair_classical": 0.003401392978906954,
+      "q_qg": 0.006507947735285137,
+      "q_qg_classical": 0.0059223694224852935,
+      "q_qq": 0.004826275752043893,
+      "q_qq_classical": 0.005867609028368957,
+      "q_ann": 0.0005808422910679728,
+      "q_ann_classical": 0.00042563172071698576,
+      "g_total": 0.10617691039648859,
+      "q_total": 0.011915065778397002
+    },
+    "0.08": {
+      "g_gg": 0.18112764438862658,
+      "g_gg_classical": 0.12087283803311974,
+      "g_gq": 0.06468079318337021,
+      "g_gq_classical": 0.05911646289721047,
+      "g_pair": 0.007623553987671604,
+      "g_pair_classical": 0.009556140537648833,
+      "q_qg": 0.017537487889249616,
+      "q_qg_classical": 0.016398015283785136,
+      "q_qq": 0.013390177861302347,
+      "q_qq_classical": 0.016173793840547276,
+      "q_ann": 0.0016635855171743311,
+      "q_ann_classical": 0.0012427876850813573,
+      "g_total": 0.2534319915596684,
+      "q_total": 0.032591251267726294
+    }
+  },
+  "reheating_hierarchy": {
+    "T0_GeV": 100200000.0,
+    "Gamma_R_GeV": 0.0147850065,
+    "Gamma_AMY_GeV": 31918.130428427114,
+    "Gamma_AMY_over_Gamma_R": 2158817.4769099434,
+    "factor_two_low_hierarchy": 1079408.7384549717,
+    "adiabatic_correction_central": 4.632165575347136e-07,
+    "adiabatic_correction_factor_two_low": 9.264331150694271e-07,
+    "B5_v1_3": 0.00529888708,
+    "absolute_B5_shift_bound": 4.909064463925541e-09,
+    "T5_over_T0": 0.25
+  },
+  "reduced_KB": {
+    "Gamma_over_T": 0.000318544215852566,
+    "memory_scale_over_T": 1.035136519512811,
+    "Gamma_over_memory_scale": 0.0003077315985359008,
+    "max_normalized_memory_vs_markov_difference": 0.0006073958880725945,
+    "equal_time_spectral_derivative_estimate": 0.9999999998945833
+  },
+  "parameter_grid": {
+    "alpha_s": [
+      0.02,
+      0.0393544,
+      0.08
+    ],
+    "M_D_over_T": [
+      0,
+      0.01,
+      0.1,
+      0.3
+    ],
+    "y_D": [
+      0.1,
+      0.3,
+      0.6
+    ],
+    "f_a_GeV": [
+      1000000000.0,
+      24350000000.0,
+      1000000000000.0
+    ]
+  },
+  "f_a_factorization": "Intrinsic AMY transport is independent of f_a at fixed dimensionless plasma parameters; f_a enters only through the upstream chronometric source/coupling.",
+  "scope": {
+    "QCD_1to2": "direct isotropic LO AMY radial equation",
+    "QCD_2to2": "full-angle screened transport moments with quantum final-state factors",
+    "H_to_qD": "direct transverse solve plus collinear Yukawa prefactor with factor-two normalization band",
+    "KB": "finite-memory quasiparticle benchmark, not full non-Abelian 2PI"
+  },
+  "cache_info": "CacheInfo(hits=68, misses=307, maxsize=20000, currsize=307)",
+  "runtime_seconds": 29.165438890457153
+}
