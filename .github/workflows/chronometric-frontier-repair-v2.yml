@@ -6,6 +6,11 @@ on:
     paths:
       - '_bootstrap/frontier_repair_v2.tar.xz'
       - '.github/workflows/chronometric-frontier-repair-v2.yml'
+  pull_request:
+    paths:
+      - '_bootstrap/frontier_repair_v2.tar.xz'
+      - '.github/workflows/chronometric-frontier-repair-v2.yml'
+      - 'chronometric-emergence/frontier-repair-v2/**'
   workflow_dispatch:
 
 permissions:
@@ -15,11 +20,13 @@ jobs:
   repair:
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    env:
+      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
       - name: Check out repair branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Reconstruct repair package
@@ -76,5 +83,5 @@ jobs:
             echo 'No generated changes.'
           else
             git commit -m 'Execute chronometric frontier repair v2 [frontier-repair-generated]'
-            git push origin HEAD:${GITHUB_REF_NAME}
+            git push origin HEAD:"$TARGET_BRANCH"
           fi
