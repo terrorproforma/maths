@@ -2,6 +2,6 @@
 
 The binary archive is reconstructed and executed by `.github/workflows/chronometric-frontier-repair-v2.yml`.
 
-Archive SHA-256: `a281bf2d9d217649e889c171057dfe2e0952ea6ab5643b070359454872f1f350`
+Archive SHA-256: `378f275b1f948df012586897f5327b386ad12a63052de39766c3a569ac747882`
 
 Author: Angus Muffatti
