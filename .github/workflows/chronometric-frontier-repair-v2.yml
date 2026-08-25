@@ -1,5 +1,6 @@
 name: Chronometric frontier repair v2
 
+# Executed repair branch; generated evidence is committed back only after all fallible gates pass.
 on:
   push:
     paths:
