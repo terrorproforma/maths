@@ -1,0 +1,68 @@
+name: Chronometric frontier evidence v2
+
+on:
+  push:
+    branches:
+      - chronometric-frontier-evidence-v2
+    paths:
+      - .github/workflows/chronometric-frontier-evidence-v2.yml
+      - chronometric-emergence/frontier-evidence-v2/src/**
+      - chronometric-emergence/frontier-evidence-v2/tests/**
+      - chronometric-emergence/frontier-evidence-v2/pyproject.toml
+      - chronometric-emergence/frontier-evidence-v2/Makefile
+
+permissions:
+  contents: write
+
+jobs:
+  evidence-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out repair branch
+        uses: actions/checkout@v4
+        with:
+          ref: chronometric-frontier-evidence-v2
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: chronometric-emergence/frontier-evidence-v2/pyproject.toml
+
+      - name: Install evidence package
+        working-directory: chronometric-emergence/frontier-evidence-v2
+        run: python -m pip install -e '.[test]'
+
+      - name: Run full independent evidence suite
+        working-directory: chronometric-emergence/frontier-evidence-v2
+        env:
+          CHRONOMETRIC_REPO_ROOT: ${{ github.workspace }}
+        run: python -m frontier_evidence.run_all --repo-root "${GITHUB_WORKSPACE}"
+
+      - name: Run tests from a clean checkout layout
+        working-directory: chronometric-emergence/frontier-evidence-v2
+        env:
+          CHRONOMETRIC_REPO_ROOT: ${{ github.workspace }}
+        run: pytest -q
+
+      - name: Commit generated evidence
+        run: |
+          git config user.name "Angus Muffatti"
+          git config user.email "130276587+terrorproforma@users.noreply.github.com"
+          git add chronometric-emergence/frontier-evidence-v2/results \
+                  chronometric-emergence/frontier-evidence-v2/docs/FRONTIER_EVIDENCE_REPORT.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate adversarial frontier evidence v2 [frontier-generated]"
+            git push origin HEAD:chronometric-frontier-evidence-v2
+          fi
+
+      - name: Upload evidence bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: chronometric-frontier-evidence-v2
+          path: |
+            chronometric-emergence/frontier-evidence-v2/results
+            chronometric-emergence/frontier-evidence-v2/docs/FRONTIER_EVIDENCE_REPORT.md
