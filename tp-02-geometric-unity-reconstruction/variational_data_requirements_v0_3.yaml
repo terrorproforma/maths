@@ -1,0 +1,99 @@
+schema_version: 1.0.0
+project: TP-02 independent reconstruction of Geometric Unity
+phase: 3B variational source-completeness audit
+branch_policy:
+  literal_source: PRINTED
+  repaired_source_compatible: R_PLUS
+  no_silent_merging: true
+objects:
+  base_total_space:
+    symbol: Y
+    status: partial
+    known: Einsteinian choice Y = Met(X), dim(Y)=14 for dim(X)=4
+    missing:
+      - precise allowed signature component
+      - global topology and boundary class
+  unified_field_bundle:
+    symbol: E_omega
+    status: partial
+    missing:
+      - complete reality conditions
+      - Grassmann parity for all blocks
+      - functional-analytic completion
+  augmented_torsion:
+    symbol: T
+    status: branch_resolved
+    branches:
+      PRINTED: a - epsilon^{-1} d_A0 epsilon
+      R_PLUS: a + epsilon^{-1} d_A0 epsilon
+    result:
+      PRINTED: fails claimed tilted equivariance
+      R_PLUS: passes exact finite covariance test
+  distinguished_connection:
+    symbol: A0[gimel]
+    status: partial
+    required_derivative: D A0|_gimel [delta_gimel]
+    warning: must not be treated as fixed during observation-field variation
+  curvature:
+    symbol: F_omega
+    status: partial
+    required_derivative: D F_omega[delta_omega] = d_omega delta_omega
+    missing:
+      - complete connection block and conventions
+  shiab:
+    symbol: Sh_{omega,gimel}
+    status: unresolved
+    next_source_branch: explicit substitute displayed in draft equation 9.3
+    required:
+      - domain bundle
+      - codomain bundle
+      - algebraic/differential order
+      - covariance law
+      - reality and adjoint properties
+      - Frechet derivative in omega
+      - Frechet derivative in gimel
+  pairing:
+    symbol: angle_pairing_gimel
+    status: partial
+    missing:
+      - exact invariant form
+      - metric dependence
+      - nondegeneracy domain
+  measure:
+    symbol: mu_gimel
+    status: partial
+    missing:
+      - precise volume density on Y
+      - variation under delta_gimel
+  boundary_domain:
+    symbol: B
+    status: missing
+    required:
+      - boundary conditions
+      - allowed gauge parameters at boundary
+      - differentiable generators
+      - formal-adjoint domain
+  background:
+    symbol: [omega_bar, gimel_bar]
+    status: missing
+    required:
+      - solves repaired Euler-Lagrange equations
+      - regular nondegenerate kinetic stratum
+      - declared global and boundary data
+required_outputs_before_spectrum_claim:
+  - complete first variation
+  - complete second variation
+  - linearized gauge/deformation complex
+  - proof that consecutive maps compose to zero
+  - principal symbol
+  - constraint or BRST mode count
+  - boundary charge audit
+terminal_current_result:
+  unique_euler_lagrange_operator_from_source: false
+  unique_principal_symbol_from_source: false
+  unique_degree_of_freedom_count_from_source: false
+  reason: indispensable map derivatives and domains remain non-unique
+next_decisive_action:
+  - type the explicit equation-9.3 Shiab substitute
+  - derive DSh and DA0
+  - compute delta_I_R_PLUS and delta2_I_R_PLUS
