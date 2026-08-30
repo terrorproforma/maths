@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [{ name = "Angus Muffatti" }]
+name = "ananke-core"
+version = "0.1.0"
+description = "Extraction of representation-invariant minimal process dynamics from operational behaviour."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,12 @@
+{
+  "project": "ANANKE",
+  "version": "0.1.0",
+  "stage": "exact-operational-core",
+  "author": "Angus Muffatti",
+  "tests": {
+    "passed": 5,
+    "total": 5
+  },
+  "headline_result": "Minimal sequential dynamics are recovered up to similarity, unreachable padding is erased, and the declared qubit process has no exact finite-state classical stochastic realization.",
+  "next_decisive_target": "finite-shot rank and invariant-spectrum inference"
+}

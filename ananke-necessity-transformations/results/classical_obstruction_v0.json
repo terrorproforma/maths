@@ -1,0 +1,103 @@
+{
+  "experiment": "ANANKE finite-classical obstruction v0.1",
+  "extracted_rank": 4,
+  "obstruction": {
+    "assumption": "Each operation is represented classically by a finite nonnegative stochastic matrix, and the extracted minimal transition is its quotient.",
+    "perron_frobenius_fact": "Every unit-modulus eigenvalue of a finite stochastic matrix is a root of unity.",
+    "floating_point_diagnostics": {
+      "x": [
+        {
+          "eigenvalue": [
+            0.7451744023448712,
+            0.666869635003698
+          ],
+          "modulus": 1.0000000000000007,
+          "phase_radians_principal": 0.7299999999999995,
+          "phase_turns": 0.11618310845708353,
+          "best_root_of_unity_order_at_most": 10000,
+          "nearest_root_numerator": 901,
+          "nearest_root_denominator": 7755,
+          "phase_error_turns": 7.846141514278315e-10,
+          "eigenvalue_distance": 4.9298760417312134e-09
+        },
+        {
+          "eigenvalue": [
+            0.7451744023448712,
+            -0.666869635003698
+          ],
+          "modulus": 1.0000000000000007,
+          "phase_radians_principal": -0.7299999999999995,
+          "phase_turns": 0.8838168915429164,
+          "best_root_of_unity_order_at_most": 10000,
+          "nearest_root_numerator": 6854,
+          "nearest_root_denominator": 7755,
+          "phase_error_turns": 7.846141514278315e-10,
+          "eigenvalue_distance": 4.929875802231854e-09
+        }
+      ],
+      "z": [
+        {
+          "eigenvalue": [
+            0.44466151674170773,
+            0.8956986856800477
+          ],
+          "modulus": 1.0000000000000004,
+          "phase_radians_principal": 1.1099999999999992,
+          "phase_turns": 0.1766619868320037,
+          "best_root_of_unity_order_at_most": 10000,
+          "nearest_root_numerator": 1629,
+          "nearest_root_denominator": 9221,
+          "phase_error_turns": 1.9583332205863613e-08,
+          "eigenvalue_distance": 1.2304570521139117e-07
+        },
+        {
+          "eigenvalue": [
+            0.44466151674170773,
+            -0.8956986856800477
+          ],
+          "modulus": 1.0000000000000004,
+          "phase_radians_principal": -1.1099999999999992,
+          "phase_turns": 0.8233380131679963,
+          "best_root_of_unity_order_at_most": 10000,
+          "nearest_root_numerator": 7592,
+          "nearest_root_denominator": 9221,
+          "phase_error_turns": 1.9583332178108037e-08,
+          "eigenvalue_distance": 1.2304570476460763e-07
+        }
+      ]
+    },
+    "symbol_certificates": {
+      "x": {
+        "spectral_mode_matches_declared_angle": true,
+        "minimum_spectral_distance": 7.850462293418876e-16,
+        "analytic_phase_certificate": {
+          "certified": true,
+          "angle_radians": {
+            "numerator": 73,
+            "denominator": 100
+          },
+          "conclusion": "exp(i * angle) is not a root of unity",
+          "proof": "Assume exp(i r) has finite order n. Then n r = 2 pi k for an integer k. Since r is nonzero, k is nonzero, so pi = n r/(2 k) would be rational. This contradicts the irrationality of pi."
+        },
+        "classical_finite_channel_obstructed": true
+      },
+      "z": {
+        "spectral_mode_matches_declared_angle": true,
+        "minimum_spectral_distance": 9.50197851991224e-16,
+        "analytic_phase_certificate": {
+          "certified": true,
+          "angle_radians": {
+            "numerator": 111,
+            "denominator": 100
+          },
+          "conclusion": "exp(i * angle) is not a root of unity",
+          "proof": "Assume exp(i r) has finite order n. Then n r = 2 pi k for an integer k. Since r is nonzero, k is nonzero, so pi = n r/(2 k) would be rational. This contradicts the irrationality of pi."
+        },
+        "classical_finite_channel_obstructed": true
+      }
+    },
+    "finite_classical_realization_obstructed": true,
+    "scope": "This excludes exact finite-state classical stochastic realizations. It does not exclude infinite-state models or finite approximations."
+  },
+  "pass": true
+}

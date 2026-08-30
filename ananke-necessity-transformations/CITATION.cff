@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "Please cite this repository if you use the ANANKE research programme or software."
+title: "ANANKE: Representation-Invariant Transformations and Counterfeit Complexity"
+type: software
+authors:
+  - family-names: Muffatti
+    given-names: Angus
+repository-code: "https://github.com/terrorproforma/maths/tree/main/ananke-necessity-transformations"
+version: "0.1.0"
+date-released: "2026-08-30"
+abstract: >-
+  An operational programme for extracting minimal sequential-process dynamics up to
+  representation change and lower-bounding the realization cost of competing
+  ontological model classes under finite data.
+keywords:
+  - operational theories
+  - Hankel realization
+  - stochastic realization
+  - counterfeit complexity
+  - invariant transformations
+  - quantum foundations
