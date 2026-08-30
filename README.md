@@ -17,10 +17,8 @@ Maintained by **Angus Muffatti**. All results are AI-assisted and carry explicit
 
 ## Physics
 
-- [`chronometric-emergence/`](chronometric-emergence/) — ongoing theoretical-physics programme on null/conformal structure, universal spectral clock factorisation, QCD scale locking, cyclic protection, cosmological state selection, and nonequilibrium transport. Its [`projects/`](chronometric-emergence/projects/) directory contains one self-contained folder per research stage; [`frontier-evidence-v2/`](chronometric-emergence/frontier-evidence-v2/) records the canonical current audit; and [`original-info/`](chronometric-emergence/original-info/) preserves the recovered original packages and binary artefacts. Author: Angus Muffatti.
-- [`tp-00-gr-sm-frontier-model/`](tp-00-gr-sm-frontier-model/) — frozen constraint and acceptance framework for candidate successor theories to GR + the Standard Model.
-- [`tp-01-common-geometric-parent/`](tp-01-common-geometric-parent/) — audit of a common geometric parent for Einstein–Hilbert and Chern–Simons/transgression actions.
-- [`tp-02-geometric-unity-reconstruction/`](tp-02-geometric-unity-reconstruction/) — active primary-source reconstruction and acceptance-gate audit of Geometric Unity.
+- [`theoretical-physics-program/`](theoretical-physics-program/) — the complete numbered TP-00 through TP-16 programme under one root directory. TP-00 is the frozen acceptance framework, TP-01 is frozen at its common-parent/no-go result, and TP-02 is the active Geometric Unity reconstruction.
+- [`chronometric-emergence/`](chronometric-emergence/) — independent programme on null/conformal structure, universal spectral clock factorisation, QCD scale locking, cyclic protection, cosmological state selection, and nonequilibrium transport. Its [`projects/`](chronometric-emergence/projects/) directory contains one self-contained folder per research stage; [`frontier-evidence-v2/`](chronometric-emergence/frontier-evidence-v2/) records the canonical current audit; and [`original-info/`](chronometric-emergence/original-info/) preserves the recovered original packages and binary artefacts.
 
 ## Archived combined packages
 

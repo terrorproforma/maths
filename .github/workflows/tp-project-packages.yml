@@ -6,10 +6,10 @@ on:
     branches:
       - main
     paths:
-      - ".bootstrap/tp00/**"
+      - "_bootstrap/tp00/**"
       - ".github/workflows/tp-project-packages.yml"
-      - "tp-00-gr-sm-frontier-model/**"
-      - "tp-01-common-geometric-parent/**"
+      - "theoretical-physics-program/tp-00-gr-sm-frontier-model/**"
+      - "theoretical-physics-program/tp-01-common-geometric-parent/**"
 
 permissions:
   contents: write
@@ -35,11 +35,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if compgen -G ".bootstrap/tp00/part-*.b64" > /dev/null; then
-            cat .bootstrap/tp00/part-*.b64 | base64 --decode > /tmp/tp00_source.tar.xz
+          if compgen -G "_bootstrap/tp00/part-*.b64" > /dev/null; then
+            cat _bootstrap/tp00/part-*.b64 | base64 --decode > /tmp/tp00_source.tar.xz
             echo "8a741792f7b993fd9657d11a32293f5dc150acad3a1d3120b249ce28700230f2  /tmp/tp00_source.tar.xz" | sha256sum -c -
-            tar -xJf /tmp/tp00_source.tar.xz -C .
-            rm -rf .bootstrap/tp00
+            mkdir -p theoretical-physics-program
+            tar -xJf /tmp/tp00_source.tar.xz -C theoretical-physics-program
+            rm -rf _bootstrap/tp00
             echo "restored=true" >> "$GITHUB_OUTPUT"
           else
             echo "restored=false" >> "$GITHUB_OUTPUT"
@@ -52,7 +53,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A tp-00-gr-sm-frontier-model .bootstrap
+          git add -A theoretical-physics-program/tp-00-gr-sm-frontier-model _bootstrap
           if ! git diff --cached --quiet; then
             git commit -m "Restore complete TP-00 reproducible source package"
             git push origin HEAD:main
@@ -64,8 +65,8 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: |
-            tp-00-gr-sm-frontier-model/requirements.txt
-            tp-01-common-geometric-parent/requirements.txt
+            theoretical-physics-program/tp-00-gr-sm-frontier-model/requirements.txt
+            theoretical-physics-program/tp-01-common-geometric-parent/requirements.txt
 
       - name: Install system dependencies
         shell: bash
@@ -88,16 +89,16 @@ jobs:
           python -m pip install \
             numpy scipy sympy matplotlib pandas pyyaml \
             jupyter nbconvert nbformat pytest Pillow
-          python -m pip install -r tp-00-gr-sm-frontier-model/requirements.txt
-          python -m pip install -r tp-01-common-geometric-parent/requirements.txt
+          python -m pip install -r theoretical-physics-program/tp-00-gr-sm-frontier-model/requirements.txt
+          python -m pip install -r theoretical-physics-program/tp-01-common-geometric-parent/requirements.txt
 
       - name: Build and verify TP-00
-        working-directory: tp-00-gr-sm-frontier-model
+        working-directory: theoretical-physics-program/tp-00-gr-sm-frontier-model
         shell: bash
         run: make all
 
       - name: Build and verify TP-01 v1.1
-        working-directory: tp-01-common-geometric-parent
+        working-directory: theoretical-physics-program/tp-01-common-geometric-parent
         shell: bash
         run: make all
 
@@ -112,8 +113,8 @@ jobs:
           from pathlib import Path
 
           projects = [
-              (Path("tp-00-gr-sm-frontier-model"), "TP-00_GR_SM_frontier_model_v1.0.zip"),
-              (Path("tp-01-common-geometric-parent"), "TP-01_common_geometric_parent_v1.1.zip"),
+              (Path("theoretical-physics-program/tp-00-gr-sm-frontier-model"), "TP-00_GR_SM_frontier_model_v1.0.zip"),
+              (Path("theoretical-physics-program/tp-01-common-geometric-parent"), "TP-01_common_geometric_parent_v1.1.zip"),
           ]
           excluded_suffixes = {
               ".aux", ".bbl", ".bcf", ".blg", ".fdb_latexmk", ".fls",
@@ -154,14 +155,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          find tp-00-gr-sm-frontier-model \
+          find theoretical-physics-program/tp-00-gr-sm-frontier-model \
             -type f \( \
               -name '*.pdf' -o -name '*.png' -o -name '*.npz' -o \
               -name 'manifest_sha256.csv' -o -path '*/results/*' -o \
               -path '*/tables/*.tex' -o -path '*/dist/*.zip' \
             \) -print0 | xargs -0 -r git add -f --
 
-          find tp-01-common-geometric-parent \
+          find theoretical-physics-program/tp-01-common-geometric-parent \
             -type f \( \
               -name '*.pdf' -o -name '*.png' -o -name '*.npz' -o \
               -name '*.ipynb' -o -name 'manifest_sha256.csv' -o \
