@@ -113,15 +113,6 @@ u^c:(1,1)_0
 e^c:(1,1)_1.
 \]
 
-Equivalently, resolving the colour components of the same \((\bar4,1,2)\) multiplet gives
-
-\[
-F_R^c\rightarrow
-u^c:(1,1)_0
-\oplus
-e^c:(1,1)_1.
-\]
-
 The exact code checks the complete decomposition, including
 
 \[
