@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this research package, please cite it as below."
+title: "From Exact Descent to Failed Reduction: Dirac, BRST, Kaluza-Klein and Global Audit of a Relative Chern-Weil Parent for Einstein Gravity"
+version: "1.1"
+date-released: 2026-08-28
+authors:
+  - family-names: Muffatti
+    given-names: Angus
+type: report
+abstract: "A canonical, BRST, Kaluza-Klein and global audit of a relative Chern-Weil/transgression parent. Exact action genealogy and Einstein-sector symplectic pullback survive, while regular spectrum-preserving dynamical reduction fails under explicitly stated assumptions."

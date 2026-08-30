@@ -1,0 +1,92 @@
+The transgression boundary term makes the declared variational principle and gauge generators differentiable.  Endpoint gauge parameters must match at the common boundary.  Under endpoint Dirichlet data or $\Theta|_{\partial M_5}=0$, the surface variation vanishes.  Under admitted asymptotic symmetries the same term becomes the physical surface charge \citep{MoraOleaTroncosoZanelli2006,PaisSalgadoRebolledoVera2023}.
+
+Nontrivial boundaries may support edge modes.  Those modes are extra physical content; they cannot be counted as a mechanism that removes unwanted bulk modes while leaving pure four-dimensional GR.
+
+\section{Strengthened restricted no-go theorem}
+\label{sec:nogo}
+
+\begin{theorem}[Restricted pure-connection obstruction]
+Consider a five-dimensional Chern--Simons or fixed-reference transgression theory on $M_4\times S^1$, with gauge group locally $\Spin(4,2)$ and a nondegenerate rank-three invariant polynomial.  Assume:
+\begin{enumerate}
+\item locality, polynomiality and finitely many five-dimensional fields;
+\item pure-connection Chern--Simons/transgression bulk dynamics;
+\item a regular compactification retaining every connection zero mode;
+\item an invertible field map or genuine gauge/symplectic quotient to the daughter;
+\item no external compensator datum that explicitly selects gauge-invariant holonomy information;
+\item a regular constant-rank parent canonical sector;
+\item nonzero Kaluza--Klein modes removed only by a proved consistent truncation or controlled decoupling limit;
+\item endpoint connections and the compensator live in fully declared bundle, cobordism and structure-group sectors.
+\end{enumerate}
+Then the theory cannot reduce to pure four-dimensional Einstein--Cartan/Einstein--Hilbert gravity with cosmological constant and only two local graviton polarizations.
+\end{theorem}
+
+\begin{proof}
+The complete connection zero mode contains the adjoint scalar $\phiz=A_y$, and fibre integration produces $\int\langle\phiz F\wedge F\rangle$.  Retaining all zero modes retains $\phiz$ and its equation.  The value $vJ_{54}$ has gauge-invariant conjugacy data, witnessed by $\Tr_{\mathbf6}W=4+2\cosh(L_yv)$, so fixing it is not pure BRST gauge.  Its radial equation $\langle\phiz F\wedge F\rangle=0$ survives and is violated by generic Einstein solutions.  Independently, a regular $\Spin(4,2)$ Chern--Simons sector has thirteen local configuration degrees of freedom.  A regular invertible map or gauge quotient cannot delete eleven physical modes without new constraints or a decoupling mechanism.  Moving to the maximally symmetric Chern--Simons root abandons regularity because $\Om$ and the ordinary quadratic graviton operator vanish.  Retaining $n=0,\pm1$ is not BRST closed; exact nonlinear closure generates the full tower, while the first pair adds twenty-six real modes in a regular quadratic sector.  Finally, although the fixed surface has the correct local Einstein--Cartan plus Euler presymplectic pullback, the parent Hamiltonian flow is not tangent to it because of the retained holonomy equation.  Global existence of the compensator further imposes a Wilson-line conjugacy class and a Lorentz structure-group reduction.  These conclusions contradict assumptions 3--8 if the daughter is pure Einstein gravity.  At least one assumption must be abandoned.
+\end{proof}
+
+\paragraph{Legitimate escape routes.}
+The theorem is deliberately narrow.  Constrained Stelle--West compensators add a norm constraint; Plebanski/BF theories add two-forms and simplicity constraints; boundary gauged Wess--Zumino--Witten sectors retain edge/group fields; holographic induced gravity is effective and nonlocal from the daughter viewpoint; orbifolds change the mode algebra; a dynamical phase transition adds sector-selection dynamics; and a singular AdS phase abandons constant-rank regularity.  These are not counterexamples because each pays by violating an explicit assumption.
+
+\section{Acceptance-gate audit}
+\label{sec:gates}
+
+The verification suite passing its algebraic checks is not the same as the candidate passing TP-00.  The code confirms the calculations; the calculations reject the strong parent.  Scores are independent and are never averaged.
+
+\begin{longtable}{@{}p{0.10\textwidth}p{0.12\textwidth}p{0.12\textwidth}p{0.58\textwidth}@{}}
+\toprule
+Gate & Score & Status & Reason \\
+\midrule
+\endfirsthead
+\toprule
+Gate & Score & Status & Reason \\
+\midrule
+\endhead
+ALG-01 & 2 & Pass & Complete parent, zero-mode fields, observables and boundary data are declared. \\
+ALG-02 & 0 & Fail strong reduction & Full five-dimensional algebra closes, but $n=0,\pm1$ does not; the fixed Einstein surface is not preserved by BRST/parent flow. \\
+ALG-03 & NA & Not applicable & No chiral matter is claimed. \\
+ALG-04 & 1 & Conditional & Bundle and holonomy requirements are explicit; the minimal Lorentzian integral level is global-form dependent. \\
+ALG-05 & 0 & Fail & Thirteen regular parent modes versus two in GR; first KK pair adds twenty-six. \\
+ALG-06 & 0 & Fail strong reduction & Parent canonical algebra is consistent, but fixing holonomy deletes a gauge-invariant equation and is not a symplectic quotient. \\
+PERT-01 & 0 & Fail GR-like vacuum & The maximally symmetric Chern--Simons point has no ordinary quadratic kinetic operator. \\
+PERT-02 & 0 & Fail GR-like vacuum & Rank-zero principal kinetic form gives no ordinary strongly hyperbolic graviton problem there. \\
+PERT-03 & 1 & Conditional & Classical canonical consistency is not a quantum positive-spectrum construction. \\
+PERT-04 & 1 & Conditional & Generic characteristic cones remain background dependent; the fixed daughter inherits GR only after external restriction. \\
+PERT-05 & 0 & Fail & No radiative/Wilsonian mechanism decouples omitted zero modes or the KK tower. \\
+REC-01 & 0 & Fail full parent & The fixed daughter recovers Einstein--Cartan exactly, but the unrestricted parent does not preserve or dynamically approach it. \\
+REC-02 & NA & Not applicable & No Standard Model matter sector is claimed. \\
+REC-03 & NA & Not applicable & No particle-pole or mixing prediction is claimed. \\
+REC-04 & 2 & Local pass & Local Lorentz and diffeomorphism covariance are maintained; the failure is dynamical rather than explicit symmetry breaking. \\
+REP-01 & 2 & Pass & Deterministic code, tests, source ledgers, machine-readable outputs and manifest are supplied. \\
+\bottomrule
+\end{longtable}
+
+The fatal zeros reject the strong spectrum-preserving parent in its claimed domain.  They do not invalidate the exact cohomological descent identities.
+
+\section{Novelty boundary and publication status}
+\label{sec:novelty}
+
+Every broad ingredient has substantial precedent:
+\begin{itemize}
+\item Chern--Weil descent and transgression forms \citep{ChernSimons1974,MoraOleaTroncosoZanelli2006};
+\item higher-dimensional Chern--Simons canonical structure \citep{BanadosGarayHenneaux1995,BanadosGarayHenneaux1996,MiskovicTroncosoZanelli2005};
+\item MacDowell--Mansouri and constrained compensators \citep{MacDowellMansouri1977,StelleWest1980};
+\item odd-to-even $\Phi F^n$ gravity reductions \citep{Chamseddine1990};
+\item Wilson-line conjugacy classes and gauge symmetry breaking \citep{Hosotani2005};
+\item Hamiltonian boundary differentiability and covariant phase space \citep{ReggeTeitelboim1974,LeeWald1990,IyerWald1994}.
+\end{itemize}
+
+The narrowest defensible project contribution is the combined, reproducible distinction between:
+\[
+\begin{gathered}
+\text{exact cohomological descent},\qquad
+\text{correct local symplectic pullback},\\
+\text{BRST gauge fixing},\qquad
+\text{consistent truncation},\qquad
+\text{spectrum-preserving reduction}.
+\end{gathered}
+\]
+Specifically, v1.1 supplies:
+\begin{enumerate}
+\item an explicit regular-sector numerical witness for the epsilon invariant;
+\item the orbit/centralizer and Wilson-line proof that fixed holonomy carries physical data;
+\item the gauge-invariant radial equation that survives orientation gauge fixing;

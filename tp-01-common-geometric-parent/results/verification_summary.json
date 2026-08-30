@@ -1,0 +1,14 @@
+{
+  "all_pass": true,
+  "constraint_norm": 3.9459171195625847e-13,
+  "constraint_jacobian_rank": 15,
+  "omega_rank": 56,
+  "max_null_residual": 1.5796062271213566e-12,
+  "full_adjoint_orbit_dimension": 8,
+  "SO32_vector_orbit_dimension": 4,
+  "missing_KK_modes": [
+    -2,
+    2
+  ],
+  "first_KK_pair_real_dof": 26
+}

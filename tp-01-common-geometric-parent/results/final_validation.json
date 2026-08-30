@@ -1,0 +1,13 @@
+{
+  "project": "TP-01 v1.1",
+  "all_pass": true,
+  "checks": {
+    "required_files_present": true,
+    "verification_all_pass": true,
+    "paper_pdf_nonempty": true,
+    "paper_has_20_pages": true,
+    "unit_tests_pass": true
+  },
+  "missing": [],
+  "scope_warning": "Validation confirms package integrity and reported calculations; it does not turn the rejected strong parent into an accepted theory."
+}

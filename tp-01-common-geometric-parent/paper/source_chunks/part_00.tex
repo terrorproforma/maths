@@ -1,0 +1,143 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,bm}
+\usepackage{booktabs,longtable,array,tabularx,multirow}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{doi}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={Dirac, BRST, Kaluza-Klein and Global Audit of a Chern-Weil Parent for Einstein Gravity},
+  pdfauthor={Angus Muffatti}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{TP-01 v1.1}
+\rhead{Dirac/BRST and global audit}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\setlist[itemize]{leftmargin=*,topsep=3pt,itemsep=2pt}
+\setlist[enumerate]{leftmargin=*,topsep=3pt,itemsep=2pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0pt}
+
+\lstdefinestyle{tpcode}{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  showstringspaces=false
+}
+\lstset{style=tpcode}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\dd}{\mathrm d}
+\newcommand{\CS}{\operatorname{CS}}
+\newcommand{\AdS}{\operatorname{AdS}}
+\newcommand{\Spin}{\operatorname{Spin}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Lie}[1]{\mathfrak{#1}}
+\newcommand{\dof}{N_{\mathrm{dof}}}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cF}{\mathcal F}
+\newcommand{\Om}{\Omega}
+\newcommand{\phiz}{\phi}
+\newcommand{\LieD}{\mathcal L}
+\newcommand{\eps}{\epsilon}
+
+\newcommand{\statusbox}[2]{%
+\begin{center}
+\fcolorbox{#1}{#1!5}{\parbox{0.93\textwidth}{#2}}
+\end{center}}
+
+\title{\textbf{From Exact Descent to Failed Reduction}\\
+\large Dirac, BRST, Kaluza--Klein and global audit of a relative Chern--Weil parent for Einstein gravity}
+\author{Angus Muffatti}
+\date{TP-01 version 1.1 --- 28 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Version 1.0 constructed an exact action-level genealogy linking a six-dimensional relative Chern--Weil functional, a five-dimensional transgression, genuine five-dimensional anti-de Sitter Chern--Simons gravity, and a four-dimensional MacDowell--Mansouri sector that expands to Einstein--Cartan gravity with cosmological and Euler terms.  It left open one decisive question: whether the fixed-holonomy Einstein sector is an admissible dynamical reduction of the parent rather than a deletion of fields and equations.  We answer that question by carrying out the canonical Dirac analysis in a regular sector, constructing the corresponding BRST/BFV complex, retaining the full circle zero mode and the first nonzero Kaluza--Klein level, pulling back the covariant presymplectic potential, and auditing bundles, Wilson lines and large gauge transformations.
+
+The positive result is sharper than expected.  The pullback of the full zero-mode presymplectic potential to the fixed-holonomy surface has exactly the Einstein--Cartan plus Euler coefficients.  The failure is therefore not a missing gravitational kinetic coefficient.  The negative result is decisive.  The circle holonomy has gauge-invariant conjugacy data; its fixed norm is not a BRST gauge condition.  Varying it retains a gauge-invariant curvature-square equation that generic Einstein solutions violate.  A regular five-dimensional $\Spin(4,2)$ Chern--Simons sector carries thirteen local configuration degrees of freedom.  The maximally symmetric Chern--Simons vacuum is a rank-changing singular stratum with a vanishing ordinary quadratic graviton operator.  The nonlinear mode set $n=0,\pm1$ is not BRST closed, and its first conjugate Kaluza--Klein pair already adds twenty-six real regular-sector degrees of freedom at quadratic order.
+
+We strengthen the restricted no-go theorem accordingly: under local, polynomial, pure-connection, regular, all-zero-mode, BRST-preserving and globally declared compactification assumptions, no such parent reduces to pure four-dimensional Einstein gravity with only two graviton helicities.  Exact cohomological genealogy survives; healthy spectrum-preserving dynamical equivalence does not.
+\end{abstract}
+
+\statusbox{blue}{\textbf{Terminal result.}
+\[
+\boxed{
+\begin{array}{c}
+\text{Exact common geometric genealogy: YES.}\\[1mm]
+\text{Correct Einstein-sector symplectic pullback: YES.}\\[1mm]
+\text{Dynamically invariant BRST/symplectic reduction: NO.}\\[1mm]
+\text{Healthy two-helicity parent in the stated class: NO.}
+\end{array}}
+\]
+The named v1.0 calculation is complete.  No high-performance computation is required for this verdict.}
+
+\tableofcontents
+\newpage
+
+\section{Provenance, question and scope}
+
+The motivating interview proposed that Chern--Simons/transgression and Einstein--Hilbert actions might be ``daughters'' of a deeper theory.  The interview supplied a question, not a mathematical construction or evidence.  TP-01 therefore separated two logically different claims:
+
+\begin{description}[leftmargin=3.2cm,style=nextline]
+\item[Weak genealogy claim] A single geometric object admits controlled descent, specialization, dimensional reduction or explicitly labelled sector restriction to both action types.
+\item[Strong dynamical claim] A regular parent has a phase space, constraint algebra and physical spectrum that reduce to both daughters without deleting equations, imposing external gauge-invariant data or hiding modes at a singular locus.
+\end{description}
+
+Version 1.0 established the weak claim and rejected the strong claim provisionally using the extra Wilson-line equation, the generic degree count and the degenerate Chern--Simons vacuum.  It named the precise remaining calculation: retain all zero modes and the first nonzero Kaluza--Klein level, derive the Dirac and BRST systems, test preservation of the fixed-holonomy surface, compare presymplectic forms, and audit global bundles and large gauge transformations.  This paper performs that calculation.
+
+The TP-00 acceptance framework is imported without re-interpretation.  In particular, a fatal algebraic or perturbative failure is not averaged against exact differential-form identities or attractive phenomenology.  The primary relevant gates are the theory tuple, symmetry closure, global structure, physical degree count, constraint algebra, perturbative health, radiative/EFT closure and Einstein recovery.
+
+\paragraph{Scope limit.}
+The canonical result is complete for the claimed reduction and for a generic regular canonical sector of five-dimensional Chern--Simons theory.  It is not an exhaustive classification of every degenerate and irregular phase-space stratum.  That limitation weakens no conclusion: the proposed Einstein vacuum lies at a known singular stratum, while a regular stratum has thirteen modes rather than two.
+
+\section{Conventions and complete theory tuple}
+
+All manifolds are smooth and oriented.  Four-dimensional spacetime has signature $(-,+,+,+)$ and $c=\hbar=1$.  Wedge products are suppressed where unambiguous.  Internal indices $\widehat A,\widehat B=0,\ldots,5$ are raised with
+\[
+\eta_{\widehat A\widehat B}=\operatorname{diag}(-,+,+,+,+,-),
+\qquad
+\epsilon_{012345}=+1.
+\]
+The gauge algebra is $\Lie{so}(4,2)$, with generators
+\[
+[J_{\widehat A\widehat B},J_{\widehat C\widehat D}]
+=\eta_{\widehat B\widehat C}J_{\widehat A\widehat D}
+-\eta_{\widehat A\widehat C}J_{\widehat B\widehat D}
+-\eta_{\widehat B\widehat D}J_{\widehat A\widehat C}
++\eta_{\widehat A\widehat D}J_{\widehat B\widehat C}.
+\]

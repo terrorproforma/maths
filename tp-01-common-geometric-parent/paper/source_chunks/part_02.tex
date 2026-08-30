@@ -1,0 +1,180 @@
+This is a local phase-space witness, not a claimed global solution of the differential Bianchi identities with specified boundary data.  Its role is exact and limited: it demonstrates that the epsilon invariant possesses the open regular/canonical stratum assumed by the thirteen-mode count.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[t]{0.57\textwidth}
+\centering
+\includegraphics[width=\linewidth]{../figures/regular_sector_symplectic_spectrum.png}
+\caption{Singular values of the $60\times60$ presymplectic matrix at the deterministic constraint-surface witness.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.40\textwidth}
+\centering
+\includegraphics[width=\linewidth]{../figures/phase_space_strata.png}
+\caption{Regular rank-56 stratum versus the rank-zero maximally symmetric Chern--Simons point.}
+\end{subfigure}
+\caption{The parent does not possess one uniform phase-space rank.  The generic regular sector is a thirteen-mode theory; the AdS Chern--Simons point is a rank-changing singular locus rather than a healthy two-mode phase.}
+\label{fig:ranks}
+\end{figure}
+
+\subsection{Background stratification}
+
+Three backgrounds are often conflated and must be separated:
+
+\begin{longtable}{@{}p{0.27\textwidth}p{0.16\textwidth}p{0.16\textwidth}p{0.31\textwidth}@{}}
+\toprule
+Background & Parent constraint surface? & Presymplectic rank & Consequence \\
+\midrule
+\endfirsthead
+\toprule
+Background & Parent constraint surface? & Presymplectic rank & Consequence \\
+\midrule
+\endhead
+Regular non-AdS canonical witness & Yes & 56 & Regular, generic, thirteen local modes. \\
+Pure AdS Chern--Simons vacuum, $F=0$ & Yes & 0 & Degenerate and irregular; ordinary quadratic graviton kinetic operator vanishes. \\
+Schwarzschild--AdS in fixed Einstein daughter & No & Not a parent background & Violates the retained holonomy equation through a nonzero Weyl-curvature-square term. \\
+\bottomrule
+\end{longtable}
+
+For the tuned Lovelock action the vacuum polynomial is
+\[
+\Upsilon(K)\propto(K+\ell_5^{-2})^2,
+\qquad
+\Upsilon'(-\ell_5^{-2})=0.
+\]
+Equivalently, the linearized equation $\delta E_a\sim g_{abc}\bar F^b\bar D a^c$ vanishes at $\bar F=0$.  A zero quadratic operator here is a strong-coupling/rank-degeneracy warning, not evidence that the generic eleven unwanted modes have become healthy gauge redundancies.
+
+\section{BRST/BFV structure in a canonical sector}
+\label{sec:brst}
+
+After eliminating the 56 second-class constraints with the Dirac bracket, define the improved diffeomorphism generator
+\[
+\bar H_I=H_I+A_I^aG_a,
+\]
+which acts by ordinary spatial Lie derivative.  The first-class algebra is the semidirect product of internal gauge transformations and spatial diffeomorphisms.  A minimal BFV charge is schematically
+\[
+\begin{aligned}
+\Omega_{\rm BFV}=\int_{\Sigma_4}\Big[&c^aG_a+\xi^I\bar H_I
+-\frac12f^a{}_{bc}c^bc^c\mathcal P_a
+-(\LieD_\xi c)^a\mathcal P_a\\
+&-\frac12[\xi,\xi]^I\mathcal P_I\Big]
++\Omega_{\partial\Sigma}.
+\end{aligned}
+\]
+Here $c^a$ and $\xi^I$ are internal-gauge and spatial-diffeomorphism ghosts.  The boundary term vanishes for gauge parameters that vanish at the boundary and is replaced by the transgression surface charge for admitted asymptotic symmetries.  The corresponding Lagrangian complex is
+\[
+sA_M=-D_Mc-\LieD_\xi A_M,
+\qquad
+sc=-\frac12[c,c]-\LieD_\xi c,
+\qquad
+s\xi^M=-\frac12[\xi,\xi]^M.
+\]
+It is nilpotent on the full field space.  Degenerate sectors may have reducible generators and require ghosts-for-ghosts, but the strong parent claim already fails in the generic canonical sector.  No rescue depends on treating the singular AdS locus as if it had the same BRST complex \citep{HenneauxTeitelboim1992,MiskovicTroncosoZanelli2005}.
+
+\section{All circle zero modes and the fixed-holonomy surface}
+\label{sec:zeromodes}
+
+\subsection{The full zero-mode field content}
+
+Write the connection on $M_4\times S^1$ as
+\[
+A(x,y)=B(x,y)+\phiz(x,y)\,\dd y.
+\]
+For $y$-independent fields,
+\[
+F=F_B-\dd y\wedge D_B\phiz.
+\]
+Up to the declared transgression boundary term,
+\[
+\int_{S^1}\CS_5(B+\phiz\dd y)
+=3L_y\int_{M_4}\langle\phiz F_B\wedge F_B\rangle.
+\]
+The complete zero mode $\phiz=A_y$ is adjoint valued and has fifteen components.  Split $\widehat A=(A,4)$ with $A\in\{0,1,2,3,5\}$:
+\[
+B_\mu=\frac12B_\mu^{AB}J_{AB}+C_\mu^AJ_{A4},
+\qquad
+\phiz=\frac12\varphi^{AB}J_{AB}+\Phi^AJ_{A4}.
+\]
+The MacDowell--Mansouri surface is the simultaneous restriction
+\[
+C_\mu^A=0,
+\qquad
+\varphi^{AB}=0,
+\qquad
+\Phi^A=v\delta^A{}_5,
+\]
+with $B^{ab}=\omega^{ab}$ and $B^{a5}=\ell_4^{-1}e^a$.  This is much more than choosing a gauge orientation.
+
+\subsection{Orbit dimensions and holonomy Casimirs}
+
+For the full adjoint element $\phiz=vJ_{54}$, the map $\operatorname{ad}(J_{54})$ has rank eight and a seven-dimensional centralizer.  Gauge transformations can move $\phiz$ along its eight-dimensional conjugacy orbit; they cannot eliminate the seven centralizer/conjugacy data.  In the narrower $SO(3,2)$ vector ansatz, the orbit is
+\[
+SO(3,2)/SO(3,1),
+\]
+of dimension four.  Four conditions orient $\Phi^A$, while its norm remains gauge invariant.
+
+For zero modes,
+\[
+s\phiz=[\phiz,c^{(0)}]
+\]
+(up to the declared sign convention), and every invariant polynomial is BRST closed:
+\[
+sP(\phiz)=0.
+\]
+A gauge-fixing fermion may select a representative on a conjugacy orbit.  It cannot select the value of a conjugacy invariant without adding physical sector data.
+
+The true global observable is the Wilson line
+\[
+W(x)=\mathcal P\exp\left(\oint_{S^1}A_y\dd y\right).
+\]
+For $H=J_{54}$ in the six-dimensional vector representation,
+\[
+W=e^{L_yvH},
+\qquad
+\boxed{\Tr_{\mathbf6}W=4+2\cosh(L_yv).}
+\]
+This dimensionless conjugacy-class observable changes with $v$.  The value of $v$ is therefore not removable gauge fluff.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{../figures/holonomy_orbit_summary.png}
+\caption{Gauge-orbit directions do not exhaust the compactification scalar.  In the full adjoint description $J_{54}$ has an eight-dimensional orbit and seven-dimensional centralizer; in the vector compensator ansatz four directions orient $\Phi$ while its norm remains a physical sector label.}
+\label{fig:orbit}
+\end{figure}
+
+\subsection{The retained gauge-invariant equation}
+
+The four-dimensional zero-mode equations are
+\[
+\mathcal E_{\phiz,a}=\langle T_aF\wedge F\rangle=0,
+\qquad
+\mathcal E_B=D\phiz\wedge F=0.
+\]
+Gauge invariance implies the Noether identity
+\[
+D\mathcal E_B+[\phiz,\mathcal E_{\phiz}]=0.
+\]
+Even when $\mathcal E_B=0$, this only places $\mathcal E_{\phiz}$ in the centralizer of $\phiz$.  The radial/conjugacy-invariant projection
+\[
+\mathcal C_{\phiz}=\langle\phiz F\wedge F\rangle=0
+\]
+remains.  On the MacDowell--Mansouri surface,
+\[
+\mathcal C_{\phiz}=v\epsilon_{abcd}F^{ab}\wedge F^{cd}=0.
+\]
+For a torsionless Einstein solution with $\Lambda=-3/\ell_4^2$,
+\[
+F^{ab}=R^{ab}+\ell_4^{-2}e^ae^b=C^{ab},
+\]
+the Weyl two-form.  Hence the parent requires $\epsilon_{abcd}C^{ab}\wedge C^{cd}=0$.  Generic Einstein solutions do not obey this.  In particular, Schwarzschild--AdS with nonzero mass has nonzero Weyl curvature squared away from special loci.
+
+The circle component $A_y$ is one of the four spatial canonical coordinates of the five-dimensional theory, not a Lagrange multiplier.  Imposing $A_y=vJ_{54}$ while deleting its variation removes a canonical equation.  The fixed surface is preserved only on the intersection with $\mathcal C_{\phiz}=0$ and the other omitted-component equations, a subset strictly smaller than the Einstein solution space.
+
+Thus the surface is neither a gauge slice, nor a dynamically invariant truncation containing generic GR, nor a regular symplectic quotient.  It is an externally selected holonomy and symmetry-breaking sector.
+
+\section{Covariant presymplectic pullback: what unexpectedly passes}
+\label{sec:symplectic}
+
+The zero-mode action has covariant presymplectic potential
+\[
+\Theta_0(\delta)=2\beta\langle\phiz\,\delta B\wedge F\rangle
+\]

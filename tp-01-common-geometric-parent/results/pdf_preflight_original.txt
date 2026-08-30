@@ -1,0 +1,6 @@
+PDF: /mnt/data/TP-01_common_geometric_parent_v1.1/TP-01_Dirac_BRST_Global_Audit_v1.1.pdf
+Pages: 20
+Encrypted: False
+Openable (PyMuPDF): True
+Likely scanned: False
+XFA present: False

@@ -1,0 +1,22 @@
+Title:           Dirac, BRST, Kaluza-Klein and Global Audit of a Chern-Weil Parent for Einstein Gravity
+Subject:         
+Keywords:        
+Author:          Angus Muffatti
+Creator:         LaTeX with hyperref
+Producer:        pdfTeX-1.40.26
+CreationDate:    Fri Aug 28 02:21:25 2026 UTC
+ModDate:         Fri Aug 28 02:21:25 2026 UTC
+Custom Metadata: yes
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           20
+Encrypted:       no
+Page size:       595.276 x 841.89 pts (A4)
+Page rot:        0
+File size:       705295 bytes
+Optimized:       no
+PDF version:     1.7

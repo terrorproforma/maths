@@ -1,0 +1,144 @@
+up to the declared exact boundary completion.  Pulling this potential back to
+\[
+\phiz=vJ_{54},
+\qquad
+C_\mu^A=0,
+\qquad
+\varphi^{AB}=0,
+\]
+gives
+\[
+\boxed{
+\Theta_{\rm pull}(\delta)
+=2\alpha\epsilon_{abcd}\,\delta\omega^{ab}\wedge
+\left(R^{cd}+\ell_4^{-2}e^ce^d\right),
+\qquad \alpha=\beta v.}
+\]
+The first piece,
+\[
+2\alpha\epsilon_{abcd}\delta\omega^{ab}\wedge R^{cd},
+\]
+is the Euler presymplectic potential.  The second is
+\[
+\frac{2\alpha}{\ell_4^2}\epsilon_{abcd}\delta\omega^{ab}e^ce^d
+=\frac{1}{32\pi G}\epsilon_{abcd}\delta\omega^{ab}e^ce^d,
+\]
+which is exactly the Einstein--Cartan potential.  The verification code checks
+\[
+\frac{2\alpha}{\ell_4^2}-\frac{1}{32\pi G}=0
+\]
+and the MacDowell--Mansouri perfect-square identity to floating-point residual below $10^{-14}$.
+
+This result localizes the obstruction.  The Einstein kinetic coefficient is not missing on the restricted surface.  But a correct pulled-back two-form is not sufficient for a Hamiltonian reduction.  A genuine reduction also requires the parent Hamiltonian vector field to be tangent to the surface and the restriction to arise from first-class constraints/gauge quotient or a consistent second-class reduction.  Here the parent flow enforces the deleted gauge-invariant $\mathcal C_{\phiz}$ equation and leaves the surface for generic Einstein data.  Therefore
+\[
+\boxed{
+\text{correct action and presymplectic pullback}
+\neq
+\text{consistent dynamical reduction}.}
+\]
+The boundary Euler transgression and Gibbons--Hawking--York completion are needed when the corresponding boundary data are nontrivial.  They repair differentiability and charges; they do not remove the bulk equation or extra modes \citep{ReggeTeitelboim1974,LeeWald1990,IyerWald1994,PaisSalgadoRebolledoVera2023}.
+
+\section{First nonzero Kaluza--Klein level and BRST closure}
+\label{sec:kk}
+
+\subsection{Exact loop-algebra differential}
+
+Expand fields and ghost on a circle of radius $R$:
+\[
+A_\mu(x,y)=\sum_{n\in\mathbb Z}A_\mu^{(n)}(x)e^{iny/R},
+\qquad
+\phiz(x,y)=\sum_{n\in\mathbb Z}\phiz^{(n)}(x)e^{iny/R}.
+\]
+The internal-gauge BRST differential is
+\[
+\begin{aligned}
+sA_\mu^{(n)}&=\partial_\mu c^{(n)}
++\sum_m[A_\mu^{(m)},c^{(n-m)}],\\
+s\phiz^{(n)}&=\frac{in}{R}c^{(n)}
++\sum_m[\phiz^{(m)},c^{(n-m)}],\\
+sc^{(n)}&=-\frac12\sum_m[c^{(m)},c^{(n-m)}].
+\end{aligned}
+\]
+These are the BRST equations of the loop algebra
+\[
+L\Lie g=\Lie g\otimes\mathbb C[z,z^{-1}],
+\qquad
+[Xz^m,Yz^n]=[X,Y]z^{m+n}.
+\]
+
+\begin{theorem}[No finite full-algebra KK closure]
+Let $\Lie g$ be non-Abelian.  Suppose every generator of $\Lie g$ is retained at every mode in a set $S\subset\mathbb Z$.  If $0\in S$, $n\in S$ for some $n\neq0$, and the truncation is closed under the nonlinear gauge bracket, then $S$ is infinite.
+\end{theorem}
+
+\begin{proof}
+Choose $X,Y\in\Lie g$ with $[X,Y]\neq0$.  Closure of $[Xz^n,Yz^n]$ requires $2n\in S$.  Commuting a nonzero mode $n$ with a noncommuting generator at mode $kn$ then requires $(k+1)n\in S$.  Induction yields every positive multiple of $n$, and reality supplies the negative multiples.  Thus the only finite full-algebra truncation closed under mode addition is $S=\{0\}$.
+\end{proof}
+
+For $S=\{-1,0,+1\}$, the first missing products are $\pm2$.  Equivalently,
+\[
+sc^{(2)}=-\frac12[c^{(1)},c^{(1)}]
+\]
+is generically nonzero.  The requested first-level nonlinear theory is not a BRST subcomplex.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{../figures/kk_mode_closure.png}
+\caption{The first nonzero level cannot be retained as an exact finite nonlinear truncation of a non-Abelian loop algebra.  The $\pm1$ brackets immediately source $\pm2$, and repeated brackets generate the full tower.}
+\label{fig:kk}
+\end{figure}
+
+\subsection{What can still be tested linearly}
+
+Around a $y$-independent background $(\bar B_\mu,\bar\phiz)$, the linearized differential is mode diagonal:
+\[
+s_0a_\mu^{(n)}=\bar D_\mu c^{(n)},
+\qquad
+s_0\varphi^{(n)}=
+\left(\frac{in}{R}+\operatorname{ad}_{\bar\phiz}\right)c^{(n)},
+\qquad
+s_0c^{(n)}=0.
+\]
+Where
+\[
+\mathcal D_y^{(n)}=\frac{in}{R}+\operatorname{ad}_{\bar\phiz}
+\]
+is invertible, $\varphi^{(n)}$ is a Stueckelberg variable for a longitudinal mode.  Its kernel leaves holonomy-centralizer modes.  This is a quadratic diagnostic only; nonlinear interactions restore the infinite tower.
+
+On a translation-invariant regular canonical background, the complexified $n=1$ block carries the same thirteen local configuration degrees of freedom as the regular five-dimensional sector.  Reality pairs $n=1$ and $n=-1$, so
+\[
+\boxed{\dof^{|n|=1}=26}
+\]
+real configuration degrees of freedom appear at the first level.  The zero mode already has thirteen rather than two.
+
+A small circle does not by itself prove decoupling.  Unlike a standard second-order metric Kaluza--Klein theory, the pure Chern--Simons kinetic matrix is the background-dependent first-order form $\Om$.  At the candidate AdS point $\Om=0$.  The factor $n/R$ therefore does not by itself supply a positive Hamiltonian, a standard massive pole, positive residues or Appelquist--Carazzone matching.  A healthy decoupling claim would need an explicit regular propagator and low-energy matching calculation, which the pure-connection parent does not furnish.
+
+\section{Global bundle, Wilson-line and large-gauge audit}
+\label{sec:global}
+
+\subsection{One declared bundle sector}
+
+The difference $\Theta=A-\bar A$ is globally an $\operatorname{ad}(P)$-valued one-form only when $A$ and $\bar A$ are connections on the same principal bundle $P\to M_5$, or after a specific bundle isomorphism is chosen.  The affine interpolation $A_t=\bar A+t\Theta$ therefore lies in one fixed bundle component.  Endpoint bundles with different characteristic classes require additional cobordism and bundle data.  The exact genealogy is global only inside the declared sector; it is not automatically a sum over all topologies.
+
+A global split $A=B+\phiz\dd y$ further requires a circle action, an equivariant connection and compatible trivializations.  On a nontrivial bundle the gauge-invariant zero-mode datum is the Wilson-line conjugacy class, not a globally unique logarithm $\phiz=L_y^{-1}\log W$ \citep{Hosotani2005}.
+
+Fixing $\Phi^A=v\delta^A{}_5$ globally selects:
+\begin{enumerate}
+\item a Wilson-line conjugacy class;
+\item a reduction of the $SO(3,2)$ structure group to the Lorentz stabilizer;
+\item a nowhere-vanishing fixed-norm section of an associated vector bundle.
+\end{enumerate}
+Existence of such a section is additional global data, not a consequence of the local Chern--Weil identity.
+
+\subsection{Large gauge transformations and level}
+
+The relative transgression is strictly invariant under simultaneous finite transformations of both endpoints.  A standalone daughter with $\bar A$ frozen is different: large transformations or a change of six-dimensional extension can shift $\CS_5$ by a characteristic six-form.  For a compact oriented rank-six vector bundle, the Euler normalization is
+\[
+e(E)=\frac{1}{2^3 3!(2\pi)^3}
+\epsilon_{ABCDEF}F^{AB}F^{CD}F^{EF},
+\]
+whose integral on a closed six-manifold is integral.  An action $2\pi k\int e(E)$ is extension independent for integer $k$.
+
+For the noncompact Lorentzian group $\Spin(4,2)$, the minimal allowed lattice depends on the global form of the group, its center quotient, admitted principal bundles, the representation defining the integral lift, and boundary conditions.  This package therefore records a conditional quantization rule rather than asserting a universal integer.  The unresolved minimal lattice has no bearing on the negative dynamical theorem: level quantization cannot delete the holonomy equation, the thirteen regular modes or the Kaluza--Klein tower.
+
+\subsection{Boundary charges}
+

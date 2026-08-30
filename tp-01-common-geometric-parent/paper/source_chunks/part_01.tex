@@ -1,0 +1,218 @@
+The symmetric rank-three invariant is kept in component normalization,
+\[
+P_3(X,Y,Z)=c_3\epsilon_{\widehat A\widehat B\widehat C\widehat D\widehat E\widehat F}
+X^{\widehat A\widehat B}Y^{\widehat C\widehat D}Z^{\widehat E\widehat F}.
+\]
+Keeping $c_3$ explicit prevents a representation-dependent trace convention from masquerading as a physical coefficient prediction.
+
+The most favourable operational parent is the fixed-reference five-dimensional transgression/Chern--Simons theory.  A fully dynamical relative transgression contains two opposite-level bulk Chern--Simons copies plus their boundary coupling and therefore cannot improve the local bulk degree mismatch.  The tuple audited here is
+\[
+\mathfrak T_{
+m parent}=
+(M_5,\,A;\,\operatorname{Diff}(M_5)\ltimes\Spin(4,2);\,S_T;\,
+\mathcal O_{\rm bulk},\mathcal Q_{\partial};\,\mathcal B),
+\]
+where $\mathcal B$ declares endpoint or asymptotic boundary data and $\mathcal Q_{\partial}$ denotes differentiable surface charges.  On $M_5=M_4\times S^1$ the complete connection, not only the v1.0 ansatz, is retained.
+
+\section{The exact action genealogy inherited from v1.0}
+\label{sec:genealogy}
+
+\subsection{Relative Chern--Weil parent and transgression}
+
+Let $X_6=M_5\times I_t$, let $A$ and $\bar A$ be endpoint connections on one declared principal bundle, and define
+\[
+\Theta=A-\bar A,
+\qquad
+A_t=\bar A+t\Theta,
+\qquad
+F_t=\bar F+t\bar D\Theta+t^2\Theta^2.
+\]
+Choose the six-dimensional interpolating connection with no $\dd t$ component,
+\[
+\cA(x,t)=A_t(x),
+\qquad
+\cF=F_t+\dd t\,\Theta.
+\]
+The relative characteristic functional is
+\[
+S_{\rm CW}[\cA]=\kappa_6\int_{X_6}P_3(\cF,\cF,\cF).
+\]
+Since $F_t^3$ is a horizontal six-form on a five-dimensional base and $(\dd t)^2=0$,
+\[
+P_3(\cF^3)=3\dd t\,P_3(\Theta,F_t,F_t).
+\]
+Therefore
+\[
+S_{\rm CW}=k\int_{M_5}T_5(A,\bar A),
+\qquad
+T_5(A,\bar A)=3\int_0^1P_3(\Theta,F_t,F_t)\dd t,
+\]
+with
+\[
+\dd T_5=P_3(F^3)-P_3(\bar F^3).
+\]
+This is an exact off-shell fibre-integration identity in Chern--Weil theory, not a dynamical equivalence claim \citep{ChernSimons1974,MoraOleaTroncosoZanelli2006}.
+
+Locally,
+\[
+T_5(A,\bar A)=\CS_5(A)-\CS_5(\bar A)-\dd B_4(A,\bar A).
+\]
+The relative form is strictly invariant under simultaneous finite gauge transformations of the endpoints.  The exact boundary form is part of the action and later supplies the differentiable surface generator; it is not optional decoration \citep{MoraOleaTroncosoZanelli2006,PaisSalgadoRebolledoVera2023}.
+
+\subsection{Five-dimensional Chern--Simons daughter}
+
+On a closed $M_5$, or with $B_4$ retained, set $\bar A=0$.  Then
+\[
+T_5(A,0)=\CS_5(A),
+\qquad
+\dd\CS_5(A)=P_3(F^3).
+\]
+For the anti-de Sitter split
+\[
+A=\frac12\omega^{\widetilde a\widetilde b}J_{\widetilde a\widetilde b}
++\ell_5^{-1}E^{\widetilde a}J_{\widetilde a5},
+\qquad \widetilde a=0,\ldots,4,
+\]
+the action is the tuned Lovelock combination
+\[
+\begin{aligned}
+S_{\CS,5}=C_5\int\epsilon_{\widetilde a\widetilde b\widetilde c\widetilde d\widetilde e}
+\Big(&R^{\widetilde a\widetilde b}R^{\widetilde c\widetilde d}E^{\widetilde e}
++\frac{2}{3\ell_5^2}R^{\widetilde a\widetilde b}E^{\widetilde c}E^{\widetilde d}E^{\widetilde e}\\
+&+\frac{1}{5\ell_5^4}E^{\widetilde a}E^{\widetilde b}E^{\widetilde c}E^{\widetilde d}E^{\widetilde e}\Big),
+\end{aligned}
+\]
+with coefficient ratios $1:2/3:1/5$ fixed by the homotopy integral.  Five-dimensional Chern--Simons gravity is not topological in the three-dimensional sense: generic sectors carry local modes \citep{Chamseddine1989,BanadosGarayHenneaux1995,BanadosGarayHenneaux1996}.
+
+\subsection{Exact circle reduction and the Einstein sector}
+
+On $M_5=M_4\times S^1_y$ with circumference $L_y$, the v1.0 endpoint ansatz was
+\[
+\bar A=\frac12A^{AB}(x)J_{AB},
+\qquad
+A=\bar A+\Phi^A(x)J_{A4}\,\dd y,
+\]
+where $A,B\in\{0,1,2,3,5\}$.  Since $(\dd y)^2=0$,
+\[
+\int_{S^1}T_5
+=\beta\int_{M_4}\epsilon_{ABCDE}\Phi^AF^{BC}F^{DE},
+\qquad
+\beta=3kc_3L_y.
+\]
+This reduction is exact off shell within the ansatz.  If $\Phi$ is varied, its equation includes
+\[
+\epsilon_{ABCDE}F^{BC}\wedge F^{DE}=0.
+\]
+If instead one imposes external fixed holonomy
+\[
+\Phi^A=v\delta^A{}_5,
+\qquad
+\delta\Phi^A=0,
+\]
+and writes
+\[
+A^{ab}=\omega^{ab},
+\qquad
+A^{a5}=\ell_4^{-1}e^a,
+\]
+then
+\[
+S_{\rm MM}=\alpha\int_{M_4}\epsilon_{abcd}
+\left(R^{ab}+\ell_4^{-2}e^ae^b\right)
+\left(R^{cd}+\ell_4^{-2}e^ce^d\right),
+\qquad
+\alpha=\beta v.
+\]
+With $\Lambda=-3/\ell_4^2$ and $\alpha=\ell_4^2/(64\pi G)$,
+\[
+S_{\rm MM}=S_{\rm EC+\Lambda}
++\frac{\ell_4^2}{64\pi G}\int\epsilon_{abcd}R^{ab}R^{cd}.
+\]
+The last term is Euler only after the appropriate boundary qualification.  MacDowell--Mansouri and covariant compensator formulations are established mechanisms; the question here is whether this fixed sector is actually generated as a regular parent reduction \citep{MacDowellMansouri1977,StelleWest1980,Chamseddine1990}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.99\linewidth]{../figures/descent_obstruction_map.png}
+\caption{Exact genealogy and the v1.1 obstruction.  Arrows labelled exact are off-shell identities within the declared bundle and reduction ansatz.  The fixed-holonomy step is a non-invertible sector restriction.  V1.1 shows that its correct local presymplectic pullback does not make it a dynamically invariant BRST reduction.}
+\label{fig:descent}
+\end{figure}
+
+\section{Dirac analysis of the five-dimensional operational parent}
+\label{sec:dirac}
+
+\subsection{Primary constraints and presymplectic matrix}
+
+Split $M_5=\mathbb R\times\Sigma_4$, with spatial indices $I,J=1,\ldots,4$, and let $a=1,\ldots,N$ label the gauge algebra.  The Chern--Simons action has first-order form
+\[
+I=\int\dd t\int_{\Sigma_4}
+\left[\ell_a^I(A)\dot A_I^a-A_0^aK_a\right].
+\]
+For the invariant tensor $g_{abc}$,
+\[
+K_a=-g_{abc}\epsilon^{IJKL}F^b_{IJ}F^c_{KL},
+\]
+and the primary constraints are
+\[
+\phi_a^I=p_a^I-\ell_a^I(A)\approx0.
+\]
+Their Poisson matrix is
+\[
+\Om_{ab}^{IJ}
+=\{\phi_a^I,\phi_b^J\}
+=-4\epsilon^{IJKL}g_{abc}F^c_{KL}.
+\]
+The improved Gauss generator
+\[
+G_a=K_a-D_I\phi_a^I
+\]
+obeys, weakly,
+\[
+\{G_a,G_b\}=f^c{}_{ab}G_c,
+\qquad
+\{\phi_a^I,G_b\}=f^c{}_{ab}\phi_c^I.
+\]
+The identity
+\[
+\Om_{ab}^{IJ}F^b_{KJ}=\delta^I{}_K K_a
+\]
+provides four null vectors on the constraint surface.  The combinations
+\[
+H_K=F^a_{KJ}\phi_a^J
+\]
+generate improved spatial diffeomorphisms \citep{BanadosGarayHenneaux1995,BanadosGarayHenneaux1996}.
+
+A \emph{generic} sector has $\operatorname{rank}\Om=4N-4$.  A \emph{regular} sector has independent constraint gradients, $\operatorname{rank}(\partial K_a/\partial F)=N$.  In a canonical sector both conditions hold, so for $N=15$ the split is:
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Constraint class & Number \\
+\midrule
+Gauss first class & 15 \\
+Spatial-diffeomorphism first class & 4 \\
+Second-class primary constraints & 56 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The local configuration-space degree count is
+\[
+\dof
+=\frac12\left[8N-2(N+4)-(4N-4)\right]
+=N-2=13.
+\]
+The conjugate momenta of $A_0$ and their gauge-fixing partners do not change this count.  This reproduces the established Hamiltonian result for higher-dimensional Chern--Simons theories \citep{BanadosGarayHenneaux1995,BanadosGarayHenneaux1996}.
+
+\subsection{Deterministic regular-sector witness}
+
+Because the proposed parent uses the six-index epsilon invariant, we also constructed an explicit local algebraic witness rather than merely importing the generic theorem.  The code sets
+\[
+g_{(AB)(CD)(EF)}=\epsilon_{ABCDEF}
+\]
+and, with fixed seed zero, solves the fifteen algebraic constraints $K_a=0$ in ninety independent spatial-curvature components.  The resulting point has
+\[
+\|K\|=3.9459\times10^{-13},
+\quad
+\operatorname{rank}\frac{\partial K}{\partial F}=15,
+\quad
+\operatorname{rank}\Om=56,
+\]
+with four linearly independent diffeomorphism null vectors and maximum null residual $1.5796\times10^{-12}$.

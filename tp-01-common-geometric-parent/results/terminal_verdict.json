@@ -1,0 +1,21 @@
+{
+  "project": "TP-01 common geometric parent",
+  "version": "1.1",
+  "author": "Angus Muffatti",
+  "date": "2026-08-28",
+  "terminal_status": "complete",
+  "verdict": {
+    "exact_common_geometric_genealogy": "pass",
+    "Einstein_sector_symplectic_pullback": "pass",
+    "dynamically_invariant_BRST_symplectic_reduction": "fail",
+    "healthy_two_helicity_parent_in_declared_class": "fail",
+    "strengthened_restricted_no_go_theorem": "proved_under_declared_assumptions"
+  },
+  "strongest_new_result": "Correct local Einstein-Cartan plus Euler presymplectic pullback coexists with failure of dynamic invariance, BRST gauge interpretation, spectrum matching and finite KK closure.",
+  "publication_status": "preprint_ready_mathematical_physics_clarification",
+  "HPC_required": false,
+  "remaining_external_review": [
+    "minimal integral lattice for the chosen global Lorentzian Spin(4,2) form",
+    "scope review for exotic degenerate and irregular phase-space strata"
+  ]
+}

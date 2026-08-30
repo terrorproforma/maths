@@ -1,0 +1,161 @@
+\item the exact Einstein--Cartan plus Euler presymplectic pullback;
+\item the finite-mode BRST non-closure theorem applied to the first KK level;
+\item the strengthened no-go theorem with explicit global assumptions.
+\end{enumerate}
+
+The result is not a new interaction, UV completion or empirical prediction.  It is suitable now as a mathematical-physics clarification/preprint.  Before journal submission, an independent specialist should audit the minimal integral lattice for the chosen global $\Spin(4,2)$ form and the handling of exotic degenerate strata.  Those checks may refine scope; they do not plausibly reverse the generic regular-sector or deleted-equation obstruction.
+
+\section{Verification and reproduction}
+\label{sec:verification}
+
+The executable suite performs twelve deterministic checks:
+\begin{itemize}
+\item symmetry of the epsilon invariant in generator-pair slots;
+\item constraint residual at the regular-sector witness;
+\item rank fifteen of the constraint Jacobian;
+\item rank fifty-six of the presymplectic matrix;
+\item four diffeomorphism null vectors;
+\item adjoint orbit rank eight and vector orbit rank four;
+\item Wilson-line trace formula;
+\item failure of the $n=0,\pm1$ truncation;
+\item twenty-six real degrees at the first KK pair;
+\item Einstein--Cartan presymplectic coefficient;
+\item MacDowell--Mansouri perfect-square identity.
+\end{itemize}
+All twelve programmed checks and all five unit tests pass.  The strongest numerical values are
+\[
+\begin{gathered}
+\|K\|=3.9459171\times10^{-13},
+\qquad
+\operatorname{rank}\frac{\partial K}{\partial F}=15,
+\qquad
+\operatorname{rank}\Om=56,\\
+\max\|\Om v_{\rm diff}\|=1.5796062\times10^{-12},
+\qquad
+\dim\mathcal O_{J_{54}}=8,
+\qquad
+\dim\mathcal O_{\delta_5}=4.
+\end{gathered}
+\]
+Run the complete verification with
+\begin{lstlisting}[language=bash]
+python -m pip install -r requirements.txt
+python code/verify_dirac_brst_global_v1_1.py --root .
+python code/generate_summary_figures.py --root .
+python -m unittest discover -s code/tests -v
+cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error \
+  tp01_dirac_brst_global_audit_v1_1.tex
+\end{lstlisting}
+The numerical witness is explicitly labelled local.  The code does not pretend to have solved a global five-dimensional connection or classified all singular strata.
+
+\section{Failure modes excluded by the audit}
+
+The following statements are now ruled out for the tested class:
+\begin{enumerate}
+\item \textbf{``Fixing $\Phi$ is just gauge.''}  Its norm and Wilson-line conjugacy class are BRST invariant.
+\item \textbf{``The $\Phi$ equation follows from Einstein's equation.''}  The radial projection survives the Noether identity and fails on generic Einstein solutions.
+\item \textbf{``The matching symplectic form proves reduction.''}  The pullback is correct, but the surface is not invariant under parent flow.
+\item \textbf{``The AdS rank collapse removes the extra modes healthily.''}  It removes the ordinary quadratic propagator as well.
+\item \textbf{``Keep only the first KK level.''}  The nonlinear loop algebra immediately generates higher modes.
+\item \textbf{``Small radius automatically decouples the tower.''}  A first-order, background-dependent Chern--Simons kinetic form does not provide the required positive massive poles by inspection.
+\item \textbf{``Boundary modes cure the bulk count.''}  Edge modes add physical content; they do not delete generic bulk modes.
+\end{enumerate}
+
+\section{Conclusion}
+
+The geometrically attractive part of TP-01 survives intact.  A six-dimensional relative Chern--Weil form descends exactly to a five-dimensional transgression; a genuine Chern--Simons gravity action is obtained by exact specialization; the full circle zero mode gives a $\phiz F\wedge F$ daughter; and a fixed compensator yields MacDowell--Mansouri gravity, hence Einstein--Cartan plus cosmological and Euler terms.
+
+The dynamical interpretation does not survive.  The parent has a regular thirteen-mode sector.  Its maximally symmetric Chern--Simons vacuum is singular.  Its complete zero mode contains physical Wilson-line data and a curvature-square equation absent from GR.  The fixed Einstein surface has the right local presymplectic coefficients but is not a BRST gauge slice, not preserved by the equations, and not a regular symplectic quotient.  The first KK level cannot be kept nonlinearly without the tower and makes the regular spectrum mismatch worse.
+
+The decisive statement is therefore
+\[
+\boxed{
+\text{common action genealogy}
+\not\Rightarrow
+\text{common healthy dynamical parent}.}
+\]
+TP-01 can be frozen at v1.1 as a positive cohomological construction and a negative spectrum/reduction theorem for the declared local polynomial pure-connection class.
+
+\appendix
+
+\section{Canonical bookkeeping}
+
+For $N=15$, the spatial connection has $4N=60$ configuration variables and a $120$-dimensional unconstrained phase space.  The nineteen first-class constraints remove $38$ dimensions; the fifty-six second-class constraints remove $56$ more.  The remaining physical phase-space dimension is
+\[
+120-38-56=26,
+\]
+corresponding to thirteen configuration degrees of freedom.
+
+At $F=0$, both $K_a$ and its first derivative vanish, while $\Om=0$.  The constraint set is irregular and the presymplectic rank changes.  Performing the generic count and then substituting $F=0$ is invalid; treating the zero Hessian as a conventional free theory is equally invalid.
+
+\section{Symplectic coefficient check}
+
+Set $G=1$ and take an arbitrary regression value $\ell=2.7$.  Then
+\[
+\alpha=\frac{\ell^2}{64\pi},
+\qquad
+\frac{2\alpha}{\ell^2}=\frac{1}{32\pi}.
+\]
+The code verifies the residual exactly to floating-point precision.  It also verifies
+\[
+(c_{Ree})^2-4c_{RR}c_{e^4}=0,
+\]
+the structural perfect-square identity.  These are coefficient checks, not evidence that the parent flow preserves the fixed surface.
+
+\section{Machine-readable terminal verdict}
+
+The package records the terminal distinction in JSON and CSV form:
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Target & Verdict \\
+\midrule
+Exact Chern--Weil/transgression descent & Pass \\
+Exact five-dimensional Chern--Simons daughter & Pass \\
+Exact zero-mode $\phiz F F$ action & Pass \\
+Fixed-sector MacDowell--Mansouri expansion & Pass \\
+Regular parent constraint algebra & Pass, thirteen-mode theory \\
+Einstein-sector presymplectic pullback & Pass \\
+Fixed surface as BRST gauge slice & Fail \\
+Fixed surface dynamically invariant for generic GR & Fail \\
+Finite nonlinear first-KK truncation & Fail \\
+Healthy two-helicity spectrum-preserving parent & Fail \\
+Strengthened restricted no-go theorem & Proved under declared assumptions \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{99}
+
+\bibitem{ChernSimons1974}
+S.-S. Chern and J. Simons,
+``Characteristic forms and geometric invariants,''
+\emph{Annals of Mathematics} \textbf{99}, 48--69 (1974),
+\doi{10.2307/1971013}.
+
+\bibitem{MoraOleaTroncosoZanelli2006}
+P. Mora, R. Olea, R. Troncoso, and J. Zanelli,
+``Transgression forms and extensions of Chern--Simons gauge theories,''
+\emph{JHEP} \textbf{02}, 067 (2006),
+\doi{10.1088/1126-6708/2006/02/067}, arXiv:hep-th/0601081.
+
+\bibitem{PaisSalgadoRebolledoVera2023}
+P. Pais, P. Salgado-Rebolledo, and A. Vera,
+``A note on the Hamiltonian structure of transgression forms,''
+\emph{JHEP} \textbf{12}, 190 (2023),
+\doi{10.1007/JHEP12(2023)190}, arXiv:2309.16760.
+
+\bibitem{Chamseddine1989}
+A. H. Chamseddine,
+``Topological gauge theory of gravity in five and all odd dimensions,''
+\emph{Physics Letters B} \textbf{233}, 291--294 (1989),
+\doi{10.1016/0370-2693(89)91312-9}.
+
+\bibitem{Chamseddine1990}
+A. H. Chamseddine,
+``Topological gravity and supergravity in various dimensions,''
+\emph{Nuclear Physics B} \textbf{346}, 213--234 (1990),
+\doi{10.1016/0550-3213(90)90245-9}.
+
+\bibitem{BanadosGarayHenneaux1995}
+M. Ba\~nados, L. J. Garay, and M. Henneaux,
