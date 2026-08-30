@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+#SBATCH --job-name={{ campaign.campaign_id }}
+#SBATCH --account={{ scheduler.account }}
+#SBATCH --partition={{ scheduler.partition }}
+#SBATCH --nodes={{ scheduler.nodes }}
+#SBATCH --ntasks-per-node={{ scheduler.ranks_per_node }}
+#SBATCH --cpus-per-task={{ scheduler.threads_per_rank }}
+#SBATCH --time={{ scheduler.walltime }}
+#SBATCH --signal=B:USR1@{{ scheduler.signal_before_end_s }}
+#SBATCH --output=logs/%x-%j.out
+#SBATCH --error=logs/%x-%j.err
+
+set -euo pipefail
+umask 027
+
+: "${BNSJET_STAGE:?Set BNSJET_STAGE to one stage id from the frozen campaign}"
+RUN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$RUN_DIR"
+mkdir -p logs checkpoints diagnostics
+
+export OMP_NUM_THREADS={{ scheduler.threads_per_rank }}
+export OMP_PROC_BIND=spread
+export OMP_PLACES=cores
+export BNSJET_RUN_DIR="$RUN_DIR"
+
+SOLVER={{ scheduler.executable | tojson }}
+LAUNCHER={{ scheduler.launcher | tojson }}
+CHECKPOINT_REQUEST="checkpoints/${BNSJET_STAGE}.checkpoint-requested"
+
+request_checkpoint() {
+    date -u +%Y-%m-%dT%H:%M:%SZ > "$CHECKPOINT_REQUEST"
+    if [[ -n "${solver_pid:-}" ]] && kill -0 "$solver_pid" 2>/dev/null; then
+        kill -USR1 "$solver_pid" 2>/dev/null || true
+    fi
+}
+
+trap request_checkpoint USR1 TERM INT
+
+$LAUNCHER "$SOLVER" \
+    --campaign snapshot/campaign.yaml \
+    --stage "$BNSJET_STAGE" \
+    --run-directory "$RUN_DIR" &
+solver_pid=$!
+
+set +e
+wait "$solver_pid"
+status=$?
+set -e
+
+if [[ $status -eq 0 ]]; then
+    date -u +%Y-%m-%dT%H:%M:%SZ > "logs/${BNSJET_STAGE}.completed"
+else
+    date -u +%Y-%m-%dT%H:%M:%SZ > "logs/${BNSJET_STAGE}.failed"
+fi
+exit "$status"

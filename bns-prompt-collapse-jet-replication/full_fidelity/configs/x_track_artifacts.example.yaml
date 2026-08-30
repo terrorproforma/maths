@@ -1,0 +1,31 @@
+schema_version: 1
+track: X
+artifacts:
+  sacra_mpi:
+    repository: RESTRICTED_OR_ARCHIVE_URI
+    commit: FULL_40_CHARACTER_COMMIT
+    patches:
+      - path: artifacts/sacra-local.patch
+        sha256: REPLACE_WITH_SHA256
+  build:
+    compiler: REPLACE_ME
+    compiler_version: REPLACE_ME
+    mpi: REPLACE_ME
+    mpi_version: REPLACE_ME
+    flags: REPLACE_ME
+    container_or_module_manifest: artifacts/build-environment.txt
+  lorene_initial_data:
+    path: artifacts/initial-data.bin
+    sha256: REPLACE_WITH_SHA256
+  sfho_table:
+    path: artifacts/sfho.h5
+    sha256: REPLACE_WITH_SHA256
+  neutrino_tables:
+    path: artifacts/neutrino-rates.h5
+    sha256: REPLACE_WITH_SHA256
+  input_deck:
+    path: artifacts/production-input.toml
+    sha256: REPLACE_WITH_SHA256
+  checkpoint_lineage:
+    path: artifacts/checkpoint-lineage.json
+    sha256: REPLACE_WITH_SHA256

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#PJM -L "node={{ scheduler.nodes }}"
+#PJM -L "elapse={{ scheduler.walltime }}"
+#PJM -g "{{ scheduler.account }}"
+#PJM -N "{{ campaign.campaign_id }}"
+#PJM -j
+
+set -euo pipefail
+umask 027
+
+: "${BNSJET_STAGE:?Set BNSJET_STAGE to one stage id from the frozen campaign}"
+RUN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$RUN_DIR"
+mkdir -p logs checkpoints diagnostics
+
+export OMP_NUM_THREADS={{ scheduler.threads_per_rank }}
+export BNSJET_RUN_DIR="$RUN_DIR"
+
+{{ scheduler.launcher }} {{ scheduler.executable | tojson }} \
+    --campaign snapshot/campaign.yaml \
+    --stage "$BNSJET_STAGE" \
+    --run-directory "$RUN_DIR"

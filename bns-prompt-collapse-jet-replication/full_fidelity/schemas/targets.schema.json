@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://terrorproforma.example/schemas/bnsjet-targets-v1.json",
+  "title": "BNS jet validation targets",
+  "type": "object",
+  "required": ["schema_version", "metrics"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "blocking", "source", "comparison"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {"enum": ["scalar", "interval", "timeseries", "distribution", "event"]},
+          "blocking": {"type": "boolean"},
+          "source": {"type": "string"},
+          "units": {"type": ["string", "null"]},
+          "target": {},
+          "comparison": {
+            "type": "object",
+            "required": ["method"],
+            "properties": {
+              "method": {"type": "string"},
+              "absolute_tolerance": {"type": "number", "minimum": 0},
+              "relative_tolerance": {"type": "number", "minimum": 0},
+              "factor_tolerance": {"type": "number", "minimum": 1},
+              "window": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}
+            },
+            "additionalProperties": true
+          },
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

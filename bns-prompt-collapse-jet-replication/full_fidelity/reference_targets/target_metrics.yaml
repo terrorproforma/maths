@@ -1,0 +1,83 @@
+schema_version: 1
+metrics:
+  - id: prompt_black_hole_formation
+    kind: event
+    blocking: true
+    source: target_paper
+    units: s_after_merger
+    target: 0.001
+    comparison:
+      method: upper_bound
+      absolute_tolerance: 0.001
+    notes: Prompt collapse must occur on the merger dynamical timescale; replace with exact extracted value and uncertainty.
+
+  - id: target_end_time
+    kind: scalar
+    blocking: true
+    source: target_paper
+    units: s_after_merger
+    target: 1.5
+    comparison:
+      method: lower_bound
+      absolute_tolerance: 0.0
+
+  - id: finest_grid_spacing
+    kind: scalar
+    blocking: true
+    source: target_paper
+    units: m
+    target: 150.0
+    comparison:
+      method: exact
+      absolute_tolerance: 0.0
+
+  - id: refinement_levels
+    kind: scalar
+    blocking: true
+    source: target_paper
+    units: count
+    target: 14
+    comparison:
+      method: exact
+      absolute_tolerance: 0.0
+
+  - id: southern_jet_sustained_by
+    kind: event
+    blocking: true
+    source: target_paper_and_movie
+    units: s_after_merger
+    target: 0.15
+    comparison:
+      method: upper_bound
+      absolute_tolerance: 0.05
+    notes: Freeze the paper's exact sustained-luminosity definition before production.
+
+  - id: northern_jet_sustained_by
+    kind: event
+    blocking: true
+    source: target_paper_and_movie
+    units: s_after_merger
+    target: 0.35
+    comparison:
+      method: upper_bound
+      absolute_tolerance: 0.10
+
+  - id: jet_isotropic_equivalent_luminosity_regime
+    kind: interval
+    blocking: true
+    source: target_paper
+    units: erg_per_s
+    target: [1.0e48, 1.0e50]
+    comparison:
+      method: interval_overlap
+    notes: Replace broad regime with digitised source time series when available.
+
+  - id: late_funnel_widening
+    kind: event
+    blocking: false
+    source: target_paper_and_movie
+    units: s_after_merger
+    target: 1.0
+    comparison:
+      method: absolute
+      absolute_tolerance: 0.2
