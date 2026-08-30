@@ -103,6 +103,7 @@ jobs:
           git config user.email '130276587+terrorproforma@users.noreply.github.com'
           git add \
             chronometric-emergence/frontier-evidence-v2/src/frontier_evidence/scalar_two_time.py \
+            chronometric-emergence/frontier-evidence-v2/src/frontier_evidence/lpm_repair.py \
             chronometric-emergence/frontier-evidence-v2/results \
             chronometric-emergence/frontier-evidence-v2/docs/FRONTIER_EVIDENCE_REPORT.md
           if git diff --cached --quiet; then
