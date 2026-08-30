@@ -1,0 +1,58 @@
+{
+  "experiment": "ANANKE v1 stochastic calibration",
+  "published_boundary_example_reproduction": {
+    "value": [
+      -0.23293714059226858,
+      0.8693332436601615
+    ],
+    "Theta_5_boundary_radius": 0.8675221204970264,
+    "Theta_6_boundary_radius": 0.911415945265643,
+    "inside_Theta_5": false,
+    "inside_Theta_6": true
+  },
+  "exact_three_cycle": {
+    "damping": 0.0,
+    "selected_rank": 3,
+    "target_eigenvalue": [
+      -0.4999999999999998,
+      0.8660254037844387
+    ],
+    "point_estimate": [
+      -0.4960259266768688,
+      0.861289306444483
+    ],
+    "confidence_disk_radius": 0.01079709841777782,
+    "target_inside_confidence_disk": true,
+    "target_inside_Theta_3": true,
+    "incorrectly_excludes_three_states": false,
+    "classical_state_lower_bound": 3
+  },
+  "damped_three_cycle": {
+    "damping": 0.12,
+    "selected_rank": 3,
+    "target_eigenvalue": [
+      -0.4399999999999998,
+      0.762102355330306
+    ],
+    "point_estimate": [
+      -0.4322997082618173,
+      0.7682067698608286
+    ],
+    "confidence_disk_radius": 0.01678815570493758,
+    "target_inside_confidence_disk": true,
+    "target_inside_Theta_3": true,
+    "incorrectly_excludes_three_states": false,
+    "classical_state_lower_bound": 3
+  },
+  "monte_carlo_boundary_calibration": {
+    "datasets": 100,
+    "shots_per_word": 10000,
+    "bootstrap_repetitions_per_dataset": 100,
+    "confidence_level": 0.99,
+    "false_exclusions_of_true_three_state_model": 1,
+    "empirical_false_exclusion_rate": 0.01,
+    "wrong_rank_selections": 0,
+    "median_confidence_disk_radius": 0.01069077273662172
+  },
+  "pass": true
+}

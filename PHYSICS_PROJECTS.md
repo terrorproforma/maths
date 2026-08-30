@@ -12,6 +12,8 @@
 | TP-02 | [`tp-02-geometric-unity-reconstruction/`](tp-02-geometric-unity-reconstruction/) | Active | Primary-source reconstruction underway. Printed tilted-stabilizer and augmented-torsion signs are inconsistent; literal first-order action covariance fails, while a reversible plus-sign repair remains viable for further testing. |
 | Chronometric emergence | [`chronometric-emergence/`](chronometric-emergence/) | Active / multi-stage programme | Universal spectral clock factorisation, QCD scale locking, cyclic protection, cosmological branch selection, and nonequilibrium transport programme. |
 
+| ANANKE | [`ananke-necessity-transformations/`](ananke-necessity-transformations/) | Active, v1 complete | Operational Hankel core, finite-shot rank/spectrum inference, and graded classical counterfeit-complexity lower bounds. |
+
 ## Directory convention for future projects
 
 New transcript-derived investigations should use a distinct root-level folder:

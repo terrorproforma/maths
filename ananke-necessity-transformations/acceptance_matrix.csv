@@ -1,0 +1,8 @@
+requirement,status,evidence,limitation
+exact operational core,PASS,five v0 unit tests and held-out word reconstruction,finite-rank scalar sequential interface
+finite-shot predictive rank,PASS AT BENCHMARK,rank four selected in 100/100 bootstrap samples,plug-in parametric bootstrap rather than an exact coverage theorem
+invariant spectral confidence region,PASS AT BENCHMARK,99% bootstrap disk contains the exact reference mode,"coverage is simulation-calibrated, not distribution-free"
+finite classical realization lower bound,PASS,analytic lower bound 9; converged Karpelevič numerical lower bound 16,numerical bound is not yet interval-certified
+classical-process calibration,PASS AT TESTED FAMILY,one false exclusion in 100 nominal 99% trials,not universal calibration over all classical processes
+joint noncommuting tuple invariants,OPEN,v2 target,single-mode spectral certificates do not exhaust tuple structure
+ontology comparison beyond finite classical stochastic models,OPEN,v2/v3 target,quantum and generalized-probabilistic counterfeit costs not yet computed

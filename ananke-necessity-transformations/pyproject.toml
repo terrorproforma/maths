@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 authors = [{ name = "Angus Muffatti" }]
 name = "ananke-core"
-version = "0.1.0"
-description = "Extraction of representation-invariant minimal process dynamics from operational behaviour."
+version = "0.2.0"
+description = "Representation-invariant process extraction, finite-shot inference, and stochastic realization obstructions."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -15,3 +15,6 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.optional-dependencies]
+plots = ["matplotlib>=3.7"]

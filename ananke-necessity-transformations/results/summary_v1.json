@@ -1,0 +1,29 @@
+{
+  "project": "ANANKE v1",
+  "status": "prototype validated on synthetic finite-shot data",
+  "headline": {
+    "selected_predictive_rank": 4,
+    "rank_selection_bootstrap_probability": 1.0,
+    "confidence_level": 0.99,
+    "analytic_classical_state_lower_bound": 9,
+    "numerical_classical_state_lower_bound": 16,
+    "classical_cycle_false_exclusion_rate": 0.01,
+    "angle_distance_to_noble_target_radians": 0.0009259077671605054,
+    "noble_advantage_at_order_241": 25.466810602534487
+  },
+  "shot_scaling_median_numerical_lower_bounds": {
+    "200": 8.0,
+    "500": 8.0,
+    "1000": 8.0,
+    "2000": 9.0,
+    "5000": 9.0,
+    "10000": 16.0,
+    "50000": 17.0
+  },
+  "all_experiments_pass": true,
+  "caveats": [
+    "bootstrap coverage is empirical and conditional on the selected rank",
+    "the full Karpelevich bound is convergence-guarded floating-point numerics, not interval-certified",
+    "the conclusions are relative to the declared sequential intervention/measurement interface"
+  ]
+}

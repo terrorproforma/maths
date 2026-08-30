@@ -199,3 +199,34 @@ In compact form:
 \text{minimal compositional predictive structure modulo every observationally silent change}
 }
 \]
+
+## 8. Status after ANANKE v1
+
+Phase 1 is now implemented in prototype form:
+
+- finite-shot binomial word data;
+- held-out predictive rank selection;
+- bootstrap rank stability;
+- bootstrap confidence disks for invariant eigenmodes;
+- analytic and numerical finite-classical state-count lower bounds;
+- boundary-model false-positive calibration.
+
+Phase 2 has begun through adversarial classical cycle and damped-cycle controls.
+The continued-fraction analysis also adds an experimental-design branch not present
+in the original ladder: choose transformations to maximize the cost of low-complexity
+counterfeit ontologies.
+
+The programme's next canonical object is therefore not merely
+\(\mathfrak N(f)\), but the pair
+
+\[
+\boxed{
+\left(
+\mathfrak N(f),
+\{C_{\mathcal O}(f;\varepsilon,\mathcal W)\}_{\mathcal O,\varepsilon,\mathcal W}
+\right),
+}
+\]
+
+combining the representation-invariant predictive core with its ontology-cost
+profiles.

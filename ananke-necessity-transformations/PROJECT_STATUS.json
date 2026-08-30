@@ -1,12 +1,20 @@
 {
   "project": "ANANKE",
-  "version": "0.1.0",
-  "stage": "exact-operational-core",
+  "version": "0.2.0",
+  "stage": "finite-shot-counterfeit-complexity",
   "author": "Angus Muffatti",
   "tests": {
-    "passed": 5,
-    "total": 5
+    "passed": 18,
+    "total": 18
   },
-  "headline_result": "Minimal sequential dynamics are recovered up to similarity, unreachable padding is erased, and the declared qubit process has no exact finite-state classical stochastic realization.",
-  "next_decisive_target": "finite-shot rank and invariant-spectrum inference"
+  "headline_result": "Finite-shot operational data recover predictive rank four and produce confidence-qualified lower bounds on the hidden-state cost of finite classical stochastic counterfeits.",
+  "current_baseline": {
+    "measured_words": 1023,
+    "shots_per_word": 10000,
+    "selected_rank": 4,
+    "bootstrap_rank_four_frequency": "100/100",
+    "analytic_classical_state_lower_bound": 9,
+    "karpelevich_numerical_state_lower_bound": 16
+  },
+  "next_decisive_target": "interval-certified counterfeit complexity, joint rank-spectrum coverage, optimal badly approximable phases, and joint invariants"
 }

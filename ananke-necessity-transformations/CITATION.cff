@@ -6,7 +6,7 @@ authors:
   - family-names: Muffatti
     given-names: Angus
 repository-code: "https://github.com/terrorproforma/maths/tree/main/ananke-necessity-transformations"
-version: "0.1.0"
+version: "0.2.0"
 date-released: "2026-08-30"
 abstract: >-
   An operational programme for extracting minimal sequential-process dynamics up to

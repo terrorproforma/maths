@@ -95,3 +95,56 @@ def qubit_rotation_process(
         transitions=row_transitions,
         final=final_column,
     )
+
+
+def classical_cycle_process(
+    period: int = 3,
+    *,
+    damping: float = 0.0,
+    response_probabilities: FloatArray | None = None,
+    symbol: str = "a",
+) -> LinearProcess:
+    """Return a finite classical stochastic cycle with optional uniform mixing.
+
+    ``damping=0`` gives a deterministic period-``period`` permutation. Positive
+    damping replaces that fraction of each step by uniform mixing, moving every
+    nontrivial cycle eigenvalue radially inward by ``1-damping``.
+    """
+
+    state_count = int(period)
+    if state_count < 2:
+        raise ValueError("period must be at least two")
+    if len(symbol) != 1:
+        raise ValueError("symbol must be a single character")
+    if damping < 0.0 or damping > 1.0:
+        raise ValueError("damping must lie in [0,1]")
+
+    permutation = np.zeros((state_count, state_count), dtype=float)
+    for state in range(state_count):
+        permutation[state, (state + 1) % state_count] = 1.0
+    uniform = np.full((state_count, state_count), 1.0 / state_count, dtype=float)
+    transition = (1.0 - damping) * permutation + damping * uniform
+
+    if response_probabilities is None:
+        response = np.linspace(0.13, 0.87, state_count, dtype=float)
+        ordering = np.argsort(
+            np.mod(np.arange(state_count, dtype=float) * 0.6180339887498949, 1.0)
+        )
+        response = response[ordering]
+    else:
+        response = np.asarray(response_probabilities, dtype=float).reshape(-1)
+        if response.shape != (state_count,):
+            raise ValueError(
+                f"response_probabilities must have shape ({state_count},)"
+            )
+        if np.any(response < 0.0) or np.any(response > 1.0):
+            raise ValueError("response probabilities must lie in [0,1]")
+
+    initial = np.zeros(state_count, dtype=float)
+    initial[0] = 1.0
+    return LinearProcess(
+        alphabet=(symbol,),
+        initial=initial,
+        transitions={symbol: transition},
+        final=response,
+    )

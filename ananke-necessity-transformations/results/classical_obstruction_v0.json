@@ -8,68 +8,68 @@
       "x": [
         {
           "eigenvalue": [
-            0.7451744023448712,
-            0.666869635003698
+            0.7451744023448693,
+            0.6668696350036959
           ],
-          "modulus": 1.0000000000000007,
-          "phase_radians_principal": 0.7299999999999995,
-          "phase_turns": 0.11618310845708353,
+          "modulus": 0.9999999999999979,
+          "phase_radians_principal": 0.7299999999999992,
+          "phase_turns": 0.11618310845708349,
           "best_root_of_unity_order_at_most": 10000,
           "nearest_root_numerator": 901,
           "nearest_root_denominator": 7755,
-          "phase_error_turns": 7.846141514278315e-10,
-          "eigenvalue_distance": 4.9298760417312134e-09
+          "phase_error_turns": 7.846141097944681e-10,
+          "eigenvalue_distance": 4.929875802231854e-09
         },
         {
           "eigenvalue": [
-            0.7451744023448712,
-            -0.666869635003698
+            0.7451744023448693,
+            -0.6668696350036959
           ],
-          "modulus": 1.0000000000000007,
-          "phase_radians_principal": -0.7299999999999995,
-          "phase_turns": 0.8838168915429164,
+          "modulus": 0.9999999999999979,
+          "phase_radians_principal": -0.7299999999999992,
+          "phase_turns": 0.8838168915429165,
           "best_root_of_unity_order_at_most": 10000,
           "nearest_root_numerator": 6854,
           "nearest_root_denominator": 7755,
-          "phase_error_turns": 7.846141514278315e-10,
-          "eigenvalue_distance": 4.929875802231854e-09
+          "phase_error_turns": 7.846140404055291e-10,
+          "eigenvalue_distance": 4.929875562732496e-09
         }
       ],
       "z": [
         {
           "eigenvalue": [
-            0.44466151674170773,
-            0.8956986856800477
+            0.4446615167417056,
+            0.8956986856800468
           ],
-          "modulus": 1.0000000000000004,
-          "phase_radians_principal": 1.1099999999999992,
-          "phase_turns": 0.1766619868320037,
+          "modulus": 0.9999999999999988,
+          "phase_radians_principal": 1.1100000000000008,
+          "phase_turns": 0.17666198683200396,
           "best_root_of_unity_order_at_most": 10000,
           "nearest_root_numerator": 1629,
           "nearest_root_denominator": 9221,
-          "phase_error_turns": 1.9583332205863613e-08,
-          "eigenvalue_distance": 1.2304570521139117e-07
+          "phase_error_turns": 1.9583332455663793e-08,
+          "eigenvalue_distance": 1.230457067009056e-07
         },
         {
           "eigenvalue": [
-            0.44466151674170773,
-            -0.8956986856800477
+            0.4446615167417056,
+            -0.8956986856800468
           ],
-          "modulus": 1.0000000000000004,
-          "phase_radians_principal": -1.1099999999999992,
-          "phase_turns": 0.8233380131679963,
+          "modulus": 0.9999999999999988,
+          "phase_radians_principal": -1.1100000000000008,
+          "phase_turns": 0.823338013167996,
           "best_root_of_unity_order_at_most": 10000,
           "nearest_root_numerator": 7592,
           "nearest_root_denominator": 9221,
-          "phase_error_turns": 1.9583332178108037e-08,
-          "eigenvalue_distance": 1.2304570476460763e-07
+          "phase_error_turns": 1.9583332400152642e-08,
+          "eigenvalue_distance": 1.2304570625412205e-07
         }
       ]
     },
     "symbol_certificates": {
       "x": {
         "spectral_mode_matches_declared_angle": true,
-        "minimum_spectral_distance": 7.850462293418876e-16,
+        "minimum_spectral_distance": 2.286089127109703e-15,
         "analytic_phase_certificate": {
           "certified": true,
           "angle_radians": {
@@ -83,7 +83,7 @@
       },
       "z": {
         "spectral_mode_matches_declared_angle": true,
-        "minimum_spectral_distance": 9.50197851991224e-16,
+        "minimum_spectral_distance": 1.4010381148703524e-15,
         "analytic_phase_certificate": {
           "certified": true,
           "angle_radians": {

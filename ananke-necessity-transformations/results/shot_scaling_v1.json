@@ -1,0 +1,620 @@
+{
+  "experiment": "ANANKE shot scaling v1",
+  "confidence_level": 0.95,
+  "bootstrap_repetitions_per_dataset": 100,
+  "independent_datasets_per_budget": 5,
+  "measured_words": 1023,
+  "budgets": [
+    {
+      "shots_per_word": 200,
+      "total_trials_per_replicate": 204600,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7757678899504004,
+            0.670115819778228
+          ],
+          "confidence_disk_radius": 0.0409824006931075,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7529027904383505,
+            0.6851293437711851
+          ],
+          "confidence_disk_radius": 0.052947454899156934,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 5,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7484550532271985,
+            0.6221442288751322
+          ],
+          "confidence_disk_radius": 0.05744281372809403,
+          "analytic_classical_state_lower_bound": 7,
+          "numerical_classical_state_lower_bound": 7
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7209218420176208,
+            0.6665114058950267
+          ],
+          "confidence_disk_radius": 0.045665886809715964,
+          "analytic_classical_state_lower_bound": 7,
+          "numerical_classical_state_lower_bound": 7
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7454492601457836,
+            0.6923093274518533
+          ],
+          "confidence_disk_radius": 0.04831286014734429,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 0.8,
+        "median_confidence_disk_radius": 0.04831286014734429,
+        "median_analytic_classical_state_lower_bound": 8.0,
+        "minimum_analytic_classical_state_lower_bound": 7,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 8.0,
+        "minimum_numerical_classical_state_lower_bound": 7,
+        "maximum_numerical_classical_state_lower_bound": 9
+      }
+    },
+    {
+      "shots_per_word": 500,
+      "total_trials_per_replicate": 511500,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7297445162667754,
+            0.6880412244319981
+          ],
+          "confidence_disk_radius": 0.030186631589445692,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7518641591565329,
+            0.6725162725172507
+          ],
+          "confidence_disk_radius": 0.02948720653031075,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7399030906026848,
+            0.6333776391444813
+          ],
+          "confidence_disk_radius": 0.03260921472278851,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7292823899101757,
+            0.6871877591692455
+          ],
+          "confidence_disk_radius": 0.026455500767085315,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7416145407673582,
+            0.6720608281339928
+          ],
+          "confidence_disk_radius": 0.028909924285419594,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 1.0,
+        "median_confidence_disk_radius": 0.02948720653031075,
+        "median_analytic_classical_state_lower_bound": 8.0,
+        "minimum_analytic_classical_state_lower_bound": 8,
+        "maximum_analytic_classical_state_lower_bound": 8,
+        "median_numerical_classical_state_lower_bound": 8.0,
+        "minimum_numerical_classical_state_lower_bound": 8,
+        "maximum_numerical_classical_state_lower_bound": 8
+      }
+    },
+    {
+      "shots_per_word": 1000,
+      "total_trials_per_replicate": 1023000,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7684137339031756,
+            0.6628775127907619
+          ],
+          "confidence_disk_radius": 0.02209412331317849,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 6,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7545417410022895,
+            0.662350100956321
+          ],
+          "confidence_disk_radius": 0.02137743989152806,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 6,
+          "point_estimate": [
+            0.7370103170557247,
+            0.6757103290725814
+          ],
+          "confidence_disk_radius": 0.02106046648442318,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7399711573695729,
+            0.6647585665616608
+          ],
+          "confidence_disk_radius": 0.018585450305549398,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7434107221388466,
+            0.6784548769447972
+          ],
+          "confidence_disk_radius": 0.023193919017093702,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 0.8,
+        "median_confidence_disk_radius": 0.02137743989152806,
+        "median_analytic_classical_state_lower_bound": 8.0,
+        "minimum_analytic_classical_state_lower_bound": 8,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 8.0,
+        "minimum_numerical_classical_state_lower_bound": 8,
+        "maximum_numerical_classical_state_lower_bound": 9
+      }
+    },
+    {
+      "shots_per_word": 2000,
+      "total_trials_per_replicate": 2046000,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 6,
+          "point_estimate": [
+            0.7471494137276794,
+            0.6705379707582314
+          ],
+          "confidence_disk_radius": 0.013797828199029293,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7345019799725715,
+            0.6746561789499271
+          ],
+          "confidence_disk_radius": 0.014561974125249073,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.736355842220257,
+            0.6811276194376401
+          ],
+          "confidence_disk_radius": 0.015634367697180303,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7393226389512195,
+            0.6725675411463512
+          ],
+          "confidence_disk_radius": 0.014474895015264184,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7335343415020581,
+            0.6762020633056792
+          ],
+          "confidence_disk_radius": 0.01619358889415119,
+          "analytic_classical_state_lower_bound": 8,
+          "numerical_classical_state_lower_bound": 8
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 1.0,
+        "median_confidence_disk_radius": 0.014561974125249073,
+        "median_analytic_classical_state_lower_bound": 9.0,
+        "minimum_analytic_classical_state_lower_bound": 8,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 9.0,
+        "minimum_numerical_classical_state_lower_bound": 8,
+        "maximum_numerical_classical_state_lower_bound": 9
+      }
+    },
+    {
+      "shots_per_word": 5000,
+      "total_trials_per_replicate": 5115000,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7479235014804728,
+            0.6698337202785082
+          ],
+          "confidence_disk_radius": 0.007799221646149107,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7406875078796893,
+            0.673646003448592
+          ],
+          "confidence_disk_radius": 0.009728492282557826,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7485944058838236,
+            0.6671827925520529
+          ],
+          "confidence_disk_radius": 0.008240344309142882,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7385377356328217,
+            0.6676814308919516
+          ],
+          "confidence_disk_radius": 0.009637155970039505,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7436846344683757,
+            0.6689427992144499
+          ],
+          "confidence_disk_radius": 0.010070543165625903,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 1.0,
+        "median_confidence_disk_radius": 0.009637155970039505,
+        "median_analytic_classical_state_lower_bound": 9.0,
+        "minimum_analytic_classical_state_lower_bound": 9,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 9.0,
+        "minimum_numerical_classical_state_lower_bound": 9,
+        "maximum_numerical_classical_state_lower_bound": 17
+      }
+    },
+    {
+      "shots_per_word": 10000,
+      "total_trials_per_replicate": 10230000,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 6,
+          "point_estimate": [
+            0.7470701547374754,
+            0.6701512384373884
+          ],
+          "confidence_disk_radius": 0.006822347053411035,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7456703255537454,
+            0.6661045199531385
+          ],
+          "confidence_disk_radius": 0.007049702019332504,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 16
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7426760718239526,
+            0.6716368193303726
+          ],
+          "confidence_disk_radius": 0.005815070145476817,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 7,
+          "point_estimate": [
+            0.7431836003767137,
+            0.669514828500938
+          ],
+          "confidence_disk_radius": 0.0073336224815469,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 16
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7456622926713987,
+            0.6656569804610684
+          ],
+          "confidence_disk_radius": 0.007889230117928626,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 9
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 1.0,
+        "median_confidence_disk_radius": 0.007049702019332504,
+        "median_analytic_classical_state_lower_bound": 9.0,
+        "minimum_analytic_classical_state_lower_bound": 9,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 16.0,
+        "minimum_numerical_classical_state_lower_bound": 9,
+        "maximum_numerical_classical_state_lower_bound": 17
+      }
+    },
+    {
+      "shots_per_word": 50000,
+      "total_trials_per_replicate": 51150000,
+      "replicates": [
+        {
+          "replicate": 0,
+          "data_seed": 100,
+          "bootstrap_seed": 1000,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.7439532177220733,
+            0.6653407175134626
+          ],
+          "confidence_disk_radius": 0.002960351177242172,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 1,
+          "data_seed": 101,
+          "bootstrap_seed": 1001,
+          "selected_rank": 4,
+          "best_predictive_rank": 4,
+          "point_estimate": [
+            0.7454999868499097,
+            0.6676581674263834
+          ],
+          "confidence_disk_radius": 0.0026374764157669852,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 2,
+          "data_seed": 102,
+          "bootstrap_seed": 1002,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.744330065593505,
+            0.6688973551095202
+          ],
+          "confidence_disk_radius": 0.0030710185616802106,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 3,
+          "data_seed": 103,
+          "bootstrap_seed": 1003,
+          "selected_rank": 4,
+          "best_predictive_rank": 8,
+          "point_estimate": [
+            0.744494919787769,
+            0.6646650175776911
+          ],
+          "confidence_disk_radius": 0.002729556367735006,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        },
+        {
+          "replicate": 4,
+          "data_seed": 104,
+          "bootstrap_seed": 1004,
+          "selected_rank": 4,
+          "best_predictive_rank": 5,
+          "point_estimate": [
+            0.7455617950958913,
+            0.6650389058573303
+          ],
+          "confidence_disk_radius": 0.002804495602637686,
+          "analytic_classical_state_lower_bound": 9,
+          "numerical_classical_state_lower_bound": 17
+        }
+      ],
+      "summary": {
+        "median_selected_rank": 4.0,
+        "rank_four_frequency": 1.0,
+        "median_confidence_disk_radius": 0.002804495602637686,
+        "median_analytic_classical_state_lower_bound": 9.0,
+        "minimum_analytic_classical_state_lower_bound": 9,
+        "maximum_analytic_classical_state_lower_bound": 9,
+        "median_numerical_classical_state_lower_bound": 17.0,
+        "minimum_numerical_classical_state_lower_bound": 17,
+        "maximum_numerical_classical_state_lower_bound": 17
+      }
+    }
+  ],
+  "interpretation": "The bound is a statistical staircase rather than a smooth curve. Farey/Karpelevi\u010d regions expand in discrete geometric plateaus, and finite-sample point estimates fluctuate. Median evidence strengthens as the bootstrap disk contracts.",
+  "pass": true
+}

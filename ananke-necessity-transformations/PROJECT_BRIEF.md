@@ -1,4 +1,4 @@
-# ANANKE — Project Brief v0
+# ANANKE — Project Brief
 
 **Author:** Angus Muffatti  
 **Repository project:** `ananke-necessity-transformations`
@@ -7,17 +7,27 @@
 
 Can we identify structures that are not artifacts of a chosen mathematical representation by extracting only what survives every operationally equivalent realization of a process?
 
-## v0 working principle
+## Working principle
 
-ANANKE begins with exact observable sequential behaviour
+ANANKE begins with observable sequential behaviour
 
 \[
-f(w)=\text{observed scalar after operation word }w.
+f(w)=\Pr(1\mid w),
 \]
 
-It constructs behavioural Hankel matrices, extracts the minimal reachable-observable linear realization, and treats invertible similarity transformations as changes of representation rather than changes of process.
+where `w` is a finite word of controlled operations. It constructs a minimal predictive realization from behavioural Hankel matrices, quotients away unreachable and unobservable coordinates, and studies the residual transformations only up to similarity.
 
-## v0 deliverables
+The programme then asks a stronger question: how expensive must a competing ontology become to reproduce the same operational core to precision \(\varepsilon\)? This motivates the counterfeit-complexity function
+
+\[
+C_{\mathcal O}(f;\varepsilon,\mathcal W),
+\]
+
+the minimum size of a realization in ontology class \(\mathcal O\) reproducing behaviour `f` on experiment set \(\mathcal W\) within the declared error.
+
+## Completed stages
+
+### v0 — exact operational core
 
 - Exact finite-rank Hankel realization.
 - Removal of unreachable hidden dynamics.
@@ -25,10 +35,38 @@ It constructs behavioural Hankel matrices, extracts the minimal reachable-observ
 - Exact peripheral-spectrum obstruction to finite-state classical stochastic realization for the declared qubit process.
 - Five automated tests.
 
-## Current epistemic status
+### v1 — finite-shot counterfeit complexity
 
-The implementation combines established system-realization, weighted-automata, operational-equivalence, gate-set gauge, and Perron–Frobenius machinery. The research contribution being tested is the adversarial programme: deliberately destroy representational choices and retain only the operational core and the realization classes it excludes.
+- Binomial finite-shot observations.
+- Held-out predictive-rank selection.
+- Bootstrap confidence regions for invariant spectral modes.
+- Analytic and numerical lower bounds from stochastic-matrix eigenvalue regions.
+- Calibration against genuine three-state classical processes.
+- Continued-fraction analysis of finite classical counterfeits.
+- Eighteen automated tests.
 
-## Next target
+## Current status
 
-Move from exact oracle access to finite-shot observations, uncertain predictive rank, confidence regions for invariant spectra, and graded lower bounds on the size of competing classical realizations.
+The machinery used by ANANKE has substantial prior art: Hankel realization, weighted automata, system minimization, gate-set gauge freedom, hidden-state dimension witnesses, Perron–Frobenius theory, Karpelevič regions, and Diophantine approximation are established subjects.
+
+The candidate contribution is their integration into an adversarial, finite-data programme that reports a graded ontology-cost profile rather than asserting a privileged hidden model. The current full-region bound is convergence-checked floating-point evidence, not yet an interval-certified theorem. Bootstrap coverage has been calibrated on declared examples but is not uniformly proved.
+
+## Next decisive target — v2
+
+1. Interval-certified distance from spectral confidence sets to stochastic eigenvalue regions.
+2. Joint rank-and-spectrum finite-sample coverage.
+3. Optimal badly approximable or noble-phase experiment design under a shot budget.
+4. Joint invariants of noncommuting transformation tuples.
+5. Direct comparison of classical simplicial, quantum semidefinite, and broader generalized-probabilistic realization costs.
+
+## Reproduction
+
+The current implementation is in this directory. Install from a clean checkout and run:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e '.[plots]'
+python -m unittest discover -s tests -v
+```
