@@ -1,0 +1,69 @@
+# TP-00 complete
+
+The terminal result is a **positive baseline construction and a negative unification verdict**:
+
+\[
+\boxed{
+\text{GR + SM is a highly successful layered low-energy framework, not an already unified or UV-complete theory.}
+}
+\]
+
+## Verdict
+
+**Strongest result.** A machine-usable successor-theory audit framework containing:
+
+- the complete layered GR + SM action, including the neutrino dimension-five extension, gravitational EFT and SMEFT layers;
+- 18 equation-level seam entries;
+- seven logically independent seam categories;
+- 29 operational acceptance gates, of which 26 are fatal when applicable;
+- exact one-generation local and global anomaly checks;
+- recovery requirements spanning particle physics, gravity, astrophysics and cosmology;
+- a TP-01 through TP-16 dependency map;
+- executable validation, generated tables and figures, machine-readable results and checksums.
+
+**What failed.**
+
+- GR and the Standard Model cannot honestly be represented as one unified fundamental theory.
+- Pure Einstein gravity fails as a finite-parameter perturbatively renormalizable quantum field theory, although it remains a predictive low-energy EFT.
+- No scalar “overall theory score” is logically defensible. An anomaly, ghost or ill-posed Cauchy problem cannot be averaged away by good phenomenology elsewhere.
+- TP-00 does not resolve quantum gravity, dark matter, vacuum energy or any other physical seam. Its result is an audit standard, not a successor theory.
+
+**What remains genuinely open.** Quantum gravity, vacuum energy, singularities, dark-matter identity, dark-energy microphysics, neutrino-mass origin, baryogenesis, primordial dynamics and initial state, hierarchy, strong CP, flavour structure, family number, the thermodynamic arrow, black-hole information, the global Standard Model gauge group and high-scale vacuum status.
+
+**Publishability.** Publishable now, after specialist review, as a methods, standards or research-infrastructure note. It is **not** publishable as a new fundamental interaction or solution to the listed seams. A stronger journal version should apply the frozen gates blindly to TP-01 and TP-02 and report inter-reviewer agreement.
+
+**Next decisive calculation.** TP-00 itself needs no further calculation. For each candidate successor, the first pass must compute:
+
+\[
+\boxed{
+\text{quadratic spectrum and principal symbol}
++
+\text{constraint/BRST algebra}
++
+\text{anomaly polynomial}
++
+\text{low-energy matching residuals}.
+}
+\]
+
+Stop at the first applicable fatal failure—before paying for elaborate phenomenology or HPC.
+
+The evidence ledger is frozen to **27 August 2026**. It uses the 2026 Particle Data Group review as the particle-physics baseline; the current direct KATRIN limit is \(m_\beta<0.45\ \mathrm{eV}\) at 90% confidence; GWTC-4.0 reports no evidence of departures from GR in its parameterized tests and gives \(m_g\leq1.92\times10^{-23}\,\mathrm{eV}/c^2\); and the DESI DR2 preference for evolving dark energy remains dependent on the combined supernova and other datasets rather than constituting a discovery. ([inspirehep.net](https://inspirehep.net/record/3193100?ln=en&utm_source=chatgpt.com))
+
+## Research package
+
+- [Complete TP-00 research package — ZIP](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0.zip)
+- [Technical paper — 17-page PDF](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/frontier_model_constraint_ledger.pdf)
+- [Minimum Viable Successor checklist — one-page PDF](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/minimum_viable_successor_checklist.pdf)
+- [README and reproduction instructions](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/README.md)
+- [Full frontier-model action — LaTeX](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/frontier_model_action.tex)
+- [Seam ledger — CSV](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/seam_ledger.csv)
+- [Successor acceptance tests — YAML](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/successor_acceptance_tests.yaml)
+- [Known recovery limits — Markdown](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/known_limits.md)
+- [TP-01 through TP-16 dependency map](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/dependency_map.md)
+- [Source and notation ledger](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/source_and_notation_ledger.md)
+- [Claim, novelty and acceptance matrix — CSV](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/claim_novelty_acceptance_matrix.csv)
+- [Machine verification results — JSON](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/results/verification_results.json)
+- [SHA-256 package manifest](sandbox:/mnt/data/TP-00_GR_SM_frontier_model_v1.0/manifest_sha256.csv)
+
+All **12 invariant checks** and **6 unit tests** pass. Both PDFs were rendered and visually inspected; the ZIP integrity test reports no errors.

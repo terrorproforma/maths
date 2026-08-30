@@ -1,0 +1,64 @@
+{
+  "evidence_class": [
+    "INDEPENDENT_RECOMPUTATION",
+    "CONVERGENCE",
+    "EXTERNAL_BENCHMARK"
+  ],
+  "config": {
+    "omega0": 1.0,
+    "gamma": 0.035,
+    "cutoff": 3.0,
+    "beta": 1.2,
+    "bath_modes": 360,
+    "bath_omega_max": 24.0,
+    "t_max": 80.0,
+    "exact_dt": 0.01
+  },
+  "finite_bath_vs_continuum_relative_l2": 0.00010277418582478418,
+  "energy_relative_drift": 1.2882619867452436e-05,
+  "equal_time_commutator_derivative": 1.0000000000000009,
+  "timestep_relative_l2_errors": {
+    "0.040": 3.5413934665318033e-07,
+    "0.020": 2.2118726997973216e-08,
+    "0.010": 1.3800078345847022e-09,
+    "0.005": 8.424385404203332e-11
+  },
+  "observed_orders": [
+    4.002519993730941,
+    4.033961208059814
+  ],
+  "memory_window_relative_l2_changes": {
+    "1.5": 0.005699514640953897,
+    "3": 6.27168095921221e-05,
+    "6": 7.255124910071229e-09,
+    "12": 0.0,
+    "24": 0.0
+  },
+  "memory_solver_relative_l2_to_continuum": {
+    "1.5": 0.00675588792855738,
+    "3": 0.0040745668067364614,
+    "6": 0.004012829267737502,
+    "12": 0.004012836144048507,
+    "24": 0.004012836144048507
+  },
+  "fdt_fft": {
+    "median_relative_residual": 0.003092222948600314,
+    "p95_relative_residual": 0.0074354797149187805,
+    "max_relative_residual": 0.008016214774043181,
+    "compared_bins": 36
+  },
+  "fitted_damping": 0.027808419917798765,
+  "target_weak_damping": 0.035,
+  "gates": {
+    "force_matrix_positive": true,
+    "energy_relative_drift_lt_2e-5": true,
+    "commutator_error_lt_3e-3": true,
+    "timestep_convergence_order_gt_2_8": true,
+    "memory_12_change_lt_2e-3": true,
+    "fdt_p95_lt_0_08": true,
+    "finite_bath_continuum_l2_lt_0_2": true,
+    "damping_within_30_percent": true
+  },
+  "all_gates_pass": true,
+  "scope": "Exact finite-bath scalar open-system KB benchmark; not a non-Abelian 3PI calculation."
+}

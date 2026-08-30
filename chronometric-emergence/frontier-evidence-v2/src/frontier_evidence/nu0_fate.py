@@ -145,11 +145,11 @@ def run(point: CascadePoint | None = None) -> dict:
     repaired = cascade_ode(p, charged_daughter=True)
 
     gates = {
-        "sterile_branch_excluded_DeltaNeff_gt_0_1": sterile["DeltaNeff_total"] > 0.1,
-        "charged_daughter_thermalises_before_Hubble": thermal["scattering_over_H"] > 1.0e4,
-        "charged_daughter_residual_lt_1e_8": repaired["prompt_daughter_to_visible"] < 1.0e-8,
-        "repaired_total_DeltaNeff_lt_0_107": repaired["DeltaNeff_total"] < 0.107,
-        "portal_loop_correction_small": math.sqrt(loop_mass_sq) / p.m_r < 1.0e-3,
+        "sterile_branch_excluded_DeltaNeff_gt_0_1": bool(sterile["DeltaNeff_total"] > 0.1),
+        "charged_daughter_thermalises_before_Hubble": bool(thermal["scattering_over_H"] > 1.0e4),
+        "charged_daughter_residual_lt_1e_8": bool(repaired["prompt_daughter_to_visible"] < 1.0e-8),
+        "repaired_total_DeltaNeff_lt_0_107": bool(repaired["DeltaNeff_total"] < 0.107),
+        "portal_loop_correction_small": bool(math.sqrt(loop_mass_sq) / p.m_r < 1.0e-3),
     }
 
     return {

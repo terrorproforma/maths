@@ -1,0 +1,73 @@
+{
+  "evidence_class": [
+    "INDEPENDENT_RECOMPUTATION",
+    "PREDICTION"
+  ],
+  "point": {
+    "m_n": 3000000000.0,
+    "m_r": 1000000000.0,
+    "gamma_n": 0.1,
+    "gamma_r": 0.014135,
+    "b5": 0.005274370843322566,
+    "g2": 0.57,
+    "gstar_high": 117.25,
+    "gstar_neutrino_decoupling": 10.75
+  },
+  "two_body_energy_fractions": {
+    "prompt_daughter": 0.4444444444444444,
+    "R": 0.5555555555555556
+  },
+  "instantaneous_sterile_ratio_to_visible": 0.8042418698694185,
+  "instantaneous_sterile_DeltaNeff": 2.2276944992775203,
+  "sterile_cascade": {
+    "N_residual": 0.0,
+    "R_residual": 0.0,
+    "prompt_daughter_to_visible": 0.2639042341664716,
+    "sector5_to_visible": 0.005302337336773099,
+    "T5_over_T0": 0.26984653049131535,
+    "DeltaNeff_prompt": 0.7309965233271801,
+    "DeltaNeff_hidden_copy": 0.03925320330413126,
+    "DeltaNeff_total": 0.7702497266313114,
+    "dimensionless_final_energy": 1.0009842967453594e-06,
+    "rho_scale_GeV4": 3.553945891876875e+33,
+    "charged_daughter": false
+  },
+  "repaired_cascade": {
+    "N_residual": 0.0,
+    "R_residual": 0.0,
+    "prompt_daughter_to_visible": 0.0,
+    "sector5_to_visible": 0.004195204979006295,
+    "T5_over_T0": 0.25450029868167506,
+    "DeltaNeff_prompt": 0.0,
+    "DeltaNeff_hidden_copy": 0.031057102459583603,
+    "DeltaNeff_total": 0.031057102459583603,
+    "dimensionless_final_energy": 1.000984298053126e-06,
+    "rho_scale_GeV4": 3.553945891876875e+33,
+    "charged_daughter": true
+  },
+  "repair": {
+    "lagrangian": "-y_R sum_k R_k bar(N_k) L_k + h.c.",
+    "representation": "N_k is a complete vectorlike SU(2)_k doublet orbit with Y=-1/2; L_k is the ordinary lepton doublet in replica k.",
+    "exact_replica_symmetry": true,
+    "required_y_R": 6.512411291024408e-05,
+    "thermalisation": {
+      "alpha2": 0.025854720505278397,
+      "temperature_at_N_decay_GeV": 260589529.01256,
+      "H_at_N_decay_GeV": 0.1,
+      "conservative_weak_scattering_rate_GeV": 174195.38926393638,
+      "scattering_over_H": 1741953.8926393637,
+      "scattering_over_Gamma_N": 1741953.8926393637
+    },
+    "one_loop_R_mass_correction_GeV": 15547.236726210096,
+    "linear_isocurvature": "zero for fixed branching and a heavy mixing sector; no light modulus controls y_R"
+  },
+  "gates": {
+    "sterile_branch_excluded_DeltaNeff_gt_0_1": true,
+    "charged_daughter_thermalises_before_Hubble": true,
+    "charged_daughter_residual_lt_1e_8": true,
+    "repaired_total_DeltaNeff_lt_0_107": true,
+    "portal_loop_correction_small": true
+  },
+  "all_repair_gates_pass": true,
+  "scope": "Energy-flow and rate closure for the daughter. A complete finite-temperature spectral calculation of the new electroweak parent is not included."
+}

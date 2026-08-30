@@ -1,0 +1,74 @@
+{
+  "evidence_class": "PREDICTION",
+  "point": {
+    "f_a_gev": 24350000000.0,
+    "epsilon": 2.7e-13,
+    "d_g": 1e-06,
+    "eta_heavy_max": 612.0
+  },
+  "ridge_relation_epsilon_27dg_y_relative_error": 0.0,
+  "objects": [
+    {
+      "object": "Earth",
+      "newtonian_potential": 6.95e-10,
+      "q": 2.78e-07,
+      "q_over_conversion_threshold": 4.3908487131496436e-07,
+      "conversion_necessary_condition_met": false
+    },
+    {
+      "object": "Sun_surface",
+      "newtonian_potential": 2.12e-06,
+      "q": 0.000848,
+      "q_over_conversion_threshold": 0.0013393668017089562,
+      "conversion_necessary_condition_met": false
+    },
+    {
+      "object": "white_dwarf_typical",
+      "newtonian_potential": 0.0001,
+      "q": 0.04,
+      "q_over_conversion_threshold": 0.06317767932589416,
+      "conversion_necessary_condition_met": false
+    },
+    {
+      "object": "neutron_star_low_compactness",
+      "newtonian_potential": 0.12,
+      "q": 48.0,
+      "q_over_conversion_threshold": 75.813215191073,
+      "conversion_necessary_condition_met": true
+    },
+    {
+      "object": "neutron_star_typical",
+      "newtonian_potential": 0.2,
+      "q": 80.0,
+      "q_over_conversion_threshold": 126.35535865178832,
+      "conversion_necessary_condition_met": true
+    },
+    {
+      "object": "neutron_star_high_compactness",
+      "newtonian_potential": 0.3,
+      "q": 120.0,
+      "q_over_conversion_threshold": 189.53303797768248,
+      "conversion_necessary_condition_met": true
+    }
+  ],
+  "no_conversion_fa_min_GeV_for_typical_NS_at_same_dg": 3076752983171.0454,
+  "maximum_heavy_focusing_at_NS_no_conversion_boundary": 4.84348275,
+  "q_over_eta_for_typical_NS": 0.13071895424836602,
+  "single_source_ridge_no_go": {
+    "statement": "Within the archived N=6 ridge relations, the same d_g/f_a combination controls heavy-threshold focusing and compact-object conversion. Requiring q_NS<q_conv caps the heavy focusing measure near 4.8, below the demonstrated strong-attractor regime.",
+    "assumptions": [
+      "one QCD-coupled ratio mode",
+      "epsilon=27 d_g f_a/M_P",
+      "archived heavy-threshold focusing fit",
+      "spherical conversion capacity criterion",
+      "no additional density-dependent screening or transient selector bath"
+    ]
+  },
+  "neutron_star_blocker": true,
+  "scientific_status": "BLOCKED",
+  "allowed_repairs": [
+    "derive and confront a converted/scalarised neutron-star branch with binary-pulsar data",
+    "introduce a demonstrated compact-object screening mechanism",
+    "separate the transient cosmological focusing interaction from the late QCD coupling"
+  ]
+}

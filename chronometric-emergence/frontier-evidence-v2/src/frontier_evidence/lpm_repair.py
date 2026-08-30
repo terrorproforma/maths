@@ -126,16 +126,25 @@ def run(repo_root: Path, full: bool = True) -> dict:
     gamma_occ = v15.NC * v15.ModelPoint().y_d**2 * qd_high / susceptibility
 
     gates = {
-        "v14_mass_formula_changed_nontrivially": any(
+        "v14_mass_formula_changed_nontrivially": bool(any(
             abs(value["relative_change"]) > 1.0e-3 for value in rate_changes.values()
+        )),
+        # In the Bethe-Heitler/weak-scattering limit the splitting rate
+        # carries one explicit alpha_s and one power through the scattering
+        # kernel, hence Gamma scales as alpha_s^2.
+        "bethe_heitler_alpha_squared_scaling": bool(abs(weak_slope - 2.0) < 0.12),
+        "v15_electron_external_fit_within_15_percent": bool(
+            abs(electron_high - electron["fit"]) / electron["fit"] < 0.15
         ),
-        "weak_scattering_log_slope_near_one": abs(weak_slope - 1.0) < 0.12,
-        "v15_electron_external_fit_within_15_percent": abs(electron_high - electron["fit"]) / electron["fit"] < 0.15,
-        "v15_qd_resolution_change_lt_8_percent": abs(qd_high - qd_low) / max(abs(qd_high), 1.0e-30) < 0.08,
-        "v15_electron_resolution_change_lt_8_percent": abs(electron_high - electron_low) / max(abs(electron_high), 1.0e-30) < 0.08,
-        "corrected_rates_finite_nonnegative": all(
+        "v15_qd_resolution_change_lt_8_percent": bool(
+            abs(qd_high - qd_low) / max(abs(qd_high), 1.0e-30) < 0.08
+        ),
+        "v15_electron_resolution_change_lt_8_percent": bool(
+            abs(electron_high - electron_low) / max(abs(electron_high), 1.0e-30) < 0.08
+        ),
+        "corrected_rates_finite_nonnegative": bool(all(
             math.isfinite(value) and value >= 0.0 for value in corrected_rates.values()
-        ),
+        )),
     }
 
     return {

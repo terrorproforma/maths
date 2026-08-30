@@ -1,0 +1,16 @@
+{
+  "software_evidence_gates": {
+    "scalar_two_time": true,
+    "threepi_magnitudes": true,
+    "nu0_repair": true,
+    "lpm_repair": true,
+    "portability": true,
+    "kernel_audit": true
+  },
+  "all_software_evidence_gates_pass": true,
+  "formal_frontier": "CONDITIONAL_EARNED",
+  "scalar_unit_frontier": "EARNED",
+  "nonabelian_3pi_frontier": "NOT_AUTHORIZED",
+  "cosmology_frontier": "BLOCKED",
+  "publication_frontier": "NARROW_NOTE_ONLY_AFTER_SPECIALIST_REVIEW"
+}
