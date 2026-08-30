@@ -1,0 +1,1 @@
+ANANKE v2 connector test. This file is replaced by the complete v2 commit.
