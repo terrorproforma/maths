@@ -6,6 +6,7 @@ on:
     paths:
       - 'chronometric-emergence/frontier-evidence-v2/src/**'
       - 'chronometric-emergence/frontier-evidence-v2/tests/**'
+      - 'chronometric-emergence/frontier-evidence-v2/tools/**'
       - 'chronometric-emergence/frontier-evidence-v2/pyproject.toml'
       - 'chronometric-emergence/frontier-evidence-v2/Makefile'
       - '.github/workflows/chronometric-frontier-repair-v2.yml'
@@ -13,6 +14,7 @@ on:
     paths:
       - 'chronometric-emergence/frontier-evidence-v2/src/**'
       - 'chronometric-emergence/frontier-evidence-v2/tests/**'
+      - 'chronometric-emergence/frontier-evidence-v2/tools/**'
       - 'chronometric-emergence/frontier-evidence-v2/pyproject.toml'
       - 'chronometric-emergence/frontier-evidence-v2/Makefile'
       - '.github/workflows/chronometric-frontier-repair-v2.yml'
@@ -52,11 +54,15 @@ jobs:
           python -m pip install -e '.[test]'
           python -m pip check
 
+      - name: Apply strict migration repairs
+        working-directory: chronometric-emergence/frontier-evidence-v2
+        run: python tools/apply_ci_repairs.py
+
       - name: Run fallible tests and regenerate evidence
         working-directory: chronometric-emergence/frontier-evidence-v2
         run: make full
 
-      - name: Commit generated evidence
+      - name: Commit repaired source and generated evidence
         if: github.event_name != 'pull_request'
         shell: bash
         run: |
@@ -64,11 +70,12 @@ jobs:
           git config user.name 'Angus Muffatti'
           git config user.email '130276587+terrorproforma@users.noreply.github.com'
           git add \
+            chronometric-emergence/frontier-evidence-v2/src/frontier_evidence/scalar_two_time.py \
             chronometric-emergence/frontier-evidence-v2/results \
             chronometric-emergence/frontier-evidence-v2/docs/FRONTIER_EVIDENCE_REPORT.md
           if git diff --cached --quiet; then
-            echo 'Generated evidence is already current.'
+            echo 'Repaired source and generated evidence are already current.'
           else
-            git commit -m 'Regenerate chronometric frontier evidence v2 [skip ci]'
+            git commit -m 'Repair and regenerate chronometric frontier evidence v2 [skip ci]'
             git push origin HEAD:"$TARGET_BRANCH"
           fi
