@@ -1,0 +1,66 @@
+schema_version: 1.0.0
+project: TP-02 independent Geometric Unity reconstruction
+completion_family: R_PLUS_EIN
+author: Angus Muffatti
+date: 2026-08-31
+
+source_boundary:
+  source_defined:
+    - fourteen-dimensional split-signature total space
+    - Spin(7,7) and U(64,64) architecture
+    - substitute Shiab structure in draft equation 9.3
+    - intended Ricci, scalar, and Weyl-annihilation behaviour
+  project_selected:
+    - stabiliser-compatible augmented torsion T_PLUS
+    - exact real 128-dimensional Cl(7,7) representation
+    - split spinor form H with signature [64, 64]
+    - canonical Phi_1 and Phi_2 Clifford tensors
+    - minimal full-adjoint symmetrised scalar channel
+  not_attributed_to_source:
+    - explicit matrix representatives
+    - full-adjoint product completion
+    - local flat background
+    - hyperbolicity verdict for the project completion
+
+algebraic_model:
+  gamma_relation: "{Gamma_A,Gamma_B}=2 eta_AB I"
+  signature: [7, 7]
+  spinor_dimension: 128
+  spinor_form_signature: [64, 64]
+  phi_1: "e^A tensor Gamma_A"
+  phi_2: "1/2 e^A wedge e^B tensor Gamma_AB"
+  einstein_extension: >
+    E_d(X)=[Gamma^c,X_cd]
+    +1/4{{Gamma^{cd},X_cd},Gamma_d}
+  closure:
+    input: "Lambda^2 T*Y tensor u(64,64)"
+    output: "T*Y tensor u(64,64)"
+    exact_max_residual: 0
+
+branches:
+  R_PLUS_EIN_ALG:
+    status: pass
+    claim: exact algebraic completion and codomain closure
+  R_PLUS_EIN_FULL_Y:
+    status: rejected
+    fatal_gate: PERT-02
+    reason: >
+      The Einstein principal factor on a local signature-(7,7) total space
+      is not hyperbolic with respect to any covector.
+  R_PLUS_EIN_OBS4:
+    status: open
+    required_new_object: >
+      A dynamically preserved rank-four Lorentzian characteristic projector
+      from T*Y to the observed spacetime cotangent bundle.
+
+formal_benchmarks:
+  fourteen_dimensional_einstein_metric_polarizations: 77
+  four_dimensional_graviton_polarizations: 2
+  excess_before_observation_reduction: 75
+
+next_kill_test:
+  - construct the observation characteristic projector
+  - prove rank four and signature (1,3)
+  - prove gauge/BRST invariance and constraint propagation
+  - derive the reduced principal symbol
+  - count physical modes
