@@ -1,148 +1,135 @@
 # TP-02 status
 
 **Author:** Angus Muffatti  
-**Version:** 0.5.0  
+**Version:** 0.6.0  
 **Status date:** 31 August 2026  
-**Project state:** **ACTIVE — source reconstruction complete; first explicit completion branch reaches a fatal propagation test**
+**Project state:** **FROZEN — terminal source-incompleteness result reached**
 
-## Completed phases
-
-### Phase 1 — primary-source reconstruction
-
-The official corpus, initial theory tuple, definition/claim ledgers and representation dimensions are frozen and executable.
-
-### Phase 2 — sign-convention audit
-
-The 2021 printed augmented torsion obeys
-
-\[
-T_-\bigl(g\tau_-(h)\bigr)
-=
-h^{-1}T_-(g)h
--
-2h^{-1}d_{A_0}h,
-\]
-
-not the claimed equivariance law. The stabiliser-compatible repair is
-
-\[
-T_+
-=
-a+\varepsilon^{-1}d_{A_0}\varepsilon.
-\]
-
-### Phase 3A — first-order action covariance
-
-The exact witness gives
-
-\[
-I_-^h-I_-=14,
-\qquad
-I_+^h-I_+=0.
-\]
-
-The literal branch is rejected in its claimed invariant form. The repaired branch survives the kinematic test.
-
-### Phase 3B — explicit substitute Shiab
-
-Draft eq. (9.3) is typeable as
-
-\[
-\operatorname{Sh}_\varepsilon:
-\Omega^2(Y,\operatorname{ad}P_H)
-\to
-\Omega^{13}(Y,\operatorname{ad}P_H).
-\]
-
-The mixed Clifford contraction reproduces the Einstein tensor on algebraic Riemann curvature, with rank 105 and a 3080-dimensional Weyl kernel in fourteen dimensions.
-
-The official corpus still does not define one full-adjoint Hessian, boundary domain, observation derivative or physical spectrum. That is the terminal source-faithful incompleteness result.
-
-### Phase 4 — \(\mathsf R_+\)-EIN algebraic completion and symbol test
-
-Completed:
-
-- exact real \(128\times128\) \(\mathrm{Cl}(7,7)\) generators;
-- explicit symmetric spinor form \(H\) with signature \((64,64)\);
-- exact \(64+64\) chirality split;
-- canonical
-  \[
-  \Phi_1=e^A\otimes\Gamma_A,
-  \qquad
-  \Phi_2=\tfrac12e^A\wedge e^B\otimes\Gamma_{AB};
-  \]
-- unique minimal full-adjoint Einstein extension
-  \[
-  \mathcal E_d(X)
-  =
-  [\Gamma^c,X_{cd}]
-  +
-  \frac14
-  \left\{
-  \left\{\Gamma^{cd},X_{cd}\right\},
-  \Gamma_d
-  \right\};
-  \]
-- exact full-adjoint closure residual \(0\);
-- exact failure of the naive unsymmetrised extension, residual \(90\);
-- split-signature principal-symbol theorem.
-
-## Decisive Phase 4 verdict
+## Terminal verdict
 
 \[
 \boxed{
 \begin{array}{c}
-\text{Algebraic }\mathsf R_+\text{-EIN completion: PASS.}\\[1mm]
-\text{Local propagation on full }(7,7)\text{ total space: FAIL.}
+\textbf{Substantial geometric architecture: YES.}\\
+\textbf{Literal printed first-order theory: INCONSISTENT AS PRINTED.}\\
+\textbf{Coherent repaired algebraic completion: YES.}\\
+\textbf{Healthy local dynamics on }Y^{7,7}\textbf{: NO.}\\
+\textbf{Four-dimensional dynamics from pullback alone: NO.}\\
+\textbf{Complete source-defined successor theory: NO.}
 \end{array}
 }
 \]
 
-For any timelike normal \(n\), \(n^\perp\) still contains a timelike tangential covector \(\xi\). The Einstein characteristic equation contains
+## Earned results
+
+### Exact source-level failures
+
+The printed augmented torsion satisfies
 
 \[
-q(\xi+\lambda n)=-(1+\lambda^2),
+T_-(g\tau_-(h))
+=
+h^{-1}T_-(g)h
+-
+2h^{-1}d_{A_0}h.
 \]
 
-whose roots are \(\lambda=\pm i\). Therefore the geometric block is not hyperbolic with respect to any covector.
-
-The local full-\(Y\) branch receives
+The corresponding first-order action has the exact finite defect
 
 \[
-\boxed{\texttt{PERT-02}=0}
+I_-^h-I_-=14.
 \]
 
-and is rejected.
+### Exact repaired algebra
 
-## Surviving branch
-
-Only an explicitly observation-projected branch remains open:
+The stabiliser-compatible branch
 
 \[
-\mathsf R_+\text{-EIN-OBS4}.
+T_+
+=
+a+\varepsilon^{-1}d_{A_0}\varepsilon
 \]
 
-It must derive a dynamically preserved map
+passes the finite covariance test.
+
+The source substitute Shiab reproduces the Einstein contraction on algebraic Riemann curvature. Its fourteen-dimensional Riemann-sector rank is 105 and its Weyl kernel has dimension 3080.
+
+The explicit project completion supplies:
 
 \[
-\Pi_{\rm obs}:T^*Y\to T^*X
+\mathrm{Cl}(7,7)\cong\operatorname{Mat}_{128}(\mathbb R),
 \]
 
-with rank four and Lorentzian signature \((1,3)\) **before** propagation is defined.
+a split spinor form of signature \((64,64)\), and the closed full-adjoint map
 
-## Next decisive calculation
+\[
+\mathcal E_d(X)
+=
+[\Gamma^c,X_{cd}]
++
+\frac14
+\left\{
+\left\{\Gamma^{cd},X_{cd}\right\},
+\Gamma_d
+\right\}.
+\]
 
-1. Extract the observation-map differential and horizontal/vertical splitting from the source.
-2. Construct every source-compatible rank-four characteristic projector.
-3. Test gauge/BRST invariance and propagation of the projector constraint.
-4. Derive the reduced principal symbol.
-5. Count physical modes.
-6. Stop if no invariant projector exists or if the reduced system does not have two graviton helicities.
+Its exact codomain-closure residual is zero.
 
-No aggregate score is used. A fatal zero terminates only the branch to which it applies.
+### Fatal dynamical failures
+
+For local propagation on the full split-signature total space,
+
+\[
+q(\xi+\lambda n)=-(1+\lambda^2)
+\]
+
+has roots \(\lambda=\pm i\). The branch is not hyperbolic:
+
+\[
+\texttt{PERT-02}=0.
+\]
+
+The source-motivated observation pullback also fails to produce autonomous four-dimensional dynamics. For normal coordinates \(z^a\),
+
+\[
+f_a=(z^a)^2,
+\qquad
+\iota^*f_a=0,
+\]
+
+but
+
+\[
+\iota^*(L_Yf_a)=2g^{aa}\neq0.
+\]
+
+Thus the ambient differential operator does not preserve the ideal of fields vanishing on the observed section. Normal jets remain necessary.
+
+## Final branch ledger
+
+- `DRAFT_LITERAL`: rejected.
+- `R_PLUS_EIN_FULL_Y`: rejected.
+- `R_PLUS_EIN_OBS4_PULLBACK`: rejected.
+- `R_PLUS_EIN_ALG`: mathematically retained, not a physical successor.
+- any normal-constrained, localized or induced-action completion: independent new theory, not defined by the primary source.
+
+## Publication position
+
+TP-02 is suitable as a source-faithful mathematical audit, not as a claim that every imaginable theory inspired by the geometry is impossible.
+
+The narrow paper result is:
+
+> The available primary formulation contains an exact sign inconsistency, does not determine a unique full Hessian, and its two most direct repaired propagation mechanisms fail respectively by split-signature non-hyperbolicity and non-closure of ambient dynamics under observation pullback.
 
 ## Reproduction
 
 ```bash
 make verify
 ```
+
+All committed checks are exact and standard-library-only.
+
+## Next programme project
+
+The numbered programme should now move to TP-03, the Pati–Salam benchmark. Any future use of TP-02 geometry must occur under a separately named completion project.

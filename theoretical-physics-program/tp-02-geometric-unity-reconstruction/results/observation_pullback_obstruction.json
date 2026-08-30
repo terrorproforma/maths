@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "phase": "observation pullback and characteristic reduction audit",
+  "geometry": {
+    "dim_X": 4,
+    "dim_Y": 14,
+    "normal_rank": 10,
+    "signature_convention": "[negative, positive]",
+    "signature_X": [
+      1,
+      3
+    ],
+    "signature_normal": [
+      6,
+      4
+    ],
+    "signature_Y": [
+      7,
+      7
+    ]
+  },
+  "descent_criterion": {
+    "ideal": "I_iota={f in C-infinity(Y): iota^*f=0}",
+    "necessary_and_sufficient_condition": "An operator L_Y descends to an autonomous L_X with iota^* L_Y = L_X iota^* only if L_Y(I_iota) is contained in I_iota; equivalently the quotient by I_iota is invariant.",
+    "order_two_local_test": "Normal second derivatives must vanish from the principal symbol or be fixed by separately propagated constraints."
+  },
+  "normal_jet_witnesses": [
+    {
+      "normal_coordinate": 0,
+      "metric_sign": -1,
+      "test_function": "(z^0)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 1,
+      "metric_sign": -1,
+      "test_function": "(z^1)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 2,
+      "metric_sign": -1,
+      "test_function": "(z^2)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 3,
+      "metric_sign": -1,
+      "test_function": "(z^3)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 4,
+      "metric_sign": -1,
+      "test_function": "(z^4)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 5,
+      "metric_sign": -1,
+      "test_function": "(z^5)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": -2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 6,
+      "metric_sign": 1,
+      "test_function": "(z^6)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": 2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 7,
+      "metric_sign": 1,
+      "test_function": "(z^7)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": 2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 8,
+      "metric_sign": 1,
+      "test_function": "(z^8)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": 2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    },
+    {
+      "normal_coordinate": 9,
+      "metric_sign": 1,
+      "test_function": "(z^9)^2",
+      "pullback_of_test_function": 0,
+      "ambient_operator_then_pullback": 2,
+      "operator_on_pullback": 0,
+      "ideal_preserved": false
+    }
+  ],
+  "checks": {
+    "dimension_split_4_plus_10_equals_14": true,
+    "signature_split_1_3_plus_6_4_equals_7_7": true,
+    "all_ten_normal_quadratic_witnesses_break_ideal_preservation": true,
+    "pullback_values_do_not_define_autonomous_ambient_second_order_dynamics": true,
+    "naive_OBS4_pullback_branch_fails": true
+  },
+  "verdict": {
+    "canonical_tangent_pullback": "PASS along the observed section",
+    "canonical_autonomous_dynamics_on_X": "FAIL",
+    "R_PLUS_EIN_OBS4_PULLBACK": "REJECTED",
+    "fatal_gate": "PERT-02",
+    "source_status": "The primary source supplies pullback and bundle splitting but no invariant normal-jet constraint, tangential principal operator, localization mechanism, or induced boundary action.",
+    "scope": "This rejects pullback alone as the missing four-dimensional dynamical mechanism. It does not rule out a new completion with additional normal constraints, localization, or a degenerate/tangential principal symbol."
+  },
+  "required_escape_data": [
+    "a principal symbol tangent to the observed section",
+    "or propagated constraints fixing every required normal jet",
+    "or an induced effective action obtained after solving normal dynamics",
+    "gauge/BRST invariance of the reduction",
+    "a strongly hyperbolic (1,3) reduced system",
+    "exactly two graviton helicities"
+  ]
+}
