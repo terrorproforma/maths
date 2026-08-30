@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "source_freeze": "2026-08-30",
+  "schema_version": "1.1.0",
+  "source_freeze": "2026-08-31",
   "sources": [
     {
       "id": "GU-DRAFT-2021",
@@ -13,27 +13,46 @@
       "official_url": "https://geometricunity.nyc3.digitaloceanspaces.com/Geometric_Unity-Draft-April-1st-2021.pdf",
       "sha256": null,
       "mirror_status": "not mirrored because the source carries an explicit copyright and derivative-use notice",
-      "role": "authoritative source for definitions, equations and proposal claims",
-      "notes": "The document identifies itself as a working draft and work in progress."
+      "role": "controlling source for written definitions, equations and proposal claims",
+      "notes": "The document identifies itself as a working draft and explicitly warns of conflicting sign conventions in section 6."
     },
     {
-      "id": "GU-OXFORD-2013-OFFICIAL-TRANSCRIPT",
-      "title": "2013 Oxford Lecture — Geometric Unity",
+      "id": "GU-OXFORD-OFFICIAL-PAGE",
+      "title": "2013 Oxford Lecture",
       "author": "Eric Weinstein",
-      "publication_context": "official transcript and presentation page",
       "official_url": "https://geometricunity.org/2013-oxford-lecture/",
-      "type": "official primary lecture transcript",
-      "role": "clarifies motivation, intended interpretation, field-content claims and admitted open problems",
-      "notes": "The lecture is earlier than the 2021 draft and is not used to override later written definitions."
+      "type": "official composite primary-source page",
+      "accessed": "2026-08-31",
+      "components": [
+        {
+          "id": "GU-OXFORD-2013-LECTURE",
+          "date": "2013",
+          "role": "original technical lecture and timestamped transcript"
+        },
+        {
+          "id": "GU-PORTAL-2020-PREFACE",
+          "date": "2020-04-02",
+          "role": "publication context; not used to override technical definitions"
+        },
+        {
+          "id": "GU-SUPPLEMENTARY-POWERPOINT",
+          "date": "2020",
+          "role": "supplementary presentation described by the official page as using more up-to-date notation"
+        }
+      ],
+      "role": "technical source for the Observerse, inhomogeneous gauge group, tilted map, augmented torsion, Shiab family, schematic GU equations and admitted open problems",
+      "notes": "The page records a plus-sign tilted map and minus-sign augmented torsion, which differ from the 2021 draft's printed stabiliser pair. Components are tracked separately."
     },
     {
       "id": "GU-OFFICIAL-HOME",
       "title": "Geometric Unity",
       "official_url": "https://geometricunity.org/",
       "type": "official project landing page",
-      "role": "provenance and linkage to the draft and lecture",
-      "notes": "Not used as mathematical evidence beyond version/provenance statements."
+      "role": "provenance and linkage",
+      "notes": "Not used as mathematical evidence beyond version and provenance statements."
     }
   ],
-  "priority_rule": "The 2021 draft controls when it conflicts with the earlier lecture. Unresolved conflicts are recorded rather than harmonized silently."
+  "priority_rule": "The 2021 draft controls when it conflicts with the earlier lecture or supplementary presentation. Unresolved conflicts are recorded rather than harmonized silently.",
+  "component_rule": "The Oxford page's lecture, preface and supplementary PowerPoint are distinct source components and are not assigned one undifferentiated date or authority.",
+  "rights_rule": "Do not mirror the copyrighted working draft. Store only metadata, narrow paraphrases, equation references and independent calculations."
 }

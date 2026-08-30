@@ -1,0 +1,29 @@
+name: Verify TP-02 Geometric Unity audit
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "theoretical-physics-program/tp-02-geometric-unity-reconstruction/**"
+      - ".github/workflows/tp-02-geometric-unity-audit.yml"
+  pull_request:
+    paths:
+      - "theoretical-physics-program/tp-02-geometric-unity-reconstruction/**"
+      - ".github/workflows/tp-02-geometric-unity-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  exact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run exact source and algebra audits
+        working-directory: theoretical-physics-program/tp-02-geometric-unity-reconstruction
+        run: make verify

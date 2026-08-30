@@ -1,70 +1,119 @@
 # Primary-source notes
 
-These notes are paraphrases keyed to the official 2021 draft. They are not a substitute for the manuscript.
+These notes are narrow paraphrases keyed to official sources. They are not substitutes for the manuscript or lecture.
+
+## Source hierarchy
+
+1. The 2021 working draft controls written definitions and equations.
+2. The official Oxford page is a composite source:
+   - 2013 lecture;
+   - 2020 Portal publication context;
+   - supplementary PowerPoint using updated notation.
+3. Conflicts are recorded, not silently reconciled.
 
 ## Draft status
 
-- Title page: *Geometric Unity: Author's Working Draft*, v1.0, dated 1 April 2021.
-- The title-page notice describes the work as entertainment and work in progress and asserts copyright/derivative-use restrictions.
-- The project therefore cites rather than mirrors the PDF.
+- Title: *Geometric Unity: Author's Working Draft*, v1.0, 1 April 2021.
+- The title-page notice describes the work as entertainment and work in progress and restricts derivative use.
+- The PDF is cited rather than mirrored.
 
 ## Initial data and objective
 
-- Draft pp. 3–4, eq. (1.1): starts from an oriented smooth `X^4` with a unique spin structure and no chosen geometry; asks how much of the observed field-theory world can be generated from that sparse input.
-- The source explicitly distinguishes this from deriving existence from nothing.
+- Draft pp. 3–4, eq. (1.1): begins with an oriented smooth \(X^4\), a unique spin structure and no chosen geometry.
+- The source asks how much observed field-theory structure can be generated from that sparse input.
+- It explicitly does not claim to derive existence from nothing.
 
 ## Observerse and metric bundle
 
-- Draft pp. 15–16, Definition 3.1 and eq. (3.1): defines an Observerse `(X^n,Y^d,{iota})` by local observation/embedding maps with induced pullback metric.
-- Draft p. 15: the Einsteinian case takes `Y=Met(X)` and observation maps to be metric sections.
-- Official lecture at 01:10:24: states `U^14=met(X^4)` and explains the 10-dimensional metric fibre.
+- Draft pp. 15–16, Definition 3.1 and eq. (3.1): defines an Observerse \((X,Y,\{\iota\})\).
+- The Einsteinian choice is \(Y=\operatorname{Met}(X)\).
+- The official lecture describes \(Y^{14}=\operatorname{Met}(X^4)\) and the ten-dimensional metric fibre.
 
 ## Chimeric bundle and spinors
 
-- Draft pp. 17–20, eqs. (3.6)–(3.15): constructs vertical/horizontal bundles and the metric Chimeric Bundle `C=V+H*`; uses it to define spinors before a metric is chosen on `Y`.
-- Draft pp. 21–24, eqs. (3.21)–(3.38): discusses `Spin(7,7)`, real/complex spinors, `U(64,64)` and the main principal bundle.
-- One Clifford decomposition is footnoted as requiring verification.
+- Draft pp. 17–24: constructs vertical/horizontal data, the Chimeric Bundle and \(Spin(7,7)\) spinors.
+- The main structure group is presented as \(U(64,64)\).
+- One Clifford decomposition is explicitly flagged for checking.
 
 ## Observation and internal quantum numbers
 
-- Draft pp. 24–26, eqs. (3.39)–(4.2): observation pulls topological spinors back to spacetime spinors tensored with normal-bundle spinors, interpreted as apparent internal quantum numbers.
-
-## Pati-Salam and subgroup decomposition
-
-- Draft section 4.2: uses `Spin(6,4)` and its subgroup structure to motivate Pati-Salam-like quantum numbers. The source does not by itself supply a complete low-energy gauge Lagrangian, anomaly audit or measured-coupling match.
+- Draft pp. 24–30: observation pulls topological spinors back to spacetime spinors with normal-bundle factors interpreted as apparent internal quantum numbers.
+- Pati–Salam-like subgroup structure is proposed, but no complete low-energy gauge Lagrangian or anomaly audit is supplied.
 
 ## Unified fields and inhomogeneous gauge group
 
-- Draft pp. 30–34, eqs. (5.1)–(5.14): declares one field native to `X`, fields native to `Y`, the affine connection space, `N=Omega^1(ad P_H)`, and the semidirect product `G=H semidirect N` with left/right actions.
+- Draft pp. 30–34: defines the affine connection space, \(N=\Omega^1(Y,\operatorname{ad}P_H)\), and the inhomogeneous group.
+- The semidirect-product law and affine action have been independently checked.
 
-## Distinguished connection and augmented torsion
+## Distinguished connection and sign conflict
 
-- Draft pp. 34–38, section 6: observation induces a distinguished connection `A0`; a tilted embedding of the gauge group into the inhomogeneous group is defined.
-- Draft pp. 38–40, Definition 7.1 and eqs. (7.1)–(7.4): defines augmented torsion as the difference between an affine-shifted and gauge-transformed connection and proves equivariance under the tilted subgroup.
+- The observation field induces a distinguished connection \(A_0[\gimel]\).
+- Draft eq. (6.4) uses
+  \[
+  \tau_-(h)=\left(h,-h^{-1}d_{A_0}h\right).
+  \]
+- The Oxford lecture at approximately `01:27:54` instead uses the plus sign.
+- The draft itself warns that multiple sign conventions were combined.
+- The exact TP-02 audit shows that, under the printed 2021 right action, \(\tau_-\) is the stabiliser but the printed \(T_-\) is not equivariant.
 
-## Shiab and actions
+## Augmented torsion
 
-- Draft pp. 40–42, section 8: introduces a family of Shiab contraction operators intended to replace Einstein's non-gauge-covariant contraction.
-- Draft p. 43, eq. (9.4): gives the first-order bosonic action pairing augmented torsion with a Shiab-contracted curvature/torsion expression.
-- Draft pp. 44–45, eqs. (9.11)–(9.15): gives the norm-squared second-order action and compact field equation.
-- Draft pp. 45–46, section 9.3: proposes the fermionic block operator.
+- Draft section 7 prints
+  \[
+  T_-=a-\varepsilon^{-1}d_{A_0}\varepsilon.
+  \]
+- The Oxford transcript and supplementary slide also use the minus torsion sign.
+- The stabiliser-compatible repaired branch is
+  \[
+  T_+=a+\varepsilon^{-1}d_{A_0}\varepsilon.
+  \]
 
-## Deformation complex
+## Shiab family
 
-- Draft pp. 46–48, eqs. (10.1)–(10.10): proposes a deformation complex and boson/fermion assembly. The source explicitly warns that the displayed diagram may contain inconsistencies until stabilized.
+- Draft section 8 describes gauge-conjugated invariant contractions using Hodge operations and commutator or \(i\)-Jordan products.
+- Definition 8.1 introduces invariant tensors \(\Phi_i\).
+- The official lecture states
+  \[
+  \operatorname{Sh}:\Omega^i(\operatorname{ad})\to\Omega^{d-3+i}(\operatorname{ad}).
+  \]
+- Draft eq. (9.3) gives an explicit substitute
+  \[
+  \Omega^2(Y,\operatorname{ad})\to\Omega^{d-1}(Y,\operatorname{ad}).
+  \]
+- The source says the originally preferred Bianchi-selected operator cannot presently be located.
 
-## Observed field content
+## Clifford–Einstein interpretation
 
-- Draft pp. 48–53, section 11: presents decompositions under `Spin(1,3) x Spin(6,4)` and argues for ordinary, exotic and dark sectors.
-- Draft p. 51, eq. (11.6): dimensionally decomposes the chiral gamma-traceless vector-spinor sector into components denoted `F`, `Q` and `Z`.
-- The source proposes a `2+1` family model with two true generations and one imposter generation, emergent chirality and additional spin-3/2 matter.
+The draft labels the first term Ricci-like, the nested term scalar-like and states that Weyl curvature is annihilated.
 
-## Admitted open problems in the official lecture
+The exact project audit proves that, on spin curvature,
 
-- At approximately 02:12:34, the lecture notes a possible sign issue between Euclidean and Minkowski treatment.
-- The same passage states that propagation in 14 dimensions must be worked out so observers appear to inhabit a four-dimensional world.
-- At approximately 02:40:04, the presenter states that the material is not the full theory.
+\[
+[\gamma^c,F_{cd}]=R_{db}\gamma^b,
+\]
+
+\[
+\{\gamma^{cd},F_{cd}\}=-R\mathbf1,
+\]
+
+so the mixed commutator/Jordan pattern reproduces the Einstein tensor and kills Weyl curvature.
+
+This fixes the intended product pattern on the geometric Riemann sector, not the complete \(U(64,64)\)-adjoint extension.
+
+## First-order bosonic action
+
+- Draft eq. (9.4) pairs augmented torsion with a Shiab-contracted curvature/transgression-like expression and a quadratic torsion term.
+- The literal printed sign branch fails the claimed finite covariance test.
+- The repaired branch passes that kinematic test but still lacks a complete source-defined Hessian.
+
+## Deformation complex and dynamics
+
+- Draft section 10 proposes a deformation complex and explicitly caveats possible inconsistencies.
+- The official lecture states that propagation in 14 dimensions must still be shown to appear four-dimensional.
+- No complete Hamiltonian/BRST count, positive spectrum, anomaly polynomial, quantum measure or empirical fit is supplied.
 
 ## Audit consequence
 
-The primary source is rich enough to support a typed reconstruction and several exact algebraic checks. It is not yet evidence for a healthy spectrum, anomaly-free chiral low-energy theory, quantum completion or empirical fit. Those must be derived independently.
+The source corpus is rich enough for exact algebraic reconstruction and a meaningful Einstein-sector Shiab test.
+
+It is not complete enough to determine one full physical spectrum without separately declared completion data.

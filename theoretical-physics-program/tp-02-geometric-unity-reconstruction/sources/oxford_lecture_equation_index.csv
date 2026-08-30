@@ -1,0 +1,11 @@
+source_component,time_or_location,object,source_formula_or_content,project_status
+2013 Oxford lecture,01:27:54,Tilted map,"h -> (h,+h^{-1}d_A0 h)",CONFLICTS WITH 2021 STABILISER SIGN
+2013 Oxford lecture,01:35:41-01:38:00,Shiab family,"Omega^i(ad) -> Omega^(d-3+i)(ad); gauge-conjugated invariant contraction",TYPED AT DEGREE LEVEL
+2013 Oxford lecture,01:41:26,Augmented torsion,"T_(epsilon,pi)=pi-epsilon^{-1}d_A0 epsilon",ALTERNATIVE SIGN PAIR
+2013 Oxford lecture,01:43:32,First-order equation,"Sh_epsilon(F)+[Sh_epsilon(T),T]+*T=0",SCHEMATIC PROPOSAL
+Supplementary PowerPoint,Shiab slide,Example operator,"Gauge-conjugated Phi invariant combined with an ad-valued form",PARAPHRASED; PRODUCT BRACKET NOT UNIQUE
+Supplementary PowerPoint,Augmented Torsion slide,Augmented torsion,"T_g=pi-epsilon^{-1}d_A0 epsilon",CONFIRMS MINUS TORSION SIGN
+Supplementary PowerPoint,GU equations slide,Swervature/displasion,"Swerved curvature + quadratic eddy = offset torsion",SCHEMATIC PROPOSAL
+2021 working draft,eq. 6.4,Tilted stabiliser,"tau_A0(h)=(h,-h^{-1}d_A0 h)",ACTUAL STABILISER UNDER PRINTED RIGHT ACTION
+2021 working draft,eq. 7.3,Augmented torsion,"T_-=a-epsilon^{-1}d_A0 epsilon",FAILS CLAIMED EQUIVARIANCE WITH PRINTED STABILISER
+2021 working draft,eq. 9.3,Explicit substitute Shiab,"Ricci-like term minus one-half scalar-like nested term",TYPED ON GEOMETRIC RIEMANN SUBSPACE

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "phase": "Phase 3B explicit Shiab typing and Clifford-Einstein selection",
+  "source_targets": {
+    "draft_equation": "Geometric Unity working draft v1.0, eq. (9.3), pp. 42-43",
+    "oxford_page": "official 2013 Oxford lecture transcript and supplementary PowerPoint"
+  },
+  "degree_checks": {
+    "dimension": 14,
+    "input_degree": 2,
+    "star_input_degree": 12,
+    "ricci_like_output_degree": 13,
+    "scalar_inner_degree": 14,
+    "scalar_inner_star_degree": 0,
+    "scalar_outer_degree": 1,
+    "scalar_like_output_degree": 13,
+    "target_degree": 13,
+    "pass": true
+  },
+  "hodge_square_signs_signature_7_7": {
+    "degree_2": -1,
+    "degree_14": -1,
+    "degree_1": 1
+  },
+  "clifford_selection": {
+    "ricci_operation": "commutator of gamma^c with spin curvature F_cd",
+    "scalar_operation": "anticommutator/Jordan contraction of gamma^cd with F_cd",
+    "outer_operation": "scalar multiplication of the gamma-valued one-form",
+    "exact_identities": [
+      "[gamma^c,F_cd] = Ric_d^b gamma_b",
+      "{gamma^cd,F_cd} = -R 1",
+      "E_d = [gamma^c,F_cd] + 1/2 {gamma^cd,F_cd} gamma_d = G_d^b gamma_b"
+    ]
+  },
+  "dimension_14": {
+    "algebraic_riemann": 3185,
+    "weyl": 3080,
+    "symmetric_two_tensors": 105,
+    "expected_einstein_map_rank_on_riemann_subspace": 105,
+    "expected_kernel_on_riemann_subspace": 3080
+  },
+  "checks": {
+    "equation_9_3_form_degrees_close_in_d14": true,
+    "ricci_commutator_identity": true,
+    "scalar_jordan_identity": true,
+    "einstein_tensor_identity": true,
+    "weyl_witness_is_ricci_free": true,
+    "weyl_annihilated_by_ricci_contraction": true,
+    "weyl_annihilated_by_scalar_contraction": true,
+    "weyl_annihilated_by_selected_einstein_map": true,
+    "d14_riemann_decomposition_dimensions": true,
+    "d14_expected_einstein_rank": true,
+    "d14_expected_weyl_kernel_dimension": true
+  },
+  "all_pass": true,
+  "source_completeness": {
+    "explicit_substitute_typed_at_form_degree_level": true,
+    "einstein_pattern_fixed_on_geometric_riemann_subspace": true,
+    "unique_full_adjoint_extension": false,
+    "unique_invariant_tensor_normalisation": false,
+    "unique_metric_or_observation_derivative_of_phi_i": false,
+    "unique_boundary_and_formal_adjoint_domain": false,
+    "unique_full_hessian_or_principal_symbol": false
+  },
+  "verdict": {
+    "positive": "The explicit substitute can be typed and its Einstein contraction pattern is exactly reproducible on the geometric Riemann sector.",
+    "negative": "The official sources still do not define a unique U(64,64)-adjoint extension or complete variational data, so no unique full spectrum follows."
+  }
+}

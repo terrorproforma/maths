@@ -1,10 +1,10 @@
 cff-version: 1.2.0
 message: "If you use this independent audit package, please cite it as below."
-title: "Independent Reconstruction of Geometric Unity — Primary-Source Audit"
-version: "0.1.0"
-date-released: 2026-08-30
+title: "Independent Reconstruction of Geometric Unity — Source, Covariance and Shiab Audit"
+version: "0.4.0"
+date-released: 2026-08-31
 authors:
   - family-names: Muffatti
     given-names: Angus
 type: report
-abstract: "A source-faithful reconstruction and acceptance-gate audit of the official Geometric Unity primary material. Phase 1 freezes the corpus, types the initial theory tuple and verifies representation dimensions without treating dimension matches as proof of dynamics."
+abstract: "A source-faithful reconstruction and TP-00 acceptance-gate audit of the official Geometric Unity corpus. The package identifies incompatible printed gauge-sign conventions, rejects the literal first-order covariance claim, types the explicit substitute Shiab, and verifies its Clifford-Einstein action on the geometric Riemann sector while proving that the official sources do not determine a unique full adjoint Hessian or spectrum."
