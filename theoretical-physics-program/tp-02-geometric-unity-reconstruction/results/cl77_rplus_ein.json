@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "branch": "R_PLUS_EIN",
+  "phase": "exact Cl(7,7), full-adjoint completion, and symbol obstruction",
+  "checks": {
+    "Cl_7_7_exact": true,
+    "spinor_form_signature_64_64": true,
+    "Spin_7_7_embeds_in_u_64_64": true,
+    "chiral_dimensions_64_64": true,
+    "full_adjoint_completion_closes": true,
+    "naive_extension_fails": true,
+    "full_Y_split_signature_is_not_hyperbolic": true
+  },
+  "clifford_representation": {
+    "spinor_dimension": 128,
+    "signature": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "clifford_squares_exact": true,
+    "pairwise_anticommutation_exact": true,
+    "split_spinor_form": {
+      "symmetric": true,
+      "involution": true,
+      "trace": 0,
+      "positive_eigenvalue_count": 64,
+      "negative_eigenvalue_count": 64
+    },
+    "all_gamma_H_skew": true,
+    "all_91_bivectors_H_skew": true,
+    "chirality": {
+      "symmetric": true,
+      "involution": true,
+      "trace": 0,
+      "plus_dimension": 64,
+      "minus_dimension": 64,
+      "anticommutes_with_all_gamma": true,
+      "H_pairs_opposite_chiralities": true
+    }
+  },
+  "full_adjoint_einstein_extension": {
+    "seed": 20260831,
+    "nonzero_curvature_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        13
+      ],
+      [
+        11,
+        12
+      ]
+    ],
+    "all_input_coefficients_H_skew": true,
+    "scalar_channel_H_self_adjoint": true,
+    "symmetrized_extension_max_H_skew_residual": 0,
+    "naive_unsymmetrized_max_H_skew_residual": 90,
+    "naive_unsymmetrized_residuals_by_output_index": [
+      76,
+      78,
+      76,
+      78,
+      76,
+      68,
+      82,
+      76,
+      80,
+      76,
+      74,
+      82,
+      90,
+      82
+    ],
+    "minimal_extension": "E_d(X)=[Gamma^c,X_cd]+1/4{{Gamma^{cd},X_cd},Gamma_d}",
+    "uniqueness_statement": "For real coefficients a,b, a S Gamma_d + b Gamma_d S is H-skew for every H-self-adjoint S and H-skew Gamma_d iff a=b. Matching the central geometric channel fixes a=b=1/4."
+  },
+  "split_signature_principal_symbol": {
+    "dimension": 14,
+    "metric_signature": [
+      7,
+      7
+    ],
+    "candidate_time_normal_orthogonal_complement_signature": [
+      6,
+      7
+    ],
+    "explicit_complex_root_witness": {
+      "normal_norm": -1,
+      "tangential_covector_norm": -1,
+      "cross_term": 0,
+      "polynomial": "-(1 + lambda^2)",
+      "roots": [
+        "+i",
+        "-i"
+      ]
+    },
+    "hyperbolic_with_respect_to_any_covector": false,
+    "proof_summary": "For any timelike normal n in signature (p,q) with p>1, n^perp still contains a timelike tangential covector xi. Taking xi orthogonal to n makes the null-characteristic equation quadratic with negative discriminant.",
+    "formal_14d_einstein_metric_polarizations": 77,
+    "required_4d_graviton_polarizations": 2,
+    "formal_excess_before_observation_reduction": 75,
+    "gate_consequence": "PERT-02=0 for the local full-Y R_PLUS_EIN branch. This does not reject a different completion that derives a four-dimensional Lorentzian characteristic projector before propagation."
+  },
+  "verdict": {
+    "algebraic_completion": "PASS",
+    "full_adjoint_codomain_closure": "PASS for the declared minimal completion",
+    "local_full_Y_hyperbolicity": "FAIL",
+    "scope": "The exact algebraic completion is a project construction. The hyperbolicity zero applies to local propagation on the full (7,7) total space, not to an as-yet-unconstructed four-dimensional observation-projected theory."
+  }
+}

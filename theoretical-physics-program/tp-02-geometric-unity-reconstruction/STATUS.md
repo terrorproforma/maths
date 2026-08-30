@@ -1,37 +1,29 @@
 # TP-02 status
 
 **Author:** Angus Muffatti  
-**Version:** 0.4.0  
+**Version:** 0.5.0  
 **Status date:** 31 August 2026  
-**Project state:** **ACTIVE — source-faithful reconstruction reaches a precise incompleteness result; repaired completion proceeds separately**
+**Project state:** **ACTIVE — source reconstruction complete; first explicit completion branch reaches a fatal propagation test**
 
-## Phase ledger
+## Completed phases
 
 ### Phase 1 — primary-source reconstruction
 
-Completed:
+The official corpus, initial theory tuple, definition/claim ledgers and representation dimensions are frozen and executable.
 
-- frozen official source manifest;
-- typed initial theory tuple;
-- source-definition and claim ledgers;
-- exact representation-dimension bookkeeping;
-- separation of source claims from independent checks.
+### Phase 2 — sign-convention audit
 
-### Phase 2 — inhomogeneous gauge-group sign audit
-
-Completed:
+The 2021 printed augmented torsion obeys
 
 \[
 T_-\bigl(g\tau_-(h)\bigr)
 =
 h^{-1}T_-(g)h
 -
-2h^{-1}d_{A_0}h.
+2h^{-1}d_{A_0}h,
 \]
 
-The printed augmented torsion is not equivariant under the printed tilted stabiliser.
-
-A reversible stabiliser-compatible repair was frozen:
+not the claimed equivariance law. The stabiliser-compatible repair is
 
 \[
 T_+
@@ -41,7 +33,7 @@ a+\varepsilon^{-1}d_{A_0}\varepsilon.
 
 ### Phase 3A — first-order action covariance
 
-Completed:
+The exact witness gives
 
 \[
 I_-^h-I_-=14,
@@ -49,75 +41,105 @@ I_-^h-I_-=14,
 I_+^h-I_+=0.
 \]
 
-The literal branch fails its claimed invariant action form. The repaired branch passes the exact kinematic test.
+The literal branch is rejected in its claimed invariant form. The repaired branch survives the kinematic test.
 
-### Phase 3B — official Oxford source and explicit Shiab
+### Phase 3B — explicit substitute Shiab
+
+Draft eq. (9.3) is typeable as
+
+\[
+\operatorname{Sh}_\varepsilon:
+\Omega^2(Y,\operatorname{ad}P_H)
+\to
+\Omega^{13}(Y,\operatorname{ad}P_H).
+\]
+
+The mixed Clifford contraction reproduces the Einstein tensor on algebraic Riemann curvature, with rank 105 and a 3080-dimensional Weyl kernel in fourteen dimensions.
+
+The official corpus still does not define one full-adjoint Hessian, boundary domain, observation derivative or physical spectrum. That is the terminal source-faithful incompleteness result.
+
+### Phase 4 — \(\mathsf R_+\)-EIN algebraic completion and symbol test
 
 Completed:
 
-- classified the official Oxford page as a composite primary source;
-- indexed the 2013 lecture, 2020 presentation context and supplementary PowerPoint separately;
-- identified the cross-version sign pair
+- exact real \(128\times128\) \(\mathrm{Cl}(7,7)\) generators;
+- explicit symmetric spinor form \(H\) with signature \((64,64)\);
+- exact \(64+64\) chirality split;
+- canonical
   \[
-  \tau_+,\ T_-;
+  \Phi_1=e^A\otimes\Gamma_A,
+  \qquad
+  \Phi_2=\tfrac12e^A\wedge e^B\otimes\Gamma_{AB};
   \]
-- typed draft eq. (9.3) as
+- unique minimal full-adjoint Einstein extension
   \[
-  \Omega^2(Y,\operatorname{ad}P_H)\to\Omega^{13}(Y,\operatorname{ad}P_H);
+  \mathcal E_d(X)
+  =
+  [\Gamma^c,X_{cd}]
+  +
+  \frac14
+  \left\{
+  \left\{\Gamma^{cd},X_{cd}\right\},
+  \Gamma_d
+  \right\};
   \]
-- derived the relevant Hodge-star degree and signature signs;
-- proved the Clifford–Einstein selection lemma;
-- verified exact annihilation of an independently constructed algebraic Weyl tensor;
-- established the \(n=14\) Riemann-sector benchmark
-  \[
-  \operatorname{rank}=105,\qquad\dim\ker=3080;
-  \]
-- derived the universal \(\varepsilon\)-, curvature- and metric-slot variations of the displayed operator.
+- exact full-adjoint closure residual \(0\);
+- exact failure of the naive unsymmetrised extension, residual \(90\);
+- split-signature principal-symbol theorem.
 
-## Terminal source-faithful result
+## Decisive Phase 4 verdict
 
 \[
 \boxed{
 \begin{array}{c}
-\text{The explicit substitute is mathematically meaningful on the}\\
-\text{geometric Riemann-curvature subspace.}\\[1mm]
-\text{The official corpus does not define its unique full adjoint extension,}\\
-\text{complete observation derivative, boundary domain or physical Hessian.}
+\text{Algebraic }\mathsf R_+\text{-EIN completion: PASS.}\\[1mm]
+\text{Local propagation on full }(7,7)\text{ total space: FAIL.}
 \end{array}
 }
 \]
 
-Therefore:
+For any timelike normal \(n\), \(n^\perp\) still contains a timelike tangential covector \(\xi\). The Einstein characteristic equation contains
 
 \[
-\boxed{
-\text{no unique full principal symbol or degree-of-freedom count can be attributed to the source alone.}
-}
+q(\xi+\lambda n)=-(1+\lambda^2),
 \]
 
-## Current gate status
+whose roots are \(\lambda=\pm i\). Therefore the geometric block is not hyperbolic with respect to any covector.
 
-- `ALG-01`: **1 — PARTIAL / SOURCE-INCOMPLETE**. The explicit substitute is typed, but the full theory tuple and observable/domain data are incomplete.
-- Literal branch `ALG-02`: **0 — FAIL** for the claimed covariant first-order action.
-- Repaired branch `ALG-02`: **1 — PARTIAL** pending deformation/BRST closure.
-- `ALG-05`, `ALG-06`, `PERT-01` through `PERT-05`, and recovery gates remain unresolved for the independent completion branch.
-- `REP-01`: **1 — PARTIAL**, with exact executable audits but no complete executable theory.
+The local full-\(Y\) branch receives
 
-No aggregate score is used.
+\[
+\boxed{\texttt{PERT-02}=0}
+\]
 
-## Active next phase — \(\mathsf{R}_+\)-EIN
+and is rejected.
 
-The project now moves from reconstruction to an explicitly labelled completion:
+## Surviving branch
 
-1. build exact \(Cl(7,7)\) gamma representatives;
-2. construct explicit \(\Phi_1,\Phi_2\);
-3. choose and document the full adjoint product extension;
-4. declare metric, orientation, reality and boundary domains;
-5. derive the repaired quadratic action;
-6. compute the principal symbol and gauge complex;
-7. count physical modes.
+Only an explicitly observation-projected branch remains open:
 
-A fatal zero on closure, kinetic rank, hyperbolicity or physical degrees of freedom terminates that candidate branch.
+\[
+\mathsf R_+\text{-EIN-OBS4}.
+\]
+
+It must derive a dynamically preserved map
+
+\[
+\Pi_{\rm obs}:T^*Y\to T^*X
+\]
+
+with rank four and Lorentzian signature \((1,3)\) **before** propagation is defined.
+
+## Next decisive calculation
+
+1. Extract the observation-map differential and horizontal/vertical splitting from the source.
+2. Construct every source-compatible rank-four characteristic projector.
+3. Test gauge/BRST invariance and propagation of the projector constraint.
+4. Derive the reduced principal symbol.
+5. Count physical modes.
+6. Stop if no invariant projector exists or if the reduced system does not have two graviton helicities.
+
+No aggregate score is used. A fatal zero terminates only the branch to which it applies.
 
 ## Reproduction
 

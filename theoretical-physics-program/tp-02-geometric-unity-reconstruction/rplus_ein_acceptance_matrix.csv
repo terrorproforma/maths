@@ -1,0 +1,12 @@
+branch,gate_id,tier,applicable,fatal_if_applicable,score,status,reason
+R_PLUS_EIN_ALG,ALG-01,algebraic,yes,yes,2,PASS,"Exact Cl(7,7), H of signature (64,64), canonical Phi tensors and full-adjoint Shiab extension are declared."
+R_PLUS_EIN_ALG,ALG-02,algebraic,yes,yes,1,PARTIAL,"The algebraic products close, but the complete nonlinear deformation/BRST complex is not yet constructed."
+R_PLUS_EIN_ALG,REP-01,reproducibility,yes,yes,2,PASS,"Exact standard-library verifier, machine-readable output and unit tests are committed."
+R_PLUS_EIN_FULL_Y,PERT-01,perturbative,yes,yes,1,PARTIAL,"The complete Hessian is not diagonalised; the geometric block is explicit."
+R_PLUS_EIN_FULL_Y,PERT-02,perturbative,yes,yes,0,FATAL FAIL,"The split-signature Einstein principal factor is not hyperbolic with respect to any covector."
+R_PLUS_EIN_FULL_Y,PERT-04,perturbative,yes,yes,1,FAILURE ALREADY TRIGGERED,"A standard causal initial-value problem is unavailable; no separate cone audit can rescue PERT-02."
+R_PLUS_EIN_FULL_Y,REC-01,recovery,yes,yes,0,FAIL,"Local full-Y propagation does not recover the four-dimensional two-helicity Einstein initial-value problem."
+R_PLUS_EIN_OBS4,ALG-01,algebraic,yes,yes,1,OPEN,"The required observation characteristic projector is not yet defined."
+R_PLUS_EIN_OBS4,ALG-05,algebraic,yes,yes,1,OPEN,"No reduced constraint or physical mode count exists."
+R_PLUS_EIN_OBS4,PERT-02,perturbative,yes,yes,1,OPEN,"A rank-four Lorentzian reduced symbol must be derived before this branch can pass."
+R_PLUS_EIN_OBS4,REC-01,recovery,yes,yes,1,OPEN,"Two graviton helicities and Einstein recovery remain to be demonstrated."
