@@ -58,6 +58,38 @@ jobs:
         working-directory: chronometric-emergence/frontier-evidence-v2
         run: python tools/apply_ci_repairs.py
 
+      - name: Print gate diagnostics
+        working-directory: chronometric-emergence/frontier-evidence-v2
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import numpy as np
+          from frontier_evidence.scalar_two_time import run as run_scalar
+          from frontier_evidence.lpm_repair import run as run_lpm
+
+          def default(value):
+              if isinstance(value, np.generic):
+                  return value.item()
+              if isinstance(value, np.ndarray):
+                  return value.tolist()
+              raise TypeError(type(value).__name__)
+
+          scalar, _ = run_scalar()
+          print('=== SCALAR GATES ===')
+          print(json.dumps({
+              'gates': scalar['gates'],
+              'metrics': {key: value for key, value in scalar.items() if key not in {'gates', 'config'}},
+          }, indent=2, default=default))
+          lpm = run_lpm(Path('../..').resolve(), full=False)
+          print('=== LPM GATES ===')
+          print(json.dumps({
+              'gates': lpm['gates'],
+              'full_recomputation': lpm['full_recomputation'],
+              'diagnostics': lpm,
+          }, indent=2, default=default))
+          PY
+
       - name: Run fallible tests and regenerate evidence
         working-directory: chronometric-emergence/frontier-evidence-v2
         run: make full
