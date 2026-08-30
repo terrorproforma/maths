@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "phase": "inhomogeneous gauge-group sign audit",
+  "source_equations": {
+    "right_affine_action": "draft eq. (6.2)",
+    "tilted_stabilizer": "draft eq. (6.4), used again in eq. (6.13)",
+    "augmented_torsion": "draft eq. (7.3)",
+    "claimed_equivariance": "draft Lemma 7.2 and eq. (7.4)",
+    "source_warning": "draft footnote 7 says section 6 may contain conflicting conventions"
+  },
+  "exact_test_data": {
+    "D": [["0", "1"], ["0", "0"]],
+    "A0": [["1", "0"], ["0", "-1"]],
+    "epsilon": [["1", "1"], ["0", "1"]],
+    "h": [["2", "0"], ["1", "1"]],
+    "a": [["0", "1"], ["1", "0"]]
+  },
+  "checks": {
+    "printed_semidirect_product_is_associative_in_exact_test": true,
+    "printed_affine_formula_is_a_right_action_in_exact_test": true,
+    "printed_tau_minus_is_a_homomorphism_in_exact_test": true,
+    "printed_tau_minus_stabilizes_A0": true,
+    "printed_T_minus_is_equivariant_under_tau_minus": false,
+    "T_minus_failure_matches_minus_2_h_inverse_dA0_h": true,
+    "repaired_T_plus_is_equivariant_under_tau_minus": true,
+    "alternative_tau_plus_is_a_homomorphism_in_exact_test": true,
+    "printed_T_minus_is_equivariant_under_tau_plus": true,
+    "alternative_tau_plus_stabilizes_A0": false
+  },
+  "printed_equivariance_counterexample": {
+    "T_minus_after_right_tau_minus_action": [["-3/2", "1/2"], ["15/2", "3/2"]],
+    "Ad_h_inverse_T_minus": [["-1/2", "-1/2"], ["5/2", "1/2"]],
+    "residual": [["-1", "1"], ["5", "1"]],
+    "predicted_residual_minus_2_h_inverse_dA0_h": [["-1", "1"], ["5", "1"]]
+  },
+  "repair_A": {
+    "description": "Keep the printed right action and stabilizing tau_minus; reverse the connection-difference order, equivalently use T_plus=a+epsilon^{-1}d_A0 epsilon.",
+    "residual": [["0", "0"], ["0", "0"]],
+    "equivariant": true,
+    "tau_still_stabilizes_A0": true
+  },
+  "repair_B": {
+    "description": "Keep printed T_minus but flip tau to tau_plus.",
+    "equivariance_residual": [["0", "0"], ["0", "0"]],
+    "equivariant": true,
+    "A0_stabilizer_residual": [["1", "-1"], ["-5", "-1"]],
+    "stabilizes_A0": false
+  },
+  "verdict": {
+    "printed_equations_mutually_consistent": false,
+    "minimal_source_compatible_repair": "Keep the right action and stabilizer; use T_plus or reverse the ordered affine difference.",
+    "scope": "A repairable sign inconsistency in the printed source, not a no-go theorem against every repaired Geometric Unity model."
+  }
+}
