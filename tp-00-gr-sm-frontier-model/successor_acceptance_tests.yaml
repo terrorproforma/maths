@@ -25,7 +25,7 @@ gates:
   pass_condition: No indispensable undefined object; observables are gauge/diffeomorphism invariant or tied to a
     declared operational prescription.
   sources: []
-  required_evidence_fields: &evidence
+  required_evidence_fields:
   - derivation_or_algorithm
   - input_version
   - machine_result
@@ -36,37 +36,64 @@ gates:
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Closure of covariance and gauge symmetries
-  operational_test: Compute commutators/BRST nilpotency or constraint generators and verify closure on the stated field space.
+  operational_test: Compute commutators/BRST nilpotency or constraint generators and verify closure on the stated
+    field space.
   pass_condition: Algebra closes without field-dependent inconsistency; reducibility and boundary charges are declared.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ALG-03
   tier: algebraic
   universality: UNIVERSAL FOR CHIRAL GAUGE THEORIES
   fatal_if_applicable: true
   requirement: Local anomaly cancellation
-  operational_test: Evaluate SU(3)^3, SU(3)^2U(1), SU(2)^2U(1), U(1)^3 and grav^2 U(1) coefficients in a left-handed basis.
+  operational_test: Evaluate SU(3)^3, SU(3)^2U(1), SU(2)^2U(1), U(1)^3 and grav^2 U(1) coefficients in a left-handed
+    basis.
   pass_condition: All gauged local anomaly coefficients vanish or are cancelled by a fully specified mechanism.
-  sources: [SRC-PDG-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ALG-04
   tier: algebraic
   universality: UNIVERSAL FOR RELEVANT GLOBAL GAUGE STRUCTURES
   fatal_if_applicable: true
   requirement: Global anomaly cancellation
-  operational_test: Check Witten SU(2) parity and any cobordism/global anomaly appropriate to the global gauge group and spacetime structure.
+  operational_test: Check Witten SU(2) parity and any cobordism/global anomaly appropriate to the global gauge group
+    and spacetime structure.
   pass_condition: Path integral/physical state space is globally gauge invariant.
-  sources: [SRC-WITTEN-1982]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-WITTEN-1982
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ALG-05
   tier: algebraic
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Physical degree-of-freedom count
-  operational_test: Hamiltonian/BRST analysis separating constraints, gauge modes and propagating modes around each claimed background.
-  pass_condition: No hidden negative-norm or overconstrained sector; low-energy spectrum contains the required 2 graviton helicities and SM states.
+  operational_test: Hamiltonian/BRST analysis separating constraints, gauge modes and propagating modes around each
+    claimed background.
+  pass_condition: No hidden negative-norm or overconstrained sector; low-energy spectrum contains the required 2
+    graviton helicities and SM states.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ALG-06
   tier: algebraic
   universality: UNIVERSAL FOR GENERALLY COVARIANT THEORIES
@@ -75,34 +102,57 @@ gates:
   operational_test: Compute Poisson/Dirac brackets and surface terms; verify propagation of constraints.
   pass_condition: First-/second-class structure is consistent and boundary conditions make generators differentiable.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: PERT-01
   tier: perturbative
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: No ghosts, tachyons or gradient instabilities in claimed domain
   operational_test: Diagonalize the quadratic action and principal symbol on every phenomenologically relevant background.
-  pass_condition: Positive residues/kinetic matrix, real nonnegative frequencies where stability is claimed, and no unremoved Ostrogradsky mode.
+  pass_condition: Positive residues/kinetic matrix, real nonnegative frequencies where stability is claimed, and
+    no unremoved Ostrogradsky mode.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: PERT-02
   tier: perturbative
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Hyperbolicity and well-posed initial value problem
-  operational_test: Determine characteristic polynomial/cones and prove or numerically demonstrate strong hyperbolicity with constraints.
+  operational_test: Determine characteristic polynomial/cones and prove or numerically demonstrate strong hyperbolicity
+    with constraints.
   pass_condition: Existence, uniqueness and continuous dependence for admissible initial data.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: PERT-03
   tier: perturbative
   universality: UNIVERSAL QUANTUM
   fatal_if_applicable: true
   requirement: Unitarity or positive physical spectral density
-  operational_test: Optical theorem/cutting checks, Kallen-Lehmann positivity for gauge-invariant observables, and pole-residue tests.
+  operational_test: Optical theorem/cutting checks, Kallen-Lehmann positivity for gauge-invariant observables, and
+    pole-residue tests.
   pass_condition: No negative probability in physical Hilbert space within EFT validity.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: PERT-04
   tier: perturbative
   universality: UNIVERSAL
@@ -110,17 +160,32 @@ gates:
   requirement: Causality and acceptable characteristic cones
   operational_test: Compare matter/gravity characteristic cones, analyticity/dispersion relations and front velocities.
   pass_condition: No causal loops or experimentally excluded superluminal/preferred-frame signal in the stated domain.
-  sources: [SRC-PDG-2026, SRC-WILL-2014]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  - SRC-WILL-2014
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: PERT-05
   tier: perturbative
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Radiative stability and EFT closure
-  operational_test: List counterterms/operators generated by loops; run RG and threshold matching; state cutoff and truncation error.
+  operational_test: List counterterms/operators generated by loops; run RG and threshold matching; state cutoff
+    and truncation error.
   pass_condition: Predictions close under renormalization/Wilsonian expansion to declared accuracy.
-  sources: [SRC-DONOGHUE-1994, SRC-SMEFT-2010]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-DONOGHUE-1994
+  - SRC-SMEFT-2010
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: REC-01
   tier: recovery
   universality: UNIVERSAL
@@ -128,8 +193,17 @@ gates:
   requirement: Einstein equations in the classical weak-curvature limit
   operational_test: Take hbar -> 0 and E/M_UV -> 0; derive G_mn + Lambda g_mn = Mbar_P^-2 T_mn plus bounded corrections.
   pass_condition: Corrections satisfy all relevant solar-system, pulsar and GW bounds and decouple continuously.
-  sources: [SRC-WILL-2014, SRC-MICROSCOPE-2022, SRC-DOUBLE-PULSAR-2021, SRC-GWTC4-GR-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-WILL-2014
+  - SRC-MICROSCOPE-2022
+  - SRC-DOUBLE-PULSAR-2021
+  - SRC-GWTC4-GR-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: REC-02
   tier: recovery
   universality: UNIVERSAL
@@ -137,8 +211,14 @@ gates:
   requirement: Standard Model gauge representations and interactions
   operational_test: Derive the low-energy chiral multiplets, hypercharges Q=T3+Y, gauge couplings and Higgs mechanism.
   pass_condition: No missing/extra light charged state and correct electric/color charges to experimental precision.
-  sources: [SRC-PDG-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: REC-03
   tier: recovery
   universality: UNIVERSAL
@@ -146,26 +226,49 @@ gates:
   requirement: Measured particle poles, widths and mixing
   operational_test: Match masses/couplings/CKM/PMNS and uncertainty covariance at a declared renormalization scheme/scale.
   pass_condition: Global fit is at least as good as the baseline in its claimed domain.
-  sources: [SRC-PDG-2026, SRC-ATLAS-H-2023, SRC-KATRIN-2025]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  - SRC-ATLAS-H-2023
+  - SRC-KATRIN-2025
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: REC-04
   tier: recovery
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Lorentz invariance and CPT in tested regimes unless explicitly broken
   operational_test: Map all Lorentz-violating coefficients to current laboratory, astrophysical and GW constraints.
-  pass_condition: Coefficients remain below applicable bounds; spontaneous breaking includes stable modes and a consistent frame.
-  sources: [SRC-PDG-2026, SRC-GWTC4-GR-2026]
-  required_evidence_fields: *evidence
+  pass_condition: Coefficients remain below applicable bounds; spontaneous breaking includes stable modes and a
+    consistent frame.
+  sources:
+  - SRC-PDG-2026
+  - SRC-GWTC4-GR-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: NP-01
   tier: nonperturbative
   universality: UNIVERSAL FOR QCD SUCCESSORS
   fatal_if_applicable: true
   requirement: QCD confinement/chiral/hadron limit
-  operational_test: Lattice, bootstrap or controlled analytic calculation of representative spectrum, string tension and chiral observables.
+  operational_test: Lattice, bootstrap or controlled analytic calculation of representative spectrum, string tension
+    and chiral observables.
   pass_condition: Reproduces established QCD observables and thermodynamics within uncertainties.
-  sources: [SRC-PDG-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: NP-02
   tier: nonperturbative
   universality: MODEL CLASS CONDITIONAL
@@ -173,17 +276,33 @@ gates:
   requirement: Vacuum and topological-sector control
   operational_test: Compute tunnelling, defects, theta sectors, finite-temperature transitions and vacuum lifetime.
   pass_condition: Chosen vacuum is reached and survives cosmological history without excluded relics.
-  sources: [SRC-NEDM-2020, SRC-VACUUM-STABILITY-2024]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-NEDM-2020
+  - SRC-VACUUM-STABILITY-2024
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: LAB-01
   tier: laboratory
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Electroweak precision and Higgs compatibility
   operational_test: Global likelihood including Z pole, m_W, Higgs signal strengths and diboson observables.
-  pass_condition: No degradation beyond stated confidence and systematics; anomalies are treated with frozen data versions.
-  sources: [SRC-PDG-2026, SRC-ATLAS-H-2023, SRC-ATLAS-W-2024]
-  required_evidence_fields: *evidence
+  pass_condition: No degradation beyond stated confidence and systematics; anomalies are treated with frozen data
+    versions.
+  sources:
+  - SRC-PDG-2026
+  - SRC-ATLAS-H-2023
+  - SRC-ATLAS-W-2024
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: LAB-02
   tier: laboratory
   universality: UNIVERSAL
@@ -191,8 +310,15 @@ gates:
   requirement: Flavour, CP, rare-process and stability bounds
   operational_test: Compute FCNC, EDMs, meson mixing, charged-lepton flavour violation, proton/nucleon decay.
   pass_condition: All predictions within limits and observed CKM/PMNS CP structure recovered.
-  sources: [SRC-PDG-2026, SRC-NEDM-2020]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  - SRC-NEDM-2020
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: LAB-03
   tier: laboratory
   universality: UNIVERSAL
@@ -200,17 +326,31 @@ gates:
   requirement: Equivalence principle and fifth-force bounds
   operational_test: Derive composition-dependent scalar/vector charges and finite-range force law.
   pass_condition: MICROSCOPE and terrestrial/clock constraints satisfied for the model range and screening regime.
-  sources: [SRC-MICROSCOPE-2022]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-MICROSCOPE-2022
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ASTRO-01
   tier: astrophysical
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Compact-object structure and binary dynamics
-  operational_test: Solve stellar/black-hole exterior solutions, stability and radiation; compare pulsars and X-ray/GW data.
+  operational_test: Solve stellar/black-hole exterior solutions, stability and radiation; compare pulsars and X-ray/GW
+    data.
   pass_condition: No excluded dipole radiation, mass-radius, timing or strong-field signature.
-  sources: [SRC-DOUBLE-PULSAR-2021, SRC-GWTC4-GR-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-DOUBLE-PULSAR-2021
+  - SRC-GWTC4-GR-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ASTRO-02
   tier: astrophysical
   universality: UNIVERSAL
@@ -218,26 +358,48 @@ gates:
   requirement: Gravitational-wave generation and propagation
   operational_test: Compute polarizations, dispersion, inspiral-merger-ringdown and stochastic backgrounds.
   pass_condition: Passes catalog-wide tests and model-specific waveform systematics.
-  sources: [SRC-GWTC4-GR-2026]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-GWTC4-GR-2026
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: ASTRO-03
   tier: astrophysical
   universality: MODEL CLASS CONDITIONAL
   fatal_if_applicable: false
   requirement: Dark-sector astrophysics
-  operational_test: Halo structure, lensing, cluster mergers, self-interactions, stellar cooling and compact-object capture.
+  operational_test: Halo structure, lensing, cluster mergers, self-interactions, stellar cooling and compact-object
+    capture.
   pass_condition: Joint fit across scales, not a single rotation-curve fit.
-  sources: [SRC-BULLET-2006, SRC-LZ-2024]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-BULLET-2006
+  - SRC-LZ-2024
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: COS-01
   tier: cosmological
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Radiation era, BBN and recombination
-  operational_test: Evolve background and perturbations through thermalization, neutrino decoupling, BBN and atomic recombination.
+  operational_test: Evolve background and perturbations through thermalization, neutrino decoupling, BBN and atomic
+    recombination.
   pass_condition: Light-element abundances and CMB visibility/anisotropies within likelihood constraints.
-  sources: [SRC-PDG-2026, SRC-PLANCK-2018]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PDG-2026
+  - SRC-PLANCK-2018
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: COS-02
   tier: cosmological
   universality: UNIVERSAL
@@ -245,8 +407,16 @@ gates:
   requirement: CMB/BAO/SNe/growth recovery
   operational_test: Run Boltzmann and nonlinear-structure predictions with a frozen data combination.
   pass_condition: Likelihood is competitive with base LambdaCDM without hidden parameter/data choices.
-  sources: [SRC-PLANCK-2018, SRC-DESI-DR2-2025, SRC-RIESS-2022]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PLANCK-2018
+  - SRC-DESI-DR2-2025
+  - SRC-RIESS-2022
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: COS-03
   tier: cosmological
   universality: UNIVERSAL
@@ -254,17 +424,32 @@ gates:
   requirement: Primordial perturbation origin or explicit initial condition
   operational_test: Predict A_s, n_s, isocurvature, non-Gaussianity, tensors and reheating/initial-state transfer.
   pass_condition: Matches scalar data and r bound; initial-state assumptions are explicit and normalized.
-  sources: [SRC-PLANCK-2018, SRC-BICEP-2021]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PLANCK-2018
+  - SRC-BICEP-2021
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: COS-04
   tier: cosmological
   universality: MODEL CLASS CONDITIONAL
   fatal_if_applicable: false
   requirement: Dark matter abundance or complete alternative
-  operational_test: Compute freeze-out/freeze-in/misalignment/structure history, or modified-gravity substitute across CMB to galaxies.
+  operational_test: Compute freeze-out/freeze-in/misalignment/structure history, or modified-gravity substitute
+    across CMB to galaxies.
   pass_condition: Reproduces abundance, lensing and growth and passes direct/indirect/production constraints.
-  sources: [SRC-PLANCK-2018, SRC-LZ-2024]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PLANCK-2018
+  - SRC-LZ-2024
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: COS-05
   tier: cosmological
   universality: UNIVERSAL
@@ -272,17 +457,30 @@ gates:
   requirement: Late acceleration
   operational_test: Predict H(z), distances and growth with stable perturbations and local-gravity limit.
   pass_condition: Fits CMB+BAO+SNe+growth at least as well as the declared baseline.
-  sources: [SRC-PLANCK-2018, SRC-DESI-DR2-2025]
-  required_evidence_fields: *evidence
+  sources:
+  - SRC-PLANCK-2018
+  - SRC-DESI-DR2-2025
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 - id: REP-01
   tier: reproducibility
   universality: UNIVERSAL
   fatal_if_applicable: true
   requirement: Executable and provenance-complete evidence
-  operational_test: Pinned code/environment, tests, machine-readable outputs, source versions and deterministic seeds.
+  operational_test: Pinned code/environment, tests, machine-readable outputs, source versions and deterministic
+    seeds.
   pass_condition: Independent researcher can reproduce every reported number or identify it as sourced input.
   sources: []
-  required_evidence_fields: *evidence
+  required_evidence_fields:
+  - derivation_or_algorithm
+  - input_version
+  - machine_result
+  - uncertainty_or_domain
+  - status_0_1_2_or_NA
 candidate_record_template:
   candidate_id: ''
   version: ''

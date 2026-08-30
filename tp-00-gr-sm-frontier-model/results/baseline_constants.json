@@ -1,0 +1,80 @@
+{
+  "snapshot": "2026-08-27",
+  "conventions": {
+    "d": 4,
+    "metric_signature": "-+++",
+    "hbar": 1,
+    "c": 1,
+    "electric_charge": "Q=T3+Y",
+    "generator_normalization": "Tr(Ta Tb)=delta_ab/2"
+  },
+  "representative_inputs": {
+    "Mbar_P_GeV": 2.435e+18,
+    "v_GeV": 246.22,
+    "m_H_GeV_ATLAS": {
+      "value": 125.11,
+      "uncertainty": 0.11,
+      "source": "SRC-ATLAS-H-2023"
+    },
+    "m_W_MeV_ATLAS": {
+      "value": 80366.5,
+      "uncertainty": 15.9,
+      "source": "SRC-ATLAS-W-2024"
+    },
+    "m_beta_eV_KATRIN_90CL_upper": {
+      "value": 0.45,
+      "source": "SRC-KATRIN-2025"
+    },
+    "eta_Ti_Pt_MICROSCOPE": {
+      "central": -1.5e-15,
+      "stat": 2.3e-15,
+      "syst": 1.5e-15,
+      "source": "SRC-MICROSCOPE-2022"
+    },
+    "graviton_mass_eV_90cred_upper": {
+      "value": 1.92e-23,
+      "source": "SRC-GWTC4-GR-2026"
+    },
+    "Planck_H0_km_s_Mpc": {
+      "value": 67.4,
+      "uncertainty": 0.5,
+      "source": "SRC-PLANCK-2018"
+    },
+    "SH0ES_H0_km_s_Mpc": {
+      "value": 73.04,
+      "uncertainty": 1.04,
+      "source": "SRC-RIESS-2022"
+    },
+    "Omega_c_h2": {
+      "value": 0.12,
+      "uncertainty": 0.001,
+      "source": "SRC-PLANCK-2018"
+    },
+    "tensor_to_scalar_r_005_95CL_upper": {
+      "value": 0.036,
+      "source": "SRC-BICEP-2021"
+    },
+    "m_W_MeV_CDFII": {
+      "value": 80433.5,
+      "uncertainty": 9.4,
+      "source": "SRC-CDF-W-2022"
+    },
+    "N_light_neutrinos_Z_width": {
+      "value": 2.9963,
+      "uncertainty": 0.0074,
+      "source": "SRC-PDG-2026"
+    },
+    "LZ_SI_cross_section_cm2_90CL_at_36_GeV": {
+      "value": 2.1e-48,
+      "source": "SRC-LZ-2024"
+    },
+    "double_pulsar_quadrupole_fractional_test": {
+      "value": 0.00013,
+      "source": "SRC-DOUBLE-PULSAR-2021"
+    },
+    "Hubble_energy_GeV_representative": {
+      "value": 1.5e-42,
+      "status": "derived representative scale; not a fit input"
+    }
+  }
+}

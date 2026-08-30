@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "warning": "Naive independent-Gaussian pulls are regression diagnostics only; they are not substitute likelihood analyses or universal successor gates.",
+  "naive_independent_gaussian_pulls": {
+    "SH0ES_minus_Planck_base_LCDM": 4.887561225309663,
+    "CDFII_minus_ATLAS_W_mass": 3.627349353866303
+  },
+  "MICROSCOPE_combined_uncertainty": 2.745906043549196e-15,
+  "MICROSCOPE_central_over_combined_sigma": -0.5462677805469223,
+  "representative_scale_span_decades_H0_to_MbarP": 60.21040770649497,
+  "electroweak_to_reduced_Planck_ratio": 1.011170431211499e-16
+}

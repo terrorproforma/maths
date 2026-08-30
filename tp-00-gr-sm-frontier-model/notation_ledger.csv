@@ -1,0 +1,13 @@
+symbol,convention,meaning
+d,4,spacetime dimension
+signature,"(-,+,+,+)",metric signature
+units,c=hbar=1,natural units unless SI values are quoted
+Mbar_P,(8 pi G_N)^(-1/2),reduced Planck mass
+Riemann,"[nabla_mu,nabla_nu]V^rho=R^rho_{ sigma mu nu}V^sigma",curvature convention
+Q,T_3+Y,electric charge convention
+T^a normalization,tr(T^aT^b)=delta^{ab}/2,fundamental SU(N) generators
+epsilon_0123,+sqrt(-g),Levi-Civita tensor convention
+tilde H,i sigma_2 H*,conjugate Higgs doublet
+G_SM Lie algebra,su(3)_C directsum su(2)_L directsum u(1)_Y,local gauge algebra; global quotient stated separately
+renormalization,MSbar unless otherwise declared,perturbative numerical inputs
+gravity expansion,g_mu_nu=gbar_mu_nu+2 h_mu_nu/Mbar_P,canonical graviton normalization used in perturbation theory

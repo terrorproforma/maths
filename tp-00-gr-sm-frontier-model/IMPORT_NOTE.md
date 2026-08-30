@@ -1,7 +1,7 @@
 # Repository import note
 
-This directory contains the complete top-level TP-00 artifact set supplied for repository import on 30 August 2026.
+The first repository import of TP-00 on 30 August 2026 contained only a reduced top-level subset. The complete reproducible v1.0 source package has now been restored from the original research archive.
 
-The preserved `manifest_sha256_original.csv` came from the fuller original build and names generated code, tests, tables, figures and auxiliary results that were not present in the supplied top-level upload. Those absent internals have **not** been reconstructed or silently fabricated. The authoritative imported artifacts are the paper source, checklist source, seam and gate ledgers, known limits, source/notation ledger, verification JSON, dependency map, references, claim matrix and terminal verdict.
+The project root now contains the canonical source, code, tests, generated-table sources, machine-readable results, manifests and build instructions. Compiled papers, figures and release archives are rebuilt by the repository workflow and committed as generated artifacts.
 
-Compiled PDFs were available in the source session but are generated artifacts; the canonical manuscript sources are committed here. Future revisions should add source files directly rather than replacing this historical note.
+Git history preserves the earlier reduced import. No missing scientific content was silently reconstructed: restored files are taken from the original package, while regenerated artifacts are produced only by the committed code and recorded toolchain.

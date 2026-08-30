@@ -33,12 +33,16 @@
     {
       "id": "required_seams_present",
       "pass": true,
-      "details": {"count": 18}
+      "details": {
+        "count": 18
+      }
     },
     {
       "id": "seam_rows_traceable",
       "pass": true,
-      "details": {"rows": 18}
+      "details": {
+        "rows": 18
+      }
     },
     {
       "id": "seam_taxonomy_binary",
@@ -58,7 +62,9 @@
     {
       "id": "gate_ids_unique",
       "pass": true,
-      "details": {"count": 29}
+      "details": {
+        "count": 29
+      }
     },
     {
       "id": "test_hierarchy_complete",
@@ -86,26 +92,48 @@
     {
       "id": "fatal_gates_declared",
       "pass": true,
-      "details": {"fatal_count": 26}
+      "details": {
+        "fatal_count": 26
+      }
     },
     {
       "id": "source_keys_resolve",
       "pass": true,
-      "details": {"missing": [], "source_count": 32}
+      "details": {
+        "missing": [],
+        "source_count": 32
+      }
     },
     {
       "id": "dependency_map_TP01_TP16",
       "pass": true,
       "details": {
         "projects": [
-          "TP-01","TP-02","TP-03","TP-04","TP-05","TP-06","TP-07","TP-08","TP-09","TP-10","TP-11","TP-12","TP-13","TP-14","TP-15","TP-16"
+          "TP-01",
+          "TP-02",
+          "TP-03",
+          "TP-04",
+          "TP-05",
+          "TP-06",
+          "TP-07",
+          "TP-08",
+          "TP-09",
+          "TP-10",
+          "TP-11",
+          "TP-12",
+          "TP-13",
+          "TP-14",
+          "TP-15",
+          "TP-16"
         ]
       }
     },
     {
       "id": "required_deliverables_present",
       "pass": true,
-      "details": {"missing": []}
+      "details": {
+        "missing": []
+      }
     }
   ],
   "summary": {

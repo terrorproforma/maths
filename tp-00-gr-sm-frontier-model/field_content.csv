@@ -1,0 +1,11 @@
+field,spin,su3,su2,Y,multiplicity,role
+Q_L,1/2 LH Weyl,3,2,1/6,6,left quark doublet
+u_R^c,1/2 LH Weyl,3bar,1,-2/3,3,charge-conjugate up singlet
+d_R^c,1/2 LH Weyl,3bar,1,1/3,3,charge-conjugate down singlet
+L_L,1/2 LH Weyl,1,2,-1/2,2,left lepton doublet
+e_R^c,1/2 LH Weyl,1,1,1,1,charge-conjugate charged-lepton singlet
+H,complex scalar,1,2,1/2,2,Higgs doublet
+G_mu^A,gauge vector,8 adj,1,0,8,gluons
+W_mu^I,gauge vector,1,3 adj,0,3,weak gauge bosons
+B_mu,gauge vector,1,1,0,1,hypercharge gauge boson
+g_mu_nu,metric / massless spin 2 EFT,1,1,0,1,spacetime metric

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "deterministic": true,
+  "random_seed": null,
+  "source_files": [
+    "seam_ledger.csv",
+    "verified_domains.csv",
+    "successor_acceptance_tests.yaml"
+  ],
+  "figure_files": [
+    "acceptance_architecture.pdf",
+    "acceptance_architecture.png",
+    "evidence_status_chart.pdf",
+    "evidence_status_chart.png",
+    "seam_taxonomy_matrix.pdf",
+    "seam_taxonomy_matrix.png",
+    "verified_scale_map.pdf",
+    "verified_scale_map.png"
+  ],
+  "array_file": "results/benchmark_arrays.npz"
+}

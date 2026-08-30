@@ -1,0 +1,165 @@
+{
+  "snapshot": "2026-08-27",
+  "sources": [
+    {
+      "source_id": "SRC-PDG-2026",
+      "persistent_id": "doi:10.1142/S0217751X26300115",
+      "version": "2026 edition; listings/table cutoff 2026-01-15"
+    },
+    {
+      "source_id": "SRC-KATRIN-2025",
+      "persistent_id": "doi:10.1126/science.adq9592; arXiv:2406.13516",
+      "version": "v1 and journal publication"
+    },
+    {
+      "source_id": "SRC-ATLAS-H-2023",
+      "persistent_id": "arXiv:2308.04775",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-ATLAS-W-2024",
+      "persistent_id": "arXiv:2403.15085",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-CDF-W-2022",
+      "persistent_id": "doi:10.1126/science.abk1781",
+      "version": "journal publication"
+    },
+    {
+      "source_id": "SRC-MUONG2-2026",
+      "persistent_id": "arXiv:2606.17323",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-MUONG2-WP25",
+      "persistent_id": "arXiv:2505.21476",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-MICROSCOPE-2022",
+      "persistent_id": "doi:10.1103/PhysRevLett.129.121102; arXiv:2209.15487",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-DOUBLE-PULSAR-2021",
+      "persistent_id": "doi:10.1103/PhysRevX.11.041050; arXiv:2112.06795",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-GWTC4-GR-2026",
+      "persistent_id": "arXiv:2603.19020",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-EHT-SGRA-2023",
+      "persistent_id": "arXiv:2311.09484",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-PLANCK-2018",
+      "persistent_id": "doi:10.1051/0004-6361/201833910; arXiv:1807.06209",
+      "version": "v4"
+    },
+    {
+      "source_id": "SRC-DESI-DR2-2025",
+      "persistent_id": "arXiv:2503.14738",
+      "version": "v3"
+    },
+    {
+      "source_id": "SRC-BICEP-2021",
+      "persistent_id": "doi:10.1103/PhysRevLett.127.151301; arXiv:2110.00483",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-LZ-2024",
+      "persistent_id": "arXiv:2410.17036",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-RIESS-2022",
+      "persistent_id": "arXiv:2112.04510",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-GOROFF-SAGNOTTI-1986",
+      "persistent_id": "doi:10.1016/0550-3213(86)90193-8",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-DONOGHUE-1994",
+      "persistent_id": "doi:10.1103/PhysRevD.50.3874; arXiv:gr-qc/9405057",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-HAWKING-PENROSE-1970",
+      "persistent_id": "doi:10.1098/rspa.1970.0021",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-WEINBERG-CC-1989",
+      "persistent_id": "doi:10.1103/RevModPhys.61.1",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-WITTEN-1982",
+      "persistent_id": "doi:10.1016/0370-2693(82)90728-6",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-TONG-2017",
+      "persistent_id": "arXiv:1705.01853",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-HSIN-2024",
+      "persistent_id": "arXiv:2411.18160",
+      "version": "v1; arXiv record accessed 2026-08-27"
+    },
+    {
+      "source_id": "SRC-NEDM-2020",
+      "persistent_id": "doi:10.1103/PhysRevLett.124.081803; arXiv:2001.11966",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-SAKHAROV-1967",
+      "persistent_id": "doi:10.1070/PU1991v034n05ABEH002497",
+      "version": "1991 English reprint of 1967 paper"
+    },
+    {
+      "source_id": "SRC-SPHALERON-2012",
+      "persistent_id": "arXiv:1212.3206",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-WEINBERG-OP-1979",
+      "persistent_id": "doi:10.1103/PhysRevLett.43.1566",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-SMEFT-2010",
+      "persistent_id": "doi:10.1007/JHEP10(2010)085; arXiv:1008.4884",
+      "version": "v3"
+    },
+    {
+      "source_id": "SRC-WILL-2014",
+      "persistent_id": "doi:10.12942/lrr-2014-4; arXiv:1403.7377",
+      "version": "v2"
+    },
+    {
+      "source_id": "SRC-PQ-1977",
+      "persistent_id": "doi:10.1103/PhysRevLett.38.1440",
+      "version": "published"
+    },
+    {
+      "source_id": "SRC-BULLET-2006",
+      "persistent_id": "doi:10.1086/508162; arXiv:astro-ph/0608407",
+      "version": "v1"
+    },
+    {
+      "source_id": "SRC-VACUUM-STABILITY-2024",
+      "persistent_id": "doi:10.1103/PhysRevD.110.115017; arXiv:2401.08811",
+      "version": "v4 (2026-03-05); Phys. Rev. D 110, 115017 (2024)"
+    }
+  ]
+}

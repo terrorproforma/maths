@@ -30,28 +30,56 @@ A machine-validated, importable audit standard comprising:
 - 18 seam entries tied to equations, evidence and resolution criteria;
 - 29 operational successor gates across algebraic, perturbative, nonperturbative, laboratory, astrophysical, cosmological and reproducibility tiers;
 - a dependency map for TP-01 through TP-16;
-- deterministic verification results and generated manuscript sources.
+- deterministic code, tests, JSON results and generated figures.
 
 ## Terminal verdict
 
 **Positive result:** the baseline acceptance framework is internally coherent and executable.  
 **Negative result:** no honest scalar score can compress all successor requirements, and GR+SM cannot be represented as an already unified or UV-complete fundamental theory.  
 **Open physics:** quantum gravity, vacuum energy, singularities, dark matter, dark energy microphysics, neutrino-mass origin, baryogenesis, primordial initial conditions, hierarchy, strong CP, flavour, family number, black-hole information and global gauge structure.  
-**Publication status:** publishable as a methods/standards or research-infrastructure note after expert review; it is not a new fundamental-physics discovery.  
-**Next decisive calculation:** no additional TP-00 calculation is required. Apply the gates to concrete successors before expensive phenomenology.
+**Publication status:** publishable now as a methods/standards or research-infrastructure note after expert review; it is not a new fundamental-physics discovery. A stronger journal version should blind-audit at least TP-01 and TP-02 using the frozen YAML gates.  
+**Next decisive calculation:** no additional TP-00 calculation is required. Apply the gates to a concrete successor by computing its linearized spectrum, constraint algebra, anomaly polynomial and low-energy matching residuals before any expensive phenomenology.
+
+## Reproduce
+
+The one-command build regenerates tables and figures, compiles both PDFs, runs the invariant verifier and unit tests, and writes a SHA-256 manifest:
+
+```bash
+python -m pip install -r requirements.txt
+make all
+```
+
+Equivalent explicit sequence:
+
+```bash
+python code/generate_latex_tables.py --root .
+python code/generate_figures.py --root .
+cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error minimum_viable_successor_checklist.tex
+cd paper && latexmk -pdf -interaction=nonstopmode -halt-on-error frontier_model_constraint_ledger.tex
+cp paper/minimum_viable_successor_checklist.pdf .
+cp paper/frontier_model_constraint_ledger.pdf .
+python code/verify_frontier_model.py --root .
+python -m unittest discover -s tests -v
+python code/build_manifest.py --root .
+```
+
+The verifier writes `results/verification_results.json` and `results/numerical_diagnostics.json`, and exits nonzero on a failed invariant. Figures are generated from the machine-readable ledgers; their underlying arrays are stored in `results/benchmark_arrays.npz`.
 
 ## Key files
 
-- `paper/frontier_model_constraint_ledger.tex` - complete technical-paper source.
-- `paper/minimum_viable_successor_checklist.tex` - one-page audit source.
+- `frontier_model_action.tex` - complete layered action and conventions.
 - `seam_ledger.csv` - equation-level seam taxonomy.
 - `successor_acceptance_tests.yaml` - importable gate schema and candidate template.
 - `known_limits.md` - operational recovery limits.
-- `dependency_map.md` - TP-01 through TP-16 mapping.
-- `source_and_notation_ledger.md` - source/version and convention provenance.
+- `minimum_viable_successor_checklist.md` and `.pdf` - one-page audit.
+- `dependency_map.csv` / `.md` - TP-01 through TP-16 mapping.
+- `frontier_model_constraint_ledger.pdf` - compiled technical paper; editable source is in `paper/`.
+- `source_ledger.csv` and `notation_ledger.csv` - source/version and convention provenance.
 - `claim_novelty_acceptance_matrix.csv` - epistemic status and novelty boundary.
-- `results/verification_results.json` - machine-readable checks.
-- `manifest_sha256_original.csv` - original full-build manifest retained for provenance.
+- `tables/` and `figures/` - generated paper inputs.
+- `results/verification_results.json`, `results/numerical_diagnostics.json`, and `results/benchmark_arrays.npz` - machine-readable checks and arrays.
+- `manifest_sha256.csv` - distributable-file checksums.
+- `code/` and `tests/` - executable validation, table generation, figures and tests.
 
 ## Scope warning
 

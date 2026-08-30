@@ -1,0 +1,70 @@
+% TP-00 frontier_model_action.tex
+% Conventions: d=4, signature (-,+,+,+), c=hbar=1, Q=T_3+Y.
+\section{Baseline field content and layered action}\label{sec:action}
+The object audited here is not a unified theory. It is the layered low-energy theory
+\begin{equation}
+\mathfrak T_{\rm F}=\bigl(\mathcal X,\,g_{\mu\nu};\,G^A_\mu,W^I_\mu,B_\mu;\,Q_L,u_R,d_R,L_L,e_R,H;\,\mathrm{Diff}(\mathcal X)\ltimes G_{\rm SM};\,S_{\rm F};\,\mathcal O;\,\mathcal I,\mathcal B\bigr),
+\end{equation}
+where $\mathcal O$ denotes gauge-invariant observables and $\mathcal I,\mathcal B$ denote state, initial and boundary data.  The local gauge algebra is
+\begin{equation}
+\mathfrak g_{\rm SM}=\mathfrak{su}(3)_C\oplus\mathfrak{su}(2)_L\oplus\mathfrak u(1)_Y,
+\end{equation}
+while the faithful global group can be
+\begin{equation}
+G_{\rm SM}=\frac{SU(3)_C\times SU(2)_L\times U(1)_Y}{\Gamma},\qquad
+\Gamma\in\{1,\mathbb Z_2,\mathbb Z_3,\mathbb Z_6\},
+\end{equation}
+and must be declared by any successor.
+
+The action is separated by epistemic and EFT status:
+\begin{align}
+S_{\rm F}={}&S_{\rm EH+\Lambda}+S_{\rm SM}^{(d\le4)}+S_{\nu}^{(5)}+S_{\rm grav,EFT}+S_{\rm SMEFT}^{(d\ge6)}+S_{\rm gf+gh},\\
+S_{\rm EH+\Lambda}={}&\int d^4x\sqrt{-g}\,\frac{\bar M_P^2}{2}(R-2\Lambda),\qquad \bar M_P=(8\pi G_N)^{-1/2}.
+\end{align}
+The renormalizable Standard Model Lagrangian is
+\begin{align}
+\mathcal L_{\rm SM}^{(d\le4)}={}&-\frac14G^A_{\mu\nu}G^{A\mu\nu}-\frac14W^I_{\mu\nu}W^{I\mu\nu}-\frac14B_{\mu\nu}B^{\mu\nu}
++\frac{g_s^2\bar\theta}{32\pi^2}G^A_{\mu\nu}\widetilde G^{A\mu\nu}\\
+&+\sum_{f}i\bar f\gamma^\mu D_\mu f-(D_\mu H)^\dagger D^\mu H-V(H)-\mathcal L_Y,\\
+V(H)={}&-m^2H^\dagger H+\lambda(H^\dagger H)^2,\\
+\mathcal L_Y={}&\bar Q_LY_dHd_R+\bar Q_LY_u\widetilde H u_R+\bar L_LY_eHe_R+\mathrm{h.c.},\qquad \widetilde H=i\sigma_2H^*.
+\end{align}
+There are three copies of each chiral fermion multiplet.  In a left-handed Weyl basis, one generation is
+\begin{equation}
+Q_L:(\mathbf3,\mathbf2)_{1/6},\quad u_R^c:(\bar{\mathbf3},\mathbf1)_{-2/3},\quad d_R^c:(\bar{\mathbf3},\mathbf1)_{1/3},\quad L_L:(\mathbf1,\mathbf2)_{-1/2},\quad e_R^c:(\mathbf1,\mathbf1)_1,
+\end{equation}
+with $H:(\mathbf1,\mathbf2)_{1/2}$ and $Q=T_3+Y$.
+
+The minimal data-required neutrino extension is the dimension-five Weinberg operator
+\begin{equation}
+\mathcal L_{\nu}^{(5)}=\frac{C_5^{ij}}{2\Lambda_L}(L_i^TC\epsilon H)(H^T\epsilon L_j)+\mathrm{h.c.},\qquad
+m_\nu=-\frac{v^2}{2\Lambda_L}C_5,
+\end{equation}
+for $H=(0,(v+h)/\sqrt2)^T$.  This equation specifies an EFT coefficient, not its ultraviolet origin.
+
+Wilsonian closure on curved spacetime requires
+\begin{align}
+\mathcal L_{\rm grav,EFT}={}&\xi_HH^\dagger HR+c_{R^2}R^2+c_{C^2}C_{\mu\nu\rho\sigma}C^{\mu\nu\rho\sigma}+c_EE_4+c_{\Box R}\Box R\\
+&+\sum_{d>4,i}\frac{c^{\rm grav}_{d,i}}{\Lambda_{\rm grav}^{d-4}}\mathcal O^{\rm grav}_{d,i},\\
+\mathcal L_{\rm SMEFT}^{(d\ge6)}={}&\sum_{d\ge6,i}\frac{C_i^{(d)}}{\Lambda_{\rm BSM}^{d-4}}\mathcal O_i^{(d)}.
+\end{align}
+The curvature-squared and higher terms are required as EFT counterterms; nonzero SMEFT coefficients beyond the neutrino operator are not currently required by a confirmed anomaly.
+
+Gauge fixing is introduced only for calculations.  A compact BRST form is
+\begin{equation}
+S_{\rm gf+gh}^{\rm SM}=s\int d^4x\sqrt{-g}\,\bar c^a\left(F^a+\frac{\xi_a}{2}b^a\right),
+\end{equation}
+and a background de Donder choice for $g_{\mu\nu}=\bar g_{\mu\nu}+2h_{\mu\nu}/\bar M_P$ is
+\begin{equation}
+F_\mu=\bar\nabla^\nu h_{\mu\nu}-\frac12\bar\nabla_\mu h,\qquad
+\mathcal L_{\rm gf}^{\rm grav}=-\frac{1}{2\xi_g}F_\mu F^\mu,
+\end{equation}
+with the corresponding Faddeev--Popov ghosts.  Gauge parameters are not observables.
+
+Finally, a cosmological model adds assumptions not contained in the local action: an FLRW ansatz, a matter inventory, a quantum/statistical initial state and perturbation spectrum.  For base flat $\Lambda$CDM,
+\begin{equation}
+ds^2=-dt^2+a^2(t)d\mathbf x^2,\qquad
+H^2=\frac{8\pi G}{3}\rho+\frac{\Lambda}{3},\qquad
+\mathcal P_\zeta(k)=A_s(k/k_*)^{n_s-1},
+\end{equation}
+plus adiabatic initial conditions, the standard thermal history, BBN and recombination microphysics.  These assumptions must not be silently promoted to consequences of the GR+SM action.

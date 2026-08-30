@@ -1,0 +1,38 @@
+\begingroup\scriptsize
+\setlength\LTleft{0pt}\setlength\LTright{0pt}
+\begin{longtable}{@{}p{0.9cm}p{1.25cm}p{3.15cm}p{7.7cm}@{}}
+\caption{Operational successor gates. Applicability and model-class dependence are retained in the YAML/CSV records.}\label{tab:gates}\\
+\toprule ID & Tier & Requirement & Pass condition\\\midrule\endfirsthead
+\toprule ID & Tier & Requirement & Pass condition\\\midrule\endhead
+ALG-01 & algebraic & Well-defined theory tuple and observable map & No indispensable undefined object; observables are gauge/diffeomorphism invariant or tied to a declared operational prescription. \\
+ALG-02 & algebraic & Closure of covariance and gauge symmetries & Algebra closes without field-dependent inconsistency; reducibility and boundary charges are declared. \\
+ALG-03 & algebraic & Local anomaly cancellation & All gauged local anomaly coefficients vanish or are cancelled by a fully specified mechanism. \\
+ALG-04 & algebraic & Global anomaly cancellation & Path integral/physical state space is globally gauge invariant. \\
+ALG-05 & algebraic & Physical degree-of-freedom count & No hidden negative-norm or overconstrained sector; low-energy spectrum contains the required 2 graviton helicities and SM states. \\
+ALG-06 & algebraic & Constraint algebra and boundary consistency & First-/second-class structure is consistent and boundary conditions make generators differentiable. \\
+PERT-01 & perturbative & No ghosts, tachyons or gradient instabilities in claimed domain & Positive residues/kinetic matrix, real nonnegative frequencies where stability is claimed, and no unremoved Ostrogradsky mode. \\
+PERT-02 & perturbative & Hyperbolicity and well-posed initial value problem & Existence, uniqueness and continuous dependence for admissible initial data. \\
+PERT-03 & perturbative & Unitarity or positive physical spectral density & No negative probability in physical Hilbert space within EFT validity. \\
+PERT-04 & perturbative & Causality and acceptable characteristic cones & No causal loops or experimentally excluded superluminal/preferred-frame signal in the stated domain. \\
+PERT-05 & perturbative & Radiative stability and EFT closure & Predictions close under renormalization/Wilsonian expansion to declared accuracy. \\
+REC-01 & recovery & Einstein equations in the classical weak-curvature limit & Corrections satisfy all relevant solar-system, pulsar and GW bounds and decouple continuously. \\
+REC-02 & recovery & Standard Model gauge representations and interactions & No missing/extra light charged state and correct electric/color charges to experimental precision. \\
+REC-03 & recovery & Measured particle poles, widths and mixing & Global fit is at least as good as the baseline in its claimed domain. \\
+REC-04 & recovery & Lorentz invariance and CPT in tested regimes unless explicitly broken & Coefficients remain below applicable bounds; spontaneous breaking includes stable modes and a consistent frame. \\
+NP-01 & nonperturbative & QCD confinement/chiral/hadron limit & Reproduces established QCD observables and thermodynamics within uncertainties. \\
+NP-02 & nonperturbative & Vacuum and topological-sector control & Chosen vacuum is reached and survives cosmological history without excluded relics. \\
+LAB-01 & laboratory & Electroweak precision and Higgs compatibility & No degradation beyond stated confidence and systematics; anomalies are treated with frozen data versions. \\
+LAB-02 & laboratory & Flavour, CP, rare-process and stability bounds & All predictions within limits and observed CKM/PMNS CP structure recovered. \\
+LAB-03 & laboratory & Equivalence principle and fifth-force bounds & MICROSCOPE and terrestrial/clock constraints satisfied for the model range and screening regime. \\
+ASTRO-01 & astrophysical & Compact-object structure and binary dynamics & No excluded dipole radiation, mass-radius, timing or strong-field signature. \\
+ASTRO-02 & astrophysical & Gravitational-wave generation and propagation & Passes catalog-wide tests and model-specific waveform systematics. \\
+ASTRO-03 & astrophysical & Dark-sector astrophysics & Joint fit across scales, not a single rotation-curve fit. \\
+COS-01 & cosmological & Radiation era, BBN and recombination & Light-element abundances and CMB visibility/anisotropies within likelihood constraints. \\
+COS-02 & cosmological & CMB/BAO/SNe/growth recovery & Likelihood is competitive with base LambdaCDM without hidden parameter/data choices. \\
+COS-03 & cosmological & Primordial perturbation origin or explicit initial condition & Matches scalar data and r bound; initial-state assumptions are explicit and normalized. \\
+COS-04 & cosmological & Dark matter abundance or complete alternative & Reproduces abundance, lensing and growth and passes direct/indirect/production constraints. \\
+COS-05 & cosmological & Late acceleration & Fits CMB+BAO+SNe+growth at least as well as the declared baseline. \\
+REP-01 & reproducibility & Executable and provenance-complete evidence & Independent researcher can reproduce every reported number or identify it as sourced input. \\
+\bottomrule
+\end{longtable}
+\endgroup

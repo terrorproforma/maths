@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this audit framework, cite this research package."
+title: "The GR + Standard Model Frontier Model: Constraint and Seam Ledger"
+version: "1.0.0"
+date-released: "2026-08-27"
+authors:
+  - family-names: "Muffatti"
+    given-names: "Angus"
+type: dataset
