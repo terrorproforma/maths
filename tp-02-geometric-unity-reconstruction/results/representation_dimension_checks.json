@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "phase": "primary-source dimension audit",
+  "values": {
+    "X_dimension": 4,
+    "metric_fibre_dimension": 10,
+    "Y_dimension": 14,
+    "chimeric_rank": 14,
+    "dim_so_7_7": 91,
+    "dim_u_64_64_real_lie_algebra": 16384,
+    "spin_7_7_Dirac_complex_dimension": 128,
+    "spin_7_7_Weyl_complex_dimension": 64,
+    "spin_6_4_Dirac_complex_dimension": 32,
+    "spin_6_4_Weyl_complex_dimension": 16,
+    "spin_1_3_Weyl_complex_dimension": 2,
+    "spin_6_4_gamma_traceless_vector_spinor_dimension": 144,
+    "spin_7_7_chiral_gamma_traceless_vector_spinor_dimension": 832,
+    "F_half_dimension": 64,
+    "Q_three_halves_dimension": 192,
+    "Z_half_dimension": 576,
+    "F_plus_Q_plus_Z": 832,
+    "Pati_Salam_one_family_dimension": 16
+  },
+  "checks": {
+    "metric_bundle_dimension_4_plus_10_equals_14": true,
+    "chimeric_rank_matches_Y_dimension": true,
+    "Spin77_Dirac_dimension_is_128": true,
+    "Spin77_Weyl_dimension_is_64": true,
+    "Spin64_Weyl_dimension_is_16": true,
+    "internal_gamma_traceless_vector_spinor_is_144": true,
+    "Spin77_chiral_gamma_traceless_vector_spinor_is_832": true,
+    "source_F_dimension_is_64": true,
+    "source_Q_dimension_is_192": true,
+    "source_Z_dimension_is_576": true,
+    "source_decomposition_sums_to_832": true,
+    "Pati_Salam_family_dimension_is_16": true
+  },
+  "all_pass": true,
+  "scope_warning": "Passing these identities verifies only standard dimension bookkeeping. It is not evidence that the stated representation branching, field equations, chirality mechanism or phenomenology is correct."
+}

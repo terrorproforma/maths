@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "source_freeze": "2026-08-30",
+  "sources": [
+    {
+      "id": "GU-DRAFT-2021",
+      "title": "Geometric Unity: Author's Working Draft",
+      "author": "Eric Weinstein",
+      "version": "1.0",
+      "date": "2021-04-01",
+      "pages": 69,
+      "type": "official primary manuscript",
+      "official_url": "https://geometricunity.nyc3.digitaloceanspaces.com/Geometric_Unity-Draft-April-1st-2021.pdf",
+      "sha256": null,
+      "mirror_status": "not mirrored because the source carries an explicit copyright and derivative-use notice",
+      "role": "authoritative source for definitions, equations and proposal claims",
+      "notes": "The document identifies itself as a working draft and work in progress."
+    },
+    {
+      "id": "GU-OXFORD-2013-OFFICIAL-TRANSCRIPT",
+      "title": "2013 Oxford Lecture — Geometric Unity",
+      "author": "Eric Weinstein",
+      "publication_context": "official transcript and presentation page",
+      "official_url": "https://geometricunity.org/2013-oxford-lecture/",
+      "type": "official primary lecture transcript",
+      "role": "clarifies motivation, intended interpretation, field-content claims and admitted open problems",
+      "notes": "The lecture is earlier than the 2021 draft and is not used to override later written definitions."
+    },
+    {
+      "id": "GU-OFFICIAL-HOME",
+      "title": "Geometric Unity",
+      "official_url": "https://geometricunity.org/",
+      "type": "official project landing page",
+      "role": "provenance and linkage to the draft and lecture",
+      "notes": "Not used as mathematical evidence beyond version/provenance statements."
+    }
+  ],
+  "priority_rule": "The 2021 draft controls when it conflicts with the earlier lecture. Unresolved conflicts are recorded rather than harmonized silently."
+}
