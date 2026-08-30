@@ -1,0 +1,23 @@
+name: Delete merged BNS work branch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/delete-merged-bns-work-branch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  delete-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete merged work branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git ls-remote --exit-code "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/heads/work/bns-prompt-collapse-jet-replication"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "work/bns-prompt-collapse-jet-replication"
