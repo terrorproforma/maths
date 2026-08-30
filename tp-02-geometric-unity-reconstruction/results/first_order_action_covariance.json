@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-02 independent Geometric Unity reconstruction",
+  "phase": "first-order action covariance audit",
+  "assumptions": [
+    "The first-order action uses an Ad-invariant bilinear pairing.",
+    "The Shiab/curvature output Q transforms covariantly under the printed tilted stabilizer.",
+    "No extra affine compensator is hidden in Q."
+  ],
+  "exact_test_data": {
+    "A0": [["1", "0"], ["0", "-1"]],
+    "epsilon": [["1", "1"], ["0", "1"]],
+    "a": [["0", "1"], ["1", "0"]],
+    "h": [["2", "0"], ["1", "1"]],
+    "Q": [["1", "2"], ["3", "4"]],
+    "Q_transformed": [["2", "1"], ["8", "3"]]
+  },
+  "literal_printed_branch": {
+    "action_before": "-1",
+    "action_after": "13",
+    "defect": "14",
+    "defect_matrix": [["-1", "1"], ["5", "1"]],
+    "predicted_defect_matrix": [["-1", "1"], ["5", "1"]],
+    "verdict": "FAILS finite tilted-gauge invariance"
+  },
+  "repaired_plus_branch": {
+    "action_before": "11",
+    "action_after": "11",
+    "defect": "0",
+    "verdict": "PASSES the finite covariance test"
+  },
+  "checks": {
+    "trace_pairing_is_Ad_invariant_for_test_data": true,
+    "printed_action_is_invariant": false,
+    "printed_action_defect_equals_14": true,
+    "printed_action_defect_matches_analytic_matrix_defect": true,
+    "repaired_action_is_invariant": true
+  },
+  "terminal_statement": "The literal printed action skeleton cannot be tilted-gauge invariant with a covariant Q; the plus-sign repaired branch removes this kinematic obstruction."
+}
