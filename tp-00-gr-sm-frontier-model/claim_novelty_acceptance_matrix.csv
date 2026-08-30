@@ -1,0 +1,7 @@
+claim_id,claim,category,novelty,acceptance,evidence,sources
+C-01,"""Frontier model"" denotes GR plus the SM used side by side, not a mathematically unified theory.",transcript-motivated terminology plus established interpretation,none,PASS,Definitions and action decomposition,SRC-PDG-2026;SRC-DONOGHUE-1994
+C-02,"The low-energy baseline is best represented as a layered EFT, separating renormalizable SM, data-required neutrino mass, gravitational EFT and cosmological assumptions.",inference / framework construction,methodological packaging,PASS,frontier_model_action.tex and source ledger,SRC-WEINBERG-OP-1979;SRC-SMEFT-2010;SRC-DONOGHUE-1994
+C-03,Open seams must be classified by logical type rather than collapsed into a single failure score.,new construction,machine-usable taxonomy,PASS,seam_ledger.csv validation,
+C-04,A successor can be rejected by a fatal consistency gate even if it explains an anomaly or is mathematically novel.,inference / acceptance rule,framework rule,PASS,successor_acceptance_tests.yaml,
+C-05,No current active precision tension is a universal compulsory target for every successor theory.,inference from current evidence status,none,PASS,anomaly_watchlist.csv,SRC-MUONG2-2026;SRC-MUONG2-WP25;SRC-CDF-W-2022;SRC-ATLAS-W-2024;SRC-DESI-DR2-2025
+C-06,"This project produces a baseline and no-go filter, not a new theory of nature.",scope statement,no physics novelty claimed,PASS,README and verdict,

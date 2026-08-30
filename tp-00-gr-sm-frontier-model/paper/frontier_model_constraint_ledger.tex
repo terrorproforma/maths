@@ -1,0 +1,180 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{graphicx,float,caption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[backend=biber,style=numeric,sorting=none,maxbibnames=8]{biblatex}
+\addbibresource{references.bib}
+\hypersetup{colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue,pdftitle={The GR + Standard Model Frontier Model: Constraint and Seam Ledger},pdfauthor={Angus Muffatti}}
+\setlist{nosep,leftmargin=*}
+\newcommand{\status}[1]{\textsc{#1}}
+\newcommand{\Mpl}{\bar M_{\rm P}}
+\title{The GR + Standard Model Frontier Model:\\Constraint, Seam and Recovery Ledger}
+\author{Angus Muffatti}
+\date{Version 1.0.0 -- Evidence snapshot 27 August 2026}
+\begin{document}\sloppy
+\maketitle
+
+\begin{abstract}
+General Relativity (GR) and the Standard Model (SM) are often juxtaposed as the current ``frontier model''. The phrase is useful only if it does not conceal that the two theories are neither a unified ultraviolet theory nor a complete cosmological model. This paper constructs a machine-usable baseline for auditing proposed successors. It gives a convention-complete layered action, distinguishes the renormalizable SM from the data-required neutrino-mass operator, gravitational EFT counterterms and cosmological assumptions, verifies local and global anomaly conditions, and records representative empirical domains through a 27 August 2026 source snapshot. Eighteen seams are classified independently as mathematical inconsistency, ultraviolet incompleteness, empirical anomaly, unexplained parameter, naturalness/fine-tuning, missing initial/boundary condition or inaccessible regime. Twenty-nine operational tests are organized into algebraic, perturbative, recovery, nonperturbative, laboratory, astrophysical, cosmological and reproducibility tiers. Fatal failures cannot be averaged against successes, and novelty is not a physical acceptance criterion. The terminal result is positive as a constraint framework and negative as a claim of unification: the package is executable and suitable for auditing other theories, but it resolves none of the frontier seams.
+\end{abstract}
+
+\tableofcontents
+
+\section{Provenance, scope and epistemic labels}
+The motivating interview supplies the phrase ``frontier model'' and a set of questions, not evidence for any speculative claim. In this work the phrase means the empirical coexistence of GR and the SM. Four labels are used: established result; transcript-motivated terminology; inference; and new construction or conjecture. The seam taxonomy, YAML schema and non-aggregation rule are new research-infrastructure constructions. No new particle, interaction or gravitational dynamics is proposed.
+
+The source snapshot uses the 2026 Particle Data Group (PDG) review and tables, whose listings cutoff is 15 January 2026, supplemented by later dated primary sources where necessary. The PDG contains dedicated reviews of QCD, electroweak precision, Higgs physics, CKM and CP violation, neutrinos, gravity tests, cosmology, inflation, dark matter, dark energy and the CMB \cite{PDG2026}. Lack of a statistically significant deviation in a reviewed domain is evidence for a successful tested limit, not proof that the theory is complete.
+
+\section{Definitions and conventions}
+We work in four spacetime dimensions with signature $(-,+,+,+)$ and $c=\hbar=1$. The curvature convention is $[\nabla_\mu,\nabla_\nu]V^\rho=R^\rho{}_{\sigma\mu\nu}V^\sigma$, $R_{\mu\nu}=R^\rho{}_{\mu\rho\nu}$. The reduced Planck mass is $\Mpl=(8\pi G_N)^{-1/2}$. Electric charge is $Q=T_3+Y$ and fundamental non-Abelian generators satisfy $\mathrm{tr}(T^aT^b)=\delta^{ab}/2$. Perturbative parameters are $\overline{\rm MS}$ unless a quoted measurement uses a different scheme.
+
+A theory is not specified by an action alone. It must provide
+\begin{equation}
+\mathfrak T=(\mathcal X,\ \mathrm{fields},\ \mathrm{symmetries},\ S\ \mathrm{or\ equivalent\ dynamics},\ \mathrm{observables},\ \mathrm{boundary/initial\ data}).
+\end{equation}
+Gauge-variant Green functions may be useful intermediates but are not the observable map. Likewise, a cosmological likelihood requires a state, perturbation ansatz and thermal history beyond the local Lagrangian.
+
+\input{../frontier_model_action.tex}
+
+\section{Anomaly and degree-of-freedom gates}
+All anomaly sums are evaluated using left-handed Weyl fields. For one generation,
+\begin{align}
+\mathcal A_{SU(3)^2Y}&=2\,T(\mathbf3)\frac16+T(\bar{\mathbf3})\left(-\frac23\right)+T(\bar{\mathbf3})\frac13=0,\\
+\mathcal A_{SU(2)^2Y}&=3\,T(\mathbf2)\frac16+T(\mathbf2)\left(-\frac12\right)=0,\\
+\mathcal A_{Y^3}&=6\left(\frac16\right)^3+3\left(-\frac23\right)^3+3\left(\frac13\right)^3+2\left(-\frac12\right)^3+1=0,\\
+\mathcal A_{{\rm grav}^2Y}&=6\left(\frac16\right)+3\left(-\frac23\right)+3\left(\frac13\right)+2\left(-\frac12\right)+1=0.
+\end{align}
+The relative $SU(3)^3$ coefficient is $2-1-1=0$. Colour multiplicity gives three quark doublets plus one lepton doublet, hence four $SU(2)$ doublets per generation and no Witten parity anomaly \cite{Witten1982}. The executable verification repeats these sums with exact rational arithmetic.
+
+This cancellation is a non-negotiable low-energy fact, but it does not derive three generations: cancellation occurs generation by generation. Nor does the local algebra fix the global quotient $\Gamma$; line operators and topological sectors can distinguish the possibilities \cite{Tong2017,Hsin2024}.
+
+\section{Gravity as classical theory and quantum EFT}
+The Euler--Lagrange equation of the leading gravitational action is
+\begin{equation}
+G_{\mu\nu}+\Lambda g_{\mu\nu}=\Mpl^{-2}T_{\mu\nu}.
+\end{equation}
+It has passed weak-field, equivalence-principle, relativistic-binary and gravitational-wave tests over a remarkable range. MICROSCOPE reports $\eta({\rm Ti,Pt})=[-1.5\pm2.3_{\rm stat}\pm1.5_{\rm syst}]\times10^{-15}$ \cite{MICROSCOPE2022}. The double pulsar jointly tests several strong-field effects, including orbital damping at about the $1.3\times10^{-4}$ level \cite{DoublePulsar2021}. GWTC-4.0 parameterized tests find no evidence beyond GR and constrain a dispersive graviton mass to $m_g\le1.92\times10^{-23}\,\mathrm{eV}/c^2$ at 90\% credibility \cite{GWTC4GR2026}.
+
+These successes coexist with ultraviolet incompleteness. Pure Einstein gravity has a nonzero two-loop on-shell counterterm cubic in curvature \cite{GoroffSagnotti1986}. The correct conclusion is not that low-energy GR is mathematically unusable. It is that Einstein gravity is not a finite-parameter perturbatively renormalizable fundamental QFT. Organized as a Wilsonian EFT, its low-energy quantum corrections are predictive \cite{Donoghue1994}. This distinction is the model for the entire seam ledger: logical type matters.
+
+\section{Representative verified domains and scales}
+The purpose of Table~\ref{tab:verified} is not to reproduce the PDG. It identifies content that a successor must recover and labels where a successful fit is only a parametrization.
+
+\input{../tables/verified_domains_table.tex}
+
+The Higgs mass anchor used here is $125.11\pm0.11$ GeV \cite{ATLASHiggs2023}. Neutrino oscillations require a mass extension, while KATRIN bounds the direct effective electron-neutrino mass by $m_\beta<0.45$ eV at 90\% confidence \cite{KATRIN2025}. Planck's base flat $\Lambda$CDM inference gives $H_0=67.4\pm0.5\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$, $\Omega_m=0.315\pm0.007$ and $n_s=0.965\pm0.004$ \cite{Planck2018}; these values are conditional on that model. DESI DR2 BAO is well described by flat $\Lambda$CDM but extended combinations show a supernova-sample-dependent preference for evolving dark energy \cite{DESIDR22025}. The latter belongs on a watchlist, not in the definition of established physics.
+
+\begin{figure}[H]
+\centering\includegraphics[width=.96\linewidth]{../figures/verified_scale_map.pdf}
+\caption{Representative energy scales. The baseline spans more than sixty orders of magnitude; a successor cannot be validated in only one regime.}
+\end{figure}
+
+\section{Seam taxonomy}
+A seam is a boundary of explanation, control or empirical fit. The seven flags are deliberately independent:
+\begin{enumerate}
+\item mathematical inconsistency;
+\item ultraviolet incompleteness;
+\item empirical anomaly or missing component;
+\item unexplained parameter/structure;
+\item naturalness or fine-tuning;
+\item missing initial/boundary condition;
+\item inaccessible regime.
+\end{enumerate}
+Most frontier seams are not mathematical contradictions. The absence of an explanatory mechanism is not the same as a failed prediction, and naturalness is not a theorem.
+
+\begin{figure}[H]
+\centering\includegraphics[width=.98\linewidth]{../figures/seam_taxonomy_matrix.pdf}
+\caption{Binary taxonomy flags from the machine-readable seam ledger. A row can carry several logically distinct flags without being assigned a scalar severity.}
+\end{figure}
+
+\input{../tables/seam_summary_table.tex}
+
+\subsection{Selected seam derivations}
+\paragraph{Neutrino mass.} With the minimal chiral field content, no gauge-invariant dimension-four neutrino mass exists. The dimension-five operator is therefore the leading EFT repair \cite{WeinbergOperator1979}. A successor must explain its coefficient or replace it with an explicitly matched Dirac/Majorana sector.
+
+\paragraph{Vacuum energy.} Renormalized vacuum energy contributes to the same generally covariant operator as a bare cosmological constant. The measured curvature fixes only the sum; radiative threshold changes motivate the naturalness problem \cite{WeinbergCC1989}. This is not an observational contradiction because $\Lambda$ is a permitted parameter.
+
+\paragraph{Singularities.} Hawking--Penrose type theorems establish geodesic incompleteness under explicit assumptions \cite{HawkingPenrose1970}. A successor resolves the seam only by supplying an extension or replacement with stable, well-posed evolution and correct exterior limits. Replacing the word ``singularity'' by a new label is not resolution.
+
+\paragraph{Dark matter.} The Planck baseline requires $\Omega_ch^2\simeq0.120$ \cite{Planck2018}, cluster and lensing evidence supplies independent support \cite{Bullet2006}, while LZ reports no WIMP excess and constrains a major candidate class \cite{LZ2024}. The resolution standard is joint multi-scale recovery, not fitting one rotation curve.
+
+\paragraph{Strong CP.} The physical angle $\bar\theta=\theta+\arg\det(M_uM_d)$ is allowed, but neutron-EDM data give $|d_n|<1.8\times10^{-26}e\,\mathrm{cm}$ \cite{nEDM2020}, conventionally implying $|\bar\theta|\lesssim10^{-10}$. Peccei--Quinn dynamics is one established mechanism class \cite{PQ1977}, not yet an experimentally confirmed solution.
+
+\paragraph{Baryogenesis.} The observed asymmetry requires a dynamical history or boundary condition. Sakharov's standard criteria are baryon-number violation, C/CP violation and departure from equilibrium \cite{Sakharov1967}. Lattice calculations at the physical Higgs mass find an electroweak crossover and quantify sphaleron evolution \cite{Sphaleron2012}; the minimal standard thermal SM does not provide an accepted quantitative origin.
+
+\section{Non-negotiable recovery requirements}
+The YAML schema encodes independent scores: 0 fail, 1 conditional/partial, 2 pass, or NA with justification. There is no total. A fatal applicable gate at 0 rejects the candidate in the claimed domain. Table~\ref{tab:gates} is the human-readable version.
+
+\input{../tables/successor_gates_table.tex}
+
+\begin{figure}[H]
+\centering\includegraphics[width=.92\linewidth]{../figures/acceptance_architecture.pdf}
+\caption{Number of gates by tier. Formal consistency is tested before expensive phenomenology.}
+\end{figure}
+
+\section{Test hierarchy and model-class dependence}
+\paragraph{Algebraic tests.} Run before numerical scans: theory tuple, symmetry closure, local/global anomalies, degree-of-freedom and constraint counts. These are universal whenever their structures apply.
+
+\paragraph{Perturbative tests.} Expand around every claimed background, not only Minkowski space. Diagonalize kinetic and gradient matrices, compute the principal symbol, pole residues, optical-theorem cuts and loop-generated operators. A healthy vacuum does not guarantee a healthy cosmological or compact-object background.
+
+\paragraph{Nonperturbative tests.} Required for QCD recovery, topological sectors, tunnelling and any claimed strong dynamics. A perturbative beta function alone does not demonstrate confinement or a stable condensate.
+
+\paragraph{Laboratory, astrophysical and cosmological tests.} These are likelihoods with model-dependent maps. Extra scalars require fifth-force and clock tests; new coloured states require collider and hadronic matching; modified gravity requires PPN, pulsar, GW and structure calculations. A dark-sector candidate must confront abundance, BBN, CMB, structure, self-interactions and direct/indirect/production searches.
+
+\section{Active anomaly watchlist}
+A watchlist is maintained separately because its content is volatile. The local Hubble result $73.04\pm1.04$ differs from the Planck base-$\Lambda$CDM inference \cite{Riess2022,Planck2018}. The final Fermilab muon measurement is exceptionally precise \cite{MuonG2Final2026}, but the SM comparison depends on evolving hadronic theory inputs \cite{MuonG2Theory2025}. CDF II and ATLAS W-mass results are not mutually settled \cite{CDFW2022,ATLASW2024}. A successor may target any of these, but cannot make one volatile pull a substitute for the full recovery suite.
+
+\section{Numerical and symbolic verification}
+The package performs exact rational anomaly sums, schema and source-key resolution, seam completeness checks, dependency-map coverage and the no-aggregate-score invariant. The tests use no fitted random data. The generated result file reports all checks and exits nonzero on failure.
+
+\begin{verbatim}
+python code/verify_frontier_model.py --root .
+python code/generate_figures.py --root .
+python -m unittest discover -s tests -v
+\end{verbatim}
+
+The strongest numerical statement is deliberately modest: the package is internally consistent as an audit framework. It does not numerically solve quantum gravity, the dark sector or cosmological initial conditions.
+
+\section{Failure modes of candidate successors}
+A candidate is rejected if it:
+\begin{itemize}
+\item treats gauge redundancy as a new physical mode;
+\item has an uncancelled local/global anomaly or inconsistent constraint algebra;
+\item contains a ghost, gradient instability or ill-posed equations in a claimed regime;
+\item violates unitarity/positive spectral density without an explicit alternative probability framework;
+\item cannot reproduce the chiral SM spectrum or Einstein weak-field limit;
+\item fits one anomaly by degrading established electroweak, flavour, equivalence, GW or cosmological data;
+\item hides cosmological initial conditions inside an undefined measure;
+\item declares an unrun lattice/HPC calculation completed;
+\item uses ``novel'' as evidence for ``correct''.
+\end{itemize}
+
+\section{Novelty boundary}
+The action, anomaly cancellation, EFT treatment, observational constraints and named seams are established material. The narrow contribution is their organization into an equation-level, non-aggregating, machine-readable acceptance framework with explicit epistemic labels and project dependencies. This is methodological novelty at most. It is not a new fundamental interaction, unification or solution of an open problem.
+
+\section{Dependency map for TP-01 through TP-16}
+Later projects should import the YAML gates rather than reinterpret this paper. TP-01 and TP-02 touch the broadest formal/recovery seams. Pati--Salam and family projects are dominated by anomaly, proton, flavour and neutrino gates; dark-sector projects by relic, BBN, structure and direct constraints; high-spin and gravity-shielding projects by causality, positivity and equivalence gates. The full map is supplied as CSV and Markdown. TP-14 and TP-15 mappings are explicitly provisional because only title-level scope was available.
+
+\section{Terminal verdict}
+\paragraph{Strongest result.} The baseline constraint and seam ledger is explicit, reproducible and suitable for rejecting successor theories before costly calculations.
+
+\paragraph{What failed.} GR plus the SM is not a unified UV theory; pure Einstein gravity is not perturbatively renormalizable as a finite-parameter QFT; and no logically defensible scalar acceptance score exists. TP-00 resolves none of the physical seams.
+
+\paragraph{What remains open.} Quantum gravity, vacuum energy, singularities, dark matter, dark-energy microphysics, neutrino origin, baryogenesis, primordial state, hierarchy, strong CP, flavour, family number, the arrow/initial conditions, black-hole information, global gauge form and high-scale vacuum status.
+
+\paragraph{Publishability.} Publishable now as a methods/standards or research-infrastructure note after expert review and citation checking. It is not publishable as a new theory of nature. A stronger journal version should include blinded audits of TP-01 and TP-02.
+
+\paragraph{Next decisive calculation.} For the first candidate, compute the full quadratic spectrum/principal symbol, Hamiltonian or BRST constraint algebra, anomaly polynomial and low-energy matching residuals. Stop on the first applicable fatal failure.
+
+\appendix
+\input{../tables/seam_equation_index.tex}
+
+\printbibliography
+\end{document}

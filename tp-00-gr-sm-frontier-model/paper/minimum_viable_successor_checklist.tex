@@ -1,0 +1,46 @@
+\documentclass[9pt,a4paper]{article}
+\usepackage[margin=11mm]{geometry}\usepackage[T1]{fontenc}\usepackage{amssymb}\usepackage{lmodern}\usepackage{enumitem}\usepackage{xcolor}\usepackage{hyperref}\pagestyle{empty}
+\setlist[itemize]{leftmargin=*,nosep,label=$\square$}
+\begin{document}
+\begin{center}{\Large\bfseries Minimum Viable Successor Checklist}\\[1mm]
+{\small TP-00 v1.0 -- Angus Muffatti -- fatal failures do not average away}\end{center}
+\begin{minipage}[t]{.48\linewidth}
+\textbf{Definition and algebra}
+\begin{itemize}
+\item Complete theory tuple: space, fields, symmetries, dynamics, observables, state/boundary data.
+\item Gauge redundancies separated from physical degrees of freedom.
+\item Local anomaly polynomial vanishes or complete cancellation supplied.
+\item Global anomalies and faithful global gauge group checked.
+\item Constraint algebra closes and constraints propagate.
+\end{itemize}
+\textbf{Dynamics}
+\begin{itemize}
+\item No ghosts, tachyons or gradient instabilities on every claimed background.
+\item Strongly hyperbolic/well-posed initial-value problem.
+\item Unitary amplitudes or positive physical spectral density.
+\item Consistent characteristic cones and causal prescription.
+\item Loop closure, matching, cutoff and truncation error declared.
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{.48\linewidth}
+\textbf{Recovery}
+\begin{itemize}
+\item Einstein equations in the low-curvature classical limit.
+\item Two tensor graviton helicities and observed chiral SM multiplets.
+\item Particle poles, Higgs/EW, CKM/PMNS and QCD recovered.
+\item Lorentz/CPT and equivalence-principle bounds passed.
+\item Solar-system, pulsar, black-hole exterior and GW limits passed.
+\item BBN, recombination, CMB, BAO/SNe/growth and late acceleration reproduced.
+\end{itemize}
+\textbf{Evidence discipline}
+\begin{itemize}
+\item Every pass has equation, executable test, input version and uncertainty/domain.
+\item Established facts, interview prompts, inferences and new conjectures labelled.
+\item Active anomalies frozen to explicit data/theory versions.
+\item No aggregate score can compensate a fatal 0.
+\item Novelty audited separately from correctness.
+\end{itemize}
+\end{minipage}
+\vfill
+\noindent\fcolorbox{black}{gray!10}{\parbox{.965\linewidth}{\textbf{Kill rule:} any applicable fatal gate scored 0 rejects the candidate in its claimed domain. Read the full operational gates in \texttt{successor\_acceptance\_tests.yaml}.}}
+\end{document}

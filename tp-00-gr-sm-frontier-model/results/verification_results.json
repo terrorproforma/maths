@@ -1,0 +1,118 @@
+{
+  "schema_version": "1.0.0",
+  "all_pass": true,
+  "checks": [
+    {
+      "id": "anomalies_exact",
+      "pass": true,
+      "details": {
+        "SU3^2-U1": "0",
+        "SU2^2-U1": "0",
+        "U1^3": "0",
+        "grav^2-U1": "0",
+        "SU3^3_relative": "0",
+        "Witten_SU2_doublets_mod2": "0"
+      }
+    },
+    {
+      "id": "numerical_diagnostics_reproducible",
+      "pass": true,
+      "details": {
+        "schema_version": "1.0.0",
+        "warning": "Naive independent-Gaussian pulls are regression diagnostics only; they are not substitute likelihood analyses or universal successor gates.",
+        "naive_independent_gaussian_pulls": {
+          "SH0ES_minus_Planck_base_LCDM": 4.887561225309663,
+          "CDFII_minus_ATLAS_W_mass": 3.627349353866303
+        },
+        "MICROSCOPE_combined_uncertainty": 2.745906043549196e-15,
+        "MICROSCOPE_central_over_combined_sigma": -0.5462677805469223,
+        "representative_scale_span_decades_H0_to_MbarP": 60.21040770649497,
+        "electroweak_to_reduced_Planck_ratio": 1.011170431211499e-16
+      }
+    },
+    {
+      "id": "required_seams_present",
+      "pass": true,
+      "details": {"count": 18}
+    },
+    {
+      "id": "seam_rows_traceable",
+      "pass": true,
+      "details": {"rows": 18}
+    },
+    {
+      "id": "seam_taxonomy_binary",
+      "pass": true,
+      "details": {
+        "axes": [
+          "mathematical_inconsistency",
+          "ultraviolet_incompleteness",
+          "empirical_anomaly",
+          "unexplained_parameter",
+          "naturalness_fine_tuning",
+          "missing_initial_boundary_condition",
+          "inaccessible_regime"
+        ]
+      }
+    },
+    {
+      "id": "gate_ids_unique",
+      "pass": true,
+      "details": {"count": 29}
+    },
+    {
+      "id": "test_hierarchy_complete",
+      "pass": true,
+      "details": {
+        "tiers": [
+          "algebraic",
+          "astrophysical",
+          "cosmological",
+          "laboratory",
+          "nonperturbative",
+          "perturbative",
+          "recovery",
+          "reproducibility"
+        ]
+      }
+    },
+    {
+      "id": "no_invalid_aggregate_score",
+      "pass": true,
+      "details": {
+        "rule": "NO SINGLE TOTAL SCORE. A fatal gate scored 0 rejects the candidate in the claimed domain. Scores may be displayed by independent axis but must not be averaged across logically distinct requirements."
+      }
+    },
+    {
+      "id": "fatal_gates_declared",
+      "pass": true,
+      "details": {"fatal_count": 26}
+    },
+    {
+      "id": "source_keys_resolve",
+      "pass": true,
+      "details": {"missing": [], "source_count": 32}
+    },
+    {
+      "id": "dependency_map_TP01_TP16",
+      "pass": true,
+      "details": {
+        "projects": [
+          "TP-01","TP-02","TP-03","TP-04","TP-05","TP-06","TP-07","TP-08","TP-09","TP-10","TP-11","TP-12","TP-13","TP-14","TP-15","TP-16"
+        ]
+      }
+    },
+    {
+      "id": "required_deliverables_present",
+      "pass": true,
+      "details": {"missing": []}
+    }
+  ],
+  "summary": {
+    "seam_count": 18,
+    "gate_count": 29,
+    "fatal_gate_count": 26,
+    "source_count": 32,
+    "dependency_count": 16
+  }
+}

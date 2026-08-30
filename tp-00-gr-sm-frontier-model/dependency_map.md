@@ -1,0 +1,22 @@
+# TP-01 through TP-16 dependency map
+
+Mappings for TP-14 and TP-15 are provisional because only title-level scope was available.
+
+| Project | Working title | Primary seams | Decisive tests | Note |
+|---|---|---|---|---|
+| TP-01 | Common geometric parent / restricted no-go | S-01;S-03;S-06;S-11;S-12;S-15 | ALG-01..06;PERT-01..05;REC-01..04 | Core formal-unification audit. |
+| TP-02 | Geometric Unity | S-01;S-11;S-12;S-15 | ALG-01..06;PERT-01..05;REC-01..04;LAB-01..03 | Must recover chiral SM representations and Einstein EFT. |
+| TP-03 | Pati-Salam | S-06;S-07;S-11;S-12;S-17 | ALG-03;ALG-04;REC-02;REC-03;LAB-02;COS-01 | Proton decay, neutrino mass and baryogenesis are decisive. |
+| TP-04 | Quark-lepton rotations | S-06;S-11 | REC-03;LAB-02;NP-01 | FCNC and CP structure dominate. |
+| TP-05 | Neutral-to-charged conversion | S-15;S-17 | ALG-02..05;REC-02;LAB-01;LAB-02 | Electric charge, anomaly and stability gates are early kill tests. |
+| TP-06 | Dark chemistry | S-04 | PERT-01..05;ASTRO-03;COS-01;COS-02;COS-04 | Relic, self-interaction and dark-radiation constraints. |
+| TP-07 | Dark light | S-04;S-05 | PERT-03;PERT-04;LAB-03;ASTRO-03;COS-01;COS-04 | Kinetic mixing, stellar cooling and dark radiation. |
+| TP-08 | Two extra chiral families | S-11;S-12 | ALG-03;ALG-04;REC-03;LAB-01;LAB-02;COS-01 | Z width, Higgs, flavour and cosmology are likely kill gates. |
+| TP-09 | Spin-3/2 matter | S-01 | ALG-05;PERT-01..04;LAB-01;ASTRO-01 | High-spin causality/unitarity precedes phenomenology. |
+| TP-10 | Dynamical dark energy | S-02;S-05 | PERT-01;PERT-02;LAB-03;COS-02;COS-05 | Ghost/gradient stability, fifth forces and global cosmology. |
+| TP-11 | Singularity resolution | S-03;S-14 | ALG-06;PERT-01..04;REC-01;ASTRO-01;ASTRO-02 | Extension and exterior recovery must be demonstrated. |
+| TP-12 | Physics before spacetime manifold | S-01;S-03;S-13 | ALG-01;ALG-02;REC-01;PERT-04;COS-01 | Must derive manifold/locality/causality rather than rename them. |
+| TP-13 | Multiple operational time dimensions | S-13 | ALG-05;PERT-02;PERT-04;REC-01;REC-04;LAB-03 | Hyperbolicity and single-clock recovery are decisive. |
+| TP-14 | Pinch-to-zoom | S-01;S-03 | ALG-01;PERT-02;PERT-04;REC-01 | Provisional title-level mapping pending a formal model brief. |
+| TP-15 | Shear-to-tilt | S-08;S-13 | PERT-01;COS-02;COS-03 | Provisional title-level mapping; likely perturbation-transfer target. |
+| TP-16 | Gravity shielding / anti-gravity | S-01 | ALG-05;PERT-01..04;REC-01;LAB-03;ASTRO-01 | Equivalence principle, negative energy and stability are immediate kill gates. |
