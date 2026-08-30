@@ -113,7 +113,24 @@ u^c:(1,1)_0
 e^c:(1,1)_1.
 \]
 
-The exact code checks the complete decomposition including the colour states and verifies
+Equivalently, resolving the colour components of the same \((\bar4,1,2)\) multiplet gives
+
+\[
+F_R^c\rightarrow
+u^c:(1,1)_0
+\oplus
+e^c:(1,1)_1.
+\]
+
+The exact code checks the complete decomposition, including
+
+\[
+u^c:(\bar3,1)_{-2/3},
+\qquad
+d^c:(\bar3,1)_{1/3},
+\]
+
+and verifies
 
 \[
 [SU(3)]^3,
