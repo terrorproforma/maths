@@ -1,0 +1,273 @@
+schema_version: 1
+project: prompt-collapse-bns-jet-reproduction
+scientific_target:
+  paper:
+    title: Jet from Binary Neutron Star Merger with Prompt Black Hole Formation
+    authors:
+      - Kota Hayashi
+      - Kenta Kiuchi
+      - Koutarou Kyutoku
+      - Yuichiro Sekiguchi
+      - Masaru Shibata
+    journal: Physical Review Letters
+    volume: 134
+    article: 211407
+    year: 2025
+    doi: 10.1103/PhysRevLett.134.211407
+    arxiv: 2410.10958
+  target_duration_after_merger_s: 1.5
+  source_movie_interval_ms: [14.96, 1398.64]
+  source_movie_frames: 431
+
+fidelity_levels:
+  level_0_supplied_surrogate:
+    status: runnable
+    purpose: reproduce timing, integral trends and visual causal sequence on a workstation
+    solves_pdes: false
+    entrypoint: run_simulation.py
+  level_1_independent_nr_reproduction:
+    status: specified_not_executed
+    purpose: reproduce the published physical model with an independent open NR-RMHD code
+    recommended_public_base: GR-Athena++
+    caveat: exact input syntax and model glue must be implemented and validated against the selected code revision
+  level_2_author_lineage_rerun:
+    status: requires_author_assets
+    purpose: closest numerical reproduction
+    target_code: SACRA-MPI revision used by Hayashi et al.
+    future_accelerated_lineage: SACRA-K after equivalent MHD and neutrino modules are available and validated
+
+initial_data:
+  generator: LORENE
+  binary_type: asymmetric_irrotational_bns_quasi_equilibrium
+  gravitational_masses_msun:
+    star_1: 1.25
+    star_2: 1.65
+    total: 2.90
+  cold_composition: neutrinoless_beta_equilibrium
+  dimensionless_initial_orbital_frequency: 0.025  # Omega_0 m_0 G / c^3
+  approximate_inspiral_orbits_before_merger: 5
+  required_unpublished_asset: exact_LORENE_initial_data_file_and_mapping_metadata
+
+equation_of_state:
+  high_density:
+    name: SFHo
+    type: finite_temperature_tabulated_nuclear_EOS
+    maximum_nonrotating_ns_mass_msun_reported: 2.06
+  low_density:
+    name: Helmholtz
+  required_assets:
+    - exact_table_versions
+    - interpolation_conventions
+    - low_high_density_transition_logic
+    - thermodynamic_floor_and_repair_rules
+
+initial_magnetic_field:
+  topology: poloidal_confined_inside_each_neutron_star
+  maximum_field_gauss: 1.0e15
+  vector_potential: >-
+    A_j = {-(y-y_NS) delta_j^x + (x-x_NS) delta_j^y}
+          A_b max(P/P_max - 2e-4, 0)^0.5
+  normalization: choose_A_b_for_maximum_B_equal_1e15_G
+  implementation_checks:
+    - divergence_constraint_after_prolongation
+    - field_extent_to_stellar_surface
+    - magnetic_energy_to_internal_energy_ratio_during_inspiral_below_1e-6
+
+spacetime:
+  formulation: BSSN_moving_puncture
+  constraint_propagation: Z4c
+  space_order: 4
+  time_order: 4
+  apparent_horizon_finder: required
+  merger_time_definition: maximum_l2_m2_gravitational_wave_amplitude
+  reported_merger_time_from_simulation_start_ms: 16.4
+  cowling_switch_after_merger_s: 0.44
+  cowling_reason: numerical_black_hole_spin_drift_from_insufficient_horizon_resolution
+  cowling_acceptance_condition: disk_baryonic_mass_below_0.01_times_black_hole_mass
+  unpublished_controls_required:
+    - lapse_and_shift_gauge_parameters
+    - Z4c_damping_parameters
+    - Kreiss_Oliger_or_other_dissipation_parameters
+    - horizon_mask_or_excision_details
+
+matter_and_magnetic_evolution:
+  equations: ideal_general_relativistic_magnetohydrodynamics
+  conservative_form: code_specific_3_plus_1_formulation
+  riemann_solver: HLLD
+  magnetic_divergence_control: constrained_transport
+  mesh_transfer: divergence_free_and_magnetic_flux_preserving
+  primitive_recovery: exact_algorithm_and_fallback_hierarchy_required
+  atmosphere:
+    finest_domain_density_g_cm3: 1.0e3
+    outer_profile: "1e3 * (r / 38.1 km)^-3 g cm^-3"
+    minimum_density_g_cm3: 0.166
+    temperature_MeV: 1.0e-3
+    electron_fraction: 0.5
+  repair_and_floor_counters: must_be_output_for_validation
+
+neutrino_radiation:
+  transport: gray_M1_plus_leakage
+  species:
+    - electron_neutrino
+    - electron_antineutrino
+    - heavy_lepton_group
+  physics:
+    - cooling
+    - absorption_heating
+    - moment_transport
+  required_unpublished_assets:
+    - opacity_and_emissivity_table_versions
+    - closure_details
+    - stiff_source_integrator_tolerances
+    - leakage_blending_rules
+    - neutrino_boundary_conditions
+
+mesh:
+  refinement_type: fixed_box_in_box
+  levels: 14
+  finest_spacing_m: 150
+  spacing_rule: "Delta_x_l = 2 * Delta_x_(l+1) for l=1..13"
+  finest_domain_km:
+    x: [-38.1, 38.1]
+    y: [-38.1, 38.1]
+    z: [-38.1, 38.1]
+  full_domain_km:
+    x: [-312115.2, 312115.2]
+    y: [-312115.2, 312115.2]
+    z: [-312115.2, 312115.2]
+  required_details:
+    - grid_points_per_level
+    - symmetry_assumptions
+    - refinement_box_motion_or_recentering
+    - prolongation_restriction_orders
+    - refluxing_details
+    - outer_boundary_conditions
+    - CFL_factor_and_timestep_hierarchy
+
+reported_integral_targets:
+  black_hole:
+    mass_msun: 2.77
+    dimensionless_spin: 0.76
+    formation_time_after_merger_s: approximately_1e-3_or_less
+  disk:
+    mass_at_20_ms_msun: 6.2e-2
+    final_mass_msun: 1.6e-3
+    steep_decline_starts_s: approximately_0.1
+  ejecta:
+    dynamical_mass_msun: 1.6e-3
+    post_merger_mass_msun: 4.7e-3
+    total_mass_msun: 6.3e-3
+    dynamical_velocity_peak_c: 0.13
+    dynamical_high_velocity_tail_c: 0.7
+    post_merger_velocity_peak_c: 0.03
+    post_merger_onset_s: approximately_0.4
+    ejection_rate_exceeds_accretion_s: approximately_0.6
+  magnetic_turbulence:
+    MRI_resolved_below_density_g_cm3_from_s:
+      density_threshold: 1.0e10
+      time: 0.02
+    MRI_resolved_across_disk_from_s: 0.1
+    electromagnetic_to_internal_energy_saturation: approximately_0.01
+    alpha_omega_polarity_cycle_s: [0.03, 0.04]
+  neutrinos:
+    maximum_total_luminosity_erg_s: 1.0e53
+    secondary_peak_s: approximately_0.1
+  jet:
+    mechanism: Blandford_Znajek
+    south_reaches_isotropic_equivalent_1e49_erg_s_s: 0.13
+    north_reaches_isotropic_equivalent_1e49_erg_s_s: 0.30
+    luminosity_measurement_radius_km: 500
+    luminosity_cone_half_angle_deg: 10
+    collimation_deg: less_than_10
+    magnetosphere_opening_before_1_s_deg: less_than_6
+    magnetosphere_opening_at_1_4_s_deg: approximately_9
+    narrow_cone_luminosity_decline_starts_s: approximately_1.0
+
+required_outputs:
+  checkpoint_cadence:
+    early_0_to_0_02_s: <=1e-4_s
+    0_02_to_0_15_s: <=5e-4_s
+    0_15_to_1_5_s: <=5e-3_s
+  three_dimensional_fields:
+    - rest_mass_density
+    - pressure
+    - temperature
+    - electron_fraction
+    - four_velocity
+    - magnetic_field
+    - metric_and_extrinsic_curvature
+    - neutrino_energy_and_flux_moments_by_species
+  diagnostics:
+    - Hamiltonian_and_momentum_constraints
+    - divergence_B_norms
+    - baryon_mass_conservation
+    - ADM_mass_and_angular_momentum
+    - apparent_horizon_mass_spin_area_and_flux
+    - disk_mass
+    - bound_and_unbound_mass
+    - accretion_and_ejection_rates
+    - neutrino_luminosities
+    - gravitational_wave_modes
+    - MRI_quality_factors
+    - electromagnetic_to_internal_energy_ratio
+    - Maxwell_stress_alpha_M
+    - magnetic_flux_and_MADness_parameters
+    - angular_Poynting_flux_at_500_km
+    - magnetosphere_opening_angle
+
+validation_gates:
+  - id: initial_constraint_convergence
+    criterion: Hamiltonian_and_momentum_norms_converge_with_resolution
+  - id: inspiral_waveform
+    criterion: five_orbit_phase_and_merger_time_stable_under_resolution_change
+  - id: remnant_parameters
+    criterion: black_hole_mass_and_spin_within_published_numerical_uncertainty
+  - id: disk_mass_20_ms
+    criterion: approximately_0.062_msun_with_resolution_trend_reported
+  - id: MRI_quality
+    criterion: fastest_growing_mode_resolved_in_reported_density_time_regions
+  - id: magnetic_saturation
+    criterion: electromagnetic_energy_saturates_near_1_percent_internal_energy_at_0.1_s
+  - id: jet_asymmetry
+    criterion: south_and_north_1e49_erg_s_milestones_near_0.13_and_0.30_s
+  - id: secular_mass_budget
+    criterion: final_disk_and_ejecta_masses_match_with_mass_conservation_error_reported
+  - id: funnel_widening
+    criterion: opening_below_6_deg_before_1_s_and_near_9_deg_at_1.4_s
+
+compute_envelope_from_publication:
+  total_cpu_hours: 1.3e8
+  concurrent_Fugaku_CPUs: [20736, 82944]
+  storage_estimate_note: depends_on_dump_cadence_and_field_selection; plan_for_multi_petabyte_raw_or_aggressive_in_situ_reduction
+  restart_requirement: frequent_fault_tolerant_checkpoints
+
+minimum_reproducibility_assets_to_request_from_authors:
+  - exact_SACRA_MPI_commit_or_release
+  - build_toolchain_and_Fugaku_compiler_flags
+  - full_input_decks_and_grid_layout
+  - LORENE_initial_data
+  - SFHo_and_Helmholtz_table_files_and_checksums
+  - neutrino_opacity_emissivity_tables_and_checksums
+  - all_gauge_floor_repair_and_boundary_parameters
+  - Cowling_transition_checkpoint_and_procedure
+  - diagnostics_and_visualisation_scripts
+  - representative_checkpoints_at_0_02_0_1_0_44_1_0_and_1_4_s
+
+independent_public_route_GR_Athena_plus_plus:
+  repository: https://github.com/computationalrelativity/gr-athena
+  capabilities_to_map:
+    - dynamical_Z4c_spacetime
+    - GRMHD_on_dynamical_spacetime
+    - constrained_transport
+    - M1_radiation_transport
+    - tabulated_microphysical_EOS
+    - LORENE_initial_data_reader
+    - apparent_horizon_finder
+  implementation_work:
+    - reproduce_exact_poloidal_vector_potential_initialisation
+    - configure_SFHo_plus_Helmholtz_transition
+    - match_gray_M1_plus_leakage_reaction_set
+    - reproduce_14_level_box_in_box_mesh_and_atmosphere
+    - implement_or_verify_Cowling_transition_at_0_44_s
+    - implement_paper_diagnostics_and_movie_extraction
+  warning: independent_reproduction_can_match_physics_without_bitwise_matching_SACRA_MPI

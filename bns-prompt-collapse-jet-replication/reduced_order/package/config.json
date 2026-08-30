@@ -1,0 +1,39 @@
+{
+  "scientific_fidelity": "reduced-order physics-informed surrogate; not numerical-relativity GRMHD",
+  "source_clip": {
+    "frame_count": 431,
+    "frame_rate_hz": 30.0,
+    "video_duration_s": 14.366667,
+    "first_simulation_timestamp_ms": 14.96,
+    "last_simulation_timestamp_ms": 1398.64
+  },
+  "binary": {
+    "mass_1_solar_masses": 1.25,
+    "mass_2_solar_masses": 1.65,
+    "equation_of_state": "SFHo at high density; Helmholtz at low density",
+    "initial_maximum_magnetic_field_gauss": 1e15
+  },
+  "remnant": {
+    "black_hole_mass_solar_masses": 2.77,
+    "dimensionless_spin": 0.76,
+    "disk_mass_at_20_ms_solar_masses": 0.062,
+    "final_disk_mass_solar_masses": 0.0016,
+    "dynamical_ejecta_mass_solar_masses": 0.0016,
+    "post_merger_ejecta_mass_solar_masses": 0.0047
+  },
+  "jet": {
+    "south_reaches_1e49_erg_s_at_s": 0.13,
+    "north_reaches_1e49_erg_s_at_s": 0.30,
+    "half_opening_angle_before_1_s_deg": 5.5,
+    "half_opening_angle_at_1_4_s_deg": 9.0
+  },
+  "renderer": {
+    "width_px": 512,
+    "height_px": 514,
+    "view_half_extent_km": 1650,
+    "disk_particles": 24000,
+    "dynamical_ejecta_particles": 42000,
+    "wind_particles": 34000,
+    "random_seed": 241010958
+  }
+}

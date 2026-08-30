@@ -1,0 +1,123 @@
+schema_version: 1
+project: bns-black-hole-jet-replication
+target:
+  paper:
+    title: Jet from Binary Neutron Star Merger with Prompt Black Hole Formation
+    authors:
+      - Kota Hayashi
+      - Kenta Kiuchi
+      - Koutarou Kyutoku
+      - Yuichiro Sekiguchi
+      - Masaru Shibata
+    journal: Physical Review Letters
+    volume: 134
+    article: 211407
+    year: 2025
+    doi: 10.1103/PhysRevLett.134.211407
+    arxiv: 2410.10958
+
+status_vocabulary:
+  exact_artifact: Value is read from or represented by an immutable source artifact.
+  paper_confirmed: Value is explicitly stated in the paper or supplement but exact input bytes remain unavailable.
+  movie_recovered: Value was recovered from the supplied movie and is not a solver input.
+  inferred: Value is a reasoned inference and must not silently enter a production input deck.
+  unresolved: Exact value or artifact has not yet been obtained.
+
+parameters:
+  component_masses_gravitational_msun:
+    value: [1.25, 1.65]
+    status: paper_confirmed
+    role: initial_data
+  total_gravitational_mass_msun:
+    value: 2.90
+    status: paper_confirmed
+    role: initial_data
+  equation_of_state:
+    value: SFHo
+    status: paper_confirmed
+    role: microphysics
+  evolution_code:
+    value: SACRA-MPI
+    status: paper_confirmed
+    role: solver
+  finest_grid_spacing_m:
+    value: 150
+    status: paper_confirmed
+    role: resolution
+  refinement_levels:
+    value: 14
+    status: paper_confirmed
+    role: resolution
+  target_post_merger_duration_s:
+    value: 1.5
+    status: paper_confirmed
+    role: campaign
+  reported_compute_cpu_hours:
+    value: 130000000
+    status: paper_confirmed
+    role: resource_anchor
+  movie_first_timestamp_s:
+    value: 0.01496
+    status: movie_recovered
+    role: visualisation
+  movie_last_timestamp_s:
+    value: 1.39864
+    status: movie_recovered
+    role: visualisation
+  movie_frame_count:
+    value: 431
+    status: movie_recovered
+    role: visualisation
+  cowling_switch_time_s:
+    value: 0.44
+    status: paper_confirmed
+    role: campaign
+    note: Recheck exact trigger and implementation against the authors' input/checkpoint log before X-track production.
+  spacetime_formulation:
+    value: Z4c/BSSN-family moving-puncture evolution
+    status: paper_confirmed
+    role: numerics
+  grmhd_flux_solver:
+    value: HLLD-family relativistic MHD solver
+    status: paper_confirmed
+    role: numerics
+  magnetic_divergence_control:
+    value: constrained transport
+    status: paper_confirmed
+    role: numerics
+  neutrino_transport:
+    value: gray M1 moment transport with leakage/source treatment
+    status: paper_confirmed
+    role: microphysics
+
+unresolved_exact_artifacts:
+  - id: sacra_mpi_revision
+    status: unresolved
+    blocking: [X_track_build, X_track_run]
+  - id: sacra_local_patches
+    status: unresolved
+    blocking: [X_track_build, X_track_run]
+  - id: compiler_and_flags
+    status: unresolved
+    blocking: [bitwise_reproduction]
+  - id: lorene_initial_data_file
+    status: unresolved
+    blocking: [X_track_initial_data, strongest_cross_code_comparison]
+  - id: sfho_eos_table_bytes
+    status: unresolved
+    blocking: [X_track_microphysics]
+  - id: weak_rate_and_opacity_table_bytes
+    status: unresolved
+    blocking: [X_track_microphysics]
+  - id: magnetic_seed_normalisation_and_cutoff
+    status: unresolved
+    blocking: [magnetic_growth_replication]
+  - id: complete_grid_and_regridding_deck
+    status: unresolved
+    blocking: [X_track_resolution]
+  - id: atmosphere_and_floor_policy
+    status: unresolved
+    blocking: [jet_baryon_loading_equivalence]
+  - id: checkpoint_lineage
+    status: unresolved
+    blocking: [bitwise_reproduction, intervention_audit]
