@@ -4,7 +4,7 @@ title: "Full-fidelity replication scaffold for prompt-collapse BNS black-hole je
 type: software
 version: 0.1.0
 date-released: 2026-08-30
-repository-code: "https://github.com/terrorproforma/maths/tree/main/bns-black-hole-jet-replication"
+repository-code: "https://github.com/terrorproforma/maths/tree/main/bns-prompt-collapse-jet-replication"
 preferred-citation:
   type: article
   title: "Jet from Binary Neutron Star Merger with Prompt Black Hole Formation"
