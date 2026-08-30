@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "factorization_scale": true,
+    "on_shell_anchor": true,
+    "STI_seed": true,
+    "singlet_BSE": true,
+    "singlet_positivity": true,
+    "KMS_noise_positivity": true,
+    "diagram_ledger": true,
+    "fermion_vertex_basis": true,
+    "three_gauge_basis": true,
+    "counterterm_closure_basis": true,
+    "analytic_benchmarks": true,
+    "observable_contract": true
+  },
+  "all_pass": true,
+  "details": {
+    "diagram_ledger": {
+      "row_count": 11,
+      "duplicate_ids": [],
+      "loop_failures": [],
+      "missing_required_topologies": [],
+      "all_pass": true
+    },
+    "tensor_basis": {
+      "clifford_rank": 16,
+      "fermion_vertex_rank": 48,
+      "fermion_vertex_transverse_residual": 1.5563949700262704e-17,
+      "scalar_vertex_rank": 3,
+      "yukawa_chiral_rank": 4,
+      "three_gauge_rank": 27,
+      "three_gauge_transverse_residual": 4.445297140335624e-16
+    },
+    "counterterm_closure": {
+      "row_count": 32,
+      "missing_required_signatures": [],
+      "blank_counterterm_entries": [],
+      "all_pass": true
+    },
+    "analytic_benchmarks": {
+      "free_scalar_equal_time_rho": 0.0,
+      "free_scalar_equal_time_derivative_error": 8.817391261572993e-13,
+      "kms_residual": 1.4744238802056818e-16,
+      "abelian_ward_residual": 4.4865426701696e-16,
+      "markov_limit_max_error": 0.0007918990293619421,
+      "narrow_width_area_error": 0.00763907060722846,
+      "narrow_width_peak_location_error": 0.0,
+      "pass_free": true,
+      "pass_kms": true,
+      "pass_ward": true,
+      "pass_markov": true,
+      "pass_narrow_width": true,
+      "all_pass": true
+    },
+    "observable_contract": {
+      "missing_primary_observables": [],
+      "missing_error_components": [],
+      "all_pass": true
+    }
+  }
+}
+..........                                                               [100%]
+10 passed in 0.70s

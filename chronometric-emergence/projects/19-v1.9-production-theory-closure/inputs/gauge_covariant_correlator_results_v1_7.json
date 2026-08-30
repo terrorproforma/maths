@@ -1,0 +1,98 @@
+{
+  "version": "v1.7",
+  "model_point": {
+    "alpha_s": 0.0393544,
+    "g2": 0.57,
+    "g1": 0.39,
+    "y_d": 0.3,
+    "m_h_over_t": 0.43820657,
+    "m_debye3_over_t": 1.03514,
+    "temperature_gev": 100200000.0,
+    "reheaton_width_gev": 0.0147850065
+  },
+  "central_correction": {
+    "statement": "The conventional arbitrary-off-shell elementary Higgs self-energy is gauge dependent and is not itself a unique observable. A pinch-technique/background-field effective kernel can be defined, but it must be specified together with its vertex prescription and checked against pole observables and gauge-singlet correlators.",
+    "consequence": "The eventual self-consistent real-time calculation should be formulated at 3PI level (or with an equivalent Bethe-Salpeter vertex closure), not as a bare-vertex 2PI evolution."
+  },
+  "v1_6_anchor": {
+    "GammaH_total_occ_over_T": 0.0011585158821257404,
+    "GammaH_total_occ_GeV": 116083.29138899919,
+    "GammaH_over_GammaR": 7851419.706105587
+  },
+  "ward_closure": {
+    "samples": 500,
+    "fermion_WI_max_relative_residual": 1.5330634542970396e-15,
+    "fermion_WI_rms_relative_residual": 3.8075164864454944e-16,
+    "scalar_WI_max_relative_residual": 7.074168087019932e-14,
+    "scalar_WI_rms_relative_residual": 4.262782137054068e-15,
+    "transverse_contraction_max_relative_residual": 5.241122070888811e-16,
+    "interpretation": "Background-field line-integral longitudinal vertices satisfy QED-like Ward identities. The transverse vertex remains unconstrained."
+  },
+  "nielsen": {
+    "xi_values": [
+      0.0,
+      0.5,
+      1.0,
+      2.0,
+      3.0
+    ],
+    "target_complex_pole": [
+      1.0,
+      -0.075
+    ],
+    "max_complex_pole_displacement": 1.4154051842859049e-12,
+    "max_off_shell_relative_spread": 0.8376963350785339,
+    "median_off_shell_relative_spread": 0.6876791716660478,
+    "nielsen_identity_max_relative_residual": 1.0278922575982563e-09,
+    "interpretation": "The complex pole is gauge independent while the off-shell inverse propagator changes with xi."
+  },
+  "bfm_kernel": {
+    "grid_shape": [
+      48,
+      801
+    ],
+    "k_over_T_range": [
+      0.12,
+      16.0
+    ],
+    "omega_over_T_range": [
+      -20.0,
+      20.0
+    ],
+    "on_shell_max_interpolation_residual": 0.0009439425937470506,
+    "oddness_max_absolute_residual": 1.5612511283791264e-17,
+    "KMS_noise_minimum": 1.0652230771712487e-05,
+    "transverse_vertex_fractional_envelope_off_shell": 0.25,
+    "status": "Ward-closed PT/BFM near-shell benchmark; not an exact arbitrary-off-shell Standard-Model self-energy."
+  },
+  "singlet_control": {
+    "grid_shape": [
+      25,
+      321
+    ],
+    "spectral_resolution_floor_over_T": 0.018,
+    "oddness_max_absolute_residual": 0.0,
+    "positive_frequency_minimum": 4.906171145489611e-06,
+    "KMS_noise_minimum": 5.240513028328783e-05,
+    "status": "Gauge-singlet H^dagger H control correlator in a pole-convolution baseline; conserving ladder vertex remains open."
+  },
+  "three_pi": {
+    "two_PI_limitation": "At finite truncation, self-consistent propagators and derived vertices are inequivalent; a dressed propagator with a bare gauge vertex does not close the ST system.",
+    "minimal_dynamic_variables": [
+      "Higgs propagator",
+      "Q and D propagators",
+      "gauge propagators",
+      "ghost propagators",
+      "H-Q-D Yukawa vertex",
+      "background gauge-matter vertices"
+    ],
+    "recommended_closure": "Three-loop 3PI effective action in PT/BFM background Feynman gauge, with longitudinal vertices fixed by Ward identities and transverse parts evolved by stationarity/Bethe-Salpeter equations.",
+    "physical_validation_observables": [
+      "complex pole and residue",
+      "integrated hard+LPM reaction rate",
+      "gauge-singlet H^dagger H correlator",
+      "energy and charge conservation",
+      "KMS and fluctuation-dissipation relations"
+    ]
+  }
+}

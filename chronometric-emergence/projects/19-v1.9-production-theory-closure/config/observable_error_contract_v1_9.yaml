@@ -1,0 +1,99 @@
+version: '1.9'
+principle: Only gauge-invariant observables or gauge-stable poles/rates support physics
+  claims; elementary off-shell functions are diagnostics.
+primary_observables:
+  complex_poles:
+    status: physical when Nielsen-stable
+    estimator: zeros of det G_R^{-1} continued to the lower half plane
+    acceptance:
+      gauge_relative_spread_max: 1.0e-06
+      grid_relative_change_max: 0.001
+  portal_reaction_rate:
+    status: physical integrated rate
+    estimator: susceptibility-weighted cut of the matched retarded H-dagger-H/H portal
+      kernel
+    anchor_over_T: 0.0011585158821
+    acceptance:
+      anchor_relative_error_max: 0.001
+      qstar_spread_max: 1.0e-05
+  HdagH_spectral_density:
+    status: gauge-singlet physical control
+    estimator: conserving BSE with K=delta Sigma_H/delta G_H
+    acceptance:
+      negative_tolerance: 1.0e-10
+      BSE_residual_max: 1.0e-08
+  sector_energy_and_charges:
+    status: conserved physical observables
+    acceptance:
+      energy_relative_drift_max: 1.0e-06
+      gauge_charge_relative_drift_max: 1.0e-07
+  temperature_ratio_T5_T0:
+    status: downstream cosmological observable
+    target: 0.25
+    acceptance:
+      absolute_error_max: 0.00025
+diagnostics_not_claim_observables:
+- conventional gauge-fixed off-shell elementary Higgs self-energy
+- elementary-field residue without its vertex completion
+- individual ghost or longitudinal gauge dressing
+- single-gauge-parameter line shape
+error_budget:
+  radial_grid:
+    scan:
+    - 64
+    - 96
+    - 144
+    target_relative_max: 0.002
+  angular_lmax:
+    scan:
+    - 2
+    - 4
+    - 6
+    target_relative_max: 0.002
+  time_step_Tdt:
+    scan:
+    - 0.04
+    - 0.02
+    - 0.01
+    target_relative_max: 0.001
+  memory_steps:
+    scan:
+    - 128
+    - 256
+    - 384
+    - 512
+    target_relative_max: 0.005
+  quantum_gauge_xi:
+    scan:
+    - 0.0
+    - 0.5
+    - 1.0
+    - 2.0
+    physical_relative_max: 0.001
+  factorization_qstar_over_T:
+    scan:
+    - 0.15
+    - 0.25
+    - 0.4
+    relative_max: 1.0e-05
+  renormalization_mu_over_T:
+    scan:
+    - 3.141592653589793
+    - 6.283185307179586
+    - 12.566370614359172
+    report_not_gate_until_two_loop_running: true
+  vertex_basis_rank:
+    scan:
+    - minimal_seed
+    - full_component
+    physical_relative_max: 0.005
+  truncation_proxy:
+    scan:
+    - 3PI_full_declared
+    - 3PI_no_transverse_seed
+    - 2PI_bare_vertex_control
+    report_as_systematic_not_statistical: true
+combination_rule: Report signed shifts separately and the covariance matrix; do not
+  blindly add all systematics in quadrature.
+stop_policy: A failed identity or conservation gate stops the run. It is not absorbed
+  into the error bar.

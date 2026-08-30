@@ -1,0 +1,87 @@
+{
+  "assumptions": [
+    "Homogeneous plasma with a preferred time-like four-vector u^mu.",
+    "CP-even and parity-even background; no chiral chemical potential.",
+    "Electroweak-symmetric phase and exact color/weak covariance.",
+    "Angular anisotropy is carried by spherical-harmonic dependence of form factors, not by adding a fixed anisotropy vector."
+  ],
+  "objects": [
+    {
+      "object": "gauge propagator D_G^{mu nu}",
+      "raw_components": 16,
+      "declared_basis_dimension": 4,
+      "basis": [
+        "P_T^{mu nu}",
+        "P_L^{mu nu}",
+        "Q^mu Q^nu/Q^2",
+        "Q^{(mu} u_perp^{nu)}"
+      ],
+      "constraints": "Background gauge condition and STI monitor; physical self-energy transverse subspace has two dressings in equilibrium.",
+      "note": "The fourth mixed structure is retained as a truncation/gauge diagnostic."
+    },
+    {
+      "object": "fermion inverse propagator S^{-1}",
+      "raw_components": 16,
+      "declared_basis_dimension": 3,
+      "basis": [
+        "slash P",
+        "slash u",
+        "identity"
+      ],
+      "constraints": "Chiral projector removes the scalar term for Q_L; vectorlike D retains it.",
+      "note": "Additional CP-odd structures are excluded by the declared state symmetry."
+    },
+    {
+      "object": "fermion-gauge vertex Gamma^mu",
+      "raw_components": 64,
+      "longitudinal_components": 16,
+      "transverse_components": 48,
+      "basis": "Three Q-transverse Lorentz vectors tensor the complete 16-element Dirac/Clifford basis.",
+      "constraints": "Longitudinal 16-component matrix fixed by STI; transverse 48-component subspace evolved.",
+      "note": "This replaces the four-tensor seed used only for v1.8 initialization."
+    },
+    {
+      "object": "scalar-gauge or ghost-gauge vertex Gamma^mu",
+      "raw_components": 4,
+      "longitudinal_components": 1,
+      "transverse_components": 3,
+      "basis": "One Q-parallel direction plus a numerical three-vector basis of null(q_lower).",
+      "constraints": "Longitudinal component fixed by Ward/ST identity.",
+      "note": "Complete for a Lorentz vector at generic non-null Q."
+    },
+    {
+      "object": "Yukawa H-Q-D vertex",
+      "raw_components": 16,
+      "declared_basis_dimension": 4,
+      "basis": "Complete Clifford basis projected as P_R Gamma_A P_L for one orientation; conjugate basis for h.c.",
+      "constraints": "Gauge representation and chirality.",
+      "note": "Four complex components per chiral orientation at generic kinematics."
+    },
+    {
+      "object": "matter-ghost kernel H(P,Q)",
+      "raw_components": 16,
+      "declared_basis_dimension": 16,
+      "basis": "Complete Dirac/Clifford basis; chiral projection where applicable.",
+      "constraints": "Color/group tensor factored; matrix form factors are evolved or reconstructed.",
+      "note": "This removes the v1.8 common-scalar-kernel limitation."
+    },
+    {
+      "object": "three-gauge vertex Gamma^{mu nu rho}",
+      "raw_components": 64,
+      "fully_transverse_components": 27,
+      "basis": "Tensor product of three independent transverse Lorentz bases, one for each external momentum.",
+      "constraints": "Longitudinal/STI completion plus Bose/color permutation constraints.",
+      "note": "The 27 fully transverse amplitudes are evolved; permutation symmetry is enforced as a linear projector."
+    },
+    {
+      "object": "H-dagger-H Bethe-Salpeter vertex",
+      "raw_components": 1,
+      "declared_basis_dimension": 1,
+      "basis": [
+        "gauge-singlet scalar"
+      ],
+      "constraints": "Kernel K=delta Sigma_H/delta G_H from the identical truncation.",
+      "note": "Primary gauge-invariant spectral control."
+    }
+  ]
+}

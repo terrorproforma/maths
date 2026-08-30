@@ -1,0 +1,166 @@
+project:
+  name: chronometric-qdh-ptbfm-3pi
+  version: 1.9
+  purpose: Pilot-ready PT/BFM-constrained three-loop 3PI/Kadanoff-Baym evolution with
+    an exact generic topology ledger, complete component tensor spaces for the declared
+    symmetry class, a power-counting counterterm closure basis, and a preregistered
+    observable/error contract.
+  scope_warning: The package closes the declared pilot truncation. It does not prove
+    all-order renormalizability or exact gauge invariance of a finite non-Abelian
+    3PI truncation.
+physics:
+  temperature_GeV: 100200000.0
+  phase: electroweak_symmetric_CP_even_homogeneous
+  gauge_groups:
+    SU3:
+      coupling: 0.7032015697
+      debye_mass_over_T: 1.03514
+    SU2:
+      coupling: 0.57
+      debye_mass_over_T: 0.771784
+    U1:
+      coupling: 0.39
+      debye_mass_over_T: 0.543829
+  yukawa_qDH: 0.3
+  asymptotic_masses_over_T:
+    H: 0.43820657
+    Q: 0.50345964
+    D: 0.41808756
+  dynamical_two_point_functions:
+  - H
+  - Q
+  - D
+  - gluon
+  - W
+  - B
+  - SU3_ghost
+  - SU2_ghost
+  dynamical_three_point_vertices:
+  - H-Q-D
+  - gluon-Q-Q
+  - gluon-D-D
+  - W-Q-Q
+  - W-H-H
+  - B-Q-Q
+  - B-D-D
+  - B-H-H
+  - three-gluon
+  - three-W
+  - SU3_gauge-ghost-ghost
+  - SU2_gauge-ghost-ghost
+  composite_control_operator: H_dagger_H
+truncation:
+  nPI: 3PI
+  loop_order: 3
+  diagram_ledger: data/diagram_ledger_v1_9.json
+  vertex_catalog: data/vertex_catalog_v1_9.json
+  tensor_basis_catalog: data/tensor_basis_catalog_v1_9.json
+  counterterm_closure_matrix: data/counterterm_closure_matrix_v1_9.json
+  background_gauge: PT_BFM_background_Feynman
+  quantum_gauges_to_scan:
+  - 0.0
+  - 0.5
+  - 1.0
+  - 2.0
+  longitudinal_vertices: matrix_STI_line_integral_completion
+  transverse_vertices: complete_component_nullspace_basis_then_dynamic_3PI
+  ghost_closure: full_16_component_matter_ghost_matrix_basis
+  three_gauge_transverse_basis_dimension: 27
+  fermion_gauge_transverse_basis_dimension: 48
+  yukawa_chiral_basis_dimension_per_orientation: 4
+  singlet_control: conserving_Bethe_Salpeter_ladder
+  hard_soft_matching:
+    separation_scales_qstar_over_T:
+    - 0.15
+    - 0.25
+    - 0.4
+    formula: Born_plus_regularized_hard_plus_HTL_plus_LPM_minus_overlap
+    pointwise_regression_table: inputs/prehpc_closure_arrays_v1_8.npz
+initial_state:
+  mode: interacting_thermal_imaginary_leg_plus_UV_soft_finite_deformation
+  required_correlations:
+  - alpha2
+  - alpha3
+  - alpha4
+  UV_condition: difference_from_equilibrium_decays_faster_than_p^-4-delta_in_energy_weighted_norm
+  abrupt_quench_forbidden: true
+pilot_grid:
+  geometry: homogeneous_spherical_harmonic_momentum_expansion
+  radial_momentum:
+    points: 96
+    minimum_over_T: 0.03
+    maximum_over_T: 30.0
+    mapping: logarithmic_plus_linear_IR_patch
+  angular_moments:
+    lmax: 4
+    modes: 25
+  time:
+    steps: 4096
+    dt_times_T: 0.02
+    memory_window_steps: 256
+    integrator: causal_predictor_corrector_Gauss_Radau
+  frequency_validation:
+    points: 1601
+    minimum_over_T: -16.0
+    maximum_over_T: 16.0
+renormalization:
+  scheme: MSbar_plus_finite_PT_BFM_matching
+  hard_scale_over_T: 6.283185307179586
+  split_vertex_counterterms: true
+  truncation_only_longitudinal_counterterms: true
+  initial_surface_counterterms: true
+  composite_operator_counterterms: true
+  enforce_same_kernel_for_self_energy_and_BSE: true
+  factorization_scale_scan: true
+  cutoff_independence_scan_required: true
+benchmarks:
+  free_unequal_time: true
+  equilibrium_KMS: true
+  abelian_Ward_limit: true
+  pure_Yukawa_limit: true
+  linear_response_anchor: true
+  kinetic_AMY_limit: true
+  narrow_width_limit: true
+  factorization_scale_cancellation: true
+  singlet_BSE: true
+parallelization:
+  mpi_axis: momentum_cells
+  gpu_axis: memory_time_tiles_and_vertex_components
+  halo_exchange: angular_moment_neighbours
+  checkpoint_interval_steps: 128
+  deterministic_reductions: true
+  precision:
+    propagators: float64
+    vertices: complex128
+    scratch: float64
+acceptance:
+  on_shell_width_relative_error_max: 0.001
+  factorization_scale_relative_spread_max: 1.0e-05
+  background_Ward_relative_residual_max: 1.0e-08
+  quantum_STI_relative_residual_max: 1.0e-06
+  nielsen_complex_pole_relative_spread_max: 1.0e-06
+  KMS_relative_residual_max: 1.0e-07
+  equal_time_commutator_relative_error_max: 1.0e-07
+  energy_relative_drift_max: 1.0e-06
+  gauge_charge_relative_drift_max: 1.0e-07
+  singlet_spectral_negative_tolerance: 1.0e-10
+  singlet_BSE_equation_residual_max: 1.0e-08
+  memory_window_observable_change_max: 0.005
+  gauge_parameter_physical_observable_change_max: 0.001
+  diagram_ledger_loop_failures_max: 0
+  fermion_vertex_transverse_rank_min: 48
+  three_gauge_transverse_rank_min: 27
+  counterterm_unmapped_signatures_max: 0
+  benchmark_failures_max: 0
+observable_contract: config/observable_error_contract_v1_9.yaml
+outputs:
+  checkpoint_format: HDF5
+  observables:
+  - complex_poles
+  - integrated_portal_reaction_rate
+  - H_dagger_H_spectral_function
+  - sector_energy_and_charges
+  - KMS_and_fluctuation_dissipation_residuals
+  - Ward_STI_and_Nielsen_residuals
+  - factorization_scale_residuals
+  - temperature_ratio_T5_T0

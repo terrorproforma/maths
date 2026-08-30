@@ -4,6 +4,14 @@
 
 An ongoing theoretical-physics programme investigating whether causal or conformal structure may be primitive while operational duration is reconstructed from common spectral scaling, and how controlled failures of that scaling appear as **chronometric shear**.
 
+## Canonical repository layout
+
+- [`projects/`](projects/) — organised, self-contained project folders from the photon-frame foundations through v1.9 and the current evidence audit. Start here.
+- [`frontier-evidence-v2/`](frontier-evidence-v2/) — canonical adversarial evidence repair, errata and current scientific verdict.
+- [`original-info/`](original-info/) — recovered original PDFs, LaTeX, Markdown, scripts, arrays, figures, matrices and packages from the iterative programme.
+- [`sources/`](sources/) — source conversation material.
+- [`STORAGE_POLICY.md`](STORAGE_POLICY.md) — repository-first storage and provenance rules for all future work.
+
 ## Current evidence status
 
 The project has completed an adversarial post-audit rebuild. Earlier labels such as `PASS`, `CLOSED`, and `PILOT AUTHORIZED` were often too strong: several checks established algebraic consistency or regression stability rather than physical validity.
@@ -61,10 +69,7 @@ The complete LPM recomputation is deliberately expensive. CI runs it rather than
 
 ## Historical research record
 
-- [`original-info/`](original-info/) — recovered original PDFs, LaTeX, Markdown, scripts, arrays, figures, matrices and packages from the iterative programme.
-- [`sources/`](sources/) — source conversation material.
-
-Historical packages are retained as research provenance even where later evidence retracts or supersedes their conclusions. They must be read together with the v2 errata.
+The numbered [`projects/`](projects/) index retains each stage as a separate research object. [`original-info/`](original-info/) preserves recovered original packages and binaries. Historical packages remain valuable provenance even where later evidence retracts or supersedes their conclusions; they must be read together with the v2 errata.
 
 ## Strongest surviving thesis
 
