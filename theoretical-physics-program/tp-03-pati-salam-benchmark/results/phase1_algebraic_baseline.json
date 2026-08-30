@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-03 complete Pati-Salam benchmark",
+  "phase": "Phase 1 algebraic baseline and minimal Yukawa obstruction",
+  "checks": {
+    "PS_local_anomalies_cancel_per_generation": true,
+    "PS_global_SU2_anomalies_cancel_per_generation": true,
+    "SM_decomposition_is_anomaly_free": true,
+    "SU4_generator_normalization": true,
+    "Delta_R_has_neutral_breaking_direction": true,
+    "one_bidoublet_obstruction_identified": true,
+    "15_bidoublet_repair_reconstructs_arbitrary_pairs": true,
+    "one_loop_matching_equation_solved": true
+  },
+  "pati_salam_anomalies": {
+    "all_left_handed_matter": {
+      "F_L": "(4,2,1)",
+      "F_R_c": "(bar4,1,2)"
+    },
+    "SU4_cubic_per_generation": 0,
+    "SU2L_Witten_doublets_per_generation": 4,
+    "SU2R_Witten_doublets_per_generation": 4,
+    "SU2L_Witten_parity": 0,
+    "SU2R_Witten_parity": 0,
+    "local_anomalies_cancel_per_generation": true,
+    "global_SU2_anomalies_cancel_per_generation": true
+  },
+  "standard_model_recovery": {
+    "hypercharge_definition": "Y=T3R+(B-L)/2",
+    "decomposition": {
+      "F_L": [
+        {
+          "field": "Q_L",
+          "SU3": "3",
+          "SU2L": "2",
+          "Y": "1/6"
+        },
+        {
+          "field": "L_L",
+          "SU3": "1",
+          "SU2L": "2",
+          "Y": "-1/2"
+        }
+      ],
+      "F_R_c": [
+        {
+          "field": "u_c",
+          "SU3": "bar3",
+          "SU2L": "1",
+          "Y": "-2/3"
+        },
+        {
+          "field": "d_c",
+          "SU3": "bar3",
+          "SU2L": "1",
+          "Y": "1/3"
+        },
+        {
+          "field": "nu_c",
+          "SU3": "1",
+          "SU2L": "1",
+          "Y": "0"
+        },
+        {
+          "field": "e_c",
+          "SU3": "1",
+          "SU2L": "1",
+          "Y": "1"
+        }
+      ]
+    },
+    "SM_anomalies_per_generation": {
+      "SU3_cubic": "0",
+      "SU3_squared_U1Y": "0",
+      "SU2_squared_U1Y": "0",
+      "U1Y_cubic": "0",
+      "gravity_squared_U1Y": "0",
+      "SU2_Witten_doublets": 4,
+      "SU2_Witten_parity": 0
+    },
+    "all_SM_local_anomalies_cancel": true,
+    "SM_global_SU2_anomaly_cancels": true
+  },
+  "generator_and_breaking": {
+    "T15_relation": "T15=sqrt(3/2) Q_BL",
+    "Tr_QBL_squared": "1/3",
+    "Tr_T15_squared": "1/2",
+    "canonical_SU4_normalization_passes": true,
+    "gBL_relation": "g_BL=sqrt(3/2) g_4 for Q_BL=(B-L)/2",
+    "hypercharge_matching": "1/g_Y^2=1/g_R^2+2/(3 g_4^2)",
+    "Delta_R_10_decomposition": [
+      {
+        "SU3": "6",
+        "B-L": "2/3",
+        "dimension": 6
+      },
+      {
+        "SU3": "3",
+        "B-L": "-2/3",
+        "dimension": 3
+      },
+      {
+        "SU3": "1",
+        "B-L": "-2",
+        "dimension": 1
+      }
+    ],
+    "Delta_R_dimension": 10,
+    "neutral_vev_direction": {
+      "B-L": "-2",
+      "T3R": "1",
+      "Y": "0"
+    },
+    "Delta_R_contains_neutral_breaking_direction": true,
+    "SU4_adjoint_15_decomposition": [
+      {
+        "SU3": "8",
+        "B-L": "0",
+        "dimension": 8
+      },
+      {
+        "SU3": "3",
+        "B-L": "4/3",
+        "dimension": 3
+      },
+      {
+        "SU3": "bar3",
+        "B-L": "-4/3",
+        "dimension": 3
+      },
+      {
+        "SU3": "1",
+        "B-L": "0",
+        "dimension": 1
+      }
+    ],
+    "SU4_adjoint_dimension": 15
+  },
+  "yukawa_sector": {
+    "PS0_scalar_yukawa_sector": [
+      "Phi_1=(1,2,2)"
+    ],
+    "PS0_exact_mass_relations": [
+      "M_d=M_e",
+      "M_u=M_D_nu"
+    ],
+    "PS0_verdict": "rejected as a realistic three-family charged-fermion benchmark; the representation structure supplies no independent quark/lepton Clebsch in either electroweak direction",
+    "minimal_yukawa_repair": [
+      "Phi_1=(1,2,2)",
+      "Phi_15=(15,2,2)"
+    ],
+    "PS1_mass_formulas": {
+      "M_d": "A_d+B_d",
+      "M_e": "A_d-3 B_d",
+      "M_u": "A_u+B_u",
+      "M_D_nu": "A_u-3 B_u"
+    },
+    "inverse_formulas": {
+      "A_d": "(3 M_d+M_e)/4",
+      "B_d": "(M_d-M_e)/4",
+      "A_u": "(3 M_u+M_D_nu)/4",
+      "B_u": "(M_u-M_D_nu)/4"
+    },
+    "arbitrary_matrix_pair_reconstruction_exact": true,
+    "right_majorana_mass": "M_R=f_R v_R",
+    "type_I_seesaw": "m_nu=-M_D_nu M_R^{-1} M_D_nu^T",
+    "seed": 20260831
+  },
+  "gauge_matching_baseline": {
+    "scope": "one-loop SM running, one light Higgs doublet, no thresholds, parity condition g_R=g_L at M_PS; illustrative only",
+    "inputs_at_MZ": {
+      "MZ_GeV": 91.1876,
+      "alpha_em_inverse": 127.955,
+      "sin2_thetaW": 0.23122,
+      "alpha_s": 0.1179
+    },
+    "beta_coefficients_GUT_normalized": {
+      "b1": 4.1,
+      "b2": -3.1666666666666665,
+      "b3": -7.0
+    },
+    "log_MPS_over_MZ": 27.044391931261075,
+    "M_PS_GeV": 50718449418328.73,
+    "inverse_alphas_at_MPS": {
+      "alpha1_inverse": 41.36580203873671,
+      "alpha2_inverse": 43.21804972239304,
+      "alpha3_inverse": 38.60342688076854
+    },
+    "gauge_couplings_at_MPS": {
+      "g1_GUT_normalized": 0.5512048446396286,
+      "gL": 0.5392600293968208,
+      "g4": 0.5705639138886807
+    },
+    "matching_residual": -7.105427357601002e-15,
+    "matching_passes_numerically": true,
+    "warning": "Extra light doublets, threshold splittings, two-loop running and finite matching corrections can move this scale substantially."
+  },
+  "verdict": {
+    "PS0_one_bidoublet": "REJECTED",
+    "PS1_two_bidoublet": "ALGEBRAICALLY VIABLE; DYNAMICS OPEN",
+    "next_decisive_test": "Construct the complete renormalizable scalar potential for Phi_1, Phi_15 and Delta_R; prove the desired vacuum, scalar spectrum, boundedness, and threshold-corrected RG trajectory."
+  }
+}
