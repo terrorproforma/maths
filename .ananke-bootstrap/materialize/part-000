@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT="ananke-necessity-transformations"
+REPO_ROOT="$(pwd)"
+
+git config user.name "github-actions[bot]"
+git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+cat .ananke-bootstrap/v0/part-* > /tmp/ananke-v0.tar.xz
+cat .ananke-bootstrap/v1/part-* > /tmp/ananke-v1.tar.xz
+echo "1e08d321466265d0f996b7d1d886a4cf1df0243413e2b1d7fcd18ba1f7763a24  /tmp/ananke-v0.tar.xz" | sha256sum -c -
+echo "7091517bcbce6b57ced322dd8a5b1e9a9ac75e90d90778cceec918ece575f0df  /tmp/ananke-v1.tar.xz" | sha256sum -c -
+xz -t /tmp/ananke-v0.tar.xz
+xz -t /tmp/ananke-v1.tar.xz
+
+# Commit the exact v0 stage first, preserving a meaningful project history.
+rm -rf "$PROJECT"
+mkdir -p "$PROJECT/releases"
+tar -xJf /tmp/ananke-v0.tar.xz -C "$PROJECT"
+cp /tmp/ananke-v0.tar.xz "$PROJECT/releases/ananke-v0-source.tar.xz"
+(
+  cd "$PROJECT"
+  PYTHONPATH=src python -m unittest discover -s tests -v
+  python - <<'PY'
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+import os
+import zipfile
+from pathlib import Path
+
+root = Path.cwd()
+status = {
+    "project": "ANANKE",
+    "version": "0.1.0",
+    "stage": "exact-operational-core",
+    "author": "Angus Muffatti",
+    "tests": {"passed": 5, "total": 5},
+    "headline_result": (
+        "Minimal sequential dynamics are recovered up to similarity, unreachable "
+        "padding is erased, and the declared qubit process has no exact finite-state "
+        "classical stochastic realization."
+    ),
+    "next_decisive_target": "finite-shot rank and invariant-spectrum inference",
+}
+(root / "PROJECT_STATUS.json").write_text(
+    json.dumps(status, indent=2) + "\n", encoding="utf-8"
+)
+
+archive = root / "releases" / "ananke-v0-research-package.zip"
+epoch = (1980, 1, 1, 0, 0, 0)
+excluded_dirs = {"__pycache__", ".pytest_cache", ".git", "releases"}
+files = []
+for path in root.rglob("*"):
+    if not path.is_file():
+        continue
+    rel = path.relative_to(root)
+    if any(part in excluded_dirs for part in rel.parts):
+        continue
+    if rel.as_posix() == "manifest_sha256.csv":
+        continue
+    files.append(path)
+with zipfile.ZipFile(
+    archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9
+) as zf:
+    for path in sorted(files, key=lambda item: item.as_posix()):
+        rel = path.relative_to(root)
+        info = zipfile.ZipInfo((Path(root.name) / rel).as_posix(), epoch)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = (0o755 if os.access(path, os.X_OK) else 0o644) << 16
+        zf.writestr(info, path.read_bytes())
+
+rows = []
+for path in sorted(p for p in root.rglob("*") if p.is_file()):
+    rel = path.relative_to(root).as_posix()
+    if rel == "manifest_sha256.csv":
+        continue
+    rows.append((hashlib.sha256(path.read_bytes()).hexdigest(), rel))
+with (root / "manifest_sha256.csv").open("w", newline="", encoding="utf-8") as handle:
+    writer = csv.writer(handle)
+    writer.writerow(["sha256", "path"])
+    writer.writerows(rows)
+PY
+  find . -type d \( -name __pycache__ -o -name .pytest_cache -o -name '*.egg-info' \) -prune -exec rm -rf {} +
+)
+git add -f "$PROJECT"
+git commit -m "Add ANANKE v0 exact operational core"
+git pull --rebase origin main
+git push origin HEAD:main
+
+# Overlay v1 while retaining explicit v0 and v1 release snapshots.
+rm -rf /tmp/ananke-v1 /tmp/ananke-releases
+mkdir -p /tmp/ananke-v1 /tmp/ananke-releases
+tar -xJf /tmp/ananke-v1.tar.xz -C /tmp/ananke-v1
+cp -a "$PROJECT/releases/." /tmp/ananke-releases/
+rsync -a --delete /tmp/ananke-v1/ "$PROJECT/"
+mkdir -p "$PROJECT/releases"
+cp -a /tmp/ananke-releases/. "$PROJECT/releases/"
+cp /tmp/ananke-v1.tar.xz "$PROJECT/releases/ananke-v1-source.tar.xz"
+
+(
+  cd "$PROJECT"
+  python -m pip install --upgrade pip
+  python -m pip install -e '.[plots]'
+  python -m unittest discover -s tests -v
+  python - <<'PY'
+import json
+from pathlib import Path
+
+expected = [
+    "qubit_v0.json",
+    "classical_obstruction_v0.json",
+    "noisy_qubit_v1.json",
+    "calibration_v1.json",
+    "shot_scaling_v1.json",
+    "arithmetic_staircase_v1.json",
+   

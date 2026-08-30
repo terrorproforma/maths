@@ -1,0 +1,88 @@
+-free",
+    ],
+    [
+        "finite classical realization lower bound",
+        "PASS",
+        "analytic lower bound 9; converged Karpelevič numerical lower bound 16",
+        "numerical bound is not yet interval-certified",
+    ],
+    [
+        "classical-process calibration",
+        "PASS AT TESTED FAMILY",
+        "one false exclusion in 100 nominal 99% trials",
+        "not universal calibration over all classical processes",
+    ],
+    [
+        "joint noncommuting tuple invariants",
+        "OPEN",
+        "v2 target",
+        "single-mode spectral certificates do not exhaust tuple structure",
+    ],
+    [
+        "ontology comparison beyond finite classical stochastic models",
+        "OPEN",
+        "v2/v3 target",
+        "quantum and generalized-probabilistic counterfeit costs not yet computed",
+    ],
+]
+with (root / "acceptance_matrix.csv").open("w", newline="", encoding="utf-8") as handle:
+    csv.writer(handle).writerows(matrix_rows)
+
+archive = root / "releases" / "ananke-v1-research-package.zip"
+epoch = (1980, 1, 1, 0, 0, 0)
+excluded_dirs = {"__pycache__", ".pytest_cache", ".git", "releases", "build"}
+files = []
+for path in root.rglob("*"):
+    if not path.is_file():
+        continue
+    rel = path.relative_to(root)
+    if any(part in excluded_dirs or part.endswith(".egg-info") for part in rel.parts):
+        continue
+    if rel.as_posix() == "manifest_sha256.csv":
+        continue
+    files.append(path)
+with zipfile.ZipFile(
+    archive, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9
+) as zf:
+    for path in sorted(files, key=lambda item: item.as_posix()):
+        rel = path.relative_to(root)
+        info = zipfile.ZipInfo((Path(root.name) / rel).as_posix(), epoch)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = (0o755 if os.access(path, os.X_OK) else 0o644) << 16
+        zf.writestr(info, path.read_bytes())
+
+rows = []
+for path in sorted(p for p in root.rglob("*") if p.is_file()):
+    rel = path.relative_to(root).as_posix()
+    if rel == "manifest_sha256.csv":
+        continue
+    rows.append((hashlib.sha256(path.read_bytes()).hexdigest(), rel))
+with (root / "manifest_sha256.csv").open("w", newline="", encoding="utf-8") as handle:
+    writer = csv.writer(handle)
+    writer.writerow(["sha256", "path"])
+    writer.writerows(rows)
+
+index = Path("PHYSICS_PROJECTS.md")
+text = index.read_text(encoding="utf-8")
+row = (
+    "| ANANKE | [`ananke-necessity-transformations/`]"
+    "(ananke-necessity-transformations/) | Active, v1 complete | "
+    "Operational Hankel core, finite-shot rank/spectrum inference, and graded "
+    "classical counterfeit-complexity lower bounds. |"
+)
+if row not in text:
+    marker = "## Directory convention for future projects"
+    if marker not in text:
+        raise SystemExit("project-index insertion marker not found")
+    text = text.replace(marker, row + "\n\n" + marker)
+    index.write_text(text, encoding="utf-8")
+PY
+
+find "$PROJECT" -type d \( -name __pycache__ -o -name .pytest_cache -o -name '*.egg-info' -o -name build \) -prune -exec rm -rf {} +
+rm -rf .ananke-bootstrap
+rm -f .github/workflows/ananke-materialize.yml
+git add -A
+git add -f "$PROJECT/dist/"*.whl
+git commit -m "Advance ANANKE to v1 finite-shot counterfeit complexity"
+git pull --rebase origin main
+git push origin HEAD:main
