@@ -1,0 +1,119 @@
+schema_version: 1
+campaign_id: hayashi-kiuchi-2025-bnsjet
+track: E
+status: scaffold
+
+source_target:
+  doi: 10.1103/PhysRevLett.134.211407
+  arxiv: "2410.10958"
+  parameter_ledger: ../../references/parameter_ledger.yaml
+
+artifacts:
+  solver_source:
+    path: null
+    sha256: null
+    required_for: [X]
+  initial_data:
+    path: null
+    sha256: null
+    required_for: [X, E]
+  eos_table:
+    path: null
+    sha256: null
+    required_for: [X, E]
+  neutrino_tables:
+    path: null
+    sha256: null
+    required_for: [X, E]
+
+physical_model:
+  component_masses_gravitational_msun: [1.25, 1.65]
+  equation_of_state: SFHo
+  spacetime: dynamical_z4c_moving_puncture
+  fluid: ideal_grmhd
+  neutrinos: gray_m1_plus_source_terms
+  magnetic_seed:
+    topology: pressure_confined_poloidal
+    normalisation: null
+    pressure_cut_fraction: null
+    exponent: null
+  target_end_time_s: 1.5
+  cowling_transition_s: 0.44
+
+numerics:
+  reconstruction: target_matched
+  riemann_solver: hlld_family
+  magnetic_divergence_control: constrained_transport
+  time_integrator: target_matched
+  metric_spatial_order: target_matched
+  hydrodynamic_spatial_order: target_matched
+  primitive_recovery: target_matched
+  amr_subcycling: true
+  symmetry: none
+
+mesh:
+  target_finest_spacing_m: 150.0
+  target_refinement_levels: 14
+  production_resolutions_m: [240.0, 190.0, 150.0]
+  outer_boundary_km: null
+  level_extents_km: []
+
+run_control:
+  checkpoint_interval_s: 0.002
+  diagnostics_interval_s: 0.0001
+  volume_output_interval_s:
+    early: 0.001
+    late: 0.005
+  abort_on_nonfinite: true
+  abort_on_constraint_growth_factor: 10.0
+  preserve_failed_checkpoint: true
+
+stages:
+  - id: P0_inspiral
+    start_s: null
+    stop_s: 0.0
+    spacetime: dynamical
+  - id: P1_merger_to_20ms
+    start_s: 0.0
+    stop_s: 0.020
+    spacetime: dynamical
+  - id: P2_20_to_100ms
+    start_s: 0.020
+    stop_s: 0.100
+    spacetime: dynamical
+  - id: P3_100_to_440ms
+    start_s: 0.100
+    stop_s: 0.440
+    spacetime: dynamical
+  - id: P4_440_to_1000ms
+    start_s: 0.440
+    stop_s: 1.000
+    spacetime: cowling
+  - id: P5_1000_to_1500ms
+    start_s: 1.000
+    stop_s: 1.500
+    spacetime: cowling
+
+resource_anchor:
+  reference_cpu_hours: 130000000.0
+  reference_finest_spacing_m: 150.0
+  resolution_scaling_exponent: 4.0
+  reference_wall_seconds: null
+  reference_mpi_ranks: null
+
+scheduler:
+  kind: slurm
+  account: REPLACE_ME
+  partition: REPLACE_ME
+  nodes: 256
+  ranks_per_node: 128
+  threads_per_rank: 1
+  walltime: "12:00:00"
+  executable: ./sacra_or_equivalent
+  launcher: srun
+  signal_before_end_s: 600
+
+validation:
+  target_metrics: ../reference_targets/target_metrics.yaml
+  require_all_blocking_metrics: true
+  fail_on_missing_metric: true

@@ -1,0 +1,30 @@
+# Full-fidelity runtime products
+full_fidelity/runs/
+full_fidelity/checkpoints/
+full_fidelity/output/
+full_fidelity/scratch/
+full_fidelity/.venv/
+full_fidelity/.pytest_cache/
+full_fidelity/.ruff_cache/
+full_fidelity/.mypy_cache/
+full_fidelity/**/__pycache__/
+full_fidelity/**/*.py[cod]
+
+# Numerical data are registered by hash, not silently committed.
+*.h5
+*.hdf5
+*.bp
+*.bp4
+*.bp5
+*.xdmf
+*.vtu
+*.pvtu
+*.vtk
+*.npy
+*.npz
+*.tar
+*.tar.gz
+*.zst
+
+# Keep the intentionally committed reduced-order videos.
+!reduced_order/artifacts/*.mp4

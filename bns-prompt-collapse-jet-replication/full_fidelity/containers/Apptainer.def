@@ -1,0 +1,25 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%labels
+    Project bns-black-hole-jet-replication
+    Scope orchestration-and-analysis
+
+%post
+    apt-get update
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        ca-certificates git python3 python3-pip python3-venv
+    rm -rf /var/lib/apt/lists/*
+    python3 -m venv /opt/bnsjet-venv
+    /opt/bnsjet-venv/bin/python -m pip install --upgrade pip
+
+%environment
+    export PATH=/opt/bnsjet-venv/bin:$PATH
+    export PYTHONUNBUFFERED=1
+
+%runscript
+    exec bnsjet "$@"
+
+# Build the project wheel outside this definition and install it with:
+#   apptainer exec --writable-tmpfs image.sif pip install /path/to/wheel.whl
+# The production GRRMHD solver requires a separate architecture-specific image.

@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://terrorproforma.example/schemas/bnsjet-campaign-v1.json",
+  "title": "BNS jet replication campaign",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "campaign_id",
+    "track",
+    "source_target",
+    "artifacts",
+    "physical_model",
+    "numerics",
+    "mesh",
+    "run_control",
+    "stages",
+    "resource_anchor",
+    "scheduler",
+    "validation"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "track": {"enum": ["X", "E"]},
+    "status": {"type": "string"},
+    "source_target": {
+      "type": "object",
+      "required": ["doi", "arxiv", "parameter_ledger"],
+      "properties": {
+        "doi": {"type": "string"},
+        "arxiv": {"type": "string"},
+        "parameter_ledger": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["path", "sha256", "required_for"],
+        "properties": {
+          "path": {"type": ["string", "null"]},
+          "sha256": {
+            "anyOf": [
+              {"type": "null"},
+              {"type": "string", "pattern": "^[a-fA-F0-9]{64}$"}
+            ]
+          },
+          "required_for": {
+            "type": "array",
+            "items": {"enum": ["X", "E"]},
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "physical_model": {
+      "type": "object",
+      "required": [
+        "component_masses_gravitational_msun",
+        "equation_of_state",
+        "spacetime",
+        "fluid",
+        "neutrinos",
+        "magnetic_seed",
+        "target_end_time_s",
+        "cowling_transition_s"
+      ],
+      "properties": {
+        "component_masses_gravitational_msun": {
+          "type": "array",
+          "prefixItems": [{"type": "number"}, {"type": "number"}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "equation_of_state": {"type": "string"},
+        "spacetime": {"type": "string"},
+        "fluid": {"type": "string"},
+        "neutrinos": {"type": "string"},
+        "magnetic_seed": {"type": "object"},
+        "target_end_time_s": {"type": "number", "exclusiveMinimum": 0},
+        "cowling_transition_s": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "numerics": {"type": "object"},
+    "mesh": {
+      "type": "object",
+      "required": ["target_finest_spacing_m", "target_refinement_levels", "production_resolutions_m"],
+      "properties": {
+        "target_finest_spacing_m": {"type": "number", "exclusiveMinimum": 0},
+        "target_refinement_levels": {"type": "integer", "minimum": 1},
+        "production_resolutions_m": {
+          "type": "array",
+          "items": {"type": "number", "exclusiveMinimum": 0},
+          "minItems": 3,
+          "uniqueItems": true
+        },
+        "outer_boundary_km": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "level_extents_km": {"type": "array", "items": {"type": "number", "exclusiveMinimum": 0}}
+      },
+      "additionalProperties": true
+    },
+    "run_control": {"type": "object"},
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "start_s", "stop_s", "spacetime"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "start_s": {"type": ["number", "null"]},
+          "stop_s": {"type": "number"},
+          "spacetime": {"enum": ["dynamical", "cowling"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "resource_anchor": {
+      "type": "object",
+      "required": ["reference_cpu_hours", "reference_finest_spacing_m", "resolution_scaling_exponent"],
+      "properties": {
+        "reference_cpu_hours": {"type": "number", "exclusiveMinimum": 0},
+        "reference_finest_spacing_m": {"type": "number", "exclusiveMinimum": 0},
+        "resolution_scaling_exponent": {"type": "number", "minimum": 1},
+        "reference_wall_seconds": {"type": ["number", "null"]},
+        "reference_mpi_ranks": {"type": ["integer", "null"], "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "scheduler": {
+      "type": "object",
+      "required": [
+        "kind", "account", "partition", "nodes", "ranks_per_node", "threads_per_rank",
+        "walltime", "executable", "launcher", "signal_before_end_s"
+      ],
+      "properties": {
+        "kind": {"enum": ["slurm", "pjm", "local"]},
+        "account": {"type": "string"},
+        "partition": {"type": "string"},
+        "nodes": {"type": "integer", "minimum": 1},
+        "ranks_per_node": {"type": "integer", "minimum": 1},
+        "threads_per_rank": {"type": "integer", "minimum": 1},
+        "walltime": {"type": "string", "pattern": "^[0-9]+:[0-5][0-9]:[0-5][0-9]$"},
+        "executable": {"type": "string"},
+        "launcher": {"type": "string"},
+        "signal_before_end_s": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "required": ["target_metrics", "require_all_blocking_metrics", "fail_on_missing_metric"],
+      "properties": {
+        "target_metrics": {"type": "string"},
+        "require_all_blocking_metrics": {"type": "boolean"},
+        "fail_on_missing_metric": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  }
+}
