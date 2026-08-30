@@ -34,6 +34,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python -m pip install 'numpy>=1.24'
           cat .ananke-bootstrap/materialize/part-* > /tmp/ananke-materialize.sh
           echo "ded83dc0807c093f50677b33c150547c8894a7caf6027f79c1cf80ae22271959  /tmp/ananke-materialize.sh" | sha256sum -c -
           chmod +x /tmp/ananke-materialize.sh
