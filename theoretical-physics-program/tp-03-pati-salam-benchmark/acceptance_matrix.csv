@@ -1,0 +1,13 @@
+branch,gate_id,tier,applicable,fatal_if_applicable,score,status,reason
+PS-common,ALG-01,algebraic,yes,yes,2,PASS PHASE 1,"Gauge group, chiral matter, scalar branch and low-energy charge map are explicitly typed."
+PS-common,ALG-03,algebraic,yes,yes,2,PASS,"SU(4)^3 and all recovered Standard Model local anomalies cancel generation by generation."
+PS-common,ALG-04,algebraic,yes,yes,1,PARTIAL,"Both Witten SU(2) parities pass; the final global gauge-group quotient and full cobordism audit remain open."
+PS-common,REC-02,recovery,yes,yes,2,PASS REPRESENTATION LEVEL,"One Standard Model family plus nu^c and correct hypercharges are derived exactly."
+PS0,REC-03,recovery,yes,yes,0,FATAL FAIL,"One (1,2,2) bidoublet enforces M_d=M_e and M_u=M_D_nu."
+PS0,LAB-02,laboratory,yes,yes,0,FAIL THROUGH SPECTRUM,"The exact mass relations preclude a realistic charged-fermion fit."
+PS1,REC-03,recovery,yes,yes,1,OPEN,"The (15,2,2) Clebsch removes the algebraic obstruction; no RG-evolved global fit is yet performed."
+PS1,PERT-01,perturbative,yes,yes,1,OPEN,"The complete scalar Hessian and vacuum stability are not yet calculated."
+PS1,PERT-05,perturbative,yes,yes,1,OPEN,"Two-loop RG and threshold closure are not yet calculated."
+PS1,LAB-02,laboratory,yes,yes,1,OPEN,"Flavour, CP, scalar leptoquark and baryon-violation rates remain to be computed."
+PS1,COS-01,cosmological,yes,yes,1,OPEN,"The defect, reheating, leptogenesis and BBN history are not yet constructed."
+PS1,REP-01,reproducibility,yes,yes,2,PASS PHASE 1,"Exact verifier, deterministic seed, machine-readable results and unit tests are committed."

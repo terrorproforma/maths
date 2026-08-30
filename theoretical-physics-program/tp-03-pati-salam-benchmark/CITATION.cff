@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this audit package, please cite it as below."
+title: "TP-03 Pati-Salam Benchmark — Phase 1 Algebraic Baseline"
+version: "0.1.0"
+date-released: 2026-08-31
+authors:
+  - family-names: Muffatti
+    given-names: Angus
+type: report
+abstract: "An exact anomaly, representation, hypercharge, Yukawa-obstruction and one-loop matching audit for a staged Pati-Salam benchmark."
