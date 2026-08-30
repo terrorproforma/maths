@@ -1,0 +1,78 @@
+{
+  "evidence_class": [
+    "INDEPENDENT_RECOMPUTATION",
+    "MODEL_DISCREPANCY"
+  ],
+  "v1_7_selection": {
+    "k_key": "bfm_k_over_T",
+    "omega_key": "bfm_omega_over_T",
+    "kernel_key": "bfm_ImPi_total_over_T2",
+    "shape": [
+      48,
+      801
+    ]
+  },
+  "v1_8_selection": {
+    "k_key": "match_k_over_T",
+    "omega_key": "match_omega_over_T",
+    "kernel_key": "match_ImPi_total_over_T2",
+    "shape": [
+      36,
+      1601
+    ]
+  },
+  "common_domain": {
+    "k_over_T": [
+      0.15,
+      12.0
+    ],
+    "omega_over_T": [
+      -16.0,
+      16.0
+    ]
+  },
+  "relative_model_discrepancy": {
+    "significant_all": {
+      "count": 39990,
+      "median": 0.9965686824328455,
+      "p95": 0.9999536419109673,
+      "max": 0.9999832594947354
+    },
+    "near_shell": {
+      "count": 744,
+      "median": 0.01355293197534321,
+      "p95": 0.5560034032780895,
+      "max": 0.7757955449800709
+    },
+    "far_off_shell": {
+      "count": 35398,
+      "median": 0.9981545670750837,
+      "p95": 0.9999565362244476,
+      "max": 0.9999832594947354
+    }
+  },
+  "interpretation": "The v1.7 and v1.8 kernels share controlled on-shell anchors but use different off-shell constructions. Their spread is an ansatz/model discrepancy, not a statistical or perturbative uncertainty estimate.",
+  "coverage_audit": {
+    "v1_8_table_kmax_over_T": 12.0,
+    "v1_9_requested_kmax_over_T": 30.0,
+    "requested_exceeds_table": true,
+    "configured_memory_window_Tinv": 5.12
+  },
+  "repaired_config": {
+    "radial_momentum_maximum_over_T": 12.0,
+    "table_extrapolation": "forbidden",
+    "memory_window_scan_Tinv": [
+      6.0,
+      12.0,
+      24.0
+    ],
+    "promotion_rule": "all declared observables change by <0.5% between the two largest windows",
+    "pilot_authorization": false,
+    "reason": "no dynamical 3PI evolution engine exists"
+  },
+  "gates": {
+    "no_table_extrapolation_in_repaired_config": true,
+    "full_3pi_pilot_not_authorized": true,
+    "off_shell_spread_reported": true
+  }
+}

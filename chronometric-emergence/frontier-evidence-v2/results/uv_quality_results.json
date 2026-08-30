@@ -1,0 +1,62 @@
+{
+  "evidence_class": "PREDICTION",
+  "point": {
+    "f_a_gev": 24350000000.0,
+    "heavy_mass_gev": 1002000.0,
+    "epsilon": 2.7e-13,
+    "n_color": 3.0
+  },
+  "protected_Z6_amplitude_GeV4": 9.2739555663958e-56,
+  "elementary_dimension6_coefficient_upper_bound": 2.637965725524486e-81,
+  "log10_elementary_c6_bound": -80.57873085144026,
+  "deconstructed_scan": [
+    {
+      "links": 12,
+      "winding_amplitude_GeV4": 1.0497438488312058e-16,
+      "protected_amplitude_GeV4": 9.2739555663958e-56,
+      "ratio_to_protected": 1.1319267612570358e+39,
+      "quality_pass": false
+    },
+    {
+      "links": 18,
+      "winding_amplitude_GeV4": 6.97346150958381e-60,
+      "protected_amplitude_GeV4": 9.2739555663958e-56,
+      "ratio_to_protected": 7.519403624115004e-05,
+      "quality_pass": true
+    },
+    {
+      "links": 20,
+      "winding_amplitude_GeV4": 3.599944611904003e-74,
+      "protected_amplitude_GeV4": 9.2739555663958e-56,
+      "ratio_to_protected": 3.8817790166565077e-19,
+      "quality_pass": true
+    },
+    {
+      "links": 24,
+      "winding_amplitude_GeV4": 1.283898710715757e-102,
+      "protected_amplitude_GeV4": 9.2739555663958e-56,
+      "ratio_to_protected": 1.3844132652176674e-47,
+      "quality_pass": true
+    },
+    {
+      "links": 30,
+      "winding_amplitude_GeV4": 5.044460004039225e-145,
+      "protected_amplitude_GeV4": 9.2739555663958e-56,
+      "ratio_to_protected": 5.4393834086480185e-90,
+      "quality_pass": true
+    }
+  ],
+  "minimum_passing_link_count_in_declared_scan": 18,
+  "recommended_completion": {
+    "links": 24,
+    "structure": "local U(1)^24 deconstruction with the chronometric phase as a Wilson line; Z6 acts as a translation by four sites and on the six replica sectors",
+    "why": "local gauge invariance forces a dangerous phase-dependent operator to wind around the complete moose rather than appear as a dimension-six global-field term"
+  },
+  "status": "CONDITIONAL_UV_QUALITY_PASS",
+  "conditions": [
+    "the moose locality and gauge symmetry survive the UV completion",
+    "all mixed gauge and gravitational discrete anomalies cancel",
+    "no lower-dimensional nonlocal gravitational operator is generated",
+    "messenger loops preserve the complete replica orbit"
+  ]
+}

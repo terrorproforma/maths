@@ -1,0 +1,104 @@
+{
+  "evidence_class": [
+    "INDEPENDENT_RECOMPUTATION",
+    "CONVERGENCE",
+    "EXTERNAL_BENCHMARK"
+  ],
+  "full_recomputation": true,
+  "benchmark_point": {
+    "pT": 3.0,
+    "alpha": 0.0393544,
+    "yD": 0.3,
+    "MDT": 0.01
+  },
+  "v14_mass_formula": {
+    "deprecated": "m_parent^2-(1-x)m_1^2-xm_2^2",
+    "corrected": "(1-x)m_1^2+xm_2^2-x(1-x)m_parent^2",
+    "rates": {
+      "g_to_gg": {
+        "old": 0.2613559475865353,
+        "corrected": 0.08529685969126516,
+        "relative_change": -0.6736371967849584
+      },
+      "q_to_gq": {
+        "old": 0.20451607217911877,
+        "corrected": 0.01559920405734815,
+        "relative_change": -0.9237262681062733
+      },
+      "D_to_gD": {
+        "old": 0.20141661972334862,
+        "corrected": 0.01559254809547351,
+        "relative_change": -0.9225855933989444
+      },
+      "g_to_qq": {
+        "old": 0.0005350993732109512,
+        "corrected": 0.0011546763704043616,
+        "relative_change": 1.1578727769302688
+      },
+      "g_to_DD": {
+        "old": 7.720399682255317e-05,
+        "corrected": 0.00016143080193801605,
+        "relative_change": 1.0909643099054969
+      },
+      "H_to_qD": {
+        "old": 0.0003185442157757847,
+        "corrected": 0.00022228173715629337,
+        "relative_change": -0.3021950292993173
+      }
+    },
+    "scientific_status": "DEPRECATED_NUMBERS_RECOMPUTED_AS_DIAGNOSTIC"
+  },
+  "bethe_heitler_scaling": {
+    "alpha_s": [
+      0.0001,
+      0.0002,
+      0.0004
+    ],
+    "rates": [
+      5.507397858641812e-07,
+      2.202959143456725e-06,
+      8.8118365738269e-06
+    ],
+    "log_log_slope": 2.000000000000002
+  },
+  "deep_lpm_comparison": [
+    {
+      "eta": 10.0,
+      "direct": 3.0360219034270752,
+      "deep_LPM": 3.011851217633564,
+      "relative_difference": 0.008025192496893064
+    },
+    {
+      "eta": 100.0,
+      "direct": 11.046138892200007,
+      "deep_LPM": 11.008655609266487,
+      "relative_difference": 0.0034048919562865345
+    },
+    {
+      "eta": 1000.0,
+      "direct": 38.94762530773274,
+      "deep_LPM": 38.8829150148548,
+      "relative_difference": 0.0016642346092935294
+    }
+  ],
+  "v15_recomputation": {
+    "electron_low_resolution": 0.00040888134108440333,
+    "electron_high_resolution": 0.0004054642447138497,
+    "published_fit": 0.00040524218119757327,
+    "electron_high_relative_to_fit": 0.0005479772999448592,
+    "qd_low_resolution": 0.000893546836433824,
+    "qd_high_resolution": 0.0008911698767836984,
+    "qd_resolution_relative_change": -0.0026672351838284425,
+    "Gamma_H_occupation_over_T": 0.0003609238000973979,
+    "scope": "collinear LPM q-D-H contribution; hard Yukawa-assisted 2<->2 cuts and full off-shell matching are not included"
+  },
+  "gates": {
+    "v14_mass_formula_changed_nontrivially": true,
+    "bethe_heitler_alpha_squared_scaling": true,
+    "v15_electron_external_fit_within_15_percent": true,
+    "v15_qd_resolution_change_lt_8_percent": true,
+    "v15_electron_resolution_change_lt_8_percent": true,
+    "corrected_rates_finite_nonnegative": true
+  },
+  "all_gates_pass": true
+}

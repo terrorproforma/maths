@@ -1,0 +1,13 @@
+claim,current_status,evidence_class,frontier_effect
+universal clock factorisation theorem,RETAINED,IDENTITY_PIN,formal core survives; novelty review open
+rank-r clock network identifies r fields,CORRECTED,IDENTITY_PIN,requires full-rank sensitivities and independent excitations
+2/27 exact transmission,LEADING_ORDER_ONLY,IDENTITY_PIN+EXTERNAL_BENCHMARK,NLO few-percent band required
+v1.3 RG completion,RETRACTED,IDENTITY_PIN,hard matching at natural scale retained; RG closure open
+v1.4 transport table,DEPRECATED,INDEPENDENT_RECOMPUTATION,corrected diagnostic generated; v1.5 is anchor
+v1.5 LPM portal anchor,RETAINED_WITH_SCOPE,CONVERGENCE+EXTERNAL_BENCHMARK,collinear sector only; hard cuts remain
+v1.7-v1.8 arbitrary off-shell kernel,MODEL_FAMILY_ONLY,MODEL_DISCREPANCY,no pointwise physical error bar claimed
+v1.9 pilot ready,RETRACTED,SOURCE_AUDIT,specification only; no 3PI solver
+prompt daughter harmless,REPAIRED_CONDITIONALLY,RATE_CALCULATION+PREDICTION,gauge-charged daughter thermalises; model representation changed
+low-f_a ridge environmentally safe,BLOCKED,PREDICTION,neutron-star conversion condition is met
+elementary global Z6 field has adequate UV quality,RETRACTED,PREDICTION,24-link local gauge completion is a conditional repair
+real-time infrastructure exists,UNIT_TIER_EARNED,INDEPENDENT_RECOMPUTATION+CONVERGENCE,scalar two-time gate passes; non-Abelian 3PI remains unimplemented

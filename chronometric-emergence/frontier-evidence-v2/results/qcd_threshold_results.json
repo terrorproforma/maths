@@ -1,0 +1,21 @@
+{
+  "evidence_class": [
+    "IDENTITY_PIN",
+    "EXTERNAL_BENCHMARK"
+  ],
+  "point": {
+    "alpha_s_at_heavy_threshold": 0.0393544,
+    "alpha_s_scale_low": 0.032,
+    "alpha_s_scale_high": 0.05
+  },
+  "one_loop_exact": 0.07407407407407407,
+  "one_loop_exact_fraction": "2/27",
+  "conventional_NLO_estimate": 0.07662584889691008,
+  "relative_NLO_shift": 0.03444896010828624,
+  "alpha_s_band": [
+    0.07614898296179062,
+    0.0773161192111312
+  ],
+  "scientific_status": "The 2/27 coefficient is valid only at leading order. The NLO estimate moves it by a few percent; hadronic and multi-threshold uncertainties must be propagated in any phenomenological line.",
+  "novelty_boundary": "Neither 2/27 nor its heavy-quark QCD corrections are new. The project-specific claim is their interpretation as transmission of a scale-lock defect."
+}

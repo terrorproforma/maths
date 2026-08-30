@@ -1,0 +1,111 @@
+{
+  "evidence_class": "INDEPENDENT_RECOMPUTATION",
+  "active_package_absolute_path_matches": [],
+  "active_package_match_count": 0,
+  "legacy_archive_absolute_path_match_count": 81,
+  "legacy_examples": [
+    {
+      "path": "hpc_solver_spec_v1_8.yaml",
+      "line": 65,
+      "text": "pointwise_regression_table: /mnt/data/prehpc_closure_arrays_v1_8.npz"
+    },
+    {
+      "path": "spectral_chronometry_research_package_v0_3/spectral_chronometry_pdf_preflight_v0_3.txt",
+      "line": 1,
+      "text": "PDF: /mnt/data/spectral_chronometry_higgs_dilaton_v0_3.pdf"
+    },
+    {
+      "path": "spectral_chronometry_research_package_v0_3/verify_spectral_chronometry_v0_3.py",
+      "line": 28,
+      "text": "OUT = Path(\"/mnt/data/spectral_chronometry_verification_v0_3.json\")"
+    },
+    {
+      "path": "state_asymmetry_in_in_research_package_v1_0/verify_in_in_radiative_escape_v1_0.py",
+      "line": 14,
+      "text": "The script writes JSON results and four figures into /mnt/data."
+    },
+    {
+      "path": "state_asymmetry_in_in_research_package_v1_0/verify_in_in_radiative_escape_v1_0.py",
+      "line": 29,
+      "text": "OUT = Path('/mnt/data')"
+    },
+    {
+      "path": "state_asymmetry_in_in_research_package_v1_0/create_in_in_topology_figure_v1_0.py",
+      "line": 6,
+      "text": "out = Path('/mnt/data/in_in_two_loop_topology_v1_0.png')"
+    },
+    {
+      "path": "cosmological_vacuum_selection_research_package_v0_8/verify_cosmological_vacuum_selection_v0_8.py",
+      "line": 644,
+      "text": "outdir = Path('/mnt/data')"
+    },
+    {
+      "path": "gauge_covariant_correlator_package_v1_7/verify_gauge_covariant_correlator_v1_7.py",
+      "line": 39,
+      "text": "OUT = Path('/mnt/data')"
+    },
+    {
+      "path": "gauge_covariant_correlator_package_v1_7/gauge_covariant_correlator_closure_v1_7.md",
+      "line": 19,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    },
+    {
+      "path": "zn_protected_qcd_chronometry_research_package_v0_6/verify_zn_protected_qcd_chronometry_v0_6.py",
+      "line": 24,
+      "text": "OUT = Path('/mnt/data/zn_protected_qcd_chronometry_verification_v0_6.json')"
+    },
+    {
+      "path": "electroweak_yukawa_lpm_package_v1_5/electroweak_yukawa_lpm_v1_5.tex",
+      "line": 72,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    },
+    {
+      "path": "electroweak_yukawa_lpm_package_v1_5/electroweak_yukawa_lpm_v1_5.md",
+      "line": 19,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    },
+    {
+      "path": "electroweak_yukawa_lpm_package_v1_5/verify_electroweak_yukawa_lpm_v1_5.py",
+      "line": 35,
+      "text": "OUT = Path(\"/mnt/data\")"
+    },
+    {
+      "path": "state_selected_reheating_research_package_v0_9/verify_cosmological_vacuum_selection_v0_8.py",
+      "line": 644,
+      "text": "outdir = Path('/mnt/data')"
+    },
+    {
+      "path": "universal_scale_locking_research_package_v0_4/verify_universal_scale_locking_v0_4.py",
+      "line": 32,
+      "text": "OUT = Path(\"/mnt/data/universal_scale_locking_verification_v0_4.json\")"
+    },
+    {
+      "path": "environmental_non_screening_research_package_v0_7/verify_environmental_screening_v0_7.py",
+      "line": 23,
+      "text": "OUT = Path('/mnt/data')"
+    },
+    {
+      "path": "direct_amy_transport_research_package_v1_4/verify_full_amy_collision_v1_4.py",
+      "line": 15,
+      "text": "OUT=Path('/mnt/data'); VERSION='v1.4'; PI=math.pi; MPL=2.435e18"
+    },
+    {
+      "path": "direct_amy_transport_research_package_v1_4/direct_amy_transport_v1_4.md",
+      "line": 19,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    },
+    {
+      "path": "direct_amy_transport_research_package_v1_4/direct_amy_transport_v1_4.tex",
+      "line": 72,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    },
+    {
+      "path": "prehpc_closure_research_package_v1_8/prehpc_closure_v1_8.tex",
+      "line": 73,
+      "text": "\\graphicspath{{/mnt/data/}}"
+    }
+  ],
+  "dependency_declarations_exist": true,
+  "scientific_policy": "Legacy artifacts remain immutable historical records and may contain sandbox paths. The active evidence package must be path-relative and runnable from a clean checkout.",
+  "all_active_portability_gates_pass": true
+}

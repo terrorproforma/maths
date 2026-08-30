@@ -1,0 +1,17 @@
+{
+  "evidence_class": "IDENTITY_PIN",
+  "fixed_order_scale_derivative": "-2*t + 2*log(z)",
+  "added_term_scale_derivative": "2*t - 2*log(z)",
+  "sum_scale_derivative": "0",
+  "completed_expression": "2*(t - log(x))*(log(x) - log(z)) - 2*(t - log(x - z))*(log(x) - log(z)) - 2*polylog(2, z/x) + pi**2/3",
+  "algebraic_match": true,
+  "cancellation_is_exact": true,
+  "scientific_verdict": "RETRACTED",
+  "reason": "The finite addition was selected so its derivative cancels the fixed-order derivative. No operator anomalous-dimension matrix, threshold evolution, or counterterm derivation produces this term in the archived calculation. The natural-scale hard matching value may be retained, but the claimed RG completion is not established.",
+  "required_for_reinstatement": [
+    "declare a complete renormalised transient-operator basis",
+    "derive its anomalous-dimension matrix from UV divergences",
+    "match at m_R and M with independent finite parts",
+    "run to the low scale and demonstrate scale cancellation without defining it"
+  ]
+}
