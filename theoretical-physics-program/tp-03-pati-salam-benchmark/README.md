@@ -168,11 +168,12 @@ make verify
 This runs:
 
 - exact multigraded invariant counting;
-- the explicit \(60\times60\) \(\Delta_R\) Hessian;
+- the complete 138-channel invariant-basis construction;
+- the explicit \(60\times60\) \(\Delta_R\) Hessian and complete \(188\times188\) benchmark Hessian;
 - the gauge-boson mass matrix;
 - Goldstone-orbit matching;
 - deterministic moment-map diagnostics;
-- eight unit tests.
+- twelve unit tests.
 
 ## Key files
 
@@ -185,6 +186,7 @@ This runs:
 - `branch_ledger.md`
 - `acceptance_matrix.csv`
 - `code/count_scalar_invariants.py`
+- `code/generate_invariant_coupling_basis.py`
 - `code/verify_phase2b_vacuum.py`
 - `results/scalar_invariant_count.json`
 - `results/phase2b_vacuum_spectrum.json`
