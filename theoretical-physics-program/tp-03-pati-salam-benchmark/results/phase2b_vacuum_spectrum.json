@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0.0",
+  "project": "TP-03 Pati-Salam benchmark",
+  "phase": "2B scalar invariant and vacuum audit",
+  "branch": "PS1-MM",
+  "field_content": {
+    "Phi1": "(1,2,2), independent complex scalar, 8 real components",
+    "Phi15": "(15,2,2), independent complex scalar, 120 real components",
+    "DeltaR": "(10,1,3), independent complex scalar, 60 real components",
+    "total_real_components": 188
+  },
+  "delta_potential": "V=-m_Delta^2 r + lambda_Delta r^2 -kappa_4 sum_A(mu_4^A)^2 -kappa_R sum_i(mu_R^i)^2",
+  "analytic_global_bound": "sum_A(mu_4^A)^2 <= (3/2) r^2 and sum_i(mu_R^i)^2 <= r^2; equality is simultaneous on the highest-weight coherent orbit.",
+  "boundedness_and_global_minimum": {
+    "conditions": [
+      "kappa_4 > 0",
+      "kappa_R > 0",
+      "lambda_eff=lambda_Delta-(3/2)kappa_4-kappa_R > 0",
+      "m_Delta^2 > 0"
+    ],
+    "vacuum_norm": "r=v_R^2/2=m_Delta^2/(2 lambda_eff)",
+    "unbroken_group": "SU(3)_C x SU(2)_L x U(1)_Y",
+    "deeper_colour_or_charge_breaking_minimum": false
+  },
+  "benchmark": {
+    "v_R": 1.0,
+    "lambda_Delta": 2.0,
+    "kappa_4": 0.4,
+    "kappa_R": 0.3,
+    "m_Phi1_sq": 2.2,
+    "m_Phi15_sq": 3.3,
+    "g_4": 0.57,
+    "g_R": 0.54
+  },
+  "lambda_eff": 1.0999999999999999,
+  "delta_hessian_clusters": [
+    {
+      "value": 5.551115123125783e-17,
+      "multiplicity": 9
+    },
+    {
+      "value": 0.6000000000000001,
+      "multiplicity": 2
+    },
+    {
+      "value": 0.7000000000000002,
+      "multiplicity": 6
+    },
+    {
+      "value": 0.8,
+      "multiplicity": 12
+    },
+    {
+      "value": 1.0000000000000002,
+      "multiplicity": 6
+    },
+    {
+      "value": 1.1,
+      "multiplicity": 12
+    },
+    {
+      "value": 1.4000000000000001,
+      "multiplicity": 12
+    },
+    {
+      "value": 2.1999999999999997,
+      "multiplicity": 1
+    }
+  ],
+  "full_scalar_hessian_shape": [
+    188,
+    188
+  ],
+  "full_scalar_hessian_clusters": [
+    {
+      "value": 5.551115123125783e-17,
+      "multiplicity": 9
+    },
+    {
+      "value": 0.6000000000000001,
+      "multiplicity": 2
+    },
+    {
+      "value": 0.7000000000000002,
+      "multiplicity": 6
+    },
+    {
+      "value": 0.8,
+      "multiplicity": 12
+    },
+    {
+      "value": 1.0000000000000002,
+      "multiplicity": 6
+    },
+    {
+      "value": 1.1,
+      "multiplicity": 12
+    },
+    {
+      "value": 1.4000000000000001,
+      "multiplicity": 12
+    },
+    {
+      "value": 2.1999999999999997,
+      "multiplicity": 9
+    },
+    {
+      "value": 3.3,
+      "multiplicity": 120
+    }
+  ],
+  "minimum_positive_scalar_mass_sq": 0.6000000000000001,
+  "analytic_scalar_spectrum": [
+    {
+      "label": "Goldstones",
+      "real_multiplicity": 9,
+      "mass_sq": 0.0
+    },
+    {
+      "label": "(6,1)_{4/3}",
+      "real_multiplicity": 12,
+      "mass_sq": 0.8
+    },
+    {
+      "label": "(6,1)_{1/3}",
+      "real_multiplicity": 12,
+      "mass_sq": 1.1
+    },
+    {
+      "label": "(6,1)_{-2/3}",
+      "real_multiplicity": 12,
+      "mass_sq": 1.4
+    },
+    {
+      "label": "(3,1)_{-1/3}",
+      "real_multiplicity": 6,
+      "mass_sq": 0.7
+    },
+    {
+      "label": "(3,1)_{-4/3}",
+      "real_multiplicity": 6,
+      "mass_sq": 1.0
+    },
+    {
+      "label": "(1,1)_{-2}",
+      "real_multiplicity": 2,
+      "mass_sq": 0.6
+    },
+    {
+      "label": "Delta radial (1,1)_0",
+      "real_multiplicity": 1,
+      "mass_sq": 2.1999999999999997
+    },
+    {
+      "label": "Phi1 spectator real modes",
+      "real_multiplicity": 8,
+      "mass_sq": 2.2
+    },
+    {
+      "label": "Phi15 spectator real modes",
+      "real_multiplicity": 120,
+      "mass_sq": 3.3
+    }
+  ],
+  "gauge_hessian_clusters_su4_su2r": [
+    {
+      "value": -6.938893903907228e-18,
+      "multiplicity": 9
+    },
+    {
+      "value": 0.14579999999999987,
+      "multiplicity": 2
+    },
+    {
+      "value": 0.16244999999999993,
+      "multiplicity": 6
+    },
+    {
+      "value": 0.77895,
+      "multiplicity": 1
+    }
+  ],
+  "analytic_gauge_spectrum": {
+    "massless_SU3_plus_hypercharge": 9,
+    "X_vector_leptoquarks": {
+      "multiplicity_real_vectors": 6,
+      "mass_sq": 0.16244999999999998
+    },
+    "W_R_charged": {
+      "multiplicity_real_vectors": 2,
+      "mass_sq": 0.1458
+    },
+    "Z_R": {
+      "multiplicity_real_vectors": 1,
+      "mass_sq": 0.77895
+    },
+    "hypercharge_matching": "1/g_Y^2=1/g_R^2+2/(3 g_4^2)"
+  },
+  "goldstone_diagnostics": {
+    "broken_generator_rank": 9,
+    "max_hessian_times_broken_direction": 1.570092458683775e-16
+  },
+  "random_moment_map_scan": {
+    "samples": 20000,
+    "seed": 20260831,
+    "max_mu4_sq_over_norm4": 0.6269326412109235,
+    "analytic_bound_mu4": 1.5,
+    "max_muR_sq_over_norm4": 0.4648676616755221,
+    "analytic_bound_muR": 1.0,
+    "max_normalized_combined_diagnostic": 0.7836689360631635
+  },
+  "checks": {
+    "highest_weight_norm": true,
+    "su4_moment_map_bound_saturated": true,
+    "su2r_moment_map_bound_saturated": true,
+    "boundedness_condition": true,
+    "delta_hessian_matches_analytic_spectrum": true,
+    "goldstone_count_is_nine": true,
+    "broken_generator_rank_is_nine": true,
+    "goldstone_subspace_matches_broken_orbit": true,
+    "all_physical_scalar_masses_positive": true,
+    "full_scalar_hessian_shape_is_188": true,
+    "full_scalar_hessian_matches_analytic_spectrum": true,
+    "full_scalar_hessian_has_nine_goldstones": true,
+    "full_scalar_hessian_has_179_positive_modes": true,
+    "gauge_mass_matrix_matches_analytic_spectrum": true,
+    "massless_gauge_count_su4_su2r_is_nine": true,
+    "total_real_scalar_count": true,
+    "total_physical_scalar_count": true
+  },
+  "all_pass": true
+}

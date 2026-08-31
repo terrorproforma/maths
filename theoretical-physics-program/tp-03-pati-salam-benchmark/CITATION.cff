@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this independent TP-03 audit package, please cite it as below."
+title: "TP-03 Pati-Salam Benchmark — Scalar Invariants and Certified High-Scale Vacuum"
+version: "0.3.0"
+date-released: 2026-08-31
+authors:
+  - family-names: Muffatti
+    given-names: Angus
+type: report
+abstract: "An exact multigraded invariant count, complete irreducible coupling-channel basis, and reproducible moment-map benchmark for the complex Pati-Salam scalar sector (1,2,2)+(15,2,2)+(10,1,3)."

@@ -108,20 +108,16 @@ and
 
 \[
 F_R^c\rightarrow
-u^c:(1,1)_0
+u^c:(\bar3,1)_{-2/3}
+\oplus
+d^c:(\bar3,1)_{1/3}
+\oplus
+\nu^c:(1,1)_0
 \oplus
 e^c:(1,1)_1.
 \]
 
-The exact code checks the complete decomposition, including
-
-\[
-u^c:(\bar3,1)_{-2/3},
-\qquad
-d^c:(\bar3,1)_{1/3},
-\]
-
-and verifies
+The exact code checks this complete decomposition and verifies
 
 \[
 [SU(3)]^3,
@@ -143,8 +139,7 @@ For
 
 \[
 Q_{BL}=\frac{B-L}{2}
-=
-\operatorname{diag}\left(\frac16,\frac16,\frac16,-\frac12\right),
+=\operatorname{diag}\left(\frac16,\frac16,\frac16,-\frac12\right),
 \]
 
 \[
