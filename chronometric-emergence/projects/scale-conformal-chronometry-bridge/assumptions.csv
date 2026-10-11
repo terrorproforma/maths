@@ -1,0 +1,17 @@
+id,requirement,assessment,boundary
+A01,Four-dimensional local physical theory,Classical local two-scalar model supplied,Classical locality does not establish a nonperturbative bounded local net
+A02,Positive Hilbert space and energy,Positive kinetic terms and tree spectrum in toy model,Full interacting quantum Hilbert-space reconstruction not performed
+A03,Poincare-invariant vacuum,Constant homogeneous f vacuum has this property at tree level,Time-dependent cosmological or probe background does not
+A04,Dilation-invariant vacuum,FAIL for a nonzero dimensionful condensate,Primary obstruction to direct application
+A05,Discrete bounded-below quantum scaling dimensions,UNESTABLISHED for the proposed quantum completion,Engineering dimensions do not establish exact scaling dimensions
+A06,Finite multiplicity and finite scaling support per field,UNESTABLISHED,An infinite EFT operator tower alone neither proves nor disproves this condition
+A07,Physical conserved local dilation current,Verified classically for homogeneous quartic toy,Conventional anomalous CW quantum model does not preserve it
+A08,Bounded local net and compatible field affiliation,UNESTABLISHED,Numerical Ward tests and weak field commutation do not establish affiliation
+A09,Reconstruction of L in the original physical algebra,Not independently checked for our completion,Classical L=-Q/2 is an illustration only
+A10,Traceless stress tensor,Verified for the classical quartic toy only,A tuned zero trace expectation at CW vacuum is not an operator identity
+A11,Nonzero positive clock-setting scale,Not provided by OpenAI theorem,A condensate or operational mass coordinate needs a separate construction
+A12,Fixed independent dimensionless data along scale motion,Additional bridge assumption,"Includes coupling data, shape moduli and threshold ratios"
+A13,Physical high-energy QCD lock,Conditional in prior v0.5 proposal,Setting mu=kappa chi in ordinary RG does not prove the physical lock
+A14,Exact local promotion f to chi(x),Not provided by homogeneous scaling,Gradient and preparation corrections explicitly demonstrated
+A15,Curved-spacetime Weyl invariance and gravity,Outside the paper conclusion,Flat local conformal Ward identities do not prove Weyl gauge symmetry or gravity dynamics
+A16,Uniqueness of invariant vacuum,NOT REQUIRED by the OpenAI paper,Do not impose an absent assumption

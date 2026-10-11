@@ -1,0 +1,88 @@
+{
+  "audit_date": "2026-10-10",
+  "author": "Angus Muffatti",
+  "assistance": "AI-assisted analysis and implementation",
+  "openai_snapshot": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "maths_input_snapshot": "dbf9d2372773b219a5d5088862643431170c2c9f",
+  "source_policy": "References and supplied blob hashes only; the external manuscript is not vendored or independently certified.",
+  "sources": [
+    {
+      "id": "O1",
+      "title": "Scale and conformal symmetry in four-dimensional operational quantum field theory",
+      "author": "OpenAI",
+      "date": "2026-09-26",
+      "repository": "openai/math",
+      "directory": "preprints/Scale-and-conformal-symmetry-in-four-dimensional-operational-quantum-field-theory-September-26-2026",
+      "files_read": [
+        {
+          "path": "build/main.tex",
+          "git_blob_sha": "e0335cc485d480ccafee73f08e841d7b5d6b224f",
+          "extent": "entire main file, which includes the abstract and section list"
+        },
+        {
+          "path": "build/sections/01-introduction.tex",
+          "extent": "theorem, scope, free scalar example and proof outline; text also fetched through web"
+        },
+        {
+          "path": "build/sections/02-foundations.tex",
+          "git_blob_sha": "f7a3579e8c2adba5c5ae6a172c99b76f4d0dbc72",
+          "extent": "lines 1-180 through connector, including the full assumption statement"
+        },
+        {
+          "path": "build/sections/08-reconstruction.tex",
+          "git_blob_sha": "20ba51d16c687892e274f941f8a959c2c6016a2e",
+          "extent": "lines 1-110 through connector, reconstruction setup only"
+        }
+      ],
+      "status": "The manuscript states a theorem; its proof has not been independently verified in this audit."
+    },
+    {
+      "id": "P1",
+      "title": "QCD Chronometric Lock: All-Orders Threshold Propagation and the 2/27 Signal",
+      "author": "Angus Muffatti",
+      "repository": "terrorproforma/maths",
+      "path": "chronometric-emergence/projects/05-v0.5-qcd-chronometric-lock/qcd_chronometric_lock_v0_5.md",
+      "git_blob_sha": "be2f61a1ea9716e40dd5ba060039179076e57249",
+      "status": "Canonical notes explicitly marked archive reconstruction; used for stated assumptions and formulas, not independent validation."
+    },
+    {
+      "id": "P2",
+      "title": "Frontier evidence report v2",
+      "author": "Angus Muffatti",
+      "repository": "terrorproforma/maths",
+      "path": "chronometric-emergence/frontier-evidence-v2/docs/FRONTIER_EVIDENCE_REPORT.md",
+      "git_blob_sha": "ed7b6b92c26ae64e8151ff0cd5c4121a49f1a3a8"
+    },
+    {
+      "id": "T1",
+      "title": "Running couplings with a vanishing scale anomaly",
+      "author": "Carlos Tamarit",
+      "arxiv": "1309.0913v4",
+      "url": "https://arxiv.org/html/1309.0913v4",
+      "sections_used": "Introduction and Section 3: two-scalar flat direction, ordinary versus scale-preserving regularization, Ward identities and EFT qualification"
+    },
+    {
+      "id": "W1",
+      "title": "Quantum scale symmetry",
+      "author": "C. Wetterich",
+      "arxiv": "1901.04741v2",
+      "url": "https://arxiv.org/abs/1901.04741",
+      "extent": "Abstract: distinction between scale-invariant effective action and scale-invariant vacuum"
+    },
+    {
+      "id": "D1",
+      "title": "Scale Invariance and Dilaton Mass",
+      "author": "Ichiro Oda",
+      "arxiv": "2110.15408",
+      "url": "https://arxiv.org/abs/2110.15408",
+      "extent": "Abstract: exact scale symmetry and massless dilaton versus anomalous lifting"
+    }
+  ],
+  "limits": [
+    "No independent audit of the complete OpenAI proof.",
+    "No nonperturbative operational-net construction for our model.",
+    "No Standard Model or QCD real-time spectral calculation.",
+    "Oscillator initial data are specified and not representative of all clock preparations.",
+    "No novelty or publication-priority claim."
+  ]
+}

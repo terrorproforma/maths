@@ -1,0 +1,333 @@
+{
+  "title": "Scale/conformal-to-chronometry bridge: first applicability audit",
+  "author": "Angus Muffatti",
+  "assistance": "AI-assisted derivation and implementation",
+  "scope": "Symbolic classical and leading-log identities plus a free-probe time-dependent oscillator benchmark. Not an independent proof of the OpenAI paper or quantum completion.",
+  "versions": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0"
+  },
+  "checks": [
+    {
+      "name": "quartic_euler_identity",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "stationary_valley",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "massless_radial_direction",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "massive_transverse_direction",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "hessian_trace",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "improved_trace_classical",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "allowed_quartic_requires_flat_direction_tuning",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "cw_minimum",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "cw_curvature",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "cw_nonzero_trace_formula",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "cw_trace_vanishes_at_tuned_vacuum_only",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "lifted_full_hessian_determinant",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "rgi_scale_independent_of_subtraction_scale",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "mu_equals_chi_is_not_physical_lock",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "qcd_high_scale_weight",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "qcd_each_heavy_threshold_weight",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    },
+    {
+      "name": "qcd_total_homogeneous_weight",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "qcd_fixed_high_scale_ratio_response",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "conditional_two_point_scaling_identity",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "tree_pole_scaling_identity",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "adiabatic_frequency_equation_through_order_three",
+      "kind": "symbolic_identity",
+      "passed": true,
+      "residual": [
+        "0"
+      ]
+    },
+    {
+      "name": "wkb_improves_ramp_a0.01_y1",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.0011647640008077222,
+      "tolerance": 0.05
+    },
+    {
+      "name": "wkb_improves_ramp_a0.01_y2",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.0002999710228332601,
+      "tolerance": 0.05
+    },
+    {
+      "name": "gradient_ratio_prediction_a0.01",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.0015793755463813966,
+      "tolerance": 0.05
+    },
+    {
+      "name": "wkb_improves_ramp_a0.02_y1",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.00440285189787874,
+      "tolerance": 0.05
+    },
+    {
+      "name": "wkb_improves_ramp_a0.02_y2",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.0011647643531184952,
+      "tolerance": 0.05
+    },
+    {
+      "name": "gradient_ratio_prediction_a0.02",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.005983692102048222,
+      "tolerance": 0.05
+    },
+    {
+      "name": "wkb_improves_ramp_a0.04_y1",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.01587979167106021,
+      "tolerance": 0.05
+    },
+    {
+      "name": "wkb_improves_ramp_a0.04_y2",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.004402852058491004,
+      "tolerance": 0.05
+    },
+    {
+      "name": "gradient_ratio_prediction_a0.04",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 0.021660717962520053,
+      "tolerance": 0.05
+    },
+    {
+      "name": "oscillator_wronskian",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 7.224332243538356e-12,
+      "tolerance": 1e-09
+    },
+    {
+      "name": "oscillator_solver_refinement",
+      "kind": "numerical_benchmark",
+      "passed": true,
+      "value": 2.6334490144108713e-13,
+      "tolerance": 1e-09
+    }
+  ],
+  "check_count": 32,
+  "all_passed": true,
+  "oscillator_initial_state": "Second-order adiabatic positive-frequency initial data; both integrations use the same initial state. This tests that specified preparation, not all clock protocols.",
+  "oscillator_samples": [
+    {
+      "slope": 0.01,
+      "coupling": 1.0,
+      "leading_max_relative_error": 3.74999999999126e-05,
+      "second_order_max_relative_error": 4.367865003018778e-08,
+      "wronskian_max_error": 5.74607028624996e-12,
+      "solver_refinement_max_relative_difference": 3.419486915845482e-14
+    },
+    {
+      "slope": 0.01,
+      "coupling": 2.0,
+      "leading_max_relative_error": 9.375000000089173e-06,
+      "second_order_max_relative_error": 2.8122283390885627e-09,
+      "wronskian_max_error": 6.151301690238142e-12,
+      "solver_refinement_max_relative_difference": 1.4432899320127035e-14
+    },
+    {
+      "slope": 0.01,
+      "ratio_max_log_deviation": 2.81243408375334e-05,
+      "ratio_second_order_max_absolute_error": 4.441889617689594e-08
+    },
+    {
+      "slope": 0.02,
+      "coupling": 1.0,
+      "leading_max_relative_error": 0.0001500000000000945,
+      "second_order_max_relative_error": 6.604277846822271e-07,
+      "wronskian_max_error": 6.076694702983332e-12,
+      "solver_refinement_max_relative_difference": 9.237055564881302e-14
+    },
+    {
+      "slope": 0.02,
+      "coupling": 2.0,
+      "leading_max_relative_error": 3.74999999999126e-05,
+      "second_order_max_relative_error": 4.3678663241841775e-08,
+      "wronskian_max_error": 6.469713653700637e-12,
+      "solver_refinement_max_relative_difference": 3.175237850427948e-14
+    },
+    {
+      "slope": 0.02,
+      "ratio_max_log_deviation": 0.0001124894542325823,
+      "ratio_second_order_max_absolute_error": 6.731022588552177e-07
+    },
+    {
+      "slope": 0.04,
+      "coupling": 1.0,
+      "leading_max_relative_error": 0.0005999999999999339,
+      "second_order_max_relative_error": 9.527875002635078e-06,
+      "wronskian_max_error": 6.705414001828558e-12,
+      "solver_refinement_max_relative_difference": 2.6334490144108713e-13
+    },
+    {
+      "slope": 0.04,
+      "coupling": 2.0,
+      "leading_max_relative_error": 0.0001500000000000945,
+      "second_order_max_relative_error": 6.604278087740667e-07,
+      "wronskian_max_error": 7.224332243538356e-12,
+      "solver_refinement_max_relative_difference": 9.015010959956271e-14
+    },
+    {
+      "slope": 0.04,
+      "ratio_max_log_deviation": 0.0004498313208425239,
+      "ratio_second_order_max_absolute_error": 9.74366937147778e-06
+    }
+  ]
+}
