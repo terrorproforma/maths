@@ -11,7 +11,7 @@ This file records the canonical project structure. The repository README remains
 
 - [`chairman-counterexample/`](chairman-counterexample/) — machine-dependent weighted-chairman counterexample and strengthened lower bounds.
 - [`detector-chains/`](detector-chains/) — detector-chain lower bounds for machine-dependent chairman assignment.
-- [`chairman-small-rows/`](chairman-small-rows/) — machine-dependent chairman assignment with two, three and four rows.
+- [`chairman-small-rows/`](chairman-small-rows/) — machine-dependent chairman assignment with few rows: proof that the bound `D` holds and is optimal for two rows; search data for three and four rows.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — fixed-parameter obstruction to the subtree-shuffling conjecture.
 - [`planar-cost-lower-bound/`](planar-cost-lower-bound/) — planar cost-preserving unsplittable-flow lower bound and corollaries.
 - [`ananke-necessity-transformations/`](ananke-necessity-transformations/) — transformations/necessity research programme.

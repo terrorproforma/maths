@@ -1,9 +1,10 @@
 # Machine-dependent chairman assignment with few rows
 
 **Author:** Angus Muffatti (AI-assisted).
-**Status:** working notes, 22 November 2026. Not peer reviewed. Theorems 1 and 2 have short
-proofs below and Theorem 1 is also machine-checked for depth 0 to 9. Everything marked
-*numerical* is search evidence, not proof.
+**Status:** working notes, 24 November 2026. Not peer reviewed. Theorems 1, 2 and 3 have
+complete proofs below. Theorem 1 is machine-checked for depth 0 to 9, and the proof of
+Theorem 3 is implemented as an exact algorithm that asserts each claim of the proof at
+every step. Everything marked *numerical* is search evidence, not proof.
 
 ## 1. Setting
 
@@ -46,14 +47,18 @@ prefix linear discrepancy of non-negative `2 × n` matrices with entries in `[0,
 |---|---|
 | `κ_2 ≥ 1`: an explicit family with `2k+1` columns has min-max exactly `1 − 2^−(k+1)` | **Theorem 1**, proved; exact check for `k ≤ 9` |
 | The online problem is unbounded already for `m = 2` | **Theorem 2**, proved |
-| `κ_m ≤ 2m` | Follows from the Bárány–Grinberg selection theorem (citation to verify, §5) |
-| `κ_2 = 1`, and the value 1 is not attained | **Conjecture**, numerical evidence (§4) |
+| `κ_2 ≤ 1`: with two rows there is always an assignment with all `|disc_i(t)| ≤ D` | **Theorem 3**, proved; proof run as an exact algorithm |
+| `κ_m ≤ 2m` | Follows from the Bárány–Grinberg selection theorem (citation to verify, §6) |
 | Smallest `m` with `κ_m > 1` | Open. `3 ≤ m* ≤ 11`; no instance above 1 found for `m = 3, 4` at small `n` |
 
-For comparison, with common weights (`d_ij = d_j`) and two rows the problem is one-dimensional
-and the exact value is `1/2` (Tijdeman's `1 − 1/(2m−2)`). Machine-dependent weights double
-it. So the Liu–Reis bound `D` is conjecturally **true and tight** for two machines, although
-it fails for eleven.
+**Corollary.** `κ_2 = 1`. The Liu–Reis conjecture (Conjecture 3 of arXiv:2511.18546) is
+true for two machines, and the constant `D` cannot be lowered. It is false for eleven
+machines (`chairman-counterexample/`). The supremum 1 is approached and, in all instances
+found, not attained.
+
+For comparison, with common weights (`d_ij = d_j`) and two rows the problem is
+one-dimensional and the exact value is `1/2` (Tijdeman's `1 − 1/(2m−2)`). Machine-dependent
+weights double it.
 
 ## 3. Theorem 1: the rail family
 
@@ -102,6 +107,12 @@ chain, but it needs no fresh rows and no accumulator, and it stops exactly at 1.
 `code/verify_rail_family.py` checks the theorem by exhaustive exact search for `k = 0..9`
 and `η ∈ {0, 2^−k, 10^−6}` (30 cases).
 
+**Relation to known results.** All splits of `R_k` are `1/2`. For that case the upper bound
+1 was known: it is the theorem of Lund and Magazinov for normed planes (§5). They note
+that their bound is attained in the max-norm plane, by two vectors of mixed sign. The
+rail family shows that the bound is also approached with non-negative vectors, which is
+the case that two-row chairman instances produce.
+
 ## 4. Theorem 2: no online rule works, even for two rows
 
 In the online problem the columns arrive one at a time, the scheduler must fix `y_j` when
@@ -129,11 +140,134 @@ In the original variables the columns in the proof have `d_1j = 4ε_i`, `d_2j = 
 **Consequence for the programme.** `detector-chains/` reports that a simple online rule
 performs well on all constructed instances and suggests a potential-function analysis. By
 Theorem 2 no purely online rule has a bounded guarantee, even for two rows. Any proof that
-`κ` is finite, or that `κ_2 ≤ 1`, must use knowledge of future columns. Equivalently, there
-is no bounded safe region for single states; an invariant must be a property of the whole
-set of reachable states.
+`κ` is finite must use knowledge of future columns. Equivalently, there is no bounded safe
+region for single states; an invariant must be a property of a set of reachable states.
+The proof of Theorem 3 uses such an invariant (a set of at most four states). Its
+algorithm reads the columns once, but it keeps up to four partial assignments and chooses
+between them only at the end.
 
-## 5. Upper bounds from the literature
+## 5. Theorem 3: the bound `D` holds for two rows
+
+**Theorem 3.** Let `m = 2`, weights `d_ij ∈ [0, D]` and any fractional assignment `x`. There
+is an integral assignment `y` with `|disc_i(t)| ≤ D` for `i = 1, 2` and every prefix `t`.
+The assignment can be chosen with `y_ij = 0` whenever `x_ij = 0`, and it is found in `O(n)`
+arithmetic operations.
+
+Take `D = 1` and use the planar form: `h_j ∈ [0,1]²`, `w_j ∈ [0,1]`, and each column moves
+the point by `+(1 − w_j) h_j` or `−w_j h_j`. Let `Q = [−1, 1]²`. Let `R_t` be the set of
+points `p_t` that are reachable by a path with `p_1, …, p_t ∈ Q`. We must show `R_n ≠ ∅`.
+
+**Invariant `I(t)`.** There are `g_1, g_2 ∈ [0,1]²` and `λ_1, λ_2 ∈ [0,1]` such that, with
+
+```
+π(ε) = (ε_1 − λ_1) g_1 + (ε_2 − λ_2) g_2,        ε ∈ {0,1}²,
+```
+
+every one of the four points `π(ε)` that lies in `Q` belongs to `R_t`.
+
+The four points are the vertices of a parallelogram that has the origin in its convex
+hull. A vertex outside `Q` carries no information. `I(0)` holds with `g_1 = g_2 = 0`.
+
+**`I(t)` implies `R_t ≠ ∅`.** The point `π(1,0) = (1 − λ_1) g_1 − λ_2 g_2` has both
+coordinates in `[−1, 1]`, because `g_1, g_2 ∈ [0,1]²`. So it lies in `Q`, hence in `R_t`.
+The same holds for `π(0,1)`.
+
+**Step.** Assume `I(t)`. Let `g_3 = h_{t+1}`, `λ_3 = w_{t+1}`, and for `ε ∈ {0,1}³` put
+
+```
+P(ε) = Σ_{i=1..3} (ε_i − λ_i) g_i = π(ε_1, ε_2) + (ε_3 − λ_3) g_3 .
+```
+
+If `π(ε_1, ε_2) ∈ R_t` and `P(ε) ∈ Q`, then `P(ε) ∈ R_{t+1}`: extend the path with
+`y_{t+1} = ε_3`. Call `ε` **bad** if `P(ε) ∈ Q` but `π(ε_1, ε_2) ∉ Q`. If `ε` is not bad and
+`P(ε) ∈ Q`, then `π(ε_1,ε_2) ∈ Q`, so `π(ε_1,ε_2) ∈ R_t` by `I(t)`, so `P(ε) ∈ R_{t+1}`.
+
+*Claim B. A bad vertex is `(0,0,1)` or `(1,1,0)`, and at most one of the two is bad.*
+The points `π(1,0)`, `π(0,1)` are always in `Q`. The point `π(0,0) = −λ_1 g_1 − λ_2 g_2` has
+non-positive coordinates; if it is outside `Q`, a coordinate is below `−1`, and the same
+coordinate of `P(0,0,0) = π(0,0) − λ_3 g_3` is below `−1`, so `(0,0,0)` is not bad. In the
+same way `(1,1,1)` is not bad. If both `(0,0,1)` and `(1,1,0)` were bad, then `π(0,0) ∉ Q`
+gives `λ_1 + λ_2 > 1` (a coordinate of `λ_1 g_1 + λ_2 g_2` exceeds 1) and `π(1,1) ∉ Q` gives
+`(1 − λ_1) + (1 − λ_2) > 1`, a contradiction.
+
+*Lemma M. Among three vectors in the closed positive quadrant, one is a non-negative
+combination of the other two.* A zero vector is such a combination. If all three are
+non-zero, order them by angle; the middle one lies in the cone of the other two (or all
+three are parallel).
+
+Fix names `{a, m, c} = {1, 2, 3}` and `p, q ≥ 0` with `g_m = p g_a + q g_c`.
+
+*Lemma T. There is `τ ≥ 0` such that `μ = (λ_a − τp, λ_m + τ, λ_c − τq)` lies in `[0,1]³` and
+`μ_m = 1`, or `p > 0` and `μ_a = 0`, or `q > 0` and `μ_c = 0`. There is also `τ ≥ 0` such that
+`μ = (λ_a + τp, λ_m − τ, λ_c + τq)` lies in `[0,1]³` and `μ_m = 0`, or `p > 0` and `μ_a = 1`, or
+`q > 0` and `μ_c = 1`. In both cases `Σ μ_i g_i = Σ λ_i g_i`.* Take the largest `τ` that
+keeps the three coordinates in `[0,1]`. The sum does not change because
+`g_m − p g_a − q g_c = 0`.
+
+If `μ_k = c ∈ {0,1}`, then `0 = Σ (μ_i − λ_i) g_i` is a convex combination of the four points
+`P(ε)` with `ε_k = c`. So Lemma T produces a face `{ε_k = c}` of the cube whose four points
+have the origin in their convex hull.
+
+*Claim F. There is a face `{ε_k = c}` that has the origin in the convex hull of its four
+points and contains no bad vertex.*
+
+- No bad vertex: use Lemma T.
+- `(0,0,1)` is bad. The faces without this vertex are `{ε_3 = 0}`, `{ε_1 = 1}`, `{ε_2 = 1}`.
+  - If `m = 3`, the second part of Lemma T gives `μ_3 = 0`, `μ_a = 1` or `μ_c = 1` with
+    `a, c ∈ {1, 2}`. All three faces are permitted.
+  - If `m ≠ 3`, name the indices so that `c = 3`. The first part of Lemma T gives `μ_m = 1`
+    or `μ_3 = 0`, both permitted, or `p > 0` and `μ_a = 0`. In the last case `τ = λ_a / p`, so
+    `λ_a g_a = τ (g_m − q g_3)` and
+
+    ```
+    π(0,0) = −λ_a g_a − λ_m g_m = −(λ_m + τ) g_m + τ q g_3 = −μ_m g_m + (λ_3 − μ_3) g_3 .
+    ```
+
+    Both coefficients `μ_m` and `λ_3 − μ_3 = τ q` lie in `[0, 1]`. So each coordinate of
+    `π(0,0)` lies in `[−1, 1]`, that is `π(0,0) ∈ Q`. This contradicts that `(0,0,1)` is bad.
+- `(1,1,0)` is bad. This is the mirror case: replace `ε` by `1 − ε`, `λ` by `1 − λ` and
+  every point by its negative. The
+  permitted faces are `{ε_3 = 1}`, `{ε_1 = 0}`, `{ε_2 = 0}`. If `m = 3` use the first part of
+  Lemma T. If `m ≠ 3` and `c = 3`, use the second part: `μ_m = 0` and `μ_3 = 1` are permitted,
+  and `μ_a = 1` gives `π(1,1) = (1 − μ_m) g_m − (μ_3 − λ_3) g_3 ∈ Q`, a contradiction.
+
+**End of the step.** Take the face `{ε_k = c}` of Claim F and the `μ` that comes with it.
+Let `{i, j} = {1,2,3} ∖ {k}`. For `ε` in the face,
+`P(ε) = (ε_i − μ_i) g_i + (ε_j − μ_j) g_j`, because `(c − λ_k) g_k = −(μ_i − λ_i) g_i − (μ_j − λ_j) g_j`.
+No vertex of the face is bad, so each `P(ε)` in `Q` is in `R_{t+1}`. Hence `I(t+1)` holds with
+generators `g_i, g_j` and coefficients `μ_i, μ_j`. ∎
+
+**Support.** If `w_{t+1} = 0`, the move "column to row 2" does not move the point, and the
+old parallelogram satisfies `I(t+1)`. The same holds for `w_{t+1} = 1`. So `y` can respect
+the support of `x`.
+
+**Algorithm and check.** `code/two_row_algorithm.py` stores the parallelogram and one
+partial assignment for each vertex in `Q`, and follows the proof. It asserts Claim B,
+Lemma M, Lemma T, Claim F and the invariant at every step, in exact rational arithmetic.
+`code/verify_two_row_theorem.py` runs it on the rail family and on 20,000 random instances
+of four kinds with up to 80 columns (40,048 runs), checks that each output has all
+discrepancies at most 1, and compares 2,665 small instances with exhaustive search.
+
+**Where the idea comes from.** The proof is a version of the *trapping families* of Lund
+and Magazinov (arXiv:1510.04536). They prove that in any normed plane a sequence of
+vectors of norm at most 1 has signs with all partial sums of norm at most 2. In our scale
+this is the case "all splits equal to `1/2`" of Theorem 3, for vectors of any direction.
+Their sets are centrally symmetric parallelograms. For general splits the parallelogram
+is not symmetric, and two things change: a vertex may leave `Q`, and the direction of the
+vectors matters.
+
+**The non-negative weights are necessary.** If the vectors `h_j` may have mixed signs
+(sup norm at most 1), the bound 1 fails for general splits. `data/mixed_sign_example.json`
+has six vectors with exact min-max `15/14`. Such a column is not a chairman column, so
+this does not concern `κ_m`; it shows that Theorem 3 does not follow from the symmetric
+theorem by a general argument. A general argument does give a weaker bound: the
+symmetric theorem and the Lovász–Spencer–Vesztergombi inequality (linear discrepancy is
+at most hereditary discrepancy) give 2 in place of 1.
+
+**What does not extend.** Lemma M is a fact about the plane. With `m ≥ 3` rows the state has
+`m` coordinates and three generators need not be dependent.
+
+## 6. Upper bounds from the literature
 
 - **`κ_m ≤ 2m`.** Bárány's survey on the Steinitz lemma states the selection version of the
   Bárány–Grinberg theorem: given sets `V_j` in the unit ball of a `d`-dimensional norm with
@@ -152,9 +286,10 @@ set of reachable states.
 **Proposed correction to `detector-chains/paper/kappa_chains.tex`.** Open problem 1 says "Any
 finite upper bound would be the first". Change this to "any upper bound independent of `m`
 and `n`", and cite `κ_m ≤ 2m`. Section 6 should also say that an online potential argument
-cannot work (Theorem 2).
+cannot work (Theorem 2), and that the conjectured bound `D` is true for two rows
+(Theorem 3).
 
-## 6. Numerical evidence (not certified unless stated)
+## 7. Numerical evidence (not certified unless stated)
 
 Simulated annealing over instances, with exact depth-first evaluation of each candidate in
 floating point (`code/search_small_rows.c`). Values are the best found; they are lower bounds
@@ -169,29 +304,29 @@ Two rows, best value found for `n` columns:
 
 The odd entries are the rail family. The even entries `n = 2, 4, 6` have exact rational
 instances in `data/two_row_even.json`, checked by `code/verify_instances.py`. For
-`n = 10..16` the search stalls near `0.983`, below the rail value for the same `n`; no
-two-row instance at or above 1 was found. The pattern suggests
+`n = 10..16` the search stalls near `0.983`, below the rail value for the same `n`. By
+Theorem 3 no two-row instance exceeds 1. The pattern suggests
 
 ```
 best(2k+1) = 1 − 2^−(k+1),        best(2k+2) = 1 − 2^−k / 3.
 ```
 
 Three and four rows: see `data/search_log.md`. At small `n` more rows give larger values:
-for `m = 3` the search finds about `6/7`, `9/10` and `0.9397` at `n = 4, 5, 7`, against
+for `m = 3` the search finds about `6/7`, `9/10` and `0.9435` at `n = 4, 5, 7`, against
 `5/6`, `7/8` and `15/16` for two rows, and `m = 4` gives `0.9283` at `n = 6` against
-`11/12`. No instance at or above 1 was found for `m = 3`, `n ≤ 11` or `m = 4`, `n = 6`. The
+`11/12`. No instance at or above 1 was found for `m = 3`, `n ≤ 11` or `m = 4`, `n ≤ 7`. The
 search does not converge for `n ≥ 8`, so this is not evidence that `κ_3 ≤ 1`.
 
-A local search started from the rail family (`n = 7, 9, 11, 13`) found no improvement.
+## 8. Open problems
 
-## 7. Open problems, in order of attack
-
-1. **Prove `κ_2 ≤ 1`.** By Theorem 2 the proof must be offline. In the planar form the
-   dangerous regions are the top-left and bottom-right corners of the square; a single
-   state in the band `|p_1 − p_2| ≤ 1` cannot be killed by one column, but can be driven
-   out of the band. The invariant must concern the set of reachable states.
-2. **Find `m*`, the least `m` with `κ_m > 1`.** The chain needs a row at height near 1
-   *before* the two-row dynamics start; this is what the accumulator and the detector column
-   supply. With three rows the blocks must reuse their rows, so the entry state must be
-   pinned. The rail forces exact states and is a candidate pinning device.
-3. **Growth of `κ_m`.** Between `κ_2 ≥ 1` and `κ_m ≤ 2m` nothing is known.
+1. **Find `m*`, the least `m` with `κ_m > 1`.** It is between 3 and 11. The chain needs a row
+   at height near 1 *before* the two-row dynamics start; this is what the accumulator and
+   the detector column supply. With three rows the blocks must reuse their rows, so the
+   entry state must be pinned. Is `κ_3 = 1`?
+2. **Is the value 1 attained with two rows?** All instances found have min-max below 1, and
+   the best values follow `1 − 2^−(k+1)` (odd `n`) and `1 − 2^−k / 3` (even `n`).
+3. **A stronger two-row statement.** Search suggests that one can also keep
+   `|disc_1(t) + disc_2(t)| ≤ D`, that is, stay in the hexagon
+   `max(|p_1|, |p_2|, |p_1 − p_2|) ≤ 1`. The invariant of Theorem 3 does not prove this: its
+   closure fails for the hexagon in random tests.
+4. **Growth of `κ_m`.** Between `κ_m ≥ 1` and `κ_m ≤ 2m` nothing is known for `3 ≤ m ≤ 10`.

@@ -8,12 +8,14 @@ on:
       - "chairman-counterexample/**"
       - "detector-chains/**"
       - "planar-cost-lower-bound/**"
+      - "chairman-small-rows/**"
       - ".github/workflows/result-packages.yml"
   pull_request:
     paths:
       - "chairman-counterexample/**"
       - "detector-chains/**"
       - "planar-cost-lower-bound/**"
+      - "chairman-small-rows/**"
       - ".github/workflows/result-packages.yml"
 
 permissions:
@@ -88,6 +90,23 @@ jobs:
       - name: Parametric family enumeration (9/8 supremum, denominator cap 12)
         working-directory: planar-cost-lower-bound/code
         run: python3 search_dgg_family.py 12
+
+  small-rows-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rail family, exact (depth 0..9)
+        working-directory: chairman-small-rows/code
+        run: python3 verify_rail_family.py 9
+      - name: Two-row theorem, proof run as an exact algorithm
+        working-directory: chairman-small-rows/code
+        run: python3 verify_two_row_theorem.py
+      - name: Stored instances, exact
+        working-directory: chairman-small-rows/code
+        run: python3 verify_instances.py
 
   build-manuscripts:
     runs-on: ubuntu-latest
