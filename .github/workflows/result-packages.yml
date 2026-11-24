@@ -122,6 +122,9 @@ jobs:
       - name: Compile detector-chains manuscript
         working-directory: detector-chains
         run: make paper
+      - name: Compile two-machine manuscript
+        working-directory: chairman-small-rows
+        run: make paper
       - name: Compile planar-cost manuscript
         working-directory: planar-cost-lower-bound/paper
         run: latexmk -pdf -interaction=nonstopmode planar_cost_lower_bound.tex
@@ -134,4 +137,5 @@ jobs:
             chairman-counterexample/arxiv-upload/chairman_counterexample.pdf
             detector-chains/paper/kappa_chains.pdf
             planar-cost-lower-bound/paper/planar_cost_lower_bound.pdf
+            chairman-small-rows/paper/two_machines.pdf
           if-no-files-found: error

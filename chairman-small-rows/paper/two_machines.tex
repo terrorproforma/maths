@@ -1,0 +1,525 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=29mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\disc}{\Delta}
+\newcommand{\eps}{\varepsilon}
+
+\title{Machine-Dependent Chairman Assignment on Two Machines:\\
+the Liu--Reis Bound Holds and Is Optimal}
+\author{Angus Muffatti}
+\date{24 November 2026 --- draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Liu and Reis conjectured that every fractional assignment of $n$ jobs to
+$m$ machines with machine-dependent weights $d_{ij}$ can be rounded to an
+integral assignment in which every machine, at every prefix of the job
+sequence, deviates from its fractional load by at most
+$D=\max_{i,j}d_{ij}$.  The conjecture is false in general: there is a
+counterexample with eleven machines.  We prove that it is true for two
+machines, and that the constant is best possible there.  The upper bound
+is proved by an invariant in the style of the trapping families of Lund
+and Magazinov: a parallelogram of reachable states that has the origin in
+its convex hull.  It yields a linear-time algorithm, and the rounding
+respects the support of the fractional assignment.  For the lower bound
+we give an explicit family of two-machine instances with $2k+1$ jobs whose
+optimal value is exactly $(1-2^{-(k+1)})D$; with machine-independent
+weights the two-machine optimum is $D/2$.  We also show that no online
+rule has a bounded guarantee, already for two machines, and that the
+upper bound fails if the two machines may be charged with weights of
+opposite sign.  The least number of machines for which the conjecture
+fails is therefore between $3$ and $11$.
+\end{abstract}
+
+\section{Introduction}
+
+Let $x\in[0,1]^{m\times n}$ be a fractional assignment, $\sum_i x_{ij}=1$
+for every column $j$, and let $d\in\R_{\ge0}^{m\times n}$ be a matrix of
+machine-dependent weights with $D=\max_{i,j}d_{ij}$.  For an integral
+assignment $y\in\{0,1\}^{m\times n}$ with the same column sums, the
+\emph{row-prefix discrepancy} is
+\[
+ \disc_i(t)=\sum_{j=1}^{t}d_{ij}\,(x_{ij}-y_{ij}),\qquad
+ i\in[m],\ t\in[n].
+\]
+Write
+\[
+ \kappa_m=\sup_{\text{instances with $m$ rows}}\ \min_{y}\ \max_{i,t}\
+ \frac{|\disc_i(t)|}{D},\qquad \kappa=\sup_m\kappa_m .
+\]
+When the weights do not depend on the machine ($d_{ij}=d_j$), Liu and
+Reis \citep{LiuReis2026} proved that the minimum is always strictly below
+$D$, which generalizes Tijdeman's theorem on the chairman assignment
+problem \citep{Tijdeman1973}.  For machine-dependent weights they
+conjectured $\kappa\le1$ (Conjecture~3 of the arXiv version of
+\citep{LiuReis2026}); the case $t=n$ alone follows from the rounding
+theorem of Lenstra, Shmoys and Tardos \citep{LenstraShmoysTardos1990}.
+The conjecture was refuted in \citep{Muffatti2026} by an instance with
+$11$ rows and $15$ columns, and \citep{MuffattiChains2026} proves
+$\kappa\ge1+W(1/e)\approx1.2785$, where $W$ is the Lambert function.
+These constructions need a number of rows that grows with the target
+value.  This paper determines what happens with two rows.
+
+\begin{theorem}\label{thm:upper}
+Let $m=2$.  For all weights $d_{ij}\in[0,D]$ and every fractional
+assignment $x$ there is an integral assignment $y$ with
+\[
+ |\disc_i(t)|\le D\qquad\text{for }i=1,2\text{ and all }t\in[n].
+\]
+Moreover $y$ can be chosen with $y_{ij}=0$ whenever $x_{ij}=0$, and it can
+be computed with $O(n)$ arithmetic operations.
+\end{theorem}
+
+\begin{theorem}\label{thm:lower}
+For every $k\ge0$ there is an instance with two rows, $2k+1$ columns, all
+weights in $(0,1]$ and all fractional entries equal to $1/2$, for which
+\[
+ \min_y\max_{i,t}|\disc_i(t)|\;=\;1-2^{-(k+1)} .
+\]
+\end{theorem}
+
+\begin{corollary}
+$\kappa_2=1$.  The conjecture of Liu and Reis holds for two machines, and
+no constant smaller than $D$ is valid there.
+\end{corollary}
+
+For comparison, with machine-independent weights and two rows the two
+discrepancies are negatives of each other, the problem is
+one-dimensional, and the exact constant is $1/2$ (this is Tijdeman's
+value $1-1/(2m-2)$ at $m=2$).  Machine-dependent weights double it.
+
+\begin{theorem}\label{thm:online}
+Let $m=2$.  In the online problem, where $y_{\cdot j}$ must be fixed when
+column $j$ arrives and the adversary chooses column $j+1$ after it sees
+$y_{\cdot j}$, the adversary can force $\max_{i,t}|\disc_i(t)|>cD$ for
+every constant $c$.
+\end{theorem}
+
+Theorem~\ref{thm:online} explains why the proof of
+Theorem~\ref{thm:upper} cannot follow one state: there is no bounded
+region that a single state can be kept in.  The proof instead keeps a set
+of at most four reachable states.  The corresponding algorithm reads the
+columns once, but it carries up to four partial assignments and chooses
+between them only at the end.
+
+\paragraph{Relation to earlier work.}
+The proof of Theorem~\ref{thm:upper} adapts the \emph{trapping families}
+of Lund and Magazinov \citep{LundMagazinov2015}.  They prove that in every
+normed plane a sequence of vectors of norm at most $1$ admits signs for
+which all partial sums have norm at most $2$.  In the notation of
+Section~\ref{sec:planar} this is the case of Theorem~\ref{thm:upper} in
+which every fractional entry equals $1/2$, and it holds there for vectors
+of arbitrary direction.  Their trapping sets are centrally symmetric
+parallelograms.  For general fractional entries the parallelogram is no
+longer symmetric about the origin, and two things change: a vertex of the
+parallelogram can leave the feasible square, and the directions of the
+vectors matter.  Indeed the statement becomes false if the two weights of
+a column may have opposite signs (Proposition~\ref{prop:mixed}).  A
+general reduction from arbitrary to equal fractional entries, in the
+manner of Lov\'asz, Spencer and Vesztergombi
+\citep{LovaszSpencerVesztergombi1986}, loses a factor of $2$ and gives
+only $2D$.
+
+For general $m$ the selection form of the theorem of B\'ar\'any and
+Grinberg \citep{BaranyGrinberg1981,Barany2008} gives $\kappa_m\le 2m$: for
+each column the $m$ possible increments of the discrepancy vector have
+sup norm at most $D$ and contain the origin in their convex hull.  A
+bound independent of $m$ is closely related to the prefix Beck--Fiala
+conjecture of Bansal, Rohwedder and Svensson
+\citep{BansalRohwedderSvensson2022}, which is open.  A different
+conjecture of \citep{LiuReis2026}, with machine-independent weights and a
+support constraint, was refuted in \citep{BercziLiuReisTarnawski2026}.
+
+\section{The planar form}\label{sec:planar}
+
+Throughout Sections~\ref{sec:planar}--\ref{sec:online} we have $m=2$ and,
+after scaling, $D=1$.  For column $j$ put
+\[
+ h_j=(d_{1j},d_{2j})\in[0,1]^2,\qquad w_j=x_{1j}\in[0,1],
+\]
+and let $y_j=y_{1j}\in\{0,1\}$, so that $y_j=1$ means that column $j$ is
+assigned to row~$1$.  Since $x_{2j}=1-w_j$ and $y_{2j}=1-y_j$,
+\[
+ p_t:=\bigl(-\disc_1(t),\,\disc_2(t)\bigr)=\sum_{j=1}^{t}(y_j-w_j)\,h_j .
+\]
+Thus the state is a point of the plane that starts at the origin, and
+column $j$ moves it by one of
+\[
+ +(1-w_j)\,h_j\qquad\text{or}\qquad -w_j\,h_j .
+\]
+The two possible end points differ by $h_j$, a vector with non-negative
+coordinates and sup norm at most $1$.  Let $Q=[-1,1]^2$.  Then
+$\max_{i,t}|\disc_i(t)|\le1$ if and only if $p_t\in Q$ for all $t$.  Let
+$R_t$ be the set of points $p_t$ that are reachable by a path with
+$p_1,\dots,p_t\in Q$; so $R_0=\{0\}$, and Theorem~\ref{thm:upper} states
+that $R_n\ne\emptyset$.
+
+\section{The upper bound}\label{sec:upper}
+
+\paragraph{The invariant.}
+For $t\ge0$ let $I(t)$ be the statement: \emph{there are
+$g_1,g_2\in[0,1]^2$ and $\lambda_1,\lambda_2\in[0,1]$ such that, with
+\[
+ \pi(\eps)=(\eps_1-\lambda_1)\,g_1+(\eps_2-\lambda_2)\,g_2,
+ \qquad\eps\in\{0,1\}^2,
+\]
+every one of the four points $\pi(\eps)$ that lies in $Q$ belongs to
+$R_t$.}
+
+The four points are the vertices of a parallelogram that has the origin
+in its convex hull.  A vertex outside $Q$ carries no information.
+$I(0)$ holds with $g_1=g_2=0$.
+
+\begin{lemma}\label{lem:nonempty}
+$I(t)$ implies $R_t\ne\emptyset$.
+\end{lemma}
+\begin{proof}
+Each coordinate of $\pi(1,0)=(1-\lambda_1)g_1-\lambda_2g_2$ is a
+difference of two numbers in $[0,1]$.  So $\pi(1,0)\in Q$, and therefore
+$\pi(1,0)\in R_t$.
+\end{proof}
+The same argument shows $\pi(0,1)\in Q$.
+
+\paragraph{The step.}
+Assume $I(t)$, and let $g_3=h_{t+1}$ and $\lambda_3=w_{t+1}$.  For
+$\eps\in\{0,1\}^3$ put
+\[
+ P(\eps)=\sum_{i=1}^{3}(\eps_i-\lambda_i)\,g_i
+ =\pi(\eps_1,\eps_2)+(\eps_3-\lambda_3)\,g_3 .
+\]
+If $\pi(\eps_1,\eps_2)\in R_t$ and $P(\eps)\in Q$, then
+$P(\eps)\in R_{t+1}$: extend the path by $y_{t+1}=\eps_3$.  Call $\eps$
+\emph{bad} if $P(\eps)\in Q$ but $\pi(\eps_1,\eps_2)\notin Q$.  If $\eps$
+is not bad and $P(\eps)\in Q$, then $\pi(\eps_1,\eps_2)\in Q$, hence
+$\pi(\eps_1,\eps_2)\in R_t$ by $I(t)$, hence $P(\eps)\in R_{t+1}$.
+
+\begin{claim}\label{cl:bad}
+A bad vertex is $(0,0,1)$ or $(1,1,0)$, and at most one of these two is
+bad.
+\end{claim}
+\begin{proof}
+The points $\pi(1,0)$ and $\pi(0,1)$ lie in $Q$, so no vertex
+$(1,0,\cdot)$ or $(0,1,\cdot)$ is bad.  The point
+$\pi(0,0)=-\lambda_1g_1-\lambda_2g_2$ has non-positive coordinates.  If it
+is outside $Q$, one of its coordinates is below $-1$, and the same
+coordinate of $P(0,0,0)=\pi(0,0)-\lambda_3g_3$ is below $-1$; so
+$(0,0,0)$ is not bad.  In the same way $(1,1,1)$ is not bad.  Finally,
+$\pi(0,0)\notin Q$ means that a coordinate of
+$\lambda_1g_1+\lambda_2g_2$ exceeds $1$, which gives
+$\lambda_1+\lambda_2>1$; and $\pi(1,1)\notin Q$ gives
+$(1-\lambda_1)+(1-\lambda_2)>1$.  The two cannot both hold.
+\end{proof}
+
+\begin{lemma}\label{lem:middle}
+Among three vectors in the closed positive quadrant of $\R^2$, one is a
+non-negative combination of the other two.
+\end{lemma}
+\begin{proof}
+A zero vector is such a combination.  If all three are non-zero, order
+them by angle.  Either all three are parallel, or the middle one lies in
+the cone spanned by the other two.
+\end{proof}
+
+Fix names $\{\alpha,\beta,\gamma\}=\{1,2,3\}$ and numbers
+$\rho,\sigma\ge0$ with
+\begin{equation}\label{eq:rel}
+ g_\beta=\rho\,g_\alpha+\sigma\,g_\gamma .
+\end{equation}
+The relation is symmetric in $(\alpha,\rho)$ and $(\gamma,\sigma)$.
+
+\begin{lemma}\label{lem:slide}
+\textup{(i)} There is $\tau\ge0$ such that the triple $\mu$ with
+\[
+ \mu_\alpha=\lambda_\alpha-\tau\rho,\qquad
+ \mu_\beta=\lambda_\beta+\tau,\qquad
+ \mu_\gamma=\lambda_\gamma-\tau\sigma
+\]
+lies in $[0,1]^3$ and satisfies: $\mu_\beta=1$, or $\rho>0$ and
+$\mu_\alpha=0$, or $\sigma>0$ and $\mu_\gamma=0$.
+
+\textup{(ii)} There is $\tau\ge0$ such that the triple $\mu$ with
+\[
+ \mu_\alpha=\lambda_\alpha+\tau\rho,\qquad
+ \mu_\beta=\lambda_\beta-\tau,\qquad
+ \mu_\gamma=\lambda_\gamma+\tau\sigma
+\]
+lies in $[0,1]^3$ and satisfies: $\mu_\beta=0$, or $\rho>0$ and
+$\mu_\alpha=1$, or $\sigma>0$ and $\mu_\gamma=1$.
+
+In both cases $\sum_i\mu_ig_i=\sum_i\lambda_ig_i$.
+\end{lemma}
+\begin{proof}
+Take the largest $\tau$ for which the three numbers stay in $[0,1]$.  It
+is finite because of the coordinate $\beta$, and the constraint that stops
+it is one of the three that are listed.  The sum does not change, by
+\eqref{eq:rel}.
+\end{proof}
+
+Suppose that $\mu\in[0,1]^3$, $\sum_i\mu_ig_i=\sum_i\lambda_ig_i$ and
+$\mu_k=v\in\{0,1\}$ for some $k$.  Then
+\begin{equation}\label{eq:hull}
+ 0=\sum_{i=1}^{3}(\mu_i-\lambda_i)\,g_i
+ =\sum_{\eps:\ \eps_k=v}\Bigl(\prod_{i\ne k}\mu_i^{\eps_i}(1-\mu_i)^{1-\eps_i}\Bigr)P(\eps),
+\end{equation}
+so the origin is a convex combination of the four points $P(\eps)$ of the
+face $\{\eps_k=v\}$ of the cube.  Hence each outcome of
+Lemma~\ref{lem:slide} supplies such a face: $\mu_\beta=1$ gives
+$\{\eps_\beta=1\}$, $\mu_\alpha=0$ gives $\{\eps_\alpha=0\}$, and so on.
+
+\begin{claim}\label{cl:face}
+There are $k\in\{1,2,3\}$, $v\in\{0,1\}$ and $\mu\in[0,1]^3$ with
+$\mu_k=v$ and $\sum_i\mu_ig_i=\sum_i\lambda_ig_i$ such that the face
+$\{\eps_k=v\}$ contains no bad vertex.
+\end{claim}
+\begin{proof}
+If there is no bad vertex, use Lemma~\ref{lem:slide}(i).
+
+\emph{Suppose that $(0,0,1)$ is bad.}  The faces that do not contain this
+vertex are $\{\eps_3=0\}$, $\{\eps_1=1\}$ and $\{\eps_2=1\}$.
+
+If $\beta=3$, then $\alpha,\gamma\in\{1,2\}$, and
+Lemma~\ref{lem:slide}(ii) gives $\mu_3=0$, $\mu_\alpha=1$ or
+$\mu_\gamma=1$.  All three faces are permitted.
+
+If $\beta\ne3$, name the indices so that $\gamma=3$; then
+$\alpha,\beta\in\{1,2\}$.  Lemma~\ref{lem:slide}(i) gives $\mu_\beta=1$ or
+$\mu_3=0$, which are permitted, or $\rho>0$ and $\mu_\alpha=0$.  In the
+last case $\tau=\lambda_\alpha/\rho$, so by \eqref{eq:rel}
+$\lambda_\alpha g_\alpha=\tau\,(g_\beta-\sigma g_3)$ and
+\[
+ \pi(0,0)=-\lambda_\alpha g_\alpha-\lambda_\beta g_\beta
+ =-(\lambda_\beta+\tau)\,g_\beta+\tau\sigma\,g_3
+ =-\mu_\beta\,g_\beta+(\lambda_3-\mu_3)\,g_3 .
+\]
+Here $\mu_\beta\in[0,1]$, and $\lambda_3-\mu_3=\tau\sigma\in[0,1]$ because
+$0\le\mu_3\le\lambda_3$.  So each coordinate of $\pi(0,0)$ is a difference
+of two numbers in $[0,1]$, that is, $\pi(0,0)\in Q$.  This contradicts the
+assumption that $(0,0,1)$ is bad.
+
+\emph{Suppose that $(1,1,0)$ is bad.}  The faces that do not contain this
+vertex are $\{\eps_3=1\}$, $\{\eps_1=0\}$ and $\{\eps_2=0\}$.
+
+If $\beta=3$, Lemma~\ref{lem:slide}(i) gives $\mu_3=1$, $\mu_\alpha=0$ or
+$\mu_\gamma=0$, all permitted.
+
+If $\beta\ne3$ and $\gamma=3$, Lemma~\ref{lem:slide}(ii) gives
+$\mu_\beta=0$ or $\mu_3=1$, which are permitted, or $\rho>0$ and
+$\mu_\alpha=1$.  In the last case $\tau=(1-\lambda_\alpha)/\rho$, so
+$(1-\lambda_\alpha)g_\alpha=\tau\,(g_\beta-\sigma g_3)$ and
+\[
+ \pi(1,1)=(1-\lambda_\alpha)\,g_\alpha+(1-\lambda_\beta)\,g_\beta
+ =(1-\mu_\beta)\,g_\beta-(\mu_3-\lambda_3)\,g_3 ,
+\]
+with $1-\mu_\beta\in[0,1]$ and $\mu_3-\lambda_3=\tau\sigma\in[0,1]$.  So
+$\pi(1,1)\in Q$, a contradiction.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:upper}]
+We show that $I(t)$ implies $I(t+1)$.  Take $k$, $v$ and $\mu$ from
+Claim~\ref{cl:face}, and let $\{i,j\}=\{1,2,3\}\setminus\{k\}$.  Since
+$\sum_l(\mu_l-\lambda_l)g_l=0$ and $\mu_k=v$, we have
+$(v-\lambda_k)g_k=-(\mu_i-\lambda_i)g_i-(\mu_j-\lambda_j)g_j$, so for
+every $\eps$ with $\eps_k=v$
+\[
+ P(\eps)=(\eps_i-\mu_i)\,g_i+(\eps_j-\mu_j)\,g_j .
+\]
+No such $\eps$ is bad, so every one of these four points that lies in $Q$
+belongs to $R_{t+1}$.  This is $I(t+1)$, with generators $g_i,g_j$ and
+coefficients $\mu_i,\mu_j$.  By induction $I(n)$ holds, and
+Lemma~\ref{lem:nonempty} gives $R_n\ne\emptyset$.
+
+\emph{Support.}  If $w_{t+1}=0$, the move $y_{t+1}=0$ does not move the
+point, so $R_t\subseteq R_{t+1}$ along paths with $y_{t+1}=0$, and the old
+parallelogram witnesses $I(t+1)$.  The case $w_{t+1}=1$ is the same with
+$y_{t+1}=1$.  So the assignment can respect the support of $x$.
+
+\emph{Algorithm.}  Store $g_1,g_2,\lambda_1,\lambda_2$ and, for each
+vertex in $Q$, a pointer to a path that reaches it.  One step needs a
+constant number of arithmetic operations: test the eight points, find the
+relation \eqref{eq:rel}, compute $\tau$, and select the face.
+\end{proof}
+
+\begin{remark}
+The proof uses the non-negativity of the weights twice: in the fact that
+$\pi(1,0)$ and $\pi(0,1)$ lie in $Q$, and in Lemma~\ref{lem:middle}.  It
+uses the dimension in Lemma~\ref{lem:middle}.
+\end{remark}
+
+\section{The lower bound}\label{sec:lower}
+
+Let $k\ge0$ and $0\le\eta\le2^{-k}$.  The instance $\mathcal R_k(\eta)$
+has $2k+1$ columns.  In the planar form all $w_j$ equal $1/2$, and the
+vectors $h_j$ are, in order,
+\[
+ (1,\eta),\qquad\text{then for } i=k,k-1,\dots,1:\quad (1-2^{-i},\,1),\ \ (1,1).
+\]
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}]
+We show that the optimal value of $\mathcal R_k(\eta)$ is
+$T_k=1-2^{-(k+1)}$; for $\eta>0$ all weights are positive.  Each column
+moves the point by $\pm h_j/2$, and the instance is invariant under
+$p\mapsto-p$.  After the first column the point is $\pm(1/2,\eta/2)$; by
+symmetry assume it is $(1/2,\eta/2)$.
+
+Number the pairs $j=0,\dots,k-1$ in order, so that pair $j$ consists of
+the vectors $(1-\eps_j,1)$ and $(1,1)$ with $\eps_j=2^{j-k}$, and put
+\[
+ u_j=\tfrac12+(2^j-1)\,2^{-(k+1)},\qquad S_j=(u_j,\eta/2).
+\]
+Then $S_0=(1/2,\eta/2)$.  Suppose that the point is $S_j$ before pair
+$j$.  There are four ways to play the pair.
+\begin{itemize}
+\item First move $+$.  The first coordinate becomes
+$u_j+(1-\eps_j)/2=T_k$.
+\item Moves $-,-$.  The second coordinate becomes $\eta/2-1$, of absolute
+value $1-\eta/2\ge T_k$.
+\item Moves $-,+$.  The point becomes $(u_j+\eps_j/2,\eta/2)=S_{j+1}$.
+\end{itemize}
+Hence a path either attains sup norm at least $T_k$ inside some pair, or
+it arrives at $S_k=(T_k,\eta/2)$.  So every path has a prefix of sup norm
+at least $T_k$.  The path that plays $+$ and then $-,+$ in every pair
+visits only the points $S_j$ and $(u_j-(1-\eps_j)/2,\,\eta/2-1/2)$, all of
+sup norm at most $T_k$.
+\end{proof}
+
+The condition on $\eta$ cannot be dropped: $\mathcal R_7(1/100)$ has
+optimal value $199/200=1-\eta/2$.
+
+\begin{remark}
+Since all $w_j$ are $1/2$, the upper bound $1$ for the instances
+$\mathcal R_k$ is already contained in \citep{LundMagazinov2015}.  There
+it is noted that the bound is attained in the max-norm plane, by two
+vectors whose coordinates have mixed signs.  The family $\mathcal R_k$
+shows that it is also approached by vectors with non-negative
+coordinates, which are the only ones that two-machine instances produce.
+We do not know whether the value $1$ is attained by a two-machine
+instance; in exhaustive-evaluation searches the best values found with
+$n=1,\dots,7$ columns are
+$\tfrac12,\tfrac23,\tfrac34,\tfrac56,\tfrac78,\tfrac{11}{12},\tfrac{15}{16}$.
+\end{remark}
+
+\section{Online assignment}\label{sec:online}
+
+\begin{proof}[Proof of Theorem~\ref{thm:online}]
+Use the planar form and fix $c$.  Let $L$ be the set of points of
+$[-c,c]^2$ from which the adversary has a strategy that forces the point
+out of $[-c,c]^2$ after finitely many columns, and let
+$W=[-c,c]^2\setminus L$.  If $p\in W$, then for every column $(h,w)$ at
+least one of $p+(1-w)h$ and $p-wh$ lies in $W$; otherwise the adversary
+presents this column and continues with the strategy of the point that
+is reached, so $p\in L$.  We show that $W=\emptyset$.  Suppose that
+$W\ne\emptyset$, and let
+$M=\sup\{p_1:p\in W\}\le c$.  Fix an integer $K>4c$ and
+$\delta=3^{-K}/4$, and choose $P\in W$ with first coordinate above
+$M-\delta$.
+
+For $i=0,\dots,K-1$ let $\delta_i=3^i\delta$ and present the column
+$h=(4\delta_i,1)$, $w=1/2$; note that $4\delta_i\le1$.  Before step $i$ the point is in $W$ and its
+first coordinate is above $M-\delta_i$.  The move $+$ raises the first
+coordinate by $2\delta_i$, above $M$, so it leaves $W$.  Hence the move
+$-$ leads to a point of $W$; its first coordinate is above
+$M-3\delta_i=M-\delta_{i+1}$, and its second coordinate has dropped by
+$1/2$.  After $K$ steps the second coordinate has dropped by $K/2>2c$, so
+the point is outside $[-c,c]^2$, although it is in $W$.  This
+contradiction shows $W=\emptyset$.  In particular the origin is in $L$.
+\end{proof}
+
+In the original variables the columns of this proof have
+$d_{1j}=4\delta_i$, $d_{2j}=1$ and $x_{1j}=x_{2j}=1/2$, so all weights are
+positive.
+
+\section{Mixed signs, and open questions}\label{sec:open}
+
+\begin{proposition}\label{prop:mixed}
+Consider the planar walk of Section~\ref{sec:planar} with vectors
+$h_j\in[-1,1]^2$ in place of $h_j\in[0,1]^2$.  For the six columns
+$(h_j,w_j)$
+\[
+ \bigl((1,-1),\tfrac12\bigr),\
+ \bigl((1,1),\tfrac47\bigr),\
+ \bigl((1,-1),\tfrac17\bigr),\
+ \bigl((\tfrac37,-1),\tfrac27\bigr),\
+ \bigl((\tfrac9{14},-1),\tfrac5{14}\bigr),\
+ \bigl((1,-1),\tfrac5{14}\bigr)
+\]
+every one of the $2^6$ paths leaves $Q$; the least possible maximal sup
+norm is $15/14$.
+\end{proposition}
+\begin{proof}
+By exhaustive evaluation in exact rational arithmetic; see the
+repository.
+\end{proof}
+
+Such a column is not a column of a chairman instance, so
+Proposition~\ref{prop:mixed} says nothing about $\kappa_m$.  It shows that
+Theorem~\ref{thm:upper} is not a formal consequence of the symmetric
+theorem of \citep{LundMagazinov2015}.
+
+\begin{question}
+What is the least $m$ with $\kappa_m>1$?  By Theorem~\ref{thm:upper} and
+\citep{Muffatti2026} it satisfies $3\le m\le11$.  In particular, is
+$\kappa_3=1$?
+\end{question}
+
+Searches with three and four rows and up to nine columns found values
+above the two-row optimum for the same number of columns (for example
+$0.9435$ with three rows and seven columns, against $15/16$), but none
+above $1$.  These searches do not converge beyond eight columns and are
+not evidence for $\kappa_3\le1$.
+
+\begin{question}
+Is the value $D$ attained by some two-machine instance?
+\end{question}
+
+\begin{question}
+For two machines, can one keep $|\disc_1(t)+\disc_2(t)|\le D$ in addition
+to $|\disc_i(t)|\le D$?  In the planar form this asks for a path in the
+hexagon $\max(|p_1|,|p_2|,|p_1-p_2|)\le1$.  Searches found no
+counterexample, but the invariant of Section~\ref{sec:upper} does not
+carry over: its closure fails for the hexagon in random tests.
+\end{question}
+
+\section*{Reproducibility and disclosure}
+
+The accompanying repository (directory \texttt{chairman-small-rows})
+contains, in exact rational arithmetic and with the Python standard
+library only: an implementation of the proof of Theorem~\ref{thm:upper}
+as an algorithm that asserts Claims~\ref{cl:bad} and~\ref{cl:face},
+Lemmas~\ref{lem:middle} and~\ref{lem:slide} and the invariant at every
+step, run on $40{,}048$ instances and compared with exhaustive search on
+$2{,}665$ small ones; an exhaustive check of Theorem~\ref{thm:lower} for
+$k\le9$; and the check of Proposition~\ref{prop:mixed}.  The search
+results quoted in Sections~\ref{sec:lower} and~\ref{sec:open} come from
+simulated annealing and are not certified optima.
+
+Generative AI (Claude, Anthropic) was used extensively in this work: for
+the computational exploration, for finding and writing the proofs,
+including the invariant of Section~\ref{sec:upper}, for the verification
+code, and for an adversarial review of the proof.  The AI systems are not
+authors.  The author assumes responsibility for independent verification,
+priority, attribution, and the final text.  At the date of this draft the
+proofs have been checked by machine tests and by AI review, but not yet
+by an independent human reader or a proof assistant.
+
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+
+\end{document}

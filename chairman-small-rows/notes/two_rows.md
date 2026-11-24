@@ -121,9 +121,11 @@ column `j` arrives, and the adversary may choose column `j+1` after it sees `y_j
 **Theorem 2.** For `m = 2` and every budget `c`, the adaptive adversary can force
 `max_t ‖p_t‖_∞ > c`.
 
-*Proof.* Let `W` be the set of points from which the scheduler can stay in `[−c, c]²` for
-ever. If `p ∈ W`, then for every column `(h, w)` at least one of `p + (1−w)h`, `p − wh` is in
-`W`. Suppose `W ≠ ∅` and let `M = sup{p_1 : p ∈ W} ≤ c`. Fix an integer `K > 4c` and
+*Proof.* Let `L` be the set of points of `[−c, c]²` from which the adversary has a strategy
+that forces the point out of `[−c, c]²` after finitely many columns, and let `W` be the rest
+of `[−c, c]²`. If `p ∈ W`, then for every column `(h, w)` at least one of `p + (1−w)h`,
+`p − wh` is in `W`; otherwise the adversary plays this column and continues with the
+strategy of the point that is reached, so `p ∈ L`. Suppose `W ≠ ∅` and let `M = sup{p_1 : p ∈ W} ≤ c`. Fix an integer `K > 4c` and
 `ε = 3^−K / 4`, and take `P ∈ W` with `P_1 > M − ε`.
 
 Play the column `h = (4ε_i, 1)`, `w = 1/2`, where `ε_i = 3^i ε`, for `i = 0, …, K−1`.
@@ -132,7 +134,7 @@ raises the first coordinate by `2ε_i`, above `M`, so it leaves `W`. Hence the m
 stay in `W`: the first coordinate falls by `2ε_i`, so it is above `M − ε_{i+1}`, and the
 second coordinate falls by `1/2`. After `K` steps the second coordinate has fallen by
 `K/2 > 2c`, so the point is outside `[−c, c]²`, a contradiction. Hence `W = ∅`. In
-particular the origin is not in `W`. ∎
+particular the origin is in `L`. ∎
 
 In the original variables the columns in the proof have `d_1j = 4ε_i`, `d_2j = 1`,
 `x_1j = x_2j = 1/2`: all weights are positive.

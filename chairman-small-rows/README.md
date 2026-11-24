@@ -32,7 +32,9 @@ constant for instances with `m` rows. What is `κ_m` for small `m`?
 4. **Open: the least `m` with `κ_m > 1`.** It is between 3 and 11. Search with three and four
    rows found values above the two-row values at the same `n`, but none above 1.
 
-Proofs and details: [`notes/two_rows.md`](notes/two_rows.md).
+Manuscript: [`paper/two_machines.pdf`](paper/two_machines.pdf) (draft; source
+`paper/two_machines.tex`). Working notes with the same proofs, the literature status and
+the search data: [`notes/two_rows.md`](notes/two_rows.md).
 
 ## Verify
 
@@ -60,6 +62,8 @@ floating point. `data/search_best.json` holds the best instances found, and
 
 ## Layout
 
+- `paper/` — manuscript "Machine-Dependent Chairman Assignment on Two Machines: the
+  Liu–Reis Bound Holds and Is Optimal" (`make paper` builds it).
 - `notes/two_rows.md` — statements, proofs, literature status, open problems.
 - `code/minmax.py` — exact exhaustive evaluator for any number of rows.
 - `code/two_row_algorithm.py` — the proof of Theorem 3 as an exact algorithm.
