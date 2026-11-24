@@ -204,18 +204,20 @@ Fix names `{a, m, c} = {1, 2, 3}` and `p, q ≥ 0` with `g_m = p g_a + q g_c`.
 keeps the three coordinates in `[0,1]`. The sum does not change because
 `g_m − p g_a − q g_c = 0`.
 
-If `μ_k = c ∈ {0,1}`, then `0 = Σ (μ_i − λ_i) g_i` is a convex combination of the four points
-`P(ε)` with `ε_k = c`. So Lemma T produces a face `{ε_k = c}` of the cube whose four points
-have the origin in their convex hull.
+If `μ_k = v ∈ {0,1}`, then `0 = Σ (μ_i − λ_i) g_i` is a convex combination of the four points
+`P(ε)` with `ε_k = v`: the point `P(ε)` has weight `Π_{i ≠ k} (μ_i if ε_i = 1, else 1 − μ_i)`.
+So each outcome of Lemma T gives a face `{ε_k = v}` of the cube whose four points have the
+origin in their convex hull: `μ_m = 1` gives `{ε_m = 1}`, `μ_a = 0` gives `{ε_a = 0}`, and so on.
 
-*Claim F. There is a face `{ε_k = c}` that has the origin in the convex hull of its four
+*Claim F. There is a face `{ε_k = v}` that has the origin in the convex hull of its four
 points and contains no bad vertex.*
 
 - No bad vertex: use Lemma T.
 - `(0,0,1)` is bad. The faces without this vertex are `{ε_3 = 0}`, `{ε_1 = 1}`, `{ε_2 = 1}`.
   - If `m = 3`, the second part of Lemma T gives `μ_3 = 0`, `μ_a = 1` or `μ_c = 1` with
     `a, c ∈ {1, 2}`. All three faces are permitted.
-  - If `m ≠ 3`, name the indices so that `c = 3`. The first part of Lemma T gives `μ_m = 1`
+  - If `m ≠ 3`, the relation `g_m = p g_a + q g_c` is symmetric in `a` and `c`, so name the
+    indices so that `c = 3`; then `a, m ∈ {1, 2}`. The first part of Lemma T gives `μ_m = 1`
     or `μ_3 = 0`, both permitted, or `p > 0` and `μ_a = 0`. In the last case `τ = λ_a / p`, so
     `λ_a g_a = τ (g_m − q g_3)` and
 
@@ -223,7 +225,8 @@ points and contains no bad vertex.*
     π(0,0) = −λ_a g_a − λ_m g_m = −(λ_m + τ) g_m + τ q g_3 = −μ_m g_m + (λ_3 − μ_3) g_3 .
     ```
 
-    Both coefficients `μ_m` and `λ_3 − μ_3 = τ q` lie in `[0, 1]`. So each coordinate of
+    Both coefficients `μ_m` and `λ_3 − μ_3 = τ q` lie in `[0, 1]` (the second because
+    `0 ≤ μ_3 ≤ λ_3`). So each coordinate of
     `π(0,0)` lies in `[−1, 1]`, that is `π(0,0) ∈ Q`. This contradicts that `(0,0,1)` is bad.
 - `(1,1,0)` is bad. This is the mirror case: replace `ε` by `1 − ε`, `λ` by `1 − λ` and
   every point by its negative. The
@@ -231,9 +234,10 @@ points and contains no bad vertex.*
   Lemma T. If `m ≠ 3` and `c = 3`, use the second part: `μ_m = 0` and `μ_3 = 1` are permitted,
   and `μ_a = 1` gives `π(1,1) = (1 − μ_m) g_m − (μ_3 − λ_3) g_3 ∈ Q`, a contradiction.
 
-**End of the step.** Take the face `{ε_k = c}` of Claim F and the `μ` that comes with it.
-Let `{i, j} = {1,2,3} ∖ {k}`. For `ε` in the face,
-`P(ε) = (ε_i − μ_i) g_i + (ε_j − μ_j) g_j`, because `(c − λ_k) g_k = −(μ_i − λ_i) g_i − (μ_j − λ_j) g_j`.
+**End of the step.** Take the face `{ε_k = v}` of Claim F and the `μ` that comes with it, so
+`μ_k = v`. Let `{i, j} = {1,2,3} ∖ {k}`. For `ε` in the face,
+`P(ε) = (ε_i − μ_i) g_i + (ε_j − μ_j) g_j`, because `Σ (μ_l − λ_l) g_l = 0` gives
+`(v − λ_k) g_k = −(μ_i − λ_i) g_i − (μ_j − λ_j) g_j`.
 No vertex of the face is bad, so each `P(ε)` in `Q` is in `R_{t+1}`. Hence `I(t+1)` holds with
 generators `g_i, g_j` and coefficients `μ_i, μ_j`. ∎
 
