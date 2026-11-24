@@ -87,7 +87,9 @@ def main():
             opt = minmax(mcols, 2)
             assert opt <= 1 and opt <= max_discrepancy(cols, solve(cols, respect_support=False))
             small += 1
-    print(f"{count} runs of the algorithm, all outputs within 1 (largest value seen: {worst} ~ {float(worst):.6f})")
+    print(f"{count} runs of the algorithm, all outputs within 1")
+    print(f"(worst output of the algorithm: {worst} ~ {float(worst):.6f}; the algorithm is not optimal,"
+          " so this is not the min-max of an instance)")
     print(f"{small} small instances cross-checked against exhaustive exact min-max")
     print("two-row theorem verified on all test instances")
 

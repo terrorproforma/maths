@@ -151,7 +151,8 @@ between them only at the end.
 **Theorem 3.** Let `m = 2`, weights `d_ij ∈ [0, D]` and any fractional assignment `x`. There
 is an integral assignment `y` with `|disc_i(t)| ≤ D` for `i = 1, 2` and every prefix `t`.
 The assignment can be chosen with `y_ij = 0` whenever `x_ij = 0`, and it is found in `O(n)`
-arithmetic operations.
+arithmetic operations (with back-pointers for the four partial assignments; the reference
+code copies lists and so does `O(n²)` list work).
 
 Take `D = 1` and use the planar form: `h_j ∈ [0,1]²`, `w_j ∈ [0,1]`, and each column moves
 the point by `+(1 − w_j) h_j` or `−w_j h_j`. Let `Q = [−1, 1]²`. Let `R_t` be the set of
@@ -183,7 +184,7 @@ If `π(ε_1, ε_2) ∈ R_t` and `P(ε) ∈ Q`, then `P(ε) ∈ R_{t+1}`: extend 
 `P(ε) ∈ Q`, then `π(ε_1,ε_2) ∈ Q`, so `π(ε_1,ε_2) ∈ R_t` by `I(t)`, so `P(ε) ∈ R_{t+1}`.
 
 *Claim B. A bad vertex is `(0,0,1)` or `(1,1,0)`, and at most one of the two is bad.*
-The points `π(1,0)`, `π(0,1)` are always in `Q`. The point `π(0,0) = −λ_1 g_1 − λ_2 g_2` has
+The points `π(1,0)`, `π(0,1)` are always in `Q`, so no vertex `(1,0,·)` or `(0,1,·)` is bad. The point `π(0,0) = −λ_1 g_1 − λ_2 g_2` has
 non-positive coordinates; if it is outside `Q`, a coordinate is below `−1`, and the same
 coordinate of `P(0,0,0) = π(0,0) − λ_3 g_3` is below `−1`, so `(0,0,0)` is not bad. In the
 same way `(1,1,1)` is not bad. If both `(0,0,1)` and `(1,1,0)` were bad, then `π(0,0) ∉ Q`
@@ -195,47 +196,66 @@ combination of the other two.* A zero vector is such a combination. If all three
 non-zero, order them by angle; the middle one lies in the cone of the other two (or all
 three are parallel).
 
-Fix names `{a, m, c} = {1, 2, 3}` and `p, q ≥ 0` with `g_m = p g_a + q g_c`.
+Fix names `{α, β, γ} = {1, 2, 3}` and numbers `ρ, σ ≥ 0` with `g_β = ρ g_α + σ g_γ`. So `β` is
+the index of the "middle" generator. The relation is symmetric in `(α, ρ)` and `(γ, σ)`.
 
-*Lemma T. There is `τ ≥ 0` such that `μ = (λ_a − τp, λ_m + τ, λ_c − τq)` lies in `[0,1]³` and
-`μ_m = 1`, or `p > 0` and `μ_a = 0`, or `q > 0` and `μ_c = 0`. There is also `τ ≥ 0` such that
-`μ = (λ_a + τp, λ_m − τ, λ_c + τq)` lies in `[0,1]³` and `μ_m = 0`, or `p > 0` and `μ_a = 1`, or
-`q > 0` and `μ_c = 1`. In both cases `Σ μ_i g_i = Σ λ_i g_i`.* Take the largest `τ` that
-keeps the three coordinates in `[0,1]`. The sum does not change because
-`g_m − p g_a − q g_c = 0`.
+*Lemma T. (i) There is `τ ≥ 0` such that the triple `μ` with
 
-If `μ_k = v ∈ {0,1}`, then `0 = Σ (μ_i − λ_i) g_i` is a convex combination of the four points
-`P(ε)` with `ε_k = v`: the point `P(ε)` has weight `Π_{i ≠ k} (μ_i if ε_i = 1, else 1 − μ_i)`.
-So each outcome of Lemma T gives a face `{ε_k = v}` of the cube whose four points have the
-origin in their convex hull: `μ_m = 1` gives `{ε_m = 1}`, `μ_a = 0` gives `{ε_a = 0}`, and so on.
+```
+μ_α = λ_α − τρ,    μ_β = λ_β + τ,    μ_γ = λ_γ − τσ
+```
 
-*Claim F. There is a face `{ε_k = v}` that has the origin in the convex hull of its four
-points and contains no bad vertex.*
+lies in `[0,1]³` and: `μ_β = 1`, or `ρ > 0` and `μ_α = 0`, or `σ > 0` and `μ_γ = 0`.
+(ii) There is `τ ≥ 0` such that the triple `μ` with
 
-- No bad vertex: use Lemma T.
+```
+μ_α = λ_α + τρ,    μ_β = λ_β − τ,    μ_γ = λ_γ + τσ
+```
+
+lies in `[0,1]³` and: `μ_β = 0`, or `ρ > 0` and `μ_α = 1`, or `σ > 0` and `μ_γ = 1`.
+In both cases `Σ μ_i g_i = Σ λ_i g_i`.* Take the largest `τ` that keeps the three coordinates
+in `[0,1]`; it is finite because of the coordinate `β`, and the constraint that stops it is
+one of the three listed. The sum does not change because `g_β − ρ g_α − σ g_γ = 0`.
+
+If `μ ∈ [0,1]³`, `Σ μ_i g_i = Σ λ_i g_i` and `μ_k = v ∈ {0,1}`, then `0 = Σ (μ_i − λ_i) g_i` is a
+convex combination of the four points `P(ε)` with `ε_k = v`: the point `P(ε)` has weight
+`Π_{i ≠ k} (μ_i if ε_i = 1, else 1 − μ_i)`. So each outcome of Lemma T gives a face
+`{ε_k = v}` of the cube whose four points have the origin in their convex hull: `μ_β = 1`
+gives `{ε_β = 1}`, `μ_α = 0` gives `{ε_α = 0}`, and so on.
+
+*Claim F. There are `k ∈ {1,2,3}`, `v ∈ {0,1}` and `μ ∈ [0,1]³` with `μ_k = v` and
+`Σ μ_i g_i = Σ λ_i g_i`, such that the face `{ε_k = v}` contains no bad vertex.* (By the last
+paragraph the four points of this face have the origin in their convex hull.)
+
+- No bad vertex: use Lemma T (i).
 - `(0,0,1)` is bad. The faces without this vertex are `{ε_3 = 0}`, `{ε_1 = 1}`, `{ε_2 = 1}`.
-  - If `m = 3`, the second part of Lemma T gives `μ_3 = 0`, `μ_a = 1` or `μ_c = 1` with
-    `a, c ∈ {1, 2}`. All three faces are permitted.
-  - If `m ≠ 3`, the relation `g_m = p g_a + q g_c` is symmetric in `a` and `c`, so name the
-    indices so that `c = 3`; then `a, m ∈ {1, 2}`. The first part of Lemma T gives `μ_m = 1`
-    or `μ_3 = 0`, both permitted, or `p > 0` and `μ_a = 0`. In the last case `τ = λ_a / p`, so
-    `λ_a g_a = τ (g_m − q g_3)` and
+  - If `β = 3` (the new generator is the middle one), Lemma T (ii) gives `μ_3 = 0`, `μ_α = 1`
+    or `μ_γ = 1`, with `α, γ ∈ {1, 2}`. All three faces are permitted.
+  - If `β ≠ 3`, name the indices so that `γ = 3`; then `α, β ∈ {1, 2}`. Lemma T (i) gives
+    `μ_β = 1` or `μ_3 = 0`, both permitted, or `ρ > 0` and `μ_α = 0`. In the last case
+    `τ = λ_α / ρ`, so `λ_α g_α = τ (g_β − σ g_3)` and
 
     ```
-    π(0,0) = −λ_a g_a − λ_m g_m = −(λ_m + τ) g_m + τ q g_3 = −μ_m g_m + (λ_3 − μ_3) g_3 .
+    π(0,0) = −λ_α g_α − λ_β g_β = −(λ_β + τ) g_β + τσ g_3 = −μ_β g_β + (λ_3 − μ_3) g_3 .
     ```
 
-    Both coefficients `μ_m` and `λ_3 − μ_3 = τ q` lie in `[0, 1]` (the second because
-    `0 ≤ μ_3 ≤ λ_3`). So each coordinate of
-    `π(0,0)` lies in `[−1, 1]`, that is `π(0,0) ∈ Q`. This contradicts that `(0,0,1)` is bad.
-- `(1,1,0)` is bad. This is the mirror case: replace `ε` by `1 − ε`, `λ` by `1 − λ` and
-  every point by its negative. The
-  permitted faces are `{ε_3 = 1}`, `{ε_1 = 0}`, `{ε_2 = 0}`. If `m = 3` use the first part of
-  Lemma T. If `m ≠ 3` and `c = 3`, use the second part: `μ_m = 0` and `μ_3 = 1` are permitted,
-  and `μ_a = 1` gives `π(1,1) = (1 − μ_m) g_m − (μ_3 − λ_3) g_3 ∈ Q`, a contradiction.
+    Both coefficients `μ_β` and `λ_3 − μ_3 = τσ` lie in `[0, 1]` (the second because
+    `0 ≤ μ_3 ≤ λ_3`). So each coordinate of `π(0,0)` lies in `[−1, 1]`, that is `π(0,0) ∈ Q`.
+    This contradicts that `(0,0,1)` is bad.
+- `(1,1,0)` is bad. The faces without this vertex are `{ε_3 = 1}`, `{ε_1 = 0}`, `{ε_2 = 0}`.
+  - If `β = 3`, Lemma T (i) gives `μ_3 = 1`, `μ_α = 0` or `μ_γ = 0`. All are permitted.
+  - If `β ≠ 3` and `γ = 3`, Lemma T (ii) gives `μ_β = 0` or `μ_3 = 1`, both permitted, or
+    `ρ > 0` and `μ_α = 1`. In the last case `τ = (1 − λ_α) / ρ`, so
+    `(1 − λ_α) g_α = τ (g_β − σ g_3)` and
 
-**End of the step.** Take the face `{ε_k = v}` of Claim F and the `μ` that comes with it, so
-`μ_k = v`. Let `{i, j} = {1,2,3} ∖ {k}`. For `ε` in the face,
+    ```
+    π(1,1) = (1 − λ_α) g_α + (1 − λ_β) g_β = (1 − μ_β) g_β − (μ_3 − λ_3) g_3 .
+    ```
+
+    Both coefficients `1 − μ_β` and `μ_3 − λ_3 = τσ` lie in `[0, 1]`. So `π(1,1) ∈ Q`. This
+    contradicts that `(1,1,0)` is bad.
+
+**End of the step.** Take `k`, `v` and `μ` from Claim F. Let `{i, j} = {1,2,3} ∖ {k}`. For `ε` in the face,
 `P(ε) = (ε_i − μ_i) g_i + (ε_j − μ_j) g_j`, because `Σ (μ_l − λ_l) g_l = 0` gives
 `(v − λ_k) g_k = −(μ_i − λ_i) g_i − (μ_j − λ_j) g_j`.
 No vertex of the face is bad, so each `P(ε)` in `Q` is in `R_{t+1}`. Hence `I(t+1)` holds with
@@ -250,7 +270,15 @@ partial assignment for each vertex in `Q`, and follows the proof. It asserts Cla
 Lemma M, Lemma T, Claim F and the invariant at every step, in exact rational arithmetic.
 `code/verify_two_row_theorem.py` runs it on the rail family and on 20,000 random instances
 of four kinds with up to 80 columns (40,048 runs), checks that each output has all
-discrepancies at most 1, and compares 2,665 small instances with exhaustive search.
+discrepancies at most 1, and compares 2,665 small instances with exhaustive search. The
+"largest value seen" that it prints is the worst output of the algorithm, which is not
+optimal; it is not the min-max of an instance.
+
+**Independent check (24 November 2026).** A separate reviewer session re-derived each step
+and found no error. It also ran its own exact brute force on 18,000 random instances with
+up to 14 columns and on all 331,776 four-column instances with weights in `{0, 1/2, 1}` and
+splits in `{1/3, 1/2, 2/3}`, and tested Claims B and F and Lemmas M and T on 300,000
+arbitrary states. This was an AI review, not a human audit.
 
 **Where the idea comes from.** The proof is a version of the *trapping families* of Lund
 and Magazinov (arXiv:1510.04536). They prove that in any normed plane a sequence of
