@@ -1,0 +1,5 @@
+{
+  "description": "Planar walk with MIXED-SIGN vectors: not a chairman instance. Each entry is [h_1, h_2, w]; a column moves the point by +(1-w)h or by -w h, and the cost is the largest sup norm of a prefix point. The exact min-max is 15/14 > 1. This shows that the non-negative weights are necessary in Theorem 3 of notes/two_rows.md.",
+  "value": "15/14",
+  "columns": [["1","-1","1/2"], ["1","1","4/7"], ["1","-1","1/7"], ["3/7","-1","2/7"], ["9/14","-1","5/14"], ["1","-1","5/14"]]
+}

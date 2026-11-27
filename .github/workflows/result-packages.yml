@@ -8,12 +8,14 @@ on:
       - "chairman-counterexample/**"
       - "detector-chains/**"
       - "planar-cost-lower-bound/**"
+      - "chairman-small-rows/**"
       - ".github/workflows/result-packages.yml"
   pull_request:
     paths:
       - "chairman-counterexample/**"
       - "detector-chains/**"
       - "planar-cost-lower-bound/**"
+      - "chairman-small-rows/**"
       - ".github/workflows/result-packages.yml"
 
 permissions:
@@ -89,6 +91,23 @@ jobs:
         working-directory: planar-cost-lower-bound/code
         run: python3 search_dgg_family.py 12
 
+  small-rows-certificates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rail family, exact (depth 0..9)
+        working-directory: chairman-small-rows/code
+        run: python3 verify_rail_family.py 9
+      - name: Two-row theorem, proof run as an exact algorithm
+        working-directory: chairman-small-rows/code
+        run: python3 verify_two_row_theorem.py
+      - name: Stored instances, exact
+        working-directory: chairman-small-rows/code
+        run: python3 verify_instances.py
+
   build-manuscripts:
     runs-on: ubuntu-latest
     steps:
@@ -103,6 +122,9 @@ jobs:
       - name: Compile detector-chains manuscript
         working-directory: detector-chains
         run: make paper
+      - name: Compile two-machine manuscript
+        working-directory: chairman-small-rows
+        run: make paper
       - name: Compile planar-cost manuscript
         working-directory: planar-cost-lower-bound/paper
         run: latexmk -pdf -interaction=nonstopmode planar_cost_lower_bound.tex
@@ -115,4 +137,5 @@ jobs:
             chairman-counterexample/arxiv-upload/chairman_counterexample.pdf
             detector-chains/paper/kappa_chains.pdf
             planar-cost-lower-bound/paper/planar_cost_lower_bound.pdf
+            chairman-small-rows/paper/two_machines.pdf
           if-no-files-found: error
