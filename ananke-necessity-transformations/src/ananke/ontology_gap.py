@@ -1,26 +1,24 @@
 """Cross-ontology comparison: C_classical(f; eps, W) vs. C_quantum(f; eps, W) for ANANKE v4.
 
 Provides:
-1. Verified d-dimensional quantum realizations ``QuantumRealization``
+1. Numerically verified d-dimensional quantum realizations ``QuantumRealization``
    (rho_0 >= 0, Tr(rho_0) = 1, unitary channels U_a, binary POVM 0 <= E <= I_d),
-   witnessing the exact upper bound C_quantum(f; 0, W) <= d, together with exact
-   conversion into the d^2-dimensional real Hermitian-basis ``LinearProcess``.
+   witnessing C_quantum(f; 0, W) <= d (when exact), together with conversion into
+   the d^2-dimensional real Hermitian-basis ``LinearProcess``.
 2. Explicit families of two-symbol quantum processes (d = 2 qubit, d = 3 qutrit,
    d = 4 two-qubit, d = 5 ququint) with noncommuting operations {x, z}.
-3. Proved Fejes Toth spherical-polytope inradius contraction bound explaining the
-   dynamical-vs-static classical gap (why two-symbol Bloch polytopes incur
-   Omega(1 - exp(-c L / N)) error while static mixed-qubit NMF fits in N = 8).
+3. Fejes Toth (1953) proved spherical-polytope inradius upper bound and isotropic
+   depth-compounding heuristic scaling benchmark for two-symbol Bloch polytopes.
 4. Unconstrained arbitrary-rank two-symbol classical HMM optimizer (returning a
-   strictly verified ``ClassicalRealization``) to benchmark full dynamical
+   strictly verified ``ClassicalRealization``) to benchmark local dynamical
    classical upper bounds against static NMF and proved lower bounds.
-5. Unified cross-ontology comparison reports bracketing C_classical vs C_quantum
-   and comparing directly against the unary shift-register ceiling L + 1.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from math import cos, exp, pi, sqrt, tan
+from types import MappingProxyType
 from typing import Mapping, Sequence
 
 import numpy as np
@@ -53,14 +51,18 @@ def validate_quantum_realization(
     *,
     tol: float = 1e-8,
 ) -> None:
-    """Strictly verify rho_0 >= 0, Tr(rho_0) = 1, U_a^dag U_a = I_d, and 0 <= E <= I_d."""
+    """Verify rho_0 >= 0, Tr(rho_0) = 1, U_a^dag U_a = I_d, and 0 <= E <= I_d up to ``tol``."""
     rho = np.asarray(initial_density, dtype=complex)
     eff = np.asarray(measurement_effect, dtype=complex)
     if rho.ndim != 2 or rho.shape[0] != rho.shape[1] or rho.shape[0] == 0:
         raise ValueError("initial_density must be a non-empty square matrix")
+    if not np.all(np.isfinite(rho)):
+        raise ValueError("initial_density must contain only finite entries")
     d = int(rho.shape[0])
     if eff.shape != (d, d):
         raise ValueError(f"measurement_effect has shape {eff.shape}, expected {(d, d)}")
+    if not np.all(np.isfinite(eff)):
+        raise ValueError("measurement_effect must contain only finite entries")
 
     # Hermiticity, PSD, and unit trace of rho_0
     if float(np.max(np.abs(rho - rho.conj().T))) > tol:
@@ -89,6 +91,8 @@ def validate_quantum_realization(
         u_mat = np.asarray(unitaries[sym], dtype=complex)
         if u_mat.shape != (d, d):
             raise ValueError(f"unitary {sym!r} has shape {u_mat.shape}, expected {(d, d)}")
+        if not np.all(np.isfinite(u_mat)):
+            raise ValueError(f"unitary {sym!r} contains non-finite entries")
         u_err = float(np.max(np.abs(u_mat.conj().T @ u_mat - eye)))
         if u_err > tol:
             raise ValueError(f"unitary {sym!r} fails U^dag U = I_d with max error {u_err}")
@@ -126,13 +130,16 @@ def _orthonormal_hermitian_basis(dimension: int) -> list[ComplexArray]:
 
 @dataclass(frozen=True)
 class QuantumRealization:
-    """A strictly verified d-dimensional quantum prepare-transform-measure realization.
+    """A numerically verified, immutable d-dimensional quantum prepare-transform-measure realization.
 
     Word probability convention (matching ``LinearProcess`` left-to-right application):
         For w = a_1 a_2 ... a_k,
             rho(w) = U_{a_k} ... U_{a_1} rho_0 U_{a_1}^dag ... U_{a_k}^dag,
             f(w)   = Tr(E rho(w)).
-    Existence of this verified realization proves C_quantum(f; 0, W) <= d.
+    Note: ``validate_quantum_realization`` verifies the axioms up to floating-point
+    tolerance ``tol = 1e-8``; an exact dimension witness C_quantum(f; 0, W) <= d
+    holds when the operators satisfy the axioms identically (e.g., exact SU(2) / U(d)
+    constructions). All stored arrays are copied and frozen read-only after validation.
     """
 
     alphabet: tuple[str, ...]
@@ -142,12 +149,23 @@ class QuantumRealization:
     construction: str = "generic_quantum"
 
     def __post_init__(self) -> None:
-        validate_quantum_realization(
-            self.alphabet,
-            self.initial_density,
-            self.unitaries,
-            self.measurement_effect,
-        )
+        alpha = tuple(str(s) for s in self.alphabet)
+        rho = np.array(self.initial_density, dtype=complex, copy=True)
+        eff = np.array(self.measurement_effect, dtype=complex, copy=True)
+        units = {
+            sym: np.array(self.unitaries[sym], dtype=complex, copy=True)
+            for sym in alpha
+            if sym in self.unitaries
+        }
+        validate_quantum_realization(alpha, rho, units, eff)
+        rho.setflags(write=False)
+        eff.setflags(write=False)
+        for mat in units.values():
+            mat.setflags(write=False)
+        object.__setattr__(self, "alphabet", alpha)
+        object.__setattr__(self, "initial_density", rho)
+        object.__setattr__(self, "measurement_effect", eff)
+        object.__setattr__(self, "unitaries", MappingProxyType(units))
 
     @property
     def hilbert_dimension(self) -> int:
@@ -257,7 +275,7 @@ def qudit_two_symbol_quantum_realization(
 ) -> QuantumRealization:
     """Construct a verified d-dimensional two-symbol ({x, z}) quantum process (C_quantum <= d).
 
-    Uses two deterministic Haar-distributed SU(d) unitaries U_x, U_z, pure initial
+    Uses two deterministic Haar-distributed U(d) unitaries U_x, U_z, pure initial
     state |0><0|, and projective measurement E = sum_{j < r_e} |j><j| with
     r_e = max(1, d // 2) (maximizing binary variance and Hankel singular values).
     """
@@ -326,12 +344,12 @@ def dynamical_bloch_polytope_contraction_summary(
     *,
     initial_bloch_norm: float = 1.0,
 ) -> dict[str, float]:
-    """Summarize the proved Fejes Toth depth-compounding contraction of Bloch-polytope models.
+    """HEURISTIC isotropic depth-compounding benchmark using Fejes Toth's inradius bound.
 
-    If each generic non-symmetry rotation contracts the Bloch norm by at most
-    rho_max(N) = fejes_toth_inradius_upper_bound(N), then after ``depth`` steps
-    the maximum reachable Bloch norm is bounded by ``initial_bloch_norm * rho_max(N)**depth``,
-    incurring amplitude loss at least ``0.5 * initial_bloch_norm * (1 - rho_max(N)**depth)``.
+    NOTE (epistemic scope): Fejes Toth (1953) proves rho_in(K_N) <= rho_FT(N). Because
+    specific rotations can rescale vertices by factors >= rho_in(K_N), compounding
+    rho_FT(N)^depth provides an isotropic heuristic scaling benchmark (NOT a proved
+    lower bound on per-step contraction or worst-case approximation error).
     """
     rho_ub = fejes_toth_inradius_upper_bound(vertex_count)
     compounded = rho_ub ** int(depth)
@@ -340,8 +358,8 @@ def dynamical_bloch_polytope_contraction_summary(
         "vertex_count": float(vertex_count),
         "depth": float(depth),
         "fejes_toth_inradius_ub": rho_ub,
-        "compounded_radius_ub": compounded,
-        "implied_amplitude_loss_lb": amp_loss,
+        "fejes_toth_isotropic_heuristic_radius": compounded,
+        "fejes_toth_isotropic_heuristic_loss": amp_loss,
     }
 
 

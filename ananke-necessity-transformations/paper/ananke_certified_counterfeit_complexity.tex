@@ -24,9 +24,9 @@
 
 \title{Certified Classical Counterfeit Complexity:\\
 The Karpelevi\v{c} Markov Theorem, Interval-Certified Spectral Separation,\\
-and Rank-Unrestricted B-Spline Obstructions}
+and Unary \& Multi-Symbol Rank-Unrestricted Obstructions}
 \author{Angus Muffatti}
-\date{28 November 2026 --- research draft}
+\date{29 November 2026 --- research draft}
 
 \begin{document}
 \maketitle
@@ -37,7 +37,7 @@ We establish a complete theorem-and-algorithm framework certifying lower bounds 
 \begin{enumerate}
 \item \textbf{Zero-cancellation Karpelevi\v{c} interval certification:} building on Kirkland--Laffey--\v{S}migoc (2020) and Verbeken--Ginis (2026), we reformulate every Farey arc of the $N$-state stochastic eigenvalue region $\Theta_N$ as a strictly monotonic, cancellation-free positive gap equation and construct a zero-dependency outward-rounded \texttt{Decimal} interval branch-and-bound certifier over all Farey arcs, machine-certifying $N_{\mathrm{cl}}\ge 16$ on the baseline qubit bootstrap disk.
 \item \textbf{The Karpelevi\v{c} Markov Theorem:} for irrational phases $\alpha\in(0,1)$, the rescaled Karpelevi\v{c} separation constant $\kappa_\Theta(\alpha):=\liminf_{N\to\infty} N^3\dist(e^{2\pi i\alpha},\Theta_N)$ attains its strict global maximum $\frac{2\pi^2\varphi^3}{5\sqrt{5}}\approx 7.478899$ precisely on noble irrationals $[0;a_1,\dots,a_m,\overline{1}]$, whereas every non-noble irrational satisfies $\kappa_\Theta(\alpha)\le \frac{3\pi^2}{4}\approx 7.402203$ (reducing algebraically to $245<256$). Combining this with cross-sector Hankel conditioning motivates \emph{large-angle golden gate design} ($[0;2,\overline{1}]$).
-\item \textbf{Non-asymptotic fixed-rank and rank-unrestricted finite-shot certificates:} under exact rank $r$, Hankel Matrix Hoeffding (exploiting partial-permutation incidence matrices) plus exact similarity elimination and Schur-complement block isolation certifies $N_{\mathrm{cl}}\ge 17$ (baseline) and $N_{\mathrm{cl}}\ge 21$ (golden angle) at $300\text{k}$ shots/word ($\alpha=0.01$). Eliminating the rank cap entirely, we prove a \emph{B-spline Cayley--Hamilton spectral obstruction} coupled to a \emph{subharmonic dual spectral-measure certificate} over $\partial\Theta_N^+\cup[-1,1]$, certifying $N_{\mathrm{cl}}\ge 8$ with zero rank assumption at horizon $L=4000$ using $200\text{k}$ total shots, $N_{\mathrm{cl}}\ge 9$ at depth $L=320$ ($64.2\text{M}$ shots), and noiselessly $N_{\mathrm{cl}}\ge 15$ at $L=1600$, $\eps=10^{-3}$ (hitting the $N_{\max}=14$ tested cap), bracketed from above by explicit classical counterfeits.
+\item \textbf{Non-asymptotic fixed-rank and rank-unrestricted finite-shot certificates (unary \& multi-symbol):} under exact rank $r$, Hankel Matrix Hoeffding plus exact similarity elimination and Schur-complement block isolation certifies $N_{\mathrm{cl}}\ge 17$ (baseline) and $N_{\mathrm{cl}}\ge 21$ (golden angle) at $300\text{k}$ shots/word ($\alpha=0.01$). Eliminating the rank cap entirely, a \emph{B-spline Cayley--Hamilton obstruction} coupled to a \emph{subharmonic dual certificate} certifies $N_{\mathrm{cl}}\ge 8$ at unary horizon $L=4000$ ($200\text{k}$ shots) and $N_{\mathrm{cl}}\ge 9$ at $L=320$ ($64.2\text{M}$ shots). Extending to multi-symbol alphabets $\Sigma=\{x,z\}$ (ANANKE v4), we prove: (i) a Kochen--Specker linear-witness ceiling $\langle W,H_f\rangle/\gamma_+(W)\le 4$ on single qubits (with explicit $9/4$ and icosahedral $2.292$ witnesses exceeding $2$); (ii) a non-convex eliminated-effect support-envelope obstruction with directed-rounding box-scaled secant branch-and-bound certifying $N_{\mathrm{cl}}\ge 8$ on a pure qubit at depth $L=8$ ($15.33\text{M}$ shots, $20\times$ shallower than v3); (iii) noncommutative semigroup synergy via Niven's theorem ($R_x(\pi/2),R_z(\pi/3)\implies \cos\theta_{xz}=-1/4$), certifying $N_{\mathrm{cl}}\ge 7>\max(4,6)$ in $120.1\text{k}$ shots; and (iv) unconditional short-depth Weyl + Matrix Hoeffding bounds certifying $N_{\mathrm{cl}}\ge 9,16,25$ on $d=3,4,5$ qudits at $L=6,8,10$ ($63.5\text{k}$--$1.23\text{M}$ shots).
 \end{enumerate}
 \end{abstract}
 
@@ -174,23 +174,68 @@ v2 golden angle ($[0;2,\overline{1}]$) & 7 & $76.5\text{M}$ & $\operatorname{ran
 v3 Mode A (golden pure) & 4000 & $200\text{k}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 8$} ($\alpha=0.01$) \\
 v3 Mode B (golden pure) & 320 & $64.2\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 9$} ($\alpha=0.01$) \\
 v3 noiseless (baseline, $\eps=10^{-3}$) & 1600 & $\infty$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 15$} ($N_{\max}=14$) \\
+v4 Thm.~2 (pure qubit, $\{x,z\}^{\le 8}$) & \textbf{8} & $15.33\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 8$} ($\alpha=0.01$) \\
+v4 Thm.~3 (Niven qubit, $(xz)^k$) & $2400$ & \textbf{$120.1\text{k}$} & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 7>\max(4,6)$} \\
+v4 Thm.~4 (qutrit $d=3$, $\{x,z\}^{\le 6}$) & \textbf{6} & \textbf{$63.5\text{k}$} & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 9>L+1$} \\
+v4 Thm.~4 (two-qubit $d=4$, $\{x,z\}^{\le 8}$) & \textbf{8} & \textbf{$306.6\text{k}$} & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 16>L+1$} \\
+v4 Thm.~4 (ququint $d=5$, $\{x,z\}^{\le 10}$) & \textbf{10} & $1.23\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 25>L+1$} \\
 \bottomrule
 \end{tabular}
-\caption{Comparison of fixed-rank (v2) and rank-unrestricted (v3) classical-memory lower bounds.}
+\caption{Comparison of fixed-rank (v2), unary rank-unrestricted (v3), and multi-symbol rank-unrestricted (v4) classical-memory lower bounds.}
 \label{tab:ananke}
 \end{table}
 
-Table~\ref{tab:ananke} summarizes the quantitative trade-off across different horizon and assumption regimes. Paired with explicit constructive classical witnesses (\texttt{approximate\_realization.py}: acyclic shift registers, Ito/Karpelevi\v{c} boundary matrices, LP-polished unary HMMs, static simplex-box NMF, and two-symbol Bloch polytopes), ANANKE provides upper bounds for each corresponding word family: static simplex-box NMF on the $15\times 15$ mixed-qubit Hankel block achieves error $0.0066$ at $N=8$, whereas the constructed two-symbol Bloch-polytope witnesses incur error $0.310$ at $N=12$ and $0.049$ at $N=128$ (upper bounds on those specific dynamical witnesses, not lower bounds on optimal dynamical error).
+\section{Multi-Symbol Rank-Unrestricted Obstructions (ANANKE v4)}
+
+To bypass the unary shift-register wall $C_{\mathrm{classical}}\le L+1$ (Proposition~\ref{prop:shift}) at short depth without reintroducing a rank cap, we pass to two noncommuting operations $\Sigma=\{x,z\}$ (\texttt{src/ananke/multisymbol\_obstructions.py}, \texttt{src/ananke/ontology\_gap.py}).
+
+\begin{theorem}[Kochen--Specker Linear-Witness Ceiling on Single Qubits]\label{thm:kslinear}
+For every single-qubit prepare-and-measure table $H_f(i,j)=\Tr(\rho_i E_j)\in[0,1]^{m\times n}$ and every real witness $W\in\R^{m\times n}$ with $\gamma_+(W):=\max_{a\in\{0,1\}^m,b\in\{0,1\}^n}a^TWb>0$,
+\[
+ \frac{\langle W, H_f\rangle}{\gamma_+(W)} \;\le\; 4.
+\]
+\end{theorem}
+\begin{proof}
+By the Kochen--Specker hidden-variable identity on $S^2$, $\frac{1+r\cdot e}{2}=\int_{S^2}\frac{d\Omega(\lambda)}{\pi}(r\cdot\lambda)_+\mathbf{1}[e\cdot\lambda\ge 0]$ (and similarly for $E=0,I_2$). Convexity in $\rho_i$ and $0\preceq E_j\preceq I_2$ yields $H_f=\int_{S^2}\frac{d\Omega(\lambda)}{\pi}a_\lambda b_\lambda^T$ with $a_\lambda\in[0,1]^m$, $b_\lambda\in[0,1]^n$. Multilinearity gives $a_\lambda^TWb_\lambda\le\gamma_+(W)$, and integrating over total mass $4\pi/\pi=4$ yields $\langle W,H_f\rangle\le 4\gamma_+(W)$.
+\end{proof}
+
+Linear witnesses \emph{can} exceed $2$ on a single qubit---for example, preparing and measuring along the Bloch $x$-axis under $2\pi/3$ $z$-rotations gives $H=\frac{3}{4}I+\frac{1}{4}\mathbf{1}\mathbf{1}^T$ and $W=\frac{3}{2}I-\frac{1}{2}\mathbf{1}\mathbf{1}^T$ with $\langle W,H\rangle/\gamma_+(W)=9/4=2.25$ (and $2.292$ on a $12\times 12$ icosahedral block), certifying $N_{\mathrm{cl}}\ge 3$---but by Theorem~\ref{thm:kslinear} (matching Toner--Bacon \cite{TonerBacon2003} and Renner--Tavakoli--Quintino \cite{RTQ2023}), breaking past $N_{\mathrm{cl}}=4$ requires a \emph{non-convex} invariant.
+
+\begin{theorem}[Eliminated-Effect Support-Envelope Obstruction]\label{thm:envelope}
+Let $\mathcal{E}\subseteq\{1,\dots,m\}\times\{1,\dots,n\}$ be any observed prefix--suffix pattern (e.g., the depth-$L$ staircase $|u_i|+|v_j|\le L$) with certified bounds $L_{ij}\le g(u_iv_j)\le U_{ij}$ and $V_{ij}:=1-L_{ij}$. Every state column $a=P_{\cdot,s}\in[0,1]^m$ of any $N$-state classical realization $g$ lies in the non-convex envelope
+\[
+ \mathcal{A}(U,V):=\bigl\{a\in[0,1]^m : a_{i_1}a_{i_2}\le U_{i_1,j}a_{i_2}+V_{i_2,j}a_{i_1}\;\forall (i_1,j),(i_2,j)\in\mathcal{E}\bigr\},
+\]
+and every box $[\ell,B]$ obeys the box-scaled secant inequality $(B_q-V_{q,j})a_p+(B_p-U_{p,j})a_q\le B_pB_q$. Consequently, for any fixed probability vector $\mu\in\Delta_m$ (chosen independently of shot data),
+\[
+ C_{\mathrm{classical}}(f;\eps,\mathcal{W}) \;\ge\; \left\lceil\frac{1}{\sup_{a\in\mathcal{A}(U,V)}\langle\mu,a\rangle}\right\rceil.
+\]
+\end{theorem}
+
+Using Sterbenz-safe directed-rounding hyperbola propagation, greedy disjoint secant matching, and best-first branch-and-bound retaining all terminal boxes (paired with cancellation-free Chernoff--KL confidence envelopes), Theorem~\ref{thm:envelope} certifies $N_{\mathrm{cl}}\ge 8$ on a pure two-symbol qubit at depth $L=8$ ($15.33\text{M}$ shots, $\alpha=0.01$, $20\times$ shallower than v3 Mode B and doubling both the Hankel rank $4$ and the linear ceiling $4$), with $0/20$ false exclusions on a sharp 4-state permutation automaton ($L=6$).
+
+\begin{theorem}[Noncommutative Semigroup Synergy and Short-Depth Spectral Rank]\label{thm:niven_rank}
+\begin{enumerate}
+\item For the rational-gate qubit $U_x=R_x(\pi/2)$ (order $4$, $C_{\mathrm{cl}}(x^*)\le 4$) and $U_z=R_z(\pi/3)$ (order $6$, $C_{\mathrm{cl}}(z^*)\le 6$), the product $U_{xz}=U_zU_x$ satisfies $\cos\theta_{xz}=2(\frac{1}{2}\Tr U_{xz})^2-1=-1/4$, which is strictly irrational modulo $2\pi$ by Niven's theorem \cite{Niven1956}. Applying Theorem~\ref{thm:bspline} to $M_{xz}=M_xM_z$ certifies $N_{\mathrm{cl}}\ge 7>\max(4,6)$ at $\alpha=0.01$ in $120.1\text{k}$ total shots.
+\item Combining $\operatorname{rank}(H_g)\le N$, Weyl's inequality, and Theorem~\ref{thm:mh} (valid under shared words) certifies $C_{\mathrm{classical}}(f;\eps,\Sigma^{\le L})\ge \#\{k:\sigma_k(\hat{H})>\eps_H(\alpha)+\sqrt{mn}\eps+\eta_{\mathrm{SVD}}\}$ with zero rank assumption. On verified Haar $U(d)$ qudit witnesses ($C_{\mathrm{quantum}}=d$), this certifies $N_{\mathrm{cl}}\ge 9$ ($d=3,L=6,63.5\text{k}$ shots), $N_{\mathrm{cl}}\ge 16$ ($d=4,L=8,306.6\text{k}$ shots), and $N_{\mathrm{cl}}\ge 25$ ($d=5,L=10,1.23\text{M}$ shots) at $\alpha=0.01$, with $0/30$ false exclusions on random 6-state classical HMMs ($L=8$).
+\end{enumerate}
+\end{theorem}
+
+Table~\ref{tab:ananke} summarizes the quantitative trade-off across v2, v3, and v4. Paired with constructive classical witnesses (\texttt{approximate\_realization.py}, \texttt{ontology\_gap.py}) and Fejes T\'oth's inradius bound $\rho_{\mathrm{in}}(K_N)\le \frac{1}{\sqrt{3}}\cot(\frac{\pi N}{6(N-2)})$ \cite{FejesToth1953}, static simplex-box NMF on the $15\times 15$ mixed-qubit block achieves error $0.0051$ at $N=8$, whereas our monotone dynamical two-symbol HMM/polytope upper bounds remain $0.233$ at $N=8$ and $0.197$ at $N=12$ (upper-bound benchmarks motivating a future dynamical operator obstruction to certify $N_{\mathrm{cl}}>L+1$ on a single qubit at $L\le 8$).
 
 \section*{Reproducibility and Disclosure}
-All unit tests (\texttt{ananke-necessity-transformations/tests/}, including adversarial regression tests from cross-model refereeing) and reproducible experiment scripts run with pure Python stdlib and NumPy/SciPy. AI systems (Gemini 4 Neon, OpenAI Codex GPT-6.2, Claude Fable 5.2) assisted with derivations, implementation, and adversarial refereeing; the author assumes responsibility for verification and final text.
+All 70 unit tests (\texttt{ananke-necessity-transformations/tests/}, including adversarial regression tests from cross-model refereeing) and reproducible experiment scripts run with pure Python stdlib and NumPy/SciPy. AI systems (Gemini 4 Neon, OpenAI Codex GPT-6.2, Claude Fable 5.2) assisted with derivations, implementation, and adversarial refereeing; the author assumes responsibility for verification and final text.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{10}
 \bibitem{KLS2020} S.~Kirkland, T.~J.~Laffey, and H.~\v{S}migoc, The Karpelevi\v{c} region revisited, \emph{Linear Algebra Appl.} (2020), arXiv:2005.02452.
 \bibitem{VerbekenGinis2026} B.~Verbeken and V.~Ginis, Preprint arXiv:2609.26058v3 (2026) (Theorems 1.1 and 8.1).
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, \emph{Found.\ Comput.\ Math.} 12 (2012), 389--434.
 \bibitem{Wolf2009} M.~M.~Wolf and D.~P\'erez-Garc\'ia, Assessing dimensions from evolution, \emph{Phys.\ Rev.\ Lett.} 102 (2009), 190504.
 \bibitem{Fanizza2024} M.~Fanizza et al., Quantum theory in finite dimension cannot explain every finite-dimensional process, arXiv:2209.11225 (2024).
+\bibitem{TonerBacon2003} B.~F.~Toner and D.~Bacon, Communication cost of simulating Bell correlations, \emph{Phys.\ Rev.\ Lett.} 91 (2003), 187904.
+\bibitem{RTQ2023} M.~J.~Renner, A.~Tavakoli, and M.~T.~Quintino, Classical cost of transmitting a qubit, \emph{Phys.\ Rev.\ Lett.} 130 (2023), 120801 (arXiv:2207.02244).
+\bibitem{Niven1956} I.~Niven, \emph{Irrational Numbers}, Carus Mathematical Monographs 11, MAA (1956).
+\bibitem{FejesToth1953} L.~Fejes T\'oth, \emph{Lagerungen in der Ebene, auf der Kugel und im Raum}, Springer (1953).
 \end{thebibliography}
 
 \end{document}

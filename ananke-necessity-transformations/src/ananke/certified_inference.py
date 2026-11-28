@@ -44,6 +44,7 @@ binomial word counts:
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from math import log, sqrt
 from typing import Iterable, Sequence
 
@@ -167,18 +168,32 @@ def split_shot_dataset(
     )
 
 
+def _kl_psi(x: float) -> float:
+    """Compute non-negative psi(x) = x - log(1 + x) >= 0 for x > -1 without cancellation."""
+    if x <= -1.0:
+        return float("inf")
+    if abs(x) < 1e-3:
+        # Alternating Taylor series: x^2 * (1/2 - x/3 + x^2/4 - x^3/5 + x^4/6 - x^5/7)
+        return (x * x) * (
+            0.5
+            + x * (-1.0 / 3.0 + x * (0.25 + x * (-0.2 + x * (1.0 / 6.0 - x / 7.0))))
+        )
+    return x - math.log1p(x)
+
+
 def _kl_bernoulli(q: float, p: float) -> float:
-    """Binary Kullback--Leibler divergence D_KL(Bern(q) || Bern(p))."""
+    """Binary Kullback--Leibler divergence D_KL(Bern(q) || Bern(p)), cancellation-free."""
     if q == p:
         return 0.0
     if p <= 0.0 or p >= 1.0:
         return float("inf")
+    diff = p - q
     total = 0.0
     if q > 0.0:
-        total += q * log(q / p)
+        total += q * _kl_psi(diff / q)
     if q < 1.0:
-        total += (1.0 - q) * log((1.0 - q) / (1.0 - p))
-    return total
+        total += (1.0 - q) * _kl_psi(-diff / (1.0 - q))
+    return max(0.0, total)
 
 
 def kl_binomial_confidence_interval(
@@ -190,40 +205,45 @@ def kl_binomial_confidence_interval(
 
     By Hoeffding (1963) Theorem 1, Pr(p not in I_KL) <= delta for all trials >= 1
     and all p in [0, 1]. Strictly tighter than Hoeffding's additive interval
-    whenever p is away from 1/2.
+    whenever p is away from 1/2. Uses cancellation-free KL evaluation and outward
+    threshold/ULP guards so endpoints never round inward even at huge trial counts.
     """
     if trials <= 0 or successes < 0 or successes > trials:
         raise ValueError("invalid binomial counts")
     if not 0.0 < delta < 1.0:
         raise ValueError("delta must lie in (0, 1)")
     q = successes / trials
-    threshold = log(2.0 / delta) / trials
+    threshold = (log(2.0 / delta) / trials) * (1.0 + 1e-12)
 
     # Lower endpoint in [0, q]
     if q == 0.0:
         lo = 0.0
     else:
         a, b = 0.0, q
-        for _ in range(70):
+        for _ in range(100):
             mid = 0.5 * (a + b)
+            if mid == a or mid == b:
+                break
             if _kl_bernoulli(q, mid) > threshold:
                 a = mid
             else:
                 b = mid
-        lo = a
+        lo = math.nextafter(a, 0.0) if a > 0.0 else 0.0
 
     # Upper endpoint in [q, 1]
     if q == 1.0:
         hi = 1.0
     else:
         a, b = q, 1.0
-        for _ in range(70):
+        for _ in range(100):
             mid = 0.5 * (a + b)
+            if mid == a or mid == b:
+                break
             if _kl_bernoulli(q, mid) > threshold:
                 b = mid
             else:
                 a = mid
-        hi = b
+        hi = math.nextafter(b, 1.0) if b < 1.0 else 1.0
 
     return (max(0.0, lo), min(1.0, hi))
 

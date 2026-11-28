@@ -60,8 +60,8 @@ def run_fejes_toth_vs_bloch_polytopes() -> dict[str, object]:
             "order_N": n,
             "fejes_toth_inradius_ub": ft["fejes_toth_inradius_ub"],
             "true_polytope_inradius": true_inradius,
-            "fejes_toth_L7_compounded_ub": ft["compounded_radius_ub"],
-            "fejes_toth_L7_amp_loss_lb": ft["implied_amplitude_loss_lb"],
+            "fejes_toth_L7_isotropic_heuristic_radius": ft["fejes_toth_isotropic_heuristic_radius"],
+            "fejes_toth_L7_isotropic_heuristic_loss": ft["fejes_toth_isotropic_heuristic_loss"],
             "empirical_rotated_vertex_min_rho": res_pure.inradius_rho,
             "pure_qubit_L7_max_error": res_pure.max_error,
             "mixed_qubit_L7_max_error": res_mixed.max_error,
@@ -69,15 +69,15 @@ def run_fejes_toth_vs_bloch_polytopes() -> dict[str, object]:
         rows.append(row)
         print(
             f"  N={n:3d}: FT_rho_ub={ft['fejes_toth_inradius_ub']:.4f}, true_inrad={true_inradius:.4f}, "
-            f"FT_loss_lb={ft['implied_amplitude_loss_lb']:.4f}, "
+            f"FT_heur_loss={ft['fejes_toth_isotropic_heuristic_loss']:.4f}, "
             f"pure_err={res_pure.max_error:.4f}, mixed_err={res_mixed.max_error:.4f}"
         )
     return {"depth_L": 7, "word_count": len(words_l7), "rows": rows}
 
 
 def run_static_nmf_vs_unconstrained_2sym_hmm() -> dict[str, object]:
-    """Compare static simplex-box NMF against unconstrained arbitrary-rank 2-symbol HMMs."""
-    print("\n=== Avenue 3b: Static Simplex-Box NMF vs. Unconstrained Arbitrary-Rank 2-Symbol HMMs ===")
+    """Compare local upper-bound fits: static simplex-box NMF vs. monotone 2-symbol dynamical HMMs."""
+    print("\n=== Avenue 3b: Local Upper-Bound Comparison (Static NMF vs. 2-Symbol Dynamical HMMs) ===")
     r0_pure = np.array([1.0, 1.0, 1.0]) / np.sqrt(3.0)
     configs = {
         "baseline_mixed_qubit": qubit_rotation_process(theta_x=0.73, theta_z=1.11),
@@ -95,6 +95,9 @@ def run_static_nmf_vs_unconstrained_2sym_hmm() -> dict[str, object]:
         print(f"\n  --- {name} (C_quantum = 2) ---")
         h15 = build_hankel(proc.behavior, ("x", "z"), 3, 3).matrix  # L = 6, 15x15
         rows = []
+        best_dyn5 = float("inf")
+        best_dyn6 = float("inf")
+        best_nmf = float("inf")
         for n in orders:
             nmf_mx, nmf_fro = fit_static_simplex_box_nmf(
                 h15, n, restarts=6, iterations=180, seed=300 + n
@@ -105,21 +108,27 @@ def run_static_nmf_vs_unconstrained_2sym_hmm() -> dict[str, object]:
             hmm6 = optimize_two_symbol_classical_hmm(
                 proc, words_l6, n, restarts=3, maxiter=160, seed=500 + n
             )
+            # Also include explicit Bloch polytope realization at N in {4, 6, 8, 12} (and embed smaller N)
+            poly5 = construct_bloch_polytope_counterfeit(proc, n, words_l5).max_error if n >= 4 else float("inf")
+            poly6 = construct_bloch_polytope_counterfeit(proc, n, words_l6).max_error if n >= 4 else float("inf")
+            best_nmf = min(best_nmf, nmf_mx)
+            best_dyn5 = min(best_dyn5, hmm5.max_error, poly5)
+            best_dyn6 = min(best_dyn6, hmm6.max_error, poly6)
             row = {
                 "order_N": n,
-                "static_15x15_nmf_max_err": nmf_mx,
+                "static_15x15_nmf_max_err": best_nmf,
                 "static_15x15_nmf_rms_err": nmf_fro / float(np.sqrt(h15.size)),
-                "dynamical_hmm_L5_max_err": hmm5.max_error,
-                "dynamical_hmm_L5_rms_err": hmm5.rms_error,
-                "dynamical_hmm_L6_max_err": hmm6.max_error,
-                "dynamical_hmm_L6_rms_err": hmm6.rms_error,
-                "dynamical_over_static_ratio_L6": hmm6.max_error / max(nmf_mx, 1e-12),
+                "dynamical_raw_lbfgs_L6_max_err": hmm6.max_error,
+                "dynamical_polytope_L6_max_err": poly6,
+                "dynamical_monotone_ub_L5_max_err": best_dyn5,
+                "dynamical_monotone_ub_L6_max_err": best_dyn6,
+                "optimizer_upper_bound_ratio_L6": best_dyn6 / max(best_nmf, 1e-12),
             }
             rows.append(row)
             print(
-                f"  N={n:2d}: static_NMF(L=6)={nmf_mx:.5f} | "
-                f"unconstrained_HMM(L=5)={hmm5.max_error:.4f}, (L=6)={hmm6.max_error:.4f} "
-                f"(gap={row['dynamical_over_static_ratio_L6']:.1f}x)"
+                f"  N={n:2d}: static_NMF(L=6)={best_nmf:.5f} | "
+                f"monotone_dyn_UB(L=5)={best_dyn5:.4f}, (L=6)={best_dyn6:.4f} "
+                f"(UB_ratio={row['optimizer_upper_bound_ratio_L6']:.1f}x)"
             )
         out[name] = {
             "quantum_dimension_C_quantum": 2,

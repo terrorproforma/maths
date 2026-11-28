@@ -68,6 +68,18 @@ class OntologyGapV4Tests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_quantum_realization(("x",), 0.5 * eye2, {"x": eye2}, e_bad)
 
+        # NaN gate must be rejected (Codex referee regression)
+        u_nan = np.array([[np.nan, 0.0], [0.0, 1.0]], dtype=complex)
+        with self.assertRaises(ValueError):
+            validate_quantum_realization(("x",), 0.5 * eye2, {"x": u_nan}, 0.5 * eye2)
+
+        # QuantumRealization arrays must be frozen read-only after validation
+        qr = QuantumRealization(("x",), 0.5 * eye2, {"x": eye2}, 0.5 * eye2)
+        with self.assertRaises(ValueError):
+            qr.initial_density[0, 0] = 5.0
+        with self.assertRaises(ValueError):
+            qr.unitaries["x"][0, 0] = 5.0
+
     def test_fejes_toth_inradius_exact_platonic_values(self) -> None:
         """Fejes Toth formula is exact for tetrahedron (N=4), octahedron (N=6), icosahedron (N=12)."""
         self.assertAlmostEqual(fejes_toth_inradius_upper_bound(4), 1.0 / 3.0, places=12)
@@ -81,7 +93,7 @@ class OntologyGapV4Tests(unittest.TestCase):
             self.assertLess(a, b)
             self.assertLess(b, 1.0)
         summary = dynamical_bloch_polytope_contraction_summary(128, depth=7)
-        self.assertGreater(summary["implied_amplitude_loss_lb"], 0.05)
+        self.assertGreater(summary["fejes_toth_isotropic_heuristic_loss"], 0.05)
 
     def test_unconstrained_two_symbol_hmm_returns_valid_classical_realization(self) -> None:
         """Unconstrained 2-symbol HMM optimizer returns a strictly verified classical realization."""

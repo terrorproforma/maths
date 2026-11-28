@@ -10,11 +10,11 @@ This file records the canonical project structure. The repository README remains
 ### Mathematics
 
 - [`chairman-counterexample/`](chairman-counterexample/) — machine-dependent weighted-chairman counterexample and strengthened lower bounds.
-- [`detector-chains/`](detector-chains/) — detector-chain lower bounds, $m^* = 3$, $\kappa \ge 1 + \ln 2$, and completeness barrier for machine-dependent chairman assignment (`frontier_next/`, `frontier_v2/`).
+- [`detector-chains/`](detector-chains/) — detector-chain lower bounds, $m^* = 3$, $\kappa \ge 1 + \ln 2$, $\kappa_m \le m - 1$ (BFS-Box Trapping), and fresh-partner/disjoint barrier for machine-dependent chairman assignment (`frontier_next/`, `frontier_v2/`, `frontier_v3/`).
 - [`chairman-small-rows/`](chairman-small-rows/) — machine-dependent chairman assignment with few rows: proof that the bound `D` holds and is optimal for two rows ($\kappa_2 = 1$); search data for three and four rows.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — fixed-parameter obstruction to the subtree-shuffling conjecture.
 - [`planar-cost-lower-bound/`](planar-cost-lower-bound/) — planar cost-preserving unsplittable-flow lower bound and corollaries.
-- [`ananke-necessity-transformations/`](ananke-necessity-transformations/) — ANANKE v0–v3: operational Hankel core, Karpelevič Markov Theorem, interval-certified fixed-rank and rank-unrestricted classical counterfeit complexity.
+- [`ananke-necessity-transformations/`](ananke-necessity-transformations/) — ANANKE v0–v4: operational Hankel core, Karpelevič Markov Theorem, interval-certified fixed-rank and rank-unrestricted (unary & multi-symbol) classical counterfeit complexity.
 
 ### Physics
 

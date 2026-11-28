@@ -6,11 +6,14 @@ assumption.
 
 Core mathematical theorems (PROVED in docs/ananke_v4_multisymbol_ontology_gap.md):
 
-1. Theorem 1 (Frenkel--Weiner Linear-Witness No-Go for Single Qubits, PROVED):
-   Every single-qubit prepare-transform-measure Hankel matrix H_f lies in
-   conv{P Q : P in Delta_2^m, Q in [0, 1]^{2 x n}}. Consequently, NO linear
-   hyperplane witness <W, H_f> / gamma_+(W) can certify N > 2 on a single qubit;
-   any bound exceeding N = 2 MUST exploit a non-convex structural invariant.
+1. Theorem 1 (Kochen--Specker Linear-Witness Ceiling for Single Qubits, PROVED):
+   Every single-qubit prepare-transform-measure Hankel matrix H_f admits the
+   Kochen--Specker integral decomposition over S^2 of total mass 4 (consistent
+   with Toner--Bacon 2003 / Renner--Tavakoli--Quintino 2023 two-bit simulation).
+   Consequently, while linear witnesses <W, H_f> / gamma_+(W) CAN exceed 2
+   (e.g., 9/4 = 2.25 on a 3x3 qubit block, certifying N >= 3), NO linear witness
+   can certify N > 4 on any single-qubit Hankel block. Any single-qubit bound
+   exceeding N = 4 MUST exploit a non-convex structural invariant.
 
 2. Theorem 2 (Eliminated-Effect Support-Envelope Obstruction, PROVED & CERTIFIED):
    For ANY N-state classical realization g(w) = p M_w e (arbitrary rank <= N)
@@ -47,16 +50,16 @@ Core mathematical theorems (PROVED in docs/ananke_v4_multisymbol_ontology_gap.md
    proved Hankel Matrix Hoeffding inequality certifies
        C_classical(f; eps, {x, z}^{<= L}) >= r
    with ZERO rank upper-bound assumption whenever sigma_hat_r > eps_H(alpha) + sqrt(m*n)*eps.
-   For d-level quantum systems (C_quantum = d), rank(H_f) = d^2 = Theta(2^{L/2})
-   is attained at logarithmic depth L = 2*ceil(log_2(d^2 + 1) - 1), exponentially
-   shattering the unary shift-register ceiling L + 1.
+   On verified two-symbol d-level quantum systems (d = 3, 4, 5), full Liouville
+   rank d^2 is certified at short depth L = 6, 8, 10, strictly exceeding both
+   C_quantum = d and the unary shift-register ceiling L + 1.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 import heapq
-from math import acos, ceil, cos, log, pi, sin, sqrt
+from math import acos, ceil, cos, log, nextafter, pi, sin, sqrt
 from typing import Mapping, Sequence
 
 import numpy as np
@@ -112,8 +115,10 @@ def rank1_binary_max(weight_matrix: FloatArray) -> float:
 def simplex_box_linear_ratio(hankel_matrix: FloatArray, weight_matrix: FloatArray) -> dict[str, float]:
     """Compute <W, H_f>, exact gamma_+(W) = max_{a,b in {0,1}} a^T W b, and their ratio.
 
-    By Theorem 1 (Frenkel--Weiner Linear-Witness No-Go, PROVED): for EVERY single-qubit
-    Hankel matrix H_f and EVERY real weight matrix W, <W, H_f> / gamma_+(W) <= 2.
+    By Theorem 1 (Kochen--Specker Linear-Witness Ceiling, PROVED): for EVERY single-qubit
+    Hankel matrix H_f and EVERY real weight matrix W with gamma_+(W) > 0,
+    <W, H_f> / gamma_+(W) <= 4 (values above 2 are achievable, e.g. 9/4 = 2.25 on a 3x3
+    qubit block, certifying N >= 3, but no linear witness can certify N > 4).
     """
     h = np.asarray(hankel_matrix, dtype=float)
     w = np.asarray(weight_matrix, dtype=float)
@@ -401,21 +406,32 @@ def certify_support_envelope_lower_bound(
     v_full = np.asarray(v_mat, dtype=float)
     if u_full.shape != v_full.shape or u_full.ndim != 2:
         raise ValueError("u_mat and v_mat must be 2D arrays of identical shape")
+    if np.any(np.isnan(u_full)) or np.any(np.isnan(v_full)):
+        raise ValueError("u_mat and v_mat must not contain NaN")
+    if np.any(u_full < 0.0) or np.any(v_full < 0.0):
+        raise ValueError("u_mat and v_mat entries must be non-negative (or +inf if unobserved)")
     m_full, n = u_full.shape
+    if m_full == 0:
+        raise ValueError("u_mat must have at least one row")
     if weights is None:
         mu_full = np.full(m_full, 1.0 / m_full, dtype=float)
     else:
-        mu_full = np.asarray(weights, dtype=float).reshape(-1)
-        if mu_full.size != m_full or np.any(mu_full < -1e-12):
-            raise ValueError("weights must be nonnegative with length matching rows of u_mat")
-        mu_full = np.maximum(0.0, mu_full)
-        total_w = float(np.sum(mu_full))
-        if total_w <= 0.0:
+        mu_raw = np.asarray(weights, dtype=float).reshape(-1)
+        if mu_raw.size != m_full:
+            raise ValueError("weights length must match rows of u_mat")
+        if not np.all(np.isfinite(mu_raw)):
+            raise ValueError("weights must be finite")
+        if np.any(mu_raw < 0.0):
+            raise ValueError("weights must be non-negative")
+        max_w = float(np.max(mu_raw))
+        if max_w <= 0.0:
             raise ValueError("weights must have positive sum")
-        mu_full = mu_full / total_w
+        # Scale by max_w before summing to prevent IEEE-754 overflow on large finite weights
+        scaled_w = mu_raw / max_w
+        mu_full = scaled_w / float(np.sum(scaled_w))
 
-    # Rows with zero weight contribute 0 to <mu, a>; dropping them can only relax A(U, V)
-    keep = np.where(mu_full > 1e-9)[0]
+    # Drop ONLY strictly zero-weight rows (never drop tiny positive weights)
+    keep = np.where(mu_full > 0.0)[0]
     u = u_full[keep].copy()
     v = v_full[keep].copy()
     mu = mu_full[keep] / float(np.sum(mu_full[keep]))
@@ -424,44 +440,59 @@ def certify_support_envelope_lower_bound(
     fin_v = np.isfinite(v)
 
     def _propagate(low: FloatArray, high: FloatArray) -> tuple[FloatArray, FloatArray] | None:
+        """Outward-rounded exact hyperbola bound propagation using Sterbenz-safe differences."""
         low = low.copy()
         high = high.copy()
         changed = True
         while changed:
             changed = False
-            pos = np.where(low > 1e-12)[0]
+            pos = np.where(low > 0.0)[0]
             for p in pos:
                 lp = float(low[p])
-                mu_mask = fin_u[p] & (u[p] < lp - 1e-14)
+                # Rewrite V / (1 - U / L_p) = (V * L_p) / (L_p - U) so L_p - U is
+                # Sterbenz-exact near cancellation, then apply directed IEEE-754 outward rounding.
+                mu_mask = fin_u[p] & (u[p] < lp)
                 if np.any(mu_mask):
-                    denom = 1.0 - u[p, mu_mask] / lp
-                    nb = np.min(v[:, mu_mask] / denom[None, :], axis=1)
-                    nb = np.minimum(1.0, nb * _ROUNDING_GUARD)
-                    nb[p] = high[p]
-                    upd = nb < high - 1e-12
-                    if np.any(upd):
-                        high[upd] = nb[upd]
-                        changed = True
-                mv_mask = fin_v[p] & (v[p] < lp - 1e-14)
+                    diff_lo = np.nextafter(lp - u[p, mu_mask], -np.inf)
+                    good = diff_lo > 0.0
+                    if np.any(good):
+                        cols = np.where(mu_mask)[0][good]
+                        d_lo = diff_lo[good]
+                        num_hi = np.nextafter(v[:, cols] * lp, np.inf)
+                        nb = np.min(np.nextafter(num_hi / d_lo[None, :], np.inf), axis=1)
+                        nb = np.minimum(1.0, nb)
+                        nb[p] = high[p]
+                        upd = nb < high - 1e-12
+                        if np.any(upd):
+                            high[upd] = nb[upd]
+                            changed = True
+                mv_mask = fin_v[p] & (v[p] < lp)
                 if np.any(mv_mask):
-                    denom = 1.0 - v[p, mv_mask] / lp
-                    nb = np.min(u[:, mv_mask] / denom[None, :], axis=1)
-                    nb = np.minimum(1.0, nb * _ROUNDING_GUARD)
-                    nb[p] = high[p]
-                    upd = nb < high - 1e-12
-                    if np.any(upd):
-                        high[upd] = nb[upd]
-                        changed = True
-                if np.any(low > high + 1e-11):
+                    diff_lo = np.nextafter(lp - v[p, mv_mask], -np.inf)
+                    good = diff_lo > 0.0
+                    if np.any(good):
+                        cols = np.where(mv_mask)[0][good]
+                        d_lo = diff_lo[good]
+                        num_hi = np.nextafter(u[:, cols] * lp, np.inf)
+                        nb = np.min(np.nextafter(num_hi / d_lo[None, :], np.inf), axis=1)
+                        nb = np.minimum(1.0, nb)
+                        nb[p] = high[p]
+                        upd = nb < high - 1e-12
+                        if np.any(upd):
+                            high[upd] = nb[upd]
+                            changed = True
+                # Only prune when strictly infeasible beyond outward ULP guard
+                if np.any(low > np.nextafter(high, np.inf)):
                     return None
         return low, high
 
     def _node_ub_and_branch(low: FloatArray, high: FloatArray) -> tuple[float, tuple[int, int] | None]:
-        raw = float(np.dot(mu, high))
+        # Outward-rounded upper bound on <mu, high>
+        raw_hi = float(np.sum(np.nextafter(mu * high, np.inf))) * (1.0 + (m + 2) * 1e-15)
         pos = np.where(high > 1e-5)[0]
         k = int(pos.size)
         if k < 2:
-            return raw, None
+            return min(1.0, raw_hi), None
         bp = high[pos]
         mup = mu[pos]
         up = u[pos] / bp[:, None]
@@ -486,26 +517,37 @@ def certify_support_envelope_lower_bound(
                     v_val = float(v[pos[idx_q], j])
                     bp_val = float(bp[idx_p])
                     bq_val = float(bp[idx_q])
-                    c1 = bq_val - v_val
-                    c2 = bp_val - u_val
-                    if c1 > 1e-12 and c2 > 1e-12:
-                        alpha_m = min(float(mup[idx_p]) / c1, float(mup[idx_q]) / c2)
-                        gap = bp_val * bq_val - v_val * bp_val - u_val * bq_val
-                        if gap > 1e-12:
-                            sav = alpha_m * gap * (1.0 - 1e-12)
-                            if sav > 1e-11:
-                                edges.append((sav, idx_p, idx_q))
+                    # Directed rounding: upper bounds on divisors c1, c2 and lower bound on gap
+                    c1_hi = nextafter(bq_val - v_val, float("inf"))
+                    c2_hi = nextafter(bp_val - u_val, float("inf"))
+                    if c1_hi > 1e-12 and c2_hi > 1e-12 and (bq_val > v_val) and (bp_val > u_val):
+                        a1_lo = nextafter(float(mup[idx_p]) / c1_hi, 0.0)
+                        a2_lo = nextafter(float(mup[idx_q]) / c2_hi, 0.0)
+                        alpha_lo = min(a1_lo, a2_lo)
+                        prod_lo = nextafter(bp_val * bq_val, -float("inf"))
+                        sub_hi = nextafter(
+                            nextafter(v_val * bp_val, float("inf"))
+                            + nextafter(u_val * bq_val, float("inf")),
+                            float("inf"),
+                        )
+                        gap_lo = nextafter(prod_lo - sub_hi, -float("inf"))
+                        if alpha_lo > 0.0 and gap_lo > 1e-12:
+                            sav_lo = nextafter(alpha_lo * gap_lo, 0.0)
+                            if sav_lo > 1e-11:
+                                edges.append((sav_lo, idx_p, idx_q))
         if best_pair is None:
-            return raw, None
+            return min(1.0, raw_hi), None
         edges.sort(reverse=True)
         used = [False] * k
-        total_sav = 0.0
-        for sav, p_i, q_i in edges:
+        total_sav_lo = 0.0
+        for sav_lo, p_i, q_i in edges:
             if not used[p_i] and not used[q_i]:
                 used[p_i] = True
                 used[q_i] = True
-                total_sav += sav
-        return max(float(np.dot(mu, low)), raw - total_sav), best_pair
+                total_sav_lo = nextafter(total_sav_lo + sav_lo, 0.0)
+        ub_val = nextafter(raw_hi - total_sav_lo, float("inf"))
+        low_dot = float(np.dot(mu, low))
+        return min(1.0, max(low_dot, ub_val)), best_pair
 
     global_ub = 0.0
     total_nodes = 0
@@ -549,7 +591,9 @@ def certify_support_envelope_lower_bound(
             if high[br] - low[br] < 1e-5:
                 br = q if br == p else p
             if high[br] - low[br] < 1e-5:
+                # Terminal narrow box: MUST retain top_ub in global_ub!
                 local_lb = max(local_lb, top_ub)
+                global_ub = max(global_ub, top_ub)
                 continue
             mid = 0.5 * (float(low[br]) + float(high[br]))
 
@@ -697,12 +741,13 @@ def continuous_sphere_support_envelope_ceiling(
     *,
     num_grid: int = 32,
 ) -> dict[str, dict[str, float]]:
-    """Compute the exact continuous S^2 (pure qubit) and S^1 (rebit) ceilings of Theorem 2.
+    """NUMERICAL axisymmetric cap approximation for the continuous S^2 and S^1 envelopes.
 
-    Uses the proved exact pairwise log-concave reduction on S^2 / S^1:
+    Discretizes the pairwise log-concave cap constraint
         (1 - a(phi_1))(1 - a(phi_2)) >= sin^2((phi_1 + phi_2) / 2)
-    with z(phi) = -ln(1 - a(phi)) >= 0, maximized over axisymmetric support cutoffs
-    phi_max in (0, pi/2].
+    with z(phi) = -ln(1 - a(phi)) >= 0 over a finite midpoint grid and axisymmetric
+    cutoffs phi_max in [25 deg, 90 deg]. This is a NUMERICAL diagnostic estimate,
+    NOT a certified upper or lower enclosure of the continuum supremum.
     """
     out: dict[str, dict[str, float]] = {}
     for manifold in ("S2", "S1"):
@@ -1003,8 +1048,27 @@ def certify_unconditional_hankel_rank_noiseless(
     """
     if target_epsilon < 0.0:
         raise ValueError("target_epsilon must be non-negative")
+    if max_prefix_length < 0 or max_suffix_length < 0 or alphabet_size < 1:
+        raise ValueError("max_prefix_length, max_suffix_length must be >= 0 and alphabet_size >= 1")
     h = np.asarray(hankel_matrix, dtype=float)
+    if h.ndim != 2 or not np.all(np.isfinite(h)):
+        raise ValueError("hankel_matrix must be a finite 2D array")
     m, n = h.shape
+    exp_m = (
+        int(max_prefix_length) + 1
+        if alphabet_size == 1
+        else int((alphabet_size ** (int(max_prefix_length) + 1) - 1) // (alphabet_size - 1))
+    )
+    exp_n = (
+        int(max_suffix_length) + 1
+        if alphabet_size == 1
+        else int((alphabet_size ** (int(max_suffix_length) + 1) - 1) // (alphabet_size - 1))
+    )
+    if (m, n) != (exp_m, exp_n):
+        raise ValueError(
+            f"hankel_matrix shape {(m, n)} does not match expected {(exp_m, exp_n)} "
+            f"for prefix_depth={max_prefix_length}, suffix_depth={max_suffix_length}, alphabet_size={alphabet_size}"
+        )
     sv = np.linalg.svd(h, compute_uv=False)
     svd_guard = _svd_numerical_guard(h)
     eps_pad = float(sqrt(float(m * n)) * target_epsilon * _ROUNDING_GUARD)

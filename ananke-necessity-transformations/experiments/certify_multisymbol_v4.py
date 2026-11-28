@@ -55,9 +55,29 @@ def _fib_sphere(n_pts: int) -> np.ndarray:
     return np.column_stack([np.sin(phi) * np.cos(ang), np.sin(phi) * np.sin(ang), np.cos(phi)])
 
 
-def run_theorem1_frenkel_weiner_audit() -> dict[str, object]:
-    """Verify Theorem 1: linear witnesses <W, H_f> / gamma_+(W) <= 2 on single qubit."""
-    print("\n=== Theorem 1: Frenkel--Weiner Linear-Witness No-Go Audit (Single Qubit) ===")
+def run_theorem1_kochen_specker_audit() -> dict[str, object]:
+    """Verify Theorem 1: single-qubit linear witnesses CAN exceed 2 (e.g. 9/4 and 2.292) but stay <= 4."""
+    print("\n=== Theorem 1: Kochen--Specker Linear-Witness Ceiling Audit (<= 4 on Single Qubit) ===")
+    # 1. Exact 3x3 single-qubit witness reaching 9/4 = 2.25 (x-axis prep/meas, 2*pi/3 z-rotations)
+    h_tri = 0.75 * np.eye(3) + 0.25
+    w_tri = 1.5 * np.eye(3) - 0.5
+    res_tri = simplex_box_linear_ratio(h_tri, w_tri)
+    assert 2.0 < res_tri["linear_lower_bound_ratio"] <= 4.0 + 1e-9
+
+    # 2. 12x12 icosahedral single-qubit witness reaching ~2.292
+    phi = 0.5 * (1.0 + np.sqrt(5.0))
+    ico = np.array(
+        [(0, s1, s2 * phi) for s1 in (-1, 1) for s2 in (-1, 1)]
+        + [(s1, s2 * phi, 0) for s1 in (-1, 1) for s2 in (-1, 1)]
+        + [(s2 * phi, 0, s1) for s1 in (-1, 1) for s2 in (-1, 1)],
+        dtype=float,
+    )
+    ico /= np.linalg.norm(ico, axis=1, keepdims=True)
+    h_ico = 0.5 * (1.0 + ico @ ico.T)
+    res_ico = simplex_box_linear_ratio(h_ico, 2.0 * h_ico - 1.0)
+    assert 2.0 < res_ico["linear_lower_bound_ratio"] <= 4.0 + 1e-9
+
+    # 3. 7x7 two-symbol pure-qubit Hankel block
     r0 = np.array([1.0, 1.0, 1.0]) / np.sqrt(3.0)
     proc = qubit_rotation_process(theta_x=2.40, theta_z=1.7366, initial_bloch=r0, measurement_axis=r0)
     h = build_hankel(proc.behavior, ("x", "z"), 2, 2).matrix  # 7 x 7
@@ -65,6 +85,10 @@ def run_theorem1_frenkel_weiner_audit() -> dict[str, object]:
     polar_w = u_svd[:, :3] @ vt_svd[:3, :]
     rng = np.random.default_rng(2026)
 
+    rows = [
+        {"block": "3x3_trine_qubit", "witness": "1.5*I - 0.5", **res_tri},
+        {"block": "12x12_icosahedron_qubit", "witness": "2H - 1", **res_ico},
+    ]
     witnesses = {
         "centered_correlation_2H_minus_1": 2.0 * h - 1.0,
         "polar_nuclear_dual_U3_V3T": polar_w,
@@ -72,16 +96,16 @@ def run_theorem1_frenkel_weiner_audit() -> dict[str, object]:
         "random_gaussian_1": rng.normal(size=h.shape),
         "random_gaussian_2": rng.normal(size=h.shape),
     }
-    rows = []
     for name, w in witnesses.items():
         res = simplex_box_linear_ratio(h, w)
-        assert res["linear_lower_bound_ratio"] <= 2.0 + 1e-9
-        rows.append({"witness": name, **res})
+        assert res["linear_lower_bound_ratio"] <= 4.0 + 1e-9
+        rows.append({"block": "7x7_two_symbol_qubit", "witness": name, **res})
+    for row in rows:
         print(
-            f"  {name:34s}: <W,H>={res['inner_product']:7.3f}, "
-            f"gamma_+={res['gamma_plus']:7.3f}, ratio={res['linear_lower_bound_ratio']:.4f} <= 2"
+            f"  {row['block']:24s} | {row['witness']:32s}: <W,H>={row['inner_product']:7.3f}, "
+            f"gamma_+={row['gamma_plus']:7.3f}, ratio={row['linear_lower_bound_ratio']:.4f} <= 4"
         )
-    return {"hankel_shape": list(h.shape), "witnesses": rows}
+    return {"proved_single_qubit_ceiling": 4.0, "witnesses": rows}
 
 
 def run_theorem2_support_envelope() -> dict[str, object]:
@@ -204,7 +228,7 @@ def run_theorem2_support_envelope() -> dict[str, object]:
             f"CERT N >= {cert.continuous_state_lower_bound:.4f} (int >= {cert.certified_classical_state_lower_bound})"
         )
 
-    # Soundness check on exact 4-state classical 2-symbol HMM (must NEVER exceed 4!)
+    # Soundness check + reproducible 20-trial Monte Carlo calibration on sharp 4-state permutation automaton
     rng_cl = np.random.default_rng(99)
     p4 = rng_cl.dirichlet(np.ones(4))
     mx4 = rng_cl.dirichlet(np.ones(4), size=4)
@@ -220,8 +244,33 @@ def run_theorem2_support_envelope() -> dict[str, object]:
         f"CERT N >= {cert_cl4.certified_classical_state_lower_bound} <= 4 (OK)"
     )
 
+    # Sharp 4-state deterministic permutation automaton (4-cycle x, transposition z) at L=6, 5k shots/word
+    p_perm = np.array([1.0, 0.0, 0.0, 0.0], dtype=float)
+    mx_perm = np.array(
+        [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [1, 0, 0, 0]], dtype=float
+    )
+    mz_perm = np.array(
+        [[0, 1, 0, 0], [1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=float
+    )
+    e_perm = np.array([1.0, 0.0, 0.0, 0.0], dtype=float)
+    perm4 = ClassicalRealization(("x", "z"), p_perm, {"x": mx_perm, "z": mz_perm}, e_perm).to_linear_process()
+    _, _, u_p0, v_p0, val_p0 = build_staircase_envelope_noiseless(perm4, max_length=6, max_prefix_length=3)
+    mu_perm = optimize_support_envelope_weights(u_p0, v_p0, val_p0)
+    mc_t2_lbs: list[int] = []
+    for trial in range(20):
+        ds_p = simulate_words_upto(perm4, 6, shots_per_word=5_000, rng=np.random.default_rng(12000 + trial))
+        c_p = certify_staircase_support_envelope_finite_shot(
+            ds_p, max_length=6, max_prefix_length=3, weights=mu_perm, alpha=0.01, max_nodes_per_star=800
+        )
+        mc_t2_lbs.append(int(c_p.certified_classical_state_lower_bound))
+    t2_false_exclusions = sum(1 for lb in mc_t2_lbs if lb > 4)
+    print(
+        f"  MC calibration (4-state perm automaton, L=6, 5k/word, 20 trials): "
+        f"lbs={set(mc_t2_lbs)}, false_exclusions={t2_false_exclusions}/20"
+    )
+
     return {
-        "continuous_sphere_ceilings": ceilings,
+        "continuous_sphere_ceilings_numerical": ceilings,
         "ideal_fibonacci_blocks": fib_rows,
         "designed_pure_qubit_params": {
             "theta_x": tx_design,
@@ -232,6 +281,13 @@ def run_theorem2_support_envelope() -> dict[str, object]:
         "pure_qubit_noiseless_staircase": noiseless_qubit,
         "pure_qubit_finite_shot_L8": finite_shot_qubit,
         "classical_4state_soundness": cert_cl4.to_dict(),
+        "mc_calibration_4state_perm": {
+            "trials": 20,
+            "shots_per_word": 5_000,
+            "alpha": 0.01,
+            "certified_lbs": mc_t2_lbs,
+            "false_exclusions": t2_false_exclusions,
+        },
     }
 
 
@@ -387,7 +443,7 @@ def run_theorem4_unconditional_spectral_rank() -> dict[str, object]:
             }
         )
 
-    # Soundness check: exact 6-state classical two-symbol HMM at L = 8 (must certify <= 6!)
+    # Soundness check + reproducible 30-trial MC calibration on random 6-state classical 2-symbol HMMs at L = 8
     rng_cl = np.random.default_rng(314)
     p6 = rng_cl.dirichlet(np.ones(6))
     mx6 = rng_cl.dirichlet(np.ones(6), size=6)
@@ -402,16 +458,40 @@ def run_theorem4_unconditional_spectral_rank() -> dict[str, object]:
         f"CERT C_cl >= {rep_cl6.certified_classical_state_lower_bound} <= 6 (OK)"
     )
 
+    mc_t4_lbs: list[int] = []
+    for trial in range(30):
+        rt = np.random.default_rng(14000 + trial)
+        pt = rt.dirichlet(np.ones(6))
+        mxt = rt.dirichlet(np.ones(6), size=6)
+        mzt = rt.dirichlet(np.ones(6), size=6)
+        et = rt.uniform(0.0, 1.0, size=6)
+        clt = ClassicalRealization(("x", "z"), pt, {"x": mxt, "z": mzt}, et).to_linear_process()
+        dst = simulate_words_upto(clt, 8, shots_per_word=2000, rng=np.random.default_rng(15000 + trial))
+        rept = certify_unconditional_hankel_rank_finite_shot(dst, 4, 4, alpha=0.01)
+        mc_t4_lbs.append(int(rept.certified_classical_state_lower_bound))
+    t4_false_exclusions = sum(1 for lb in mc_t4_lbs if lb > 6)
+    print(
+        f"  MC calibration (random 6-state classical HMMs, L=8, 2k/word, 30 trials): "
+        f"max_lb={max(mc_t4_lbs)}, false_exclusions={t4_false_exclusions}/30"
+    )
+
     return {
         "qudit_short_depth_certifications": rows,
         "classical_6state_soundness": rep_cl6.to_dict(),
+        "mc_calibration_6state_hmm": {
+            "trials": 30,
+            "shots_per_word": 2_000,
+            "alpha": 0.01,
+            "certified_lbs": mc_t4_lbs,
+            "false_exclusions": t4_false_exclusions,
+        },
     }
 
 
 def main() -> None:
     t0 = time.perf_counter()
     print("=== ANANKE v4: Multi-Symbol Rank-Unrestricted Obstructions ===")
-    t1 = run_theorem1_frenkel_weiner_audit()
+    t1 = run_theorem1_kochen_specker_audit()
     t2 = run_theorem2_support_envelope()
     t3 = run_theorem3_niven_semigroup_synergy()
     t4 = run_theorem4_unconditional_spectral_rank()
@@ -420,7 +500,7 @@ def main() -> None:
     payload = {
         "experiment": "certify_multisymbol_v4",
         "elapsed_seconds": round(elapsed, 2),
-        "theorem1_frenkel_weiner_nogo": t1,
+        "theorem1_kochen_specker_ceiling": t1,
         "theorem2_support_envelope": t2,
         "theorem3_niven_semigroup_synergy": t3,
         "theorem4_unconditional_spectral_rank": t4,
