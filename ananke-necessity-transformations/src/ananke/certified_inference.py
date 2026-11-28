@@ -59,6 +59,30 @@ from .observations import ShotDataset
 from .words import words_upto
 
 _ROUNDING_GUARD = 1.0 + 1e-12
+_FLOAT64_EPS = float(np.finfo(float).eps)
+
+
+def _svd_numerical_guard(matrix: np.ndarray) -> float:
+    """Conservative IEEE-754 float64 SVD singular-value error guard.
+
+    Prevents spurious O(eps_mach * ||A||_F) singular values from certifying
+    inflated rank bounds when statistical radii are smaller than float64 noise.
+    """
+    m, n = matrix.shape
+    frob = float(np.linalg.norm(matrix, "fro"))
+    return float(64.0 * _FLOAT64_EPS * max(m, n) * max(1.0, frob))
+
+
+def _exact_inverse_transform_guard(inv_resid: float, m_blk_norm: float) -> float:
+    """Exact operator-norm guard for ||P A W - W^{-1} A W||_2.
+
+    If E = P W - I satisfies ||E||_2 < 1, then W^{-1} = (I + E)^{-1} P, so
+    P A W - W^{-1} A W = E (I + E)^{-1} (P A W), giving the exact bound
+    (||E||_2 / (1 - ||E||_2)) * ||P A W||_2.
+    """
+    if inv_resid >= 0.5:
+        return float("inf")
+    return float((inv_resid / (1.0 - inv_resid)) * m_blk_norm)
 
 
 def build_unbiased_empirical_hankel(
@@ -336,9 +360,10 @@ def certify_hankel_rank(
         dataset, max_prefix_length, max_suffix_length, symbol=None, delta=alpha
     )
     sv = np.linalg.svd(hankel.matrix, compute_uv=False)
-    rank_lb = int(np.count_nonzero(sv > eps_h))
+    svd_guard = _svd_numerical_guard(hankel.matrix)
+    rank_lb = int(np.count_nonzero(sv > eps_h + svd_guard))
     next_sv = float(sv[rank_lb]) if rank_lb < sv.size else 0.0
-    tail_ub = float(next_sv + eps_h)
+    tail_ub = float(next_sv + eps_h + svd_guard)
     return CertifiedRankResult(
         certified_rank_lower_bound=rank_lb,
         singular_values=tuple(float(v) for v in sv),
@@ -517,7 +542,8 @@ def certify_eigenmode_single_sample(
     u_mat, sv, vt_mat = np.linalg.svd(hankel.matrix, full_matrices=False)
     if r > sv.size:
         raise ValueError("retained_rank exceeds Hankel dimensions")
-    cert_rank_lb = int(np.count_nonzero(sv > eps_h))
+    svd_guard = _svd_numerical_guard(hankel.matrix)
+    cert_rank_lb = int(np.count_nonzero(sv > eps_h + svd_guard))
 
     ur = u_mat[:, :r]
     vr = vt_mat[:r, :].T
@@ -591,15 +617,19 @@ def certify_eigenmode_single_sample(
     res_11 = float(abs(m_blk[0, 0] - lam))
     res_12 = float(np.linalg.norm(m_blk[0, 1:], 2))
     res_21 = float(np.linalg.norm(m_blk[1:, 0], 2))
-    # Include tiny inverse residual guard if nonzero
-    inv_guard = inv_resid * float(np.linalg.norm(ba_bal, 2))
+    # Exact operator-norm guard: ||P A W - W^{-1} A W||_2 <= (||E||/(1-||E||)) * ||P A W||_2
+    inv_guard = _exact_inverse_transform_guard(inv_resid, float(np.linalg.norm(m_blk, 2)))
 
     b11 = _ROUNDING_GUARD * ((l1_y * eps_ha + l1_x * eps_h) * r1 + res_11 + inv_guard)
     b12 = _ROUNDING_GUARD * ((l1_y * eps_ha + l1_x * eps_h) * r2 + res_12 + inv_guard)
     b21 = _ROUNDING_GUARD * ((l2_y * eps_ha + l2_x * eps_h) * r1 + res_21 + inv_guard)
     b22 = _ROUNDING_GUARD * ((l2_y * eps_ha + l2_x * eps_h) * r2 + inv_guard)
 
-    isolated, radius = _schur_complement_disk_radius(gamma, b11, b12, b21, b22)
+    isolated, radius = (
+        (False, float("inf"))
+        if not np.isfinite(inv_guard)
+        else _schur_complement_disk_radius(gamma, b11, b12, b21, b22)
+    )
     return CertifiedEigenmodeResult(
         symbol=symbol,
         retained_rank=r,
@@ -676,8 +706,11 @@ def certify_eigenmode_split_sample(
     if isinstance(dataset, tuple):
         pilot_ds, main_ds = dataset
     else:
+        # Use fresh OS-entropy randomness by default so repeated calls do not
+        # couple splits to a fixed deterministic seed. Any caller-supplied target
+        # must be fixed a priori (independent of main_ds).
         if rng is None:
-            rng = np.random.default_rng(0)
+            rng = np.random.default_rng()
         pilot_ds, main_ds = split_shot_dataset(dataset, pilot_fraction, rng)
 
     if symbol not in pilot_ds.alphabet or symbol not in main_ds.alphabet:
@@ -732,7 +765,8 @@ def certify_eigenmode_split_sample(
     smin_x2 = float(np.linalg.svd(x2, compute_uv=False)[-1])
     # Unconditional rank lower bound: sigma_r(H) >= sigma_min(U_r^T H V_r) >= smin_x2 - eps_x
     sv_x2 = np.linalg.svd(x2, compute_uv=False)
-    cert_rank_lb = int(np.count_nonzero(sv_x2 > eps_x))
+    svd_guard_x2 = _svd_numerical_guard(x2)
+    cert_rank_lb = int(np.count_nonzero(sv_x2 > eps_x + svd_guard_x2))
 
     # Deterministic scalar Hoeffding for S = p1_h @ (Delta_Y - lam1 * Delta_X) @ (X1^{-1} q1)
     left_vec = p1_h[0, :]
@@ -808,7 +842,7 @@ def certify_eigenmode_split_sample(
     b11_rem1 = p1_norm * (eps_y + abs(lam1) * eps_x) * x_diff_q1_bound
     b11_rem2 = float(np.linalg.norm(p1_h @ (t2 - t1), 2)) * eps_x * r1
     b11_rem3 = res_left_t1 * eps_x * r1
-    inv_guard = inv_resid * float(np.linalg.norm(t2, 2))
+    inv_guard = _exact_inverse_transform_guard(inv_resid, float(np.linalg.norm(m2_blk, 2)))
 
     b11 = _ROUNDING_GUARD * (b11_lin + b11_rem1 + b11_rem2 + b11_rem3 + inv_guard)
 
@@ -825,7 +859,11 @@ def certify_eigenmode_split_sample(
     b21 = _ROUNDING_GUARD * ((l2_y * eps_y + l2_x * eps_x) * r1 + g21_norm + inv_guard)
     b22 = _ROUNDING_GUARD * ((l2_y * eps_y + l2_x * eps_x) * r2 + inv_guard)
 
-    isolated, radius = _schur_complement_disk_radius(gamma, b11, b12, b21, b22)
+    isolated, radius = (
+        (False, float("inf"))
+        if not np.isfinite(inv_guard)
+        else _schur_complement_disk_radius(gamma, b11, b12, b21, b22)
+    )
     return CertifiedEigenmodeResult(
         symbol=symbol,
         retained_rank=r,

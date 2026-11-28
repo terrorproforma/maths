@@ -415,56 +415,69 @@ def certified_karpelevich_radius(
 
     two_pi = two_pi_interval(prec)
     ang_iv = Interval.from_float(angle_radians)
-    # Wrap angle into [0, 2*pi) by subtracting k * 2*pi
-    k = int(float(ang_iv.lo / two_pi.midpoint(prec)) // 1)
-    wrapped = ang_iv.sub(Interval.exact(k).mul(two_pi, prec), prec)
-    while wrapped.lo < _ZERO:
-        k -= 1
-        wrapped = ang_iv.sub(Interval.exact(k).mul(two_pi, prec), prec)
-    while wrapped.hi >= two_pi.lo and wrapped.lo >= two_pi.lo:
-        k += 1
-        wrapped = ang_iv.sub(Interval.exact(k).mul(two_pi, prec), prec)
-    turns_iv = wrapped.div(two_pi, prec).clamp(_ZERO, _ONE)
+    # Soundly enclose angle / (2*pi) and split across any integer wrap boundary
+    # without ever clipping away valid negative or wrap-straddling residuals.
+    q_iv = ang_iv.div(two_pi, prec)
+    from decimal import ROUND_FLOOR
+
+    k_lo = int(q_iv.lo.to_integral_value(rounding=ROUND_FLOOR))
+    k_hi = int(q_iv.hi.to_integral_value(rounding=ROUND_FLOOR))
+    if k_hi - k_lo >= 2 or (k_hi - k_lo == 1 and q_iv.hi - q_iv.lo >= _ONE):
+        turns_intervals = [Interval(_ZERO, _ONE)]
+    elif k_lo == k_hi:
+        sub = q_iv.sub(Interval.exact(k_lo), prec).clamp(_ZERO, _ONE)
+        turns_intervals = [sub]
+    else:
+        # Straddles integer boundary k_hi: retain both [q_lo - k_lo, 1] and [0, q_hi - k_hi]
+        left_part = Interval(max(_ZERO, q_iv.sub(Interval.exact(k_lo), prec).lo), _ONE)
+        right_part = Interval(_ZERO, min(_ONE, q_iv.sub(Interval.exact(k_hi), prec).hi))
+        turns_intervals = [left_part, right_part]
 
     if n == 2:
         # Theta_2 = [-1, 1]: radius is 1 at turns in {0, 1/2, 1}, else 0.
         half = Decimal("0.5")
-        if turns_iv.contains(_ZERO) or turns_iv.contains(half) or turns_iv.contains(_ONE):
-            if turns_iv.lo == turns_iv.hi and (
-                turns_iv.lo == _ZERO or turns_iv.lo == half or turns_iv.lo == _ONE
-            ):
-                return CertifiedRadiusEnclosure(2, float(angle_radians), 1.0, 1.0, Fraction(0, 1), Fraction(1, 2))
+        hits_root = any(
+            tiv.contains(_ZERO) or tiv.contains(half) or tiv.contains(_ONE)
+            for tiv in turns_intervals
+        )
+        all_root = all(
+            tiv.lo == tiv.hi and (tiv.lo == _ZERO or tiv.lo == half or tiv.lo == _ONE)
+            for tiv in turns_intervals
+        )
+        if all_root:
+            return CertifiedRadiusEnclosure(2, float(angle_radians), 1.0, 1.0, Fraction(0, 1), Fraction(1, 2))
+        if hits_root:
             return CertifiedRadiusEnclosure(2, float(angle_radians), 0.0, 1.0, Fraction(0, 1), Fraction(1, 2))
         return CertifiedRadiusEnclosure(2, float(angle_radians), 0.0, 0.0, Fraction(0, 1), Fraction(1, 2))
 
     seq = farey_sequence(n)
-    # Find all Farey arcs intersecting turns_iv (usually 1, or 2 if straddling a Farey root)
+    # Find all Farey arcs intersecting any wrapped turns interval
     rho_lo_all = _ONE
     rho_hi_all = _ZERO
     matched_left = seq[0]
     matched_right = seq[1]
     found = False
-    for idx in range(len(seq) - 1):
-        f_left, f_right = seq[idx], seq[idx + 1]
-        l_iv = Interval.from_fraction(f_left, prec)
-        r_iv = Interval.from_fraction(f_right, prec)
-        if turns_iv.hi < l_iv.lo or turns_iv.lo > r_iv.hi:
-            continue
-        found = True
-        matched_left, matched_right = f_left, f_right
-        # Intersect turns_iv with [f_left, f_right]
-        sub_turns = Interval(max(turns_iv.lo, l_iv.lo), min(turns_iv.hi, r_iv.hi))
-        arc = _FareyArcSpec.from_farey_pair(n, f_left, f_right)
-        qs_iv = Interval.exact(arc.q * arc.s)
-        if not arc.reflected:
-            t_iv = sub_turns.sub(l_iv, prec).mul(qs_iv, prec).clamp(_ZERO, _ONE)
-        else:
-            t_iv = r_iv.sub(sub_turns, prec).mul(qs_iv, prec).clamp(_ZERO, _ONE)
-        r_lo, r_hi = _certified_gap_bounds_on_t(
-            arc, t_iv, prec, bisect_steps=64, need_lower_rho=True, high_precision_root=True
-        )
-        rho_lo_all = min(rho_lo_all, r_lo)
-        rho_hi_all = max(rho_hi_all, r_hi)
+    for turns_iv in turns_intervals:
+        for idx in range(len(seq) - 1):
+            f_left, f_right = seq[idx], seq[idx + 1]
+            l_iv = Interval.from_fraction(f_left, prec)
+            r_iv = Interval.from_fraction(f_right, prec)
+            if turns_iv.hi < l_iv.lo or turns_iv.lo > r_iv.hi:
+                continue
+            found = True
+            matched_left, matched_right = f_left, f_right
+            sub_turns = Interval(max(turns_iv.lo, l_iv.lo), min(turns_iv.hi, r_iv.hi))
+            arc = _FareyArcSpec.from_farey_pair(n, f_left, f_right)
+            qs_iv = Interval.exact(arc.q * arc.s)
+            if not arc.reflected:
+                t_iv = sub_turns.sub(l_iv, prec).mul(qs_iv, prec).clamp(_ZERO, _ONE)
+            else:
+                t_iv = r_iv.sub(sub_turns, prec).mul(qs_iv, prec).clamp(_ZERO, _ONE)
+            r_lo, r_hi = _certified_gap_bounds_on_t(
+                arc, t_iv, prec, bisect_steps=64, need_lower_rho=True, high_precision_root=True
+            )
+            rho_lo_all = min(rho_lo_all, r_lo)
+            rho_hi_all = max(rho_hi_all, r_hi)
 
     if not found:
         return CertifiedRadiusEnclosure(n, float(angle_radians), 0.0, 1.0, seq[0], seq[-1])
@@ -483,13 +496,16 @@ def certified_karpelevich_radius(
 
 
 def _decimal_to_float_floor(value: Decimal) -> float:
-    """Convert Decimal to float guaranteed <= value."""
+    """Convert Decimal to float guaranteed <= value (sound on binary64 overflow)."""
     import math
+    import sys
 
     f = float(value)
     if math.isnan(f):
         raise ValueError("Cannot convert NaN Decimal")
     if math.isinf(f):
+        if f > 0.0 and not value.is_infinite():
+            return sys.float_info.max
         return f
     while Decimal.from_float(f) > value:
         f = math.nextafter(f, -math.inf)
@@ -497,13 +513,16 @@ def _decimal_to_float_floor(value: Decimal) -> float:
 
 
 def _decimal_to_float_ceil(value: Decimal) -> float:
-    """Convert Decimal to float guaranteed >= value."""
+    """Convert Decimal to float guaranteed >= value (sound on binary64 overflow)."""
     import math
+    import sys
 
     f = float(value)
     if math.isnan(f):
         raise ValueError("Cannot convert NaN Decimal")
     if math.isinf(f):
+        if f < 0.0 and not value.is_infinite():
+            return -sys.float_info.max
         return f
     while Decimal.from_float(f) < value:
         f = math.nextafter(f, math.inf)
@@ -758,12 +777,12 @@ def certified_distance_to_karpelevich(
                     pruned_min_lb = lb
             else:
                 counter += 1
-                heapq.heappush(heap, (float(lb), counter, lb, arc_idx, t_lo, t_hi))
+                heapq.heappush(heap, (lb, counter, arc_idx, t_lo, t_hi))
 
-    # Step 5: Best-first branch-and-bound with certified global lower bound
+    # Step 5: Best-first branch-and-bound keyed by exact Decimal lower bound
     status = "converged"
     while heap and evaluated < max_subdivisions:
-        _, _, current_lb, arc_idx, t_lo, t_hi = heap[0]
+        current_lb, _, arc_idx, t_lo, t_hi = heap[0]
         global_lb = min(current_lb, pruned_min_lb)
 
         # Check termination criteria
@@ -789,7 +808,7 @@ def certified_distance_to_karpelevich(
         if t_mid <= t_lo or t_mid >= t_hi:
             # Precision floor reached; reinsert and stop
             counter += 1
-            heapq.heappush(heap, (float(current_lb), counter, current_lb, arc_idx, t_lo, t_hi))
+            heapq.heappush(heap, (current_lb, counter, arc_idx, t_lo, t_hi))
             status = "precision_limit"
             break
 
@@ -818,12 +837,12 @@ def certified_distance_to_karpelevich(
                     pruned_min_lb = lb_sub
             else:
                 counter += 1
-                heapq.heappush(heap, (float(lb_sub), counter, lb_sub, arc_idx, sub_lo, sub_hi))
+                heapq.heappush(heap, (lb_sub, counter, arc_idx, sub_lo, sub_hi))
     else:
-        if heap and (best_ub - min(heap[0][2], pruned_min_lb) > tol_dec):
+        if heap and (best_ub - min(heap[0][0], pruned_min_lb) > tol_dec):
             status = "max_subdivisions_reached"
 
-    final_lb_dec = min(heap[0][2], pruned_min_lb) if heap else min(pruned_min_lb, best_ub)
+    final_lb_dec = min(heap[0][0], pruned_min_lb) if heap else min(pruned_min_lb, best_ub)
     # Guard final_lb_dec <= best_ub
     final_lb_dec = min(final_lb_dec, best_ub)
     d_lo = max(0.0, _decimal_to_float_floor(final_lb_dec))
@@ -932,40 +951,47 @@ def certify_finite_stochastic_exclusions(
 
     z = complex(point_estimate)
     tests: list[CertifiedOrderTest] = []
-    excluded_through = 1
-    contiguous = True
+    # Explicitly test order 1 (Theta_1 = {1}) before testing higher orders.
+    res1 = certified_distance_to_karpelevich(z, 1, tol=tol, prec=prec)
+    if res1.distance_lo > disk_radius:
+        excluded_through = 1
+        contiguous = True
+    else:
+        excluded_through = 0
+        contiguous = False
 
-    for order in range(2, maximum_order + 1):
-        res = certified_distance_to_karpelevich(
-            z,
-            order,
-            target_radius=(disk_radius if early_stop else None),
-            tol=tol,
-            prec=prec,
-        )
-        excluded = bool(res.distance_lo > disk_radius)
-        if contiguous and excluded:
-            excluded_through = order
-        else:
-            contiguous = False
-        tests.append(
-            CertifiedOrderTest(
-                order=order,
-                disk_radius=float(disk_radius),
-                distance_lo=res.distance_lo,
-                distance_hi=res.distance_hi,
-                closest_angle_radians=res.closest_angle_radians,
-                certified_excluded=excluded,
-                certified_inside=res.certified_inside,
-                pruned_arcs=res.pruned_arcs,
-                evaluated_subintervals=res.evaluated_subintervals,
-                status=res.status,
+    if not (early_stop and not contiguous):
+        for order in range(2, maximum_order + 1):
+            res = certified_distance_to_karpelevich(
+                z,
+                order,
+                target_radius=(disk_radius if early_stop else None),
+                tol=tol,
+                prec=prec,
             )
-        )
-        if res.certified_inside:
-            break
-        if early_stop and not excluded:
-            break
+            excluded = bool(res.distance_lo > disk_radius)
+            if contiguous and excluded:
+                excluded_through = order
+            else:
+                contiguous = False
+            tests.append(
+                CertifiedOrderTest(
+                    order=order,
+                    disk_radius=float(disk_radius),
+                    distance_lo=res.distance_lo,
+                    distance_hi=res.distance_hi,
+                    closest_angle_radians=res.closest_angle_radians,
+                    certified_excluded=excluded,
+                    certified_inside=res.certified_inside,
+                    pruned_arcs=res.pruned_arcs,
+                    evaluated_subintervals=res.evaluated_subintervals,
+                    status=res.status,
+                )
+            )
+            if res.certified_inside:
+                break
+            if early_stop and not excluded:
+                break
 
     return CertifiedExclusionReport(
         point_estimate=z,

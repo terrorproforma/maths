@@ -51,28 +51,41 @@ def _dec_ceil(value: Decimal, prec: int) -> Decimal:
 
 
 def _dec_sqrt_floor(value: Decimal, prec: int) -> Decimal:
-    """Return Decimal s with exact s*s <= value (guaranteed outward lower bound)."""
+    """Return Decimal s with exact s*s <= value (guaranteed outward lower bound).
+
+    Scales by an even power of 10 so the verification product never underflows
+    or overflows even near Decimal exponent limits.
+    """
     if value <= _ZERO:
         return _ZERO
+    # Scale value into [1, 100) by an even power 10^(2*k)
+    k = value.adjusted() // 2
+    scaled = value.scaleb(-2 * k)
     f = _floor_ctx(prec)
-    # Use high-precision multiplication to verify s*s <= value exactly
     check_c = _ceil_ctx(max(2 * prec + 4, 60))
-    s = f.sqrt(value)
-    while check_c.multiply(s, s) > value:
+    s = f.sqrt(scaled)
+    while check_c.multiply(s, s) > scaled:
         s = f.next_minus(s)
-    return max(_ZERO, s)
+    s = max(_ZERO, s)
+    return _floor_ctx(prec).plus(s.scaleb(k))
 
 
 def _dec_sqrt_ceil(value: Decimal, prec: int) -> Decimal:
-    """Return Decimal s with exact s*s >= value (guaranteed outward upper bound)."""
+    """Return Decimal s with exact s*s >= value (guaranteed outward upper bound).
+
+    Scales by an even power of 10 so the verification product never underflows
+    or overflows even near Decimal exponent limits.
+    """
     if value <= _ZERO:
         return _ZERO
+    k = value.adjusted() // 2
+    scaled = value.scaleb(-2 * k)
     c = _ceil_ctx(prec)
     check_f = _floor_ctx(max(2 * prec + 4, 60))
-    s = c.sqrt(value)
-    while check_f.multiply(s, s) < value:
+    s = c.sqrt(scaled)
+    while check_f.multiply(s, s) < scaled:
         s = c.next_plus(s)
-    return s
+    return _ceil_ctx(prec).plus(s.scaleb(k))
 
 
 @dataclass(frozen=True, slots=True)

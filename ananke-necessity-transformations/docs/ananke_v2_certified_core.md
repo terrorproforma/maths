@@ -38,6 +38,13 @@ $qr - ps = 1$ and $q \neq s$ (since $q = s$ implies $q(r-p)=1$, forcing $N = 1$)
 By conjugation symmetry $\Theta_N = \overline{\Theta_N}$, we orient every arc so that
 $1 \le q < s \le N$.
 
+> **Prior art note:** The reduced positive-trinomial arc equation (Theorem 1(1)) and the
+> uniform radial asymptotic expansion (Corollary 4.1) also appear in Verbeken and Ginis
+> (*arXiv:2609.26058v3*, Theorems 1.1 and 8.1), building on Kirkland, Laffey and Šmigoc
+> (2020, Theorem 1.2). Our contributions in this section are the zero-cancellation positive
+> gap formulation (Theorem 1(3)), the self-contained outward-rounded interval distance
+> certifier, and the Karpelevič Markov Theorem (Theorem 4).
+
 **Theorem 1 (Reduced Positive-Trinomial & Zero-Cancellation Gap Form, PROVED).**
 Let $N \ge 3$ and let $(p/q, r/s)$ be an oriented Farey arc of $\mathcal{F}_N$ with
 $1 \le q < s \le N$ and $qr - ps = 1$. Set $d = \lfloor N/q \rfloor$,
@@ -245,19 +252,22 @@ By the law of total expectation, unconditional failure probability is $\le \delt
 > **Epistemic Scope Box (Honest Boundary of Theorem 3):**
 > 1. **Unconditional (no rank upper bound needed):** $\operatorname{rank}(H) \ge r$ and
 >    $\sigma_{r+1}(H) \le \hat{\sigma}_{r+1} + \varepsilon_H$ hold with probability $\ge 1 - \alpha$
->    for *any* underlying sequential process $f$.
+>    for *any* underlying sequential process $f$ (in exact arithmetic; `certified_inference.py`
+>    evaluates the analytic concentration inequalities in IEEE-754 float64 with conservative
+>    SVD backward-error padding and exact inverse-residual guards, rather than interval-arithmetic SVD).
 > 2. **Conditional on exact minimal rank $r$ ($\operatorname{rank}(H_f) = \operatorname{rank}(H) = r$):**
->    The certified eigenvalue disk $D(\hat{\lambda}, \rho)$ contains a unique eigenvalue of
->    $B_a$ with probability $\ge 1 - \alpha$, so interval-certified separation
->    $D(\hat{\lambda}, \rho) \cap \Theta_N = \varnothing$ excludes every exact $N$-state
->    classical stochastic realization of that rank-$r$ process.
+>    With independent split randomness (or independent pilot/main datasets) and any target
+>    mode fixed a priori or chosen solely from the pilot, the spectral disk $D(\hat{\lambda}, \rho)$
+>    contains a unique eigenvalue of $B_a$ with probability $\ge 1 - \alpha$, so
+>    interval-certified separation $D(\hat{\lambda}, \rho) \cap \Theta_N = \varnothing$
+>    excludes every exact $N$-state classical stochastic realization of that rank-$r$ process.
 > 3. **What remains outside Theorem 3:** Finite-shot data on a finite Hankel block can
 >    never prove $\operatorname{rank}(H_f) \le r$ without a structural bound, so an
 >    *approximate* classical counterfeit with rank $> r$ and tiny tail singular values
 >    $\sigma_{r+1}(H) \le \hat{\sigma}_{r+1} + \varepsilon_H$ is not ruled out by a
 >    single-block spectral perturbation theorem alone.
 
-### 2.4 Non-Asymptotic Shot Scaling on the Baseline Qubit (CERTIFIED, $\alpha = 0.01$)
+### 2.4 Non-Asymptotic Shot Scaling on the Baseline Qubit (ANALYTIC BOUNDS + INTERVAL GEOMETRY, $\alpha = 0.01$)
 
 From `experiments/certify_baseline_v2.py` (`results/certify_baseline_v2.json`), baseline
 qubit $\theta_x = 0.73$, $\theta_z = 1.11$, $15 \times 15$ Hankel block (255 words of length $\le 7$):
@@ -293,16 +303,24 @@ and $P_m(y) = m y(1 - O(my))$ with $m y = O(N^{-2})$), the coefficient of $y$ on
 left-hand side simplifies identically to $\frac{2\pi}{\delta}(t + (1-t)) = \frac{2\pi}{\delta}$,
 and multiplying by $d_1 = d/\delta$ cancels $d$:
 
-**Corollary 4.1 (Asymptotic Karpelevič Radial & Euclidean Gap, PROVED).**
-On an oriented Farey arc $(p/q, r/s)$ of $\mathcal{F}_N$ ($q < s$, $d = \lfloor N/q \rfloor$),
-for $t \in (0, 1)$ bounded away from $\{0, 1\}$:
-$$1 - \rho_N(\theta(t)) = 2\pi^2\,\frac{t(1 - t)}{q s}\!\left(\frac{t}{s} + \frac{1 - t}{q d}\right)\bigl(1 + O(N^{-2})\bigr),$$
-and because the boundary tangent slope is $\rho_N'(\theta) = O(1/N)$, the Euclidean
-distance obeys $\operatorname{dist}(e^{i\theta(t)}, \Theta_N) = (1 - \rho_N(\theta(t)))(1 + O(N^{-2}))$.
+**Corollary 4.1 (Uniform Asymptotic Karpelevič Radial & Euclidean Gap, PROVED; radial part cf. Verbeken & Ginis, Thm. 8.1).**
+On every oriented Farey arc $(p/q, r/s)$ of $\mathcal{F}_N$ ($1 \le q < s \le N$, $d = \lfloor N/q \rfloor$),
+Farey adjacency gives $s > N/2$ and $qd > N/2$ uniformly across all $t \in [0, 1]$ (including
+near arc endpoints), yielding uniformly:
+$$1 - \rho_N(\theta(t)) = 2\pi^2\,\frac{t(1 - t)}{q s}\!\left(\frac{t}{s} + \frac{1 - t}{q d}\right)\bigl(1 + O(N^{-2})\bigr).$$
+Moreover, rewriting the gap equation in $\rho = \hat{\rho}^{d_1}$ (with exponents $s/d \asymp q$
+and $q$) gives $|\partial_t F| = O(N^{-3})$ and $|\partial_\rho F| \gtrsim q/N$, hence the uniform
+global Lipschitz bound $|\rho_N'(\theta)| = O(N^{-1})$ on every open Farey arc. For a nearest
+point $r e^{i(\theta + \Delta)} \in \Theta_N$ at Euclidean distance $D$,
+$D^2 = (1 - r)^2 + 2r(1 - \cos\Delta)$ together with global $O(N^{-1})$-Lipschitzness of
+$\rho_N$ and Cauchy–Schwarz yields
+$$\operatorname{dist}(e^{i\theta(t)}, \Theta_N) = \bigl(1 - \rho_N(\theta(t))\bigr)\bigl(1 + O(N^{-2})\bigr)$$
+uniformly in $t \in [0, 1]$ (including across Farey endpoints).
 
-In contrast to nearest roots of unity ($\delta_N(\alpha) \asymp N^{-2}$ for badly
-approximable phases), the Karpelevič distance scales as **$N^{-3}$** (larger than the
-straight-chord sagitta $2\pi^2 t(1-t)/(q^2 s^2)$ by the inward-bowing factor $q t + \frac{s}{d}(1-t)$).
+For **badly approximable** phases (bounded partial quotients), in contrast to nearest roots of
+unity ($\delta_N(\alpha) \asymp N^{-2}$), the Karpelevič distance scales as **$N^{-3}$** (larger
+than the straight-chord sagitta $2\pi^2 t(1-t)/(q^2 s^2)$ by the inward-bowing factor
+$q t + \frac{s}{d}(1-t)$; for phases with unbounded partial quotients, $\liminf N^3 \operatorname{dist} = 0$).
 
 **Theorem 4 (Karpelevič Markov Theorem — Asymptotic Optimality of Noble Phases, PROVED).**
 For any irrational $\alpha \in (0, 1)$, define its Karpelevič Markov constant
@@ -318,15 +336,18 @@ $\beta_k := q_k / q_{k-1} = [a_k; a_{k-1}, \dots, a_1] \in (a_k, a_k+1)$, and ta
 $\alpha_{k+1} := [a_{k+1}; a_{k+2}, \dots] > a_{k+1}$.
 At order $N = q_k$, the oriented Farey bracket is $(p_{k-1}/q_{k-1}, p_k/q_k)$ with
 $q = q_{k-1}$, $s = q_k = N$, $d = \lfloor q_k/q_{k-1} \rfloor = a_k$, and
-$t = \frac{u}{u + 1}$ where $u := \alpha_{k+1}\beta_k$. Setting $\gamma := \beta_k / a_k \in (1, 2)$:
-$$C_0(\beta_k, \alpha_{k+1}) := \lim_{q_k \to \infty} q_k^3 \cdot 2\pi^2 \frac{t(1-t)}{q_{k-1} q_k}\!\left(\frac{t}{q_k} + \frac{1-t}{q_{k-1} a_k}\right) = 2\pi^2 \beta_k\,\frac{u(u + \gamma)}{(u + 1)^3}.$$
+$t = \frac{u}{u + 1}$ where $u := \alpha_{k+1}\beta_k$. Setting $\gamma := \beta_k / a_k \in (1, 2)$,
+the leading finite-$k$ coefficient of $q_k^3 \operatorname{dist}(e^{2\pi i\alpha}, \Theta_{q_k})$ is
+$$C_0(\beta_k, \alpha_{k+1}) := q_k^3 \cdot 2\pi^2 \frac{t(1-t)}{q_{k-1} q_k}\!\left(\frac{t}{q_k} + \frac{1-t}{q_{k-1} a_k}\right) = 2\pi^2 \beta_k\,\frac{u(u + \gamma)}{(u + 1)^3},$$
+with $q_k^3 \operatorname{dist}(e^{2\pi i\alpha}, \Theta_{q_k}) = C_0(\beta_k, \alpha_{k+1})(1 + O(q_k^{-2}))$ uniformly by Corollary 4.1.
 
 *(Part 1 — Noble numbers).* Eventually $a_j = 1$, so $\beta_k \to \varphi$, $\alpha_{k+1} \to \varphi$,
 $u \to \varphi^2$, $\gamma \to \varphi$, $t \to \varphi/\sqrt{5}$, and $t(1-t) \to 1/5$.
-Between $q_k$ and $q_{k+1}-1$, the Farey bracket is constant with $d=1$ on $[q_k, 2q_{k-1}-1]$
+Between $q_k$ and $q_{k+1}-1$, the mediant $(p_{k-1}+p_k)/(q_{k-1}+q_k) = p_{k+1}/q_{k+1}$ is the
+first new Farey fraction to enter, so the Farey bracket is constant with $d=1$ on $[q_k, 2q_{k-1}-1]$
 and $d=2$ on $[2q_{k-1}, q_{k+1}-1]$. Minimizing $N^3(1-\rho_N)$ at the two plateau left
-endpoints gives $\frac{2\pi^2 \varphi^3}{5\sqrt{5}} \approx 7.4789$ at $N = q_k$ and
-$\frac{8\pi^2\varphi}{5\sqrt{5}} \approx 11.4280$ at $N = 2q_{k-1}$, proving (1).
+endpoints gives $\frac{2\pi^2 \varphi^3}{5\sqrt{5}} \approx 7.47890$ at $N = q_k$ and
+$\frac{8\pi^2\varphi}{5\sqrt{5}} \approx 11.42674$ at $N = 2q_{k-1}$, proving (1).
 
 *(Part 2 — Non-noble numbers).* Since $\gamma = \beta_k / \lfloor \beta_k \rfloor < 2$,
 we have $u(u + \gamma) < u(u + 2) = (u+1)^2 - 1 < (u+1)^2$, hence universally:
@@ -351,9 +372,11 @@ analysis reveals two sharp finite-regime refinements (`experiments/diophantine_d
 
 1. **Refinement A — Finite-Horizon Arc-Asymmetry Counterexample (PROVED/CERTIFIED):**
    On a single oriented Farey arc $(p/q, r/s)$ with $s > q d$, the cubic
-   $t(1-t)(t/s + (1-t)/(qd))$ is skewed toward $t < 1/2$, whereas noble phases sit at
-   $t > 0.64$ (asymptotically $\varphi/\sqrt{5} \approx 0.7236$). Thus at fixed finite $N$,
-   non-noble competitors strictly outperform $[0; 8, \overline{1}]$ inside sector $k = 8$:
+   $t(1-t)(t/s + (1-t)/(qd))$ is skewed toward $t < 1/2$, whereas the immediate noble
+   target $[0; 8, \overline{1}]$ sits at $t > 0.64$ on its active brackets (asymptotically
+   $\varphi/\sqrt{5} \approx 0.7236$ along any noble tail). Thus at fixed finite $N$,
+   non-noble competitors strictly outperform $[0; 8, \overline{1}]$ inside sector $k = 8$
+   (certified directly on the supplied binary64 test points):
    - At $N = 15$: silver $[0; 8, \overline{2}]$ has certified distance $[0.008149, 0.008199]$
      and the sector peak ($\theta = 0.7431$) achieves $[0.008211, 0.008258]$, beating noble
      $[0; 8, \overline{1}]$ ($[0.007337, 0.007381]$) by **$+11.1\%$** and **$+11.9\%$**.

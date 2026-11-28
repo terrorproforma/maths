@@ -106,8 +106,12 @@ def asymptotic_karpelevich_radial_gap(order: int, phase_turns: float) -> float:
 
 
 def periodic_karpelevich_markov_constant(period: Sequence[int]) -> float:
-    """Compute the exact asymptotic liminf_{N -> inf} N^3 * dist(e^{2*pi*i*alpha}, Theta_N)
-    for any irrational with eventually periodic continued-fraction tail ``period``.
+    """Compute the asymptotic liminf_{N -> inf} N^3 * dist(e^{2*pi*i*alpha}, Theta_N)
+    (in binary64) for any irrational with eventually periodic continued-fraction tail.
+
+    Evaluates BOTH d-plateau left endpoints on every Farey bracket (both the
+    bracket-entry order N = s and the later order N = (d + 1)*q where d increments
+    before the next Farey fraction enters).
     """
     p_seq = tuple(int(a) for a in period)
     if not p_seq or any(a < 1 for a in p_seq):
@@ -135,8 +139,11 @@ def periodic_karpelevich_markov_constant(period: Sequence[int]) -> float:
         d0 = p_seq[(step - 1) % length]
         for m in range(ak1):
             if m == 0:
+                # Oriented bracket (p_{k-1}/q_{k-1}, p_k/q_k): q = q_{k-1}, s = q_k, s/q = beta_k.
+                # Next Farey fraction enters at q_k + q_{k-1}, so N/q ranges over [beta_k, beta_k + 1).
                 t = (alpha_k1 * beta_k) / (alpha_k1 * beta_k + 1.0)
-                c_val = (
+                # Candidate 1: N = q_k (N/s = 1, d = d0)
+                c1 = (
                     2.0
                     * (pi**2)
                     * beta_k
@@ -144,10 +151,26 @@ def periodic_karpelevich_markov_constant(period: Sequence[int]) -> float:
                     * (1.0 - t)
                     * (t + (beta_k / d0) * (1.0 - t))
                 )
+                # Candidate 2: N = (d0 + 1)*q_{k-1} < q_k + q_{k-1} (N/s = (d0+1)/beta_k, d = d0 + 1)
+                ratio2 = (d0 + 1.0) / beta_k
+                c2 = (
+                    (ratio2**3)
+                    * 2.0
+                    * (pi**2)
+                    * beta_k
+                    * t
+                    * (1.0 - t)
+                    * (t + (beta_k / (d0 + 1.0)) * (1.0 - t))
+                )
+                c_val = min(c1, c2)
             else:
+                # Intermediate bracket (p_k/q_k, (p_{k-1}+m*p_k)/(q_{k-1}+m*q_k)):
+                # q = q_k, s = q_{k-1} + m*q_k, s/q = m + 1/beta_k.
+                # Next fraction enters at s + q_k, so N/q ranges over [sq, sq + 1).
                 sq = m + 1.0 / beta_k
                 t = sq / (alpha_k1 + 1.0 / beta_k)
-                c_val = (
+                # Candidate 1: N = s (N/s = 1, d = m)
+                c1 = (
                     2.0
                     * (pi**2)
                     * sq
@@ -155,6 +178,18 @@ def periodic_karpelevich_markov_constant(period: Sequence[int]) -> float:
                     * (1.0 - t)
                     * (t + (sq / m) * (1.0 - t))
                 )
+                # Candidate 2: N = (m + 1)*q_k < s + q_k (N/s = (m+1)/sq, d = m + 1)
+                ratio2 = (m + 1.0) / sq
+                c2 = (
+                    (ratio2**3)
+                    * 2.0
+                    * (pi**2)
+                    * sq
+                    * t
+                    * (1.0 - t)
+                    * (t + (sq / (m + 1.0)) * (1.0 - t))
+                )
+                c_val = min(c1, c2)
             if c_val < min_c:
                 min_c = c_val
     return float(min_c)
