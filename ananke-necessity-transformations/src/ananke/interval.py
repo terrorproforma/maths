@@ -581,3 +581,156 @@ def interval_distance_sq(a: Interval, b: Interval, prec: int = DEFAULT_PREC) -> 
         diff = f.subtract(a.lo, b.hi)
         return f.multiply(diff, diff)
     return _ZERO
+
+
+@lru_cache(maxsize=64)
+def ln2_interval(prec: int = DEFAULT_PREC) -> Interval:
+    """Certified enclosure of ln(2) = 2 * atanh(1/3) via positive series + geometric tail."""
+    work_prec = prec + 10
+    cutoff = Decimal(1).scaleb(-(prec + 6))
+    total = Interval.exact(0)
+    power = 3
+    k = 0
+    f_ctx = _floor_ctx(work_prec)
+    c_ctx = _ceil_ctx(work_prec)
+    nine = Decimal(9)
+    while True:
+        denom = Decimal((2 * k + 1) * power)
+        term_lo = f_ctx.divide(_TWO, denom)
+        term_hi = c_ctx.divide(_TWO, denom)
+        # Exact tail bound: sum_{m>=0} 2 / ((2k+1) * 3^{2k+1} * 9^m) = (9/8) * 2 / denom = 9 / (4*denom)
+        tail_hi = c_ctx.divide(nine, Decimal(4 * (2 * k + 1) * power))
+        if tail_hi < cutoff:
+            total = total.add(Interval(_ZERO, tail_hi), work_prec)
+            break
+        total = total.add(Interval(term_lo, term_hi), work_prec)
+        power *= 9
+        k += 1
+    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+
+
+def _log_point(x: Decimal, prec: int) -> Interval:
+    """Certified enclosure of ln(x) for exact Decimal x > 0."""
+    if x <= _ZERO:
+        raise ValueError(f"log requires strictly positive input, got {x}")
+    if x == _ONE:
+        return Interval.exact(0)
+    work_prec = prec + 10
+    # Range-reduce x = 2^e * m with m in [0.7, 1.45] so |(m-1)/(m+1)| < 0.2.
+    # Find integer e using exact bit/float estimate, then refine with Decimal comparisons.
+    x_iv = Interval(x, x)
+    # Estimate e = round(log2(x)) using float on scaled decimal if extreme
+    adj = x.adjusted()
+    # x = s * 10^adj with 1 <= s < 10; log2(10) ~ 3.321928
+    e = int(round(adj * 3.321928094887362))
+    two_pow = Interval.exact(2).pow_int(e, work_prec)
+    m_iv = x_iv.div(two_pow, work_prec)
+    lo_bound = Decimal("0.7")
+    hi_bound = Decimal("1.45")
+    while m_iv.hi > hi_bound:
+        e += 1
+        two_pow = Interval.exact(2).pow_int(e, work_prec)
+        m_iv = x_iv.div(two_pow, work_prec)
+    while m_iv.lo < lo_bound:
+        e -= 1
+        two_pow = Interval.exact(2).pow_int(e, work_prec)
+        m_iv = x_iv.div(two_pow, work_prec)
+
+    one_iv = Interval.exact(1)
+    u = m_iv.sub(one_iv, work_prec).div(m_iv.add(one_iv, work_prec), work_prec)
+    u2 = u.sqr(work_prec)
+    u_abs_max = max(u.lo.copy_abs(), u.hi.copy_abs())
+    c_ctx = _ceil_ctx(work_prec)
+    f_ctx = _floor_ctx(work_prec)
+    # 1 - u_abs_max^2 lower bound for geometric tail
+    one_minus_u2_lo = f_ctx.subtract(_ONE, c_ctx.multiply(u_abs_max, u_abs_max))
+    if one_minus_u2_lo <= _ZERO:
+        raise ArithmeticError(f"Range reduction failed for log({x}): u={u}")
+
+    cutoff = Decimal(1).scaleb(-(prec + 6))
+    total = Interval.exact(0)
+    u_pow = u
+    abs_pow = u_abs_max
+    abs_u2 = c_ctx.multiply(u_abs_max, u_abs_max)
+    k = 0
+    while True:
+        denom = Decimal(2 * k + 1)
+        rem_num = c_ctx.multiply(_TWO, abs_pow)
+        rem_den = f_ctx.multiply(denom, one_minus_u2_lo)
+        rem_hi = c_ctx.divide(rem_num, rem_den)
+        if rem_hi < cutoff:
+            total = total.add(Interval(rem_hi.copy_negate(), rem_hi), work_prec)
+            break
+        term = Interval.exact(2).mul(u_pow, work_prec).div(Interval.exact(denom), work_prec)
+        total = total.add(term, work_prec)
+        u_pow = u_pow.mul(u2, work_prec)
+        abs_pow = c_ctx.multiply(abs_pow, abs_u2)
+        k += 1
+
+    if e != 0:
+        total = total.add(Interval.exact(e).mul(ln2_interval(work_prec), work_prec), work_prec)
+    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+
+
+def log_interval(x: Interval, prec: int = DEFAULT_PREC) -> Interval:
+    """Certified enclosure of ln(X) for strictly positive interval X > 0."""
+    if x.lo <= _ZERO:
+        raise ValueError(f"log_interval requires strictly positive interval, got {x}")
+    if x.lo == x.hi:
+        return _log_point(x.lo, prec)
+    a = _log_point(x.lo, prec)
+    b = _log_point(x.hi, prec)
+    return Interval(a.lo, b.hi)
+
+
+def _exp_point(x: Decimal, prec: int) -> Interval:
+    """Certified enclosure of exp(x) for exact Decimal x."""
+    if x == _ZERO:
+        return Interval.exact(1)
+    work_prec = prec + 10
+    ln2 = ln2_interval(work_prec)
+    ln2_mid = ln2.midpoint(work_prec)
+    k = int(_floor_ctx(work_prec).divide(x, ln2_mid).to_integral_value())
+    r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
+    half = Decimal("0.5")
+    neg_half = Decimal("-0.5")
+    while r.hi > half:
+        k += 1
+        r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
+    while r.lo < neg_half:
+        k -= 1
+        r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
+
+    r_abs_max = max(r.lo.copy_abs(), r.hi.copy_abs())
+    cutoff = Decimal(1).scaleb(-(prec + 6))
+    c_ctx = _ceil_ctx(work_prec)
+    total = Interval.exact(1)
+    r_pow = r
+    abs_pow = r_abs_max
+    j = 1
+    while True:
+        fact = _factorial_dec(j)
+        # Since |r| <= 0.5 and j >= 1, sum_{m>=j} |r|^m/m! <= (|r|^j / j!) / (1 - 0.5/(j+1)) <= 2*|r|^j / j!
+        rem_hi = c_ctx.divide(c_ctx.multiply(_TWO, abs_pow), fact)
+        if rem_hi < cutoff:
+            total = total.add(Interval(rem_hi.copy_negate(), rem_hi), work_prec)
+            break
+        total = total.add(r_pow.div(Interval.exact(fact), work_prec), work_prec)
+        r_pow = r_pow.mul(r, work_prec)
+        abs_pow = c_ctx.multiply(abs_pow, r_abs_max)
+        j += 1
+
+    if total.lo < _ZERO:
+        total = Interval(_ZERO, total.hi)
+    if k != 0:
+        total = total.mul(Interval.exact(2).pow_int(k, work_prec), work_prec)
+    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+
+
+def exp_interval(x: Interval, prec: int = DEFAULT_PREC) -> Interval:
+    """Certified enclosure of exp(X) for any closed interval X."""
+    if x.lo == x.hi:
+        return _exp_point(x.lo, prec)
+    a = _exp_point(x.lo, prec)
+    b = _exp_point(x.hi, prec)
+    return Interval(a.lo, b.hi)

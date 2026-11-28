@@ -1,0 +1,891 @@
+{
+  "experiment": "counterfeit_upper_vs_lower_v3",
+  "elapsed_seconds": 188.14,
+  "unary_two_sided_bracket": {
+    "baseline_mixed_0p73": {
+      "theta": 0.73,
+      "shift_register_L7_states": 8,
+      "shift_register_L7_max_error": 0.0,
+      "bracket_by_horizon": [
+        {
+          "horizon_L": 7,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.006547019470196127,
+              "psi_cert": 16.084835501897743,
+              "ito_structured_ub": 0.25769240879973443,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.12337202871635017
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.164145167773048,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.08073063569608818
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.08130817963346726,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.048440737391574396
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.03611430073005517,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.023445030853923354
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.01128936372961431,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.0005584824935969124
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.0,
+              "ito_construction": "acyclic_shift_register_exact",
+              "numerical_hmm_ub": 0.0
+            }
+          ]
+        },
+        {
+          "horizon_L": 15,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.042443636471911135,
+              "psi_cert": 4.219263129094962,
+              "ito_structured_ub": 0.3193677110370622,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.31936224264813806
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.007523317674409173,
+              "psi_cert": 23.22224672442326,
+              "ito_structured_ub": 0.3193677110370622,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.31917580754489583
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.0021317694161105513,
+              "psi_cert": 83.3263140990511,
+              "ito_structured_ub": 0.29816187344455736,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.29816187344455736
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 9.673346915077735e-05,
+              "psi_cert": 1539.0990917038364,
+              "ito_structured_ub": 0.21642063101844844,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.1998713200535571
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 1.2000302914198213e-05,
+              "psi_cert": 13059.685181933779,
+              "ito_structured_ub": 0.10715269022315296,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.08637641866451162
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.029932086338807368,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.02898065941177816
+            }
+          ]
+        },
+        {
+          "horizon_L": 30,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.0796660811205651,
+              "psi_cert": 2.2502333025704377,
+              "ito_structured_ub": 0.3437670580054387,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.3429548985847283
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.03263336262875418,
+              "psi_cert": 5.4964139030947425,
+              "ito_structured_ub": 0.3437670580054387,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.341509229483122
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.010923385360488301,
+              "psi_cert": 16.433334292843572,
+              "ito_structured_ub": 0.3437670580054387,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.34146830547233986
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.0023309112114257677,
+              "psi_cert": 77.0677564971255,
+              "ito_structured_ub": 0.3195668907613569,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.31711341624040634
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.00022516324874182793,
+              "psi_cert": 797.8203961290757,
+              "ito_structured_ub": 0.23077964357612668,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.2189388064315807
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 3.6143407801461005e-06,
+              "psi_cert": 49664.50804559384,
+              "ito_structured_ub": 0.07630053713428053,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.07630053713428053
+            }
+          ]
+        },
+        {
+          "horizon_L": 60,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.11610957347390348,
+              "psi_cert": 1.5466906574827384,
+              "ito_structured_ub": 0.35884071812632956,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.3587977900359338
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.07242080146769173,
+              "psi_cert": 2.480253816247206,
+              "ito_structured_ub": 0.35884071812632956,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.35869521032350316
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.03401991849817259,
+              "psi_cert": 5.280416763607035,
+              "ito_structured_ub": 0.35884071812632956,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.35847610825564435
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.011634914267416845,
+              "psi_cert": 15.43965517161088,
+              "ito_structured_ub": 0.35722454143016547,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.3570275048181787
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.0019628379053781026,
+              "psi_cert": 91.52046256588655,
+              "ito_structured_ub": 0.3361675327620832,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.33326431890925723
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.00010540414227848287,
+              "psi_cert": 1704.2918527540853,
+              "ito_structured_ub": 0.18005751775474607,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.16601064171195404
+            }
+          ]
+        },
+        {
+          "horizon_L": 120,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.14294100734251383,
+              "psi_cert": 1.2567073101525135,
+              "ito_structured_ub": 0.35908624702705094,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.359080328956107
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.11009060325621853,
+              "psi_cert": 1.6317454128325337,
+              "ito_structured_ub": 0.35908624702705094,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.35908018591629864
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.07053899567868685,
+              "psi_cert": 2.546672057408078,
+              "ito_structured_ub": 0.35884071812632956,
+              "ito_construction": "deterministic_5_cycle",
+              "numerical_hmm_ub": 0.35883930173482437
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.035304089081712474,
+              "psi_cert": 5.088357332793082,
+              "ito_structured_ub": 0.35884071812632956,
+              "ito_construction": "deterministic_5_cycle",
+              "numerical_hmm_ub": 0.3588385984758762
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.011021714300546466,
+              "psi_cert": 16.298720148033986,
+              "ito_structured_ub": 0.35834139276305454,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.35826636692612435
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.001036845297207756,
+              "psi_cert": 173.25616043393873,
+              "ito_structured_ub": 0.302748321192882,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.30211225427674615
+            }
+          ]
+        }
+      ]
+    },
+    "golden_pure_2p40": {
+      "theta": 2.4,
+      "shift_register_L7_states": 8,
+      "shift_register_L7_max_error": 0.0,
+      "bracket_by_horizon": [
+        {
+          "horizon_L": 7,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.01073668762461062,
+              "psi_cert": 13.948495171917923,
+              "ito_structured_ub": 0.31495433905343884,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.19465840934614465
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.22805844052736635,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.19459261646483683
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.08447764612051056,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.07993496527403915
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.03826199537624658,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.025257605543213435
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.03826199537624658,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.0015693448913706165
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.0,
+              "ito_construction": "acyclic_shift_register_exact",
+              "numerical_hmm_ub": 0.0
+            }
+          ]
+        },
+        {
+          "horizon_L": 15,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.058820055483441956,
+              "psi_cert": 4.233206447059899,
+              "ito_structured_ub": 0.4631321679617132,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.414762619610359
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.014662871371153042,
+              "psi_cert": 16.64864483099499,
+              "ito_structured_ub": 0.4339495008453338,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.40869929771571156
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.002022636957018805,
+              "psi_cert": 122.46182079844213,
+              "ito_structured_ub": 0.20361547229530613,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.15549075098834603
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.0001514824122091877,
+              "psi_cert": 1385.0339201236957,
+              "ito_structured_ub": 0.15283084124408242,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.1272612850922324
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 4.763847847506324e-05,
+              "psi_cert": 4625.732910148006,
+              "ito_structured_ub": 0.15283084124408242,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.12719353968088476
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.0,
+              "psi_cert": null,
+              "ito_structured_ub": 0.03787182793480248,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.03673342277981728
+            }
+          ]
+        },
+        {
+          "horizon_L": 30,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.10620907083687872,
+              "psi_cert": 2.348175716414955,
+              "ito_structured_ub": 0.4918126470684705,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.49121676439102735
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.05212887834071785,
+              "psi_cert": 4.789851436417444,
+              "ito_structured_ub": 0.49140494376243304,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.48630034348252094
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.008675955450029589,
+              "psi_cert": 28.793140503204025,
+              "ito_structured_ub": 0.3871204335817925,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.35338670174962805
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.0023565348227441744,
+              "psi_cert": 106.08626575995892,
+              "ito_structured_ub": 0.34132636059019406,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.31759361142747417
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.0005695329574265166,
+              "psi_cert": 438.95615798074914,
+              "ito_structured_ub": 0.34132636059019406,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.31759324848889214
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 1.0402465654140225e-05,
+              "psi_cert": 24019.455250074574,
+              "ito_structured_ub": 0.10379134021776472,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.09757513332054395
+            }
+          ]
+        },
+        {
+          "horizon_L": 60,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.15494496587408735,
+              "psi_cert": 1.6131793600175222,
+              "ito_structured_ub": 0.49813835203279455,
+              "ito_construction": "deterministic_3_cycle",
+              "numerical_hmm_ub": 0.4975342558914795
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.10586227674792417,
+              "psi_cert": 2.3613420691912066,
+              "ito_structured_ub": 0.49807272504833455,
+              "ito_construction": "deterministic_4_cycle",
+              "numerical_hmm_ub": 0.49807227371390106
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.026339640280752297,
+              "psi_cert": 9.491389024982192,
+              "ito_structured_ub": 0.4813639113671351,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.47249209605918785
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.010037131563545172,
+              "psi_cert": 24.907369868185526,
+              "ito_structured_ub": 0.461456964912454,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.4561420657421462
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.0035726281883543326,
+              "psi_cert": 69.97649511080903,
+              "ito_structured_ub": 0.461456964912454,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.4561527516732984
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.00017169700246114905,
+              "psi_cert": 1456.0511306251576,
+              "ito_structured_ub": 0.21459011505590486,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.2090874899022096
+            }
+          ]
+        },
+        {
+          "horizon_L": 120,
+          "orders": [
+            {
+              "order": 3,
+              "certified_error_lb": 0.19327351095530326,
+              "psi_cert": 1.2934412866967409,
+              "ito_structured_ub": 0.49988065997123754,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.4998806596503871
+            },
+            {
+              "order": 4,
+              "certified_error_lb": 0.15584912834470588,
+              "psi_cert": 1.6041154448602437,
+              "ito_structured_ub": 0.49988065974561335,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.49988063024802915
+            },
+            {
+              "order": 5,
+              "certified_error_lb": 0.06014020441221387,
+              "psi_cert": 4.156951117287809,
+              "ito_structured_ub": 0.49714656340830976,
+              "ito_construction": "deterministic_5_cycle",
+              "numerical_hmm_ub": 0.49714656340830976
+            },
+            {
+              "order": 6,
+              "certified_error_lb": 0.030356484628775365,
+              "psi_cert": 8.235472407323249,
+              "ito_structured_ub": 0.4959726371339509,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.4954828034938332
+            },
+            {
+              "order": 7,
+              "certified_error_lb": 0.01629693224289973,
+              "psi_cert": 15.340310450684488,
+              "ito_structured_ub": 0.48992022906221133,
+              "ito_construction": "deterministic_7_cycle",
+              "numerical_hmm_ub": 0.4880438739653554
+            },
+            {
+              "order": 8,
+              "certified_error_lb": 0.0012395303693476507,
+              "psi_cert": 201.68928819578912,
+              "ito_structured_ub": 0.36903137086977955,
+              "ito_construction": "ito_karpelevich_boundary",
+              "numerical_hmm_ub": 0.362017397622017
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "two_symbol_and_static_nmf": {
+    "baseline_mixed_0p73": {
+      "word_count_L7": 255,
+      "bloch_polytope_counterfeits": [
+        {
+          "state_count": 4,
+          "inradius_rho": 0.35824351282266725,
+          "initial_rho": 0.4276668660663895,
+          "max_error": 0.42344209624384166,
+          "rms_error": 0.2433847158117078,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 6,
+          "inradius_rho": 0.7081932103744624,
+          "initial_rho": 0.7407407407407408,
+          "max_error": 0.36266782128232317,
+          "rms_error": 0.1910289886961023,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 8,
+          "inradius_rho": 0.7081932103744624,
+          "initial_rho": 0.8131693932248252,
+          "max_error": 0.3907706762953842,
+          "rms_error": 0.21424297541045306,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 12,
+          "inradius_rho": 0.7970304431399307,
+          "initial_rho": 1.0,
+          "max_error": 0.31024228490901995,
+          "rms_error": 0.16227228429535853,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 16,
+          "inradius_rho": 0.7875462605008281,
+          "initial_rho": 1.0,
+          "max_error": 0.2805790435980512,
+          "rms_error": 0.14972974982371556,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 20,
+          "inradius_rho": 0.8300241643493094,
+          "initial_rho": 1.0,
+          "max_error": 0.2369570171354598,
+          "rms_error": 0.12167479247607293,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 32,
+          "inradius_rho": 0.8939307257624444,
+          "initial_rho": 1.0,
+          "max_error": 0.16110216206582972,
+          "rms_error": 0.08122709550599479,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 64,
+          "inradius_rho": 0.945293162098998,
+          "initial_rho": 1.0,
+          "max_error": 0.0961305991669034,
+          "rms_error": 0.04678888920987618,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 128,
+          "inradius_rho": 0.9735984545351664,
+          "initial_rho": 1.0,
+          "max_error": 0.04933984037934126,
+          "rms_error": 0.024313450871796816,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        }
+      ],
+      "static_15x15_simplex_box_nmf": [
+        {
+          "order": 4,
+          "static_max_error": 0.11883872886812558,
+          "static_fro_error": 0.4044095939308788
+        },
+        {
+          "order": 5,
+          "static_max_error": 0.04866044626845445,
+          "static_fro_error": 0.19381969996781495
+        },
+        {
+          "order": 6,
+          "static_max_error": 0.009721012827217046,
+          "static_fro_error": 0.0407301375829589
+        },
+        {
+          "order": 7,
+          "static_max_error": 0.01064138712697088,
+          "static_fro_error": 0.028543694206087558
+        },
+        {
+          "order": 8,
+          "static_max_error": 0.006580800799788955,
+          "static_fro_error": 0.016963554169459293
+        }
+      ]
+    },
+    "golden_mixed_2p40": {
+      "word_count_L7": 255,
+      "bloch_polytope_counterfeits": [
+        {
+          "state_count": 4,
+          "inradius_rho": 0.35824351282266725,
+          "initial_rho": 0.4276668660663895,
+          "max_error": 0.4237523567618722,
+          "rms_error": 0.23946159411466544,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 6,
+          "inradius_rho": 0.7077857656821056,
+          "initial_rho": 0.7407407407407408,
+          "max_error": 0.3700482358216215,
+          "rms_error": 0.18966429486165945,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 8,
+          "inradius_rho": 0.7077857656821056,
+          "initial_rho": 0.8131693932248252,
+          "max_error": 0.3800112644443998,
+          "rms_error": 0.21042264421644213,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 12,
+          "inradius_rho": 0.7967114337979526,
+          "initial_rho": 1.0,
+          "max_error": 0.3014501653773912,
+          "rms_error": 0.15670251297423132,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 16,
+          "inradius_rho": 0.7875462605008281,
+          "initial_rho": 1.0,
+          "max_error": 0.2772018119703167,
+          "rms_error": 0.1447422264024305,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 20,
+          "inradius_rho": 0.8300241643493094,
+          "initial_rho": 1.0,
+          "max_error": 0.23240663706765194,
+          "rms_error": 0.11833255885460725,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 32,
+          "inradius_rho": 0.8858412041398206,
+          "initial_rho": 1.0,
+          "max_error": 0.16571375070300373,
+          "rms_error": 0.08185445822338624,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 64,
+          "inradius_rho": 0.9471054572403345,
+          "initial_rho": 1.0,
+          "max_error": 0.09472089592804875,
+          "rms_error": 0.04702098603824303,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 128,
+          "inradius_rho": 0.9735984545351664,
+          "initial_rho": 1.0,
+          "max_error": 0.04944104590972764,
+          "rms_error": 0.023798508874995745,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        }
+      ],
+      "static_15x15_simplex_box_nmf": [
+        {
+          "order": 4,
+          "static_max_error": 0.12433031390978949,
+          "static_fro_error": 0.5966704111523952
+        },
+        {
+          "order": 5,
+          "static_max_error": 0.07017383404450826,
+          "static_fro_error": 0.28427842926974356
+        },
+        {
+          "order": 6,
+          "static_max_error": 0.03767953796777046,
+          "static_fro_error": 0.14771805503863417
+        },
+        {
+          "order": 7,
+          "static_max_error": 0.015179651215648154,
+          "static_fro_error": 0.06827081328092406
+        },
+        {
+          "order": 8,
+          "static_max_error": 0.0076213571216838805,
+          "static_fro_error": 0.028026064542253995
+        }
+      ]
+    },
+    "golden_pure_2p40": {
+      "word_count_L7": 255,
+      "bloch_polytope_counterfeits": [
+        {
+          "state_count": 4,
+          "inradius_rho": 0.35824351282266725,
+          "initial_rho": 0.5773502691896258,
+          "max_error": 0.49978139619315065,
+          "rms_error": 0.29802276276433276,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 6,
+          "inradius_rho": 0.7077857656821056,
+          "initial_rho": 1.0,
+          "max_error": 0.4394639639698824,
+          "rms_error": 0.1982214166676987,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 8,
+          "inradius_rho": 0.7077857656821056,
+          "initial_rho": 0.5773502691896258,
+          "max_error": 0.4683984701676176,
+          "rms_error": 0.27155226399600957,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 12,
+          "inradius_rho": 0.7967114337979526,
+          "initial_rho": 0.8506508083520399,
+          "max_error": 0.3887594878546209,
+          "rms_error": 0.2135371113749372,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 16,
+          "inradius_rho": 0.7875462605008281,
+          "initial_rho": 0.8400906683135881,
+          "max_error": 0.37077948031594765,
+          "rms_error": 0.1940166176580272,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 20,
+          "inradius_rho": 0.8300241643493094,
+          "initial_rho": 0.8725009163825939,
+          "max_error": 0.32511245891910234,
+          "rms_error": 0.1670441037749527,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 32,
+          "inradius_rho": 0.8858412041398206,
+          "initial_rho": 0.9206940358304164,
+          "max_error": 0.23614584964557417,
+          "rms_error": 0.11644391839170926,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 64,
+          "inradius_rho": 0.9471054572403345,
+          "initial_rho": 0.960497121330896,
+          "max_error": 0.13425961726684488,
+          "rms_error": 0.06667576920370084,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        },
+        {
+          "state_count": 128,
+          "inradius_rho": 0.9735984545351664,
+          "initial_rho": 0.9802847286033335,
+          "max_error": 0.07214730371474576,
+          "rms_error": 0.034199166274265676,
+          "word_count": 255,
+          "construction": "bloch_polytope_barycentric_lp"
+        }
+      ],
+      "static_15x15_simplex_box_nmf": [
+        {
+          "order": 4,
+          "static_max_error": 0.18536918354249476,
+          "static_fro_error": 0.7743611636590373
+        },
+        {
+          "order": 5,
+          "static_max_error": 0.13833043843349274,
+          "static_fro_error": 0.5057371329277998
+        },
+        {
+          "order": 6,
+          "static_max_error": 0.10138240830586276,
+          "static_fro_error": 0.36722493105081805
+        },
+        {
+          "order": 7,
+          "static_max_error": 0.0535022320540387,
+          "static_fro_error": 0.19942646726802143
+        },
+        {
+          "order": 8,
+          "static_max_error": 0.034751460933780676,
+          "static_fro_error": 0.11627431226878655
+        }
+      ]
+    }
+  }
+}

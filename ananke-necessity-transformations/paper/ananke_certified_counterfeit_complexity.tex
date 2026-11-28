@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Spec}{\operatorname{spec}}
+\newcommand{\Tr}{\operatorname{tr}}
+\newcommand{\dist}{\operatorname{dist}}
+
+\title{Certified Classical Counterfeit Complexity:\\
+The Karpelevi\v{c} Markov Theorem, Interval-Certified Spectral Separation,\\
+and Rank-Unrestricted B-Spline Obstructions}
+\author{Angus Muffatti}
+\date{28 November 2026 --- research draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Given only operational outcome probabilities $f(w)=\Pr(1\mid w)$ over finite words $w\in\Sigma^*$ of controlled transformations---with no assumed Hilbert space, hidden state space, or equations of motion---the \emph{classical counterfeit complexity} $C_{\mathrm{classical}}(f;\eps,\mathcal{W})$ is the minimum hidden-state count $N$ of an $N$-state row-stochastic realization reproducing $f$ on $\mathcal{W}$ within uniform error $\eps$.
+We establish a complete theorem-and-algorithm framework certifying lower bounds on $C_{\mathrm{classical}}$ at three levels:
+\begin{enumerate}
+\item \textbf{Zero-cancellation Karpelevi\v{c} interval certification:} building on Kirkland--Laffey--\v{S}migoc (2020) and Verbeken--Ginis (2026), we reformulate every Farey arc of the $N$-state stochastic eigenvalue region $\Theta_N$ as a strictly monotonic, cancellation-free positive gap equation and construct a zero-dependency outward-rounded \texttt{Decimal} interval branch-and-bound certifier over all Farey arcs, machine-certifying $N_{\mathrm{cl}}\ge 16$ on the baseline qubit bootstrap disk.
+\item \textbf{The Karpelevi\v{c} Markov Theorem:} for irrational phases $\alpha\in(0,1)$, the rescaled Karpelevi\v{c} separation constant $\kappa_\Theta(\alpha):=\liminf_{N\to\infty} N^3\dist(e^{2\pi i\alpha},\Theta_N)$ attains its strict global maximum $\frac{2\pi^2\varphi^3}{5\sqrt{5}}\approx 7.478899$ precisely on noble irrationals $[0;a_1,\dots,a_m,\overline{1}]$, whereas every non-noble irrational satisfies $\kappa_\Theta(\alpha)\le \frac{3\pi^2}{4}\approx 7.402203$ (reducing algebraically to $245<256$). Combining this with cross-sector Hankel conditioning motivates \emph{large-angle golden gate design} ($[0;2,\overline{1}]$).
+\item \textbf{Non-asymptotic fixed-rank and rank-unrestricted finite-shot certificates:} under exact rank $r$, Hankel Matrix Hoeffding (exploiting partial-permutation incidence matrices) plus exact similarity elimination and Schur-complement block isolation certifies $N_{\mathrm{cl}}\ge 17$ (baseline) and $N_{\mathrm{cl}}\ge 21$ (golden angle) at $300\text{k}$ shots/word ($\alpha=0.01$). Eliminating the rank cap entirely, we prove a \emph{B-spline Cayley--Hamilton spectral obstruction} coupled to a \emph{subharmonic dual spectral-measure certificate} over $\partial\Theta_N^+\cup[-1,1]$, certifying $N_{\mathrm{cl}}\ge 8$ with zero rank assumption using $200\text{k}$ total shots ($382\times$ fewer than fixed-rank v2), $N_{\mathrm{cl}}\ge 9$ at depth $L=320$, and noiselessly $N_{\mathrm{cl}}\ge 15$ at $L=1600$, $\eps=10^{-3}$, bracketed from above by explicit classical counterfeits.
+\end{enumerate}
+\end{abstract}
+
+\section{Operational Framework and Counterfeit Complexity}
+
+Let $\Sigma$ be a finite alphabet of controlled operations and $f:\Sigma^*\to[0,1]$ an operational probability law. Its behavioural Hankel operator is $H_f(u,v)=f(uv)$. An $N$-state \emph{classical stochastic realization} consists of $p\in\Delta_N$, row-stochastic matrices $M_a\in\R_{\ge0}^{N\times N}$ ($M_a\mathbf{1}=\mathbf{1}$), and an effect vector $e\in[0,1]^N$ producing $g(w)=pM_w e$. For a word family $\mathcal{W}\subset\Sigma^*$ and tolerance $\eps\ge 0$, define the classical counterfeit complexity
+\[
+ C_{\mathrm{classical}}(f;\eps,\mathcal{W})
+ := \inf\Bigl\{N\ge 1 : \exists N\text{-state classical } g \text{ with } \sup_{w\in\mathcal{W}}|f(w)-g(w)|\le\eps\Bigr\}.
+\]
+For any exact realization ($\eps=0$, $\mathcal{W}=\Sigma^*$), the minimal linear realization $(\alpha,\{B_a\},\omega)$ is isomorphic to the reachable/observable quotient $R/U$ of $(p,\{M_a\},e)$, forcing $\Spec(B_a)\subseteq\Spec(M_a)\subseteq\Theta_N$, where $\Theta_N\subset\overline{\D}$ is the Karpelevi\v{c} region of all eigenvalues of $N\times N$ row-stochastic matrices.
+
+\section{Zero-Cancellation Karpelevi\v{c} Geometry and Interval Certification}
+
+For every $N\ge 2$, $\Theta_N$ is compact, conjugation-symmetric, and star-shaped with respect to $0$: if $M$ has stationary distribution $\pi$, then $tM+(1-t)\mathbf{1}\pi^T$ scales all non-Perron eigenvalues by $t\in[0,1]$. Write $\Theta_N=\{re^{i\theta}:0\le r\le\rho_N(\theta)\}$. Between consecutive Farey fractions $p/q<r/s$ of order $N\ge 3$ ($qr-ps=1$), conjugation symmetry orients every arc to $1\le q<s\le N$.
+
+\begin{theorem}[Zero-Cancellation Positive Gap Form; cf.\ \cite{KLS2020,VerbekenGinis2026}]\label{thm:gap}
+On an oriented Farey arc $(p/q,r/s)$ of $\mathcal{F}_N$ ($N\ge 3$, $1\le q<s\le N$, $qr-ps=1$), set $d=\lfloor N/q\rfloor$, $\delta=\gcd(d,s)$, $s_1=s/\delta$, $d_1=d/\delta$, $\theta(t)=2\pi(p/q+t/(qs))$, $\beta_1(t)=2\pi t/s$, and $\beta_2(t)=2\pi(1-t)/(qd)$. Then:
+\begin{enumerate}
+\item All modular parameters in Kirkland--Laffey--\v{S}migoc \cite[Thm.~1.2]{KLS2020} cancel identically modulo $2\pi$ (see also Verbeken--Ginis \cite[Thm.~1.1]{VerbekenGinis2026}), yielding $\sin\beta_1\cdot\hat{\rho}^{s_1}+\sin\beta_2\cdot\hat{\rho}^{qd_1}=\sin(\beta_1+\beta_2)$ with $\rho_N(\theta(t))=\hat{\rho}^{d_1}$ and $\beta_1,\beta_2,\beta_1+\beta_2\in(0,\pi)$.
+\item Setting $y:=1-\hat{\rho}\in(0,1)$ and $P_m(y):=1-(1-y)^m$ yields the strictly monotonic, cancellation-free positive gap equation
+\[
+ \sin\beta_1(t)\,P_{s_1}(y) + \sin\beta_2(t)\,P_{qd_1}(y)
+ = 4\sin\!\left(\frac{\beta_1(t)}{2}\right)\sin\!\left(\frac{\beta_2(t)}{2}\right)\sin\!\left(\frac{\beta_1(t)+\beta_2(t)}{2}\right).
+\]
+\end{enumerate}
+\end{theorem}
+
+Using self-contained outward-rounded \texttt{Decimal} arithmetic (\texttt{src/ananke/interval.py}, with scaled \texttt{sqrt} verification, Machin $\pi$, and critical-point-aware Taylor $\sin/\cos/\operatorname{atan2}$), exact \texttt{Decimal}-keyed branch-and-bound over all Farey arcs, seam-safe angle wrapping, explicit $\Theta_1=\{1\}$ testing, and the zero-dependency polar lower bound
+\[
+ \inf_{w\in\Theta_N,\,\arg w\in T}|z-w|^2
+ \ge \dist\!\bigl([0,\rho_{\max}],\,|z|\cos(T-\phi)\bigr)^2 + \dist\!\bigl(0,\,|z|\sin(T-\phi)\bigr)^2,
+\]
+our certifier (\texttt{karpelevich\_certified.py}) machine-certifies the KLS $\Theta_5/\Theta_6$ benchmark at $7\pi/12$ and the v1 baseline qubit disk ($r=0.00792603$): $\dist(\hat{\lambda},\Theta_{15})\in[0.0088719,0.0089425]>r$ and $\dist(\hat{\lambda},\Theta_{16})\in[0.0073782,0.0074660]<r$, confirming $N_{\mathrm{cl}}\ge 16$ as a proved geometric separation.
+
+\section{The Karpelevi\v{c} Markov Theorem and Diophantine Gate Design}
+
+\begin{corollary}[Uniform Radial and Euclidean Asymptotic; radial part cf.\ \cite{VerbekenGinis2026}, Thm.~8.1]\label{cor:asymp}
+On every oriented Farey arc $(p/q,r/s)$ of $\mathcal{F}_N$ ($1\le q<s\le N$, $d=\lfloor N/q\rfloor$), Farey adjacency gives $s>N/2$ and $qd>N/2$, yielding uniformly over all $t\in[0,1]$:
+\[
+ 1-\rho_N(\theta(t)) = 2\pi^2\,\frac{t(1-t)}{qs}\!\left(\frac{t}{s}+\frac{1-t}{qd}\right)\bigl(1+O(N^{-2})\bigr).
+\]
+Rewriting the gap equation in $\rho=\hat{\rho}^{d_1}$ gives $|\partial_t F|=O(N^{-3})$ and $|\partial_\rho F|\gtrsim q/N$, hence the uniform global Lipschitz bound $|\rho_N'(\theta)|=O(N^{-1})$. For any nearest point $re^{i(\theta+\Delta)}\in\Theta_N$ at Euclidean distance $D$, $D^2=(1-r)^2+2r(1-\cos\Delta)$ and Cauchy--Schwarz yield $\dist(e^{i\theta(t)},\Theta_N)=(1-\rho_N(\theta(t)))(1+O(N^{-2}))$ uniformly in $t\in[0,1]$.
+\end{corollary}
+
+For badly approximable phases (bounded partial quotients), Karpelevi\v{c} separation scales as $N^{-3}$ (rather than $N^{-2}$ for nearest roots of unity); for unbounded partial quotients, $\liminf N^3\dist=0$.
+
+\begin{theorem}[Karpelevi\v{c} Markov Theorem]\label{thm:markov}
+For any irrational $\alpha\in(0,1)$, define $\kappa_\Theta(\alpha):=\liminf_{N\to\infty} N^3\dist(e^{2\pi i\alpha},\Theta_N)$.
+\begin{enumerate}
+\item Every \textbf{noble} irrational $\alpha_*=[0;a_1,\dots,a_m,\overline{1}]$ achieves
+\[
+ \kappa_\Theta(\alpha_*) = \frac{2\pi^2\varphi^3}{5\sqrt{5}} \approx 7.478899,\qquad \varphi=\frac{1+\sqrt{5}}{2}.
+\]
+\item Every \textbf{non-noble} irrational $\alpha$ satisfies
+\[
+ \kappa_\Theta(\alpha) \le \frac{3\pi^2}{4} \approx 7.402203 < \frac{2\pi^2\varphi^3}{5\sqrt{5}} = \kappa_\Theta(\alpha_*).
+\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Let $\alpha=[0;a_1,a_2,\dots]$ have convergents $p_k/q_k$, ratios $\beta_k=q_k/q_{k-1}\in(a_k,a_k+1)$, and tails $\alpha_{k+1}=[a_{k+1};a_{k+2},\dots]>a_{k+1}$. At $N=q_k$, the oriented Farey bracket is $(p_{k-1}/q_{k-1},p_k/q_k)$ with $q=q_{k-1}$, $s=q_k$, $d=a_k$, $t=u/(u+1)$ where $u=\alpha_{k+1}\beta_k$, and $\gamma=\beta_k/a_k\in(1,2)$. By Corollary~\ref{cor:asymp}, $q_k^3\dist(e^{2\pi i\alpha},\Theta_{q_k})=C_0(\beta_k,\alpha_{k+1})(1+O(q_k^{-2}))$ where
+\[
+ C_0(\beta_k,\alpha_{k+1}) = 2\pi^2\beta_k\,\frac{u(u+\gamma)}{(u+1)^3}.
+\]
+\emph{(1) Noble:} Eventually $a_j=1$, so $\beta_k,\alpha_{k+1},\gamma\to\varphi$ and $u\to\varphi^2$. Between $q_k$ and $q_{k+1}-1$, the mediant $p_{k+1}/q_{k+1}$ is the first new Farey fraction to enter; thus $d=1$ on $[q_k,2q_{k-1}-1]$ and $d=2$ on $[2q_{k-1},q_{k+1}-1]$. The two plateau left endpoints converge to $\frac{2\pi^2\varphi^3}{5\sqrt{5}}\approx 7.47890$ (at $q_k$) and $\frac{8\pi^2\varphi}{5\sqrt{5}}\approx 11.42674$ (at $2q_{k-1}$).
+
+\emph{(2) Non-noble:} Since $\gamma<2$, $u(u+\gamma)<(u+1)^2$, giving $C_0<2\pi^2\beta_k/(\alpha_{k+1}\beta_k+1)$. Because $a_{k+1}\ge 2$ infinitely often: if $a_{k+1}\ge 3$ infinitely often, $C_0<2\pi^2/3\approx 6.5797$; otherwise eventually $a_j\in\{1,2\}$ with $a_{k+1}=2$ infinitely often, so $\alpha_{k+1}>2+\frac{1}{2+1}=\frac{7}{3}$. If $a_k=1$, $\beta_k\le \frac{7}{4}$ gives $C_0<\frac{42\pi^2}{61}\approx 6.7955$; if $a_k=2$, $\beta_k<3$ gives $C_0<\frac{3\pi^2}{4}$. Finally, $\frac{3}{4}<\frac{2\varphi^3}{5\sqrt{5}}\iff 7\sqrt{5}<16\iff 245<256$.
+\end{proof}
+
+\paragraph{Finite-regime refinements.} At fixed finite $N$, arc asymmetry lets non-noble phases temporarily beat $[0;8,\overline{1}]$ inside sector $k=8$ (e.g., silver $[0;8,\overline{2}]$ beats $[0;8,\overline{1}]$ by $+11.1\%$ at $N=15$ before collapsing at $N=25$). Across sectors, moving from small-angle $0.73\,\text{rad}$ to the \emph{large-angle golden phase} $[0;2,\overline{1}]=1/\varphi^2$ ($\theta_x\approx 2.400\,\text{rad}$) simultaneously attains $\kappa_\Theta(\alpha_*)$ and doubles $\sigma_4(H)$ ($1.0856$ vs.\ $0.5415$), boosting fixed-rank 99\% exclusions at $300\text{k}$ shots/word from $N_{\mathrm{cl}}\ge 17$ to $N_{\mathrm{cl}}\ge 21$.
+
+\section{Non-Asymptotic Fixed-Rank Finite-Sample Certificates}
+
+Given independent binomial counts $S_w\sim\mathrm{Binomial}(M_w,f(w))$ with unbiased rates $\hat{f}(w)=S_w/M_w$, write $\Delta H=\hat{H}-H=\sum_{w\in\mathcal{W}}\sum_{j=1}^{M_w}\frac{Y_{w,j}-f(w)}{M_w}E_w$, where $(E_w)_{u,v}=\mathbf{1}[uv=w]$.
+
+\begin{theorem}[Hankel Matrix Hoeffding]\label{thm:mh}
+Because every unique-word incidence matrix $E_w$ (and shifted $E_{a,w}$) is a partial permutation matrix, $E_wE_w^T$ and $E_w^TE_w$ are diagonal binary matrices. Setting $\sigma_H^2:=\max\bigl(\max_u\sum_v M_{uv}^{-1},\max_v\sum_u M_{uv}^{-1}\bigr)$, Tropp's Master Tail Bound \cite[Thm.~3.6]{Tropp2012} yields
+\[
+ \Pr\!\bigl(\|\hat{H}-H\|_2\ge t\bigr) \le (m+n)\exp\!\left(-\frac{2t^2}{\sigma_H^2}\right).
+\]
+\end{theorem}
+
+On the $15\times 15$ baseline Hankel block ($M=10\text{k}$, $\delta=0.005$), Theorem~\ref{thm:mh} gives $\eps_H=0.0808$ ($3.83\times$ tighter than entrywise Chernoff--KL + Frobenius) and unconditionally certifies $\operatorname{rank}(H)\ge 4$ via Weyl's inequality.
+
+Under the exact rank-$r$ structural condition $\operatorname{rank}(H_f)=\operatorname{rank}(H)=r$, for any orthonormal $(\hat{U}_r,\hat{V}_r)$ with $\sigma_{\min}(\hat{U}_r^T\hat{H}\hat{V}_r)>\|\Delta X\|_2$, $M_a^*:=(\hat{U}_r^T H_a\hat{V}_r)(\hat{U}_r^T H\hat{V}_r)^{-1}$ is \emph{exact-spectrum similar} to $B_a$ (eliminating Wedin $\sin\Theta$ error), and a $1$-vs-$(r-1)$ Schur-complement homotopy isolates a simple mode $\hat{\lambda}$ without diagonalizing the qubit's degenerate $\lambda=1$ block (which blows up Bauer--Fike by $5\times$--$30\times$). Hypergeometric thinning with fresh independent randomness splits counts into independent pilot/main datasets, enabling scalar Hoeffding on the leading linear functional and $r\times r$ projected Matrix Hoeffding on the remainder. (Implementation note: \texttt{certified\_inference.py} evaluates these exact concentration inequalities in IEEE-754 float64 with conservative SVD backward-error guards and exact inverse-transform guards $\frac{\|E\|_2}{1-\|E\|_2}\|PAW\|_2$, paired with interval-certified Karpelevi\v{c} geometry.)
+
+\section{Closing the Rank Cap: Rank-Unrestricted B-Spline Obstructions}
+
+Finite-shot data on a finite Hankel block can never prove $\operatorname{rank}(H_f)\le r$ without an a priori structural assumption. Indeed:
+
+\begin{proposition}[Finite-Horizon Shift-Register Loophole]\label{prop:shift}
+For any operational law $f$ on unary words $\{a^k:0\le k\le L\}$, an explicit $(L+1)$-state acyclic deterministic shift register achieves exact error $\eps=0$ with $\Spec(M_a)=\{1,0,\dots,0\}$. Hence no rank-unrestricted unary bound at horizon $L$ can certify $N>L+1$.
+\end{proposition}
+
+To obtain genuinely model-independent lower bounds on $C_{\mathrm{classical}}(f;\eps,\{a^k:k\le L\})$ for $L>N$, let $w^{(N)}$ be the $N$-fold discrete convolution of the uniform length-$M$ boxcar (discrete B-spline supported on $0\le k\le N(M-1)$), which obeys $\|\nabla^m w^{(N)}\|_1\le (2/M)^m$ for all $0\le m\le N$.
+
+\begin{theorem}[B-Spline Cayley--Hamilton Spectral Obstruction]\label{thm:bspline}
+Let $g(w)=pM_w e$ be \emph{any} $N$-state classical stochastic realization (arbitrary rank $\le N$, arbitrary Jordan blocks), and let $\Psi_N(M,\theta):=\sup_{A\in\mathcal{S}_N}\prod_{j=1}^N\bigl(1+\frac{2}{M|e^{i\theta}-\lambda_j(A)|}\bigr)$. Expanding $\chi(e^{i\theta}S)=\sum_{m=0}^N\frac{(-e^{i\theta})^m\chi^{(m)}(e^{i\theta})}{m!}\nabla^m$ on $\chi(M_a)=0$ gives:
+\begin{enumerate}
+\item \textbf{Mode A (Unconditional Fourier-Amplitude Cap, $L=N(M-1)$):}
+\[
+ \left|\sum_{k=0}^{N(M-1)} w^{(N)}_k e^{-ik\theta}\!\left(g(a^k)-\tfrac{1}{2}\right)\right| \;\le\; \frac{1}{2}\bigl(\Psi_N(M,\theta)-1\bigr).
+\]
+\item \textbf{Mode B (Reference-Sinusoid Residual Bound, $L=NM$):} for any $s(k)=c_0+A\cos(k\theta+\phi)$,
+\[
+ \frac{A}{2}\bigl(1-|W^{(N)}(2\theta)|\bigr) \;\le\; \Psi_N(M,\theta)\max_{0\le k\le NM}|g(a^k)-s(k)|.
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Subharmonic Dual Spectral-Measure Certificate]\label{thm:subharm}
+For any nonnegative trace multipliers $y_1,\dots,y_K\ge 0$, the potential
+\[
+ \psi_{M,y}(\lambda) := \tfrac{1}{2}\ln\!\left(1+\frac{2}{M|z-\lambda|}\right)+\tfrac{1}{2}\ln\!\left(1+\frac{2}{M|z-\bar{\lambda}|}\right)+\sum_{k=1}^K y_k\operatorname{Re}(\lambda^k)
+\]
+is strictly subharmonic on $\C\setminus\{z,\bar{z}\}$. Since $\Tr(A^k)\ge 0$ for every stochastic matrix $A$, the Subharmonic Maximum Principle collapses $\ln\Psi_N(M,\theta)$ from a 2D supremum over $\Theta_N$ to a 1D supremum over $\partial\Theta_N^+\cup[-1,1]$, which is machine-certified by outward-rounded \texttt{Decimal} interval branch-and-bound (\texttt{src/ananke/rank\_unrestricted.py}).
+\end{theorem}
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Experiment / Regime & Horizon $L$ & Total Shots & Rank Assumption & Certified Lower Bound \\
+\midrule
+v2 baseline (fixed-rank, $0.73$) & 7 & $76.5\text{M}$ & $\operatorname{rank}(H_f)=4$ & $N_{\mathrm{cl}}\ge 17$ ($\alpha=0.01$) \\
+v2 golden angle ($[0;2,\overline{1}]$) & 7 & $76.5\text{M}$ & $\operatorname{rank}(H_f)=4$ & $N_{\mathrm{cl}}\ge 21$ ($\alpha=0.01$) \\
+v3 Mode A (golden pure) & 4000 & \textbf{$200\text{k}$} & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 8$} ($\alpha=0.01$) \\
+v3 Mode B (golden pure) & 320 & $16.05\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 9$} ($\alpha=0.01$) \\
+v3 noiseless (baseline, $\eps=10^{-3}$) & 1600 & $\infty$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 15$} \\
+\bottomrule
+\end{tabular}
+\caption{Comparison of fixed-rank (v2) and rank-unrestricted (v3) classical-memory lower bounds.}
+\label{tab:ananke}
+\end{table}
+
+Table~\ref{tab:ananke} summarizes the quantitative trade-off. Paired with explicit constructive classical counterfeits (\texttt{approximate\_realization.py}: acyclic shift registers, Ito/Karpelevi\v{c} boundary matrices, LP-polished unary HMMs, static simplex-box NMF, and two-symbol Bloch polytopes), ANANKE brackets $C_{\mathrm{classical}}(f;\eps,\mathcal{W})$ from both sides: static simplex-box NMF on the $15\times 15$ mixed-qubit Hankel block achieves error $0.0066$ at $N=8$, whereas two-symbol dynamical Bloch-polytope counterfeits still incur error $0.310$ at $N=12$ and $0.049$ at $N=128$.
+
+\section*{Reproducibility and Disclosure}
+All 56 unit tests (\texttt{ananke-necessity-transformations/tests/}, including 7 adversarial regression tests from cross-model refereeing) and reproducible experiment scripts run with pure Python stdlib and NumPy/SciPy. AI systems (Gemini 4 Neon, OpenAI Codex GPT-6.2) assisted with derivations, implementation, and adversarial refereeing; the author assumes responsibility for verification and final text.
+
+\begin{thebibliography}{9}
+\bibitem{KLS2020} S.~Kirkland, T.~J.~Laffey, and H.~\v{S}migoc, The Karpelevi\v{c} region revisited, \emph{Linear Algebra Appl.} (2020), arXiv:2005.02452.
+\bibitem{VerbekenGinis2026} B.~Verbeken and V.~Ginis, Boundary geometry and asymptotics of the Karpelevi\v{c} region, arXiv:2609.26058v3 (2026).
+\bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, \emph{Found.\ Comput.\ Math.} 12 (2012), 389--434.
+\bibitem{Wolf2009} M.~M.~Wolf and D.~P\'erez-Garc\'ia, Assessing dimensions from evolution, \emph{Phys.\ Rev.\ Lett.} 102 (2009), 190504.
+\bibitem{Fanizza2024} M.~Fanizza et al., Quantum theory in finite dimension cannot explain every finite-dimensional process, arXiv:2209.11225 (2024).
+\end{thebibliography}
+
+\end{document}
