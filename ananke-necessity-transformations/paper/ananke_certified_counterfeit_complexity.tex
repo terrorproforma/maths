@@ -37,7 +37,7 @@ We establish a complete theorem-and-algorithm framework certifying lower bounds 
 \begin{enumerate}
 \item \textbf{Zero-cancellation Karpelevi\v{c} interval certification:} building on Kirkland--Laffey--\v{S}migoc (2020) and Verbeken--Ginis (2026), we reformulate every Farey arc of the $N$-state stochastic eigenvalue region $\Theta_N$ as a strictly monotonic, cancellation-free positive gap equation and construct a zero-dependency outward-rounded \texttt{Decimal} interval branch-and-bound certifier over all Farey arcs, machine-certifying $N_{\mathrm{cl}}\ge 16$ on the baseline qubit bootstrap disk.
 \item \textbf{The Karpelevi\v{c} Markov Theorem:} for irrational phases $\alpha\in(0,1)$, the rescaled Karpelevi\v{c} separation constant $\kappa_\Theta(\alpha):=\liminf_{N\to\infty} N^3\dist(e^{2\pi i\alpha},\Theta_N)$ attains its strict global maximum $\frac{2\pi^2\varphi^3}{5\sqrt{5}}\approx 7.478899$ precisely on noble irrationals $[0;a_1,\dots,a_m,\overline{1}]$, whereas every non-noble irrational satisfies $\kappa_\Theta(\alpha)\le \frac{3\pi^2}{4}\approx 7.402203$ (reducing algebraically to $245<256$). Combining this with cross-sector Hankel conditioning motivates \emph{large-angle golden gate design} ($[0;2,\overline{1}]$).
-\item \textbf{Non-asymptotic fixed-rank and rank-unrestricted finite-shot certificates:} under exact rank $r$, Hankel Matrix Hoeffding (exploiting partial-permutation incidence matrices) plus exact similarity elimination and Schur-complement block isolation certifies $N_{\mathrm{cl}}\ge 17$ (baseline) and $N_{\mathrm{cl}}\ge 21$ (golden angle) at $300\text{k}$ shots/word ($\alpha=0.01$). Eliminating the rank cap entirely, we prove a \emph{B-spline Cayley--Hamilton spectral obstruction} coupled to a \emph{subharmonic dual spectral-measure certificate} over $\partial\Theta_N^+\cup[-1,1]$, certifying $N_{\mathrm{cl}}\ge 8$ with zero rank assumption using $200\text{k}$ total shots ($382\times$ fewer than fixed-rank v2), $N_{\mathrm{cl}}\ge 9$ at depth $L=320$, and noiselessly $N_{\mathrm{cl}}\ge 15$ at $L=1600$, $\eps=10^{-3}$, bracketed from above by explicit classical counterfeits.
+\item \textbf{Non-asymptotic fixed-rank and rank-unrestricted finite-shot certificates:} under exact rank $r$, Hankel Matrix Hoeffding (exploiting partial-permutation incidence matrices) plus exact similarity elimination and Schur-complement block isolation certifies $N_{\mathrm{cl}}\ge 17$ (baseline) and $N_{\mathrm{cl}}\ge 21$ (golden angle) at $300\text{k}$ shots/word ($\alpha=0.01$). Eliminating the rank cap entirely, we prove a \emph{B-spline Cayley--Hamilton spectral obstruction} coupled to a \emph{subharmonic dual spectral-measure certificate} over $\partial\Theta_N^+\cup[-1,1]$, certifying $N_{\mathrm{cl}}\ge 8$ with zero rank assumption at horizon $L=4000$ using $200\text{k}$ total shots, $N_{\mathrm{cl}}\ge 9$ at depth $L=320$ ($64.2\text{M}$ shots), and noiselessly $N_{\mathrm{cl}}\ge 15$ at $L=1600$, $\eps=10^{-3}$ (hitting the $N_{\max}=14$ tested cap), bracketed from above by explicit classical counterfeits.
 \end{enumerate}
 \end{abstract}
 
@@ -136,7 +136,7 @@ For any operational law $f$ on unary words $\{a^k:0\le k\le L\}$, an explicit $(
 To obtain genuinely model-independent lower bounds on $C_{\mathrm{classical}}(f;\eps,\{a^k:k\le L\})$ for $L>N$, let $w^{(N)}$ be the $N$-fold discrete convolution of the uniform length-$M$ boxcar (discrete B-spline supported on $0\le k\le N(M-1)$), which obeys $\|\nabla^m w^{(N)}\|_1\le (2/M)^m$ for all $0\le m\le N$.
 
 \begin{theorem}[B-Spline Cayley--Hamilton Spectral Obstruction]\label{thm:bspline}
-Let $g(w)=pM_w e$ be \emph{any} $N$-state classical stochastic realization (arbitrary rank $\le N$, arbitrary Jordan blocks), and let $\Psi_N(M,\theta):=\sup_{A\in\mathcal{S}_N}\prod_{j=1}^N\bigl(1+\frac{2}{M|e^{i\theta}-\lambda_j(A)|}\bigr)$. Expanding $\chi(e^{i\theta}S)=\sum_{m=0}^N\frac{(-e^{i\theta})^m\chi^{(m)}(e^{i\theta})}{m!}\nabla^m$ on $\chi(M_a)=0$ gives:
+Let $g(w)=pM_w e$ be \emph{any} $N$-state classical stochastic realization (arbitrary rank $\le N$, arbitrary Jordan blocks), let $\theta\in(0,\pi)$ satisfy $e^{i\theta}\notin\Theta_N$, and define $\Psi_N(M,\theta):=\sup_{A\in\mathcal{S}_N}\prod_{j=1}^N\bigl(1+\frac{2}{M|e^{i\theta}-\lambda_j(A)|}\bigr)$. Expanding $\chi(e^{i\theta}S)=\sum_{m=0}^N\frac{(-e^{i\theta})^m\chi^{(m)}(e^{i\theta})}{m!}\nabla^m$ on $\chi(M_a)=0$ with the zero-extended B-spline window $w^{(N)}$ (so summation by parts has no boundary terms) gives:
 \begin{enumerate}
 \item \textbf{Mode A (Unconditional Fourier-Amplitude Cap, $L=N(M-1)$):}
 \[
@@ -144,17 +144,22 @@ Let $g(w)=pM_w e$ be \emph{any} $N$-state classical stochastic realization (arbi
 \]
 \item \textbf{Mode B (Reference-Sinusoid Residual Bound, $L=NM$):} for any $s(k)=c_0+A\cos(k\theta+\phi)$,
 \[
- \frac{A}{2}\bigl(1-|W^{(N)}(2\theta)|\bigr) \;\le\; \Psi_N(M,\theta)\max_{0\le k\le NM}|g(a^k)-s(k)|.
+ \frac{A}{2}\bigl(1-|W^{(N)}(2\theta)|\bigr) \;\le\; \left|\sum_{k=0}^{N(M-1)}w^{(N)}_k e^{-ik\theta}(g(a^k)-s(k))\right| + \bigl(\Psi_N(M,\theta)-1\bigr)\max_{0\le k\le NM}|g(a^k)-s(k)|,
 \]
+and in particular $\frac{A}{2}(1-|W^{(N)}(2\theta)|)\le \Psi_N(M,\theta)\max_{0\le k\le NM}|g(a^k)-s(k)|$.
 \end{enumerate}
 \end{theorem}
 
-\begin{theorem}[Subharmonic Dual Spectral-Measure Certificate]\label{thm:subharm}
-For any nonnegative trace multipliers $y_1,\dots,y_K\ge 0$, the potential
+\begin{theorem}[Subharmonic Dual Spectral-Measure Relaxation]\label{thm:subharm}
+Let $z=e^{i\theta}\notin\Theta_N$ ($\theta\in(0,\pi)$) and let $y_1,\dots,y_K\ge 0$ be any nonnegative trace multipliers. The function
 \[
  \psi_{M,y}(\lambda) := \tfrac{1}{2}\ln\!\left(1+\frac{2}{M|z-\lambda|}\right)+\tfrac{1}{2}\ln\!\left(1+\frac{2}{M|z-\bar{\lambda}|}\right)+\sum_{k=1}^K y_k\operatorname{Re}(\lambda^k)
 \]
-is strictly subharmonic on $\C\setminus\{z,\bar{z}\}$. Since $\Tr(A^k)\ge 0$ for every stochastic matrix $A$, the Subharmonic Maximum Principle collapses $\ln\Psi_N(M,\theta)$ from a 2D supremum over $\Theta_N$ to a 1D supremum over $\partial\Theta_N^+\cup[-1,1]$, which is machine-certified by outward-rounded \texttt{Decimal} interval branch-and-bound (\texttt{src/ananke/rank\_unrestricted.py}).
+is strictly subharmonic on $\C\setminus\{z,\bar{z}\}$ (radial Laplacian $c/[\rho(\rho+c)^2]>0$ for $c=2/M$). Separating one Perron root $\lambda_1=1$ and using $\Tr(A^k)\ge 0$ yields the certified dual upper bound
+\[
+ \Psi_N(M,\theta) \;\le\; \left(1+\frac{2}{M|z-1|}\right)\exp\!\left(\sum_{k=1}^K y_k + (N-1)\sup_{\lambda\in\partial\Theta_N^+\cup[-1,1]}\psi_{M,y}(\lambda)\right),
+\]
+where the 1D boundary supremum over the compact set $\partial\Theta_N^+\cup[-1,1]$ (by the Subharmonic Maximum Principle) is machine-certified by outward-rounded \texttt{Decimal} interval branch-and-bound (\texttt{src/ananke/rank\_unrestricted.py}; the downstream Fourier sums and Hoeffding/KL radii are evaluated in IEEE-754 float64).
 \end{theorem}
 
 \begin{table}[t]
@@ -162,27 +167,27 @@ is strictly subharmonic on $\C\setminus\{z,\bar{z}\}$. Since $\Tr(A^k)\ge 0$ for
 \small
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
-Experiment / Regime & Horizon $L$ & Total Shots & Rank Assumption & Certified Lower Bound \\
+Experiment / Regime & Horizon $L$ & Total Shots & Rank Assumption & Lower Bound \\
 \midrule
 v2 baseline (fixed-rank, $0.73$) & 7 & $76.5\text{M}$ & $\operatorname{rank}(H_f)=4$ & $N_{\mathrm{cl}}\ge 17$ ($\alpha=0.01$) \\
 v2 golden angle ($[0;2,\overline{1}]$) & 7 & $76.5\text{M}$ & $\operatorname{rank}(H_f)=4$ & $N_{\mathrm{cl}}\ge 21$ ($\alpha=0.01$) \\
-v3 Mode A (golden pure) & 4000 & \textbf{$200\text{k}$} & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 8$} ($\alpha=0.01$) \\
-v3 Mode B (golden pure) & 320 & $16.05\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 9$} ($\alpha=0.01$) \\
-v3 noiseless (baseline, $\eps=10^{-3}$) & 1600 & $\infty$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 15$} \\
+v3 Mode A (golden pure) & 4000 & $200\text{k}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 8$} ($\alpha=0.01$) \\
+v3 Mode B (golden pure) & 320 & $64.2\text{M}$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 9$} ($\alpha=0.01$) \\
+v3 noiseless (baseline, $\eps=10^{-3}$) & 1600 & $\infty$ & \textbf{None} & \textbf{$N_{\mathrm{cl}}\ge 15$} ($N_{\max}=14$) \\
 \bottomrule
 \end{tabular}
 \caption{Comparison of fixed-rank (v2) and rank-unrestricted (v3) classical-memory lower bounds.}
 \label{tab:ananke}
 \end{table}
 
-Table~\ref{tab:ananke} summarizes the quantitative trade-off. Paired with explicit constructive classical counterfeits (\texttt{approximate\_realization.py}: acyclic shift registers, Ito/Karpelevi\v{c} boundary matrices, LP-polished unary HMMs, static simplex-box NMF, and two-symbol Bloch polytopes), ANANKE brackets $C_{\mathrm{classical}}(f;\eps,\mathcal{W})$ from both sides: static simplex-box NMF on the $15\times 15$ mixed-qubit Hankel block achieves error $0.0066$ at $N=8$, whereas two-symbol dynamical Bloch-polytope counterfeits still incur error $0.310$ at $N=12$ and $0.049$ at $N=128$.
+Table~\ref{tab:ananke} summarizes the quantitative trade-off across different horizon and assumption regimes. Paired with explicit constructive classical witnesses (\texttt{approximate\_realization.py}: acyclic shift registers, Ito/Karpelevi\v{c} boundary matrices, LP-polished unary HMMs, static simplex-box NMF, and two-symbol Bloch polytopes), ANANKE provides upper bounds for each corresponding word family: static simplex-box NMF on the $15\times 15$ mixed-qubit Hankel block achieves error $0.0066$ at $N=8$, whereas the constructed two-symbol Bloch-polytope witnesses incur error $0.310$ at $N=12$ and $0.049$ at $N=128$ (upper bounds on those specific dynamical witnesses, not lower bounds on optimal dynamical error).
 
 \section*{Reproducibility and Disclosure}
-All 56 unit tests (\texttt{ananke-necessity-transformations/tests/}, including 7 adversarial regression tests from cross-model refereeing) and reproducible experiment scripts run with pure Python stdlib and NumPy/SciPy. AI systems (Gemini 4 Neon, OpenAI Codex GPT-6.2) assisted with derivations, implementation, and adversarial refereeing; the author assumes responsibility for verification and final text.
+All unit tests (\texttt{ananke-necessity-transformations/tests/}, including adversarial regression tests from cross-model refereeing) and reproducible experiment scripts run with pure Python stdlib and NumPy/SciPy. AI systems (Gemini 4 Neon, OpenAI Codex GPT-6.2, Claude Fable 5.2) assisted with derivations, implementation, and adversarial refereeing; the author assumes responsibility for verification and final text.
 
 \begin{thebibliography}{9}
 \bibitem{KLS2020} S.~Kirkland, T.~J.~Laffey, and H.~\v{S}migoc, The Karpelevi\v{c} region revisited, \emph{Linear Algebra Appl.} (2020), arXiv:2005.02452.
-\bibitem{VerbekenGinis2026} B.~Verbeken and V.~Ginis, Boundary geometry and asymptotics of the Karpelevi\v{c} region, arXiv:2609.26058v3 (2026).
+\bibitem{VerbekenGinis2026} B.~Verbeken and V.~Ginis, Preprint arXiv:2609.26058v3 (2026) (Theorems 1.1 and 8.1).
 \bibitem{Tropp2012} J.~A.~Tropp, User-friendly tail bounds for sums of random matrices, \emph{Found.\ Comput.\ Math.} 12 (2012), 389--434.
 \bibitem{Wolf2009} M.~M.~Wolf and D.~P\'erez-Garc\'ia, Assessing dimensions from evolution, \emph{Phys.\ Rev.\ Lett.} 102 (2009), 190504.
 \bibitem{Fanizza2024} M.~Fanizza et al., Quantum theory in finite dimension cannot explain every finite-dimensional process, arXiv:2209.11225 (2024).

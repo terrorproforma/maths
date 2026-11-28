@@ -128,6 +128,8 @@ def validate_classical_realization(
     n = p.size
     if n == 0 or e.size != n:
         raise ValueError("initial and final must be non-empty vectors of equal length")
+    if not (np.all(np.isfinite(p)) and np.all(np.isfinite(e))):
+        raise ValueError("initial and final must contain only finite entries")
     if np.any(p < -tol) or abs(float(np.sum(p)) - 1.0) > tol:
         raise ValueError(
             f"initial distribution violates simplex constraint: min={p.min()}, sum={p.sum()}"
@@ -142,6 +144,8 @@ def validate_classical_realization(
         mat = np.asarray(transitions[sym], dtype=float)
         if mat.shape != (n, n):
             raise ValueError(f"transition {sym!r} has shape {mat.shape}, expected {(n, n)}")
+        if not np.all(np.isfinite(mat)):
+            raise ValueError(f"transition {sym!r} contains non-finite entries")
         if np.any(mat < -tol):
             raise ValueError(f"transition {sym!r} has negative entry {mat.min()}")
         row_err = float(np.max(np.abs(mat.sum(axis=1) - 1.0)))
@@ -604,7 +608,12 @@ def _spherical_polytope_vertices(order: int) -> FloatArray:
 
 @dataclass(frozen=True)
 class BlochPolytopeCounterfeitResult:
-    """Explicit N-state two-symbol classical counterfeit via Bloch polytope discretization."""
+    """Explicit N-state two-symbol classical counterfeit via Bloch polytope discretization.
+
+    Note: ``inradius_rho`` records the minimum barycentric scale achieved across the
+    rotated polytope vertices ``R_a v_i`` (a lower bound for those sampled directions,
+    not necessarily the exact Euclidean inradius of the polytope).
+    """
 
     realization: ClassicalRealization
     inradius_rho: float

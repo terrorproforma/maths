@@ -127,6 +127,35 @@ class RefereeRegressionV2Tests(unittest.TestCase):
         self.assertGreater(val, 0.0)
         self.assertLess(val, 7.4789)
 
+    def test_v3_bspline_multiplier_exact_angle_and_low_ambient_prec(self) -> None:
+        from decimal import localcontext
+        from ananke.interval import exp_interval, log_interval
+        from ananke.rank_unrestricted import certify_bspline_multiplier
+
+        # Exact angle 3.2 at N=2, M=2: exact supremum ~ 27.20017565866149
+        r1 = certify_bspline_multiplier(2, 2, 3.2, num_moments=0)
+        self.assertTrue(r1.certified)
+        self.assertGreaterEqual(r1.psi_upper_bound, 27.20017565866149)
+
+        # Low ambient Decimal precision (prec=3) must never corrupt sqrt(40) or multiplier
+        with localcontext() as ctx:
+            ctx.prec = 3
+            s = Interval.exact(2).sqrt(40)
+            ref = Decimal("1.41421356237309504880168872420969807856967")
+            self.assertLess(s.lo, ref)
+            self.assertGreater(s.hi, ref)
+            r2 = certify_bspline_multiplier(2, 1, 0.73, num_moments=0, tol=1e-12)
+            self.assertTrue(r2.certified)
+            self.assertGreaterEqual(r2.psi_upper_bound, 15.202602328265127)
+
+        # Extreme positive log and subnormal exp must terminate soundly without Overflow
+        lg = log_interval(Interval.exact(Decimal("1e1000001")), 28)
+        self.assertGreater(lg.lo, Decimal("2302585"))
+        self.assertLess(lg.hi, Decimal("2302590"))
+        ex = exp_interval(Interval.exact(Decimal("-2302586")), 28)
+        self.assertGreaterEqual(ex.lo, Decimal(0))
+        self.assertGreater(ex.hi, Decimal(0))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -400,17 +400,35 @@ def certify_bspline_multiplier(
         for k, y_k in enumerate(y_opt, start=1)
         if y_k > 0.0
     ]
-    theta_iv = Interval.from_float(theta_u)
+    # Enclose the EXACT supplied angle FIRST, then reduce mod 2*pi and reflect into [0, pi]
+    # purely in outward-rounded Decimal interval arithmetic (never via float64 2*pi - theta).
+    raw_theta_iv = Interval.from_float(float(theta_radians))
+    two_pi_iv = two_pi_interval(prec)
+    pi_iv = pi_interval(prec)
+    q_iv = raw_theta_iv.div(two_pi_iv, prec)
+    from decimal import ROUND_FLOOR
+
+    k_period = int(q_iv.lo.to_integral_value(rounding=ROUND_FLOOR))
+    theta_mod = raw_theta_iv.sub(Interval.exact(k_period).mul(two_pi_iv, prec), prec)
+    if theta_mod.lo > pi_iv.hi:
+        theta_iv = two_pi_iv.sub(theta_mod, prec)
+    elif theta_mod.hi < pi_iv.lo:
+        theta_iv = theta_mod
+    else:
+        # Straddles pi: take the symmetric hull of [theta_mod.lo, pi_hi] and [2*pi - theta_mod.hi, pi_hi]
+        refl = two_pi_iv.sub(theta_mod, prec)
+        theta_iv = Interval(min(theta_mod.lo, refl.lo), max(theta_mod.hi, refl.hi))
+
     c_iv = Interval.exact(2).div(Interval.exact(m), prec)
     cos_th = cos_interval(theta_iv, prec)
     sin_th = sin_interval(theta_iv, prec)
     sin_th_sq = sin_th.sqr(prec)
 
-    # Max-heap via negative float ub: (-ub_float, tie, ub_dec, kind, arc_idx, lo, hi)
+    # Max-heap keyed by EXACT negative Decimal ub: (-ub_dec, tie, kind, arc_idx, lo, hi)
     # kind == 0: real interval [lo, hi] in [-1, 1]
     # kind == 1: Farey arc arc_idx, t in [lo, hi] subset [0, 1]
     arcs: list[_FareyArcSpec] = []
-    heap: list[tuple[float, int, Decimal, int, int, Decimal, Decimal]] = []
+    heap: list[tuple[Decimal, int, int, int, Decimal, Decimal]] = []
     counter = 0
     evaluated = 0
     best_lb = Decimal("-Infinity")
@@ -424,7 +442,7 @@ def certify_bspline_multiplier(
         if lb > best_lb:
             best_lb = lb
         counter += 1
-        heapq.heappush(heap, (-float(ub), counter, ub, 0, -1, a, b))
+        heapq.heappush(heap, (-ub, counter, 0, -1, a, b))
 
     # 2. Cover every Farey arc in [0, 1/2] (covering alpha in [0, pi]) for N >= 3
     if n >= 3:
@@ -449,12 +467,13 @@ def certify_bspline_multiplier(
                 if lb > best_lb:
                     best_lb = lb
                 counter += 1
-                heapq.heappush(heap, (-float(ub), counter, ub, 1, arc_idx, t_lo, t_hi))
+                heapq.heappush(heap, (-ub, counter, 1, arc_idx, t_lo, t_hi))
 
     tol_dec = Decimal.from_float(tol)
     status = "converged"
     while heap and evaluated < max_subdivisions:
-        _, _, top_ub, kind, arc_idx, lo, hi = heap[0]
+        neg_top_ub, _, kind, arc_idx, lo, hi = heap[0]
+        top_ub = -neg_top_ub
         if top_ub.is_finite() and best_lb.is_finite() and _ceil_ctx(prec).subtract(top_ub, best_lb) <= tol_dec:
             status = "converged"
             break
@@ -462,7 +481,7 @@ def certify_bspline_multiplier(
         mid = _floor_ctx(prec).divide(_floor_ctx(prec).add(lo, hi), _TWO)
         if mid <= lo or mid >= hi:
             counter += 1
-            heapq.heappush(heap, (-float(top_ub), counter, top_ub, kind, arc_idx, lo, hi))
+            heapq.heappush(heap, (-top_ub, counter, kind, arc_idx, lo, hi))
             status = "precision_limit"
             break
 
@@ -482,7 +501,7 @@ def certify_bspline_multiplier(
                     best_lb = lb
                 if ub >= best_lb:
                     counter += 1
-                    heapq.heappush(heap, (-float(ub), counter, ub, 0, -1, s_lo, s_hi))
+                    heapq.heappush(heap, (-ub, counter, 0, -1, s_lo, s_hi))
         else:
             arc = arcs[arc_idx]
             # Sample midpoint for tighter lower bound
@@ -511,12 +530,13 @@ def certify_bspline_multiplier(
                     best_lb = lb
                 if ub >= best_lb:
                     counter += 1
-                    heapq.heappush(heap, (-float(ub), counter, ub, 1, arc_idx, s_lo, s_hi))
+                    heapq.heappush(heap, (-ub, counter, 1, arc_idx, s_lo, s_hi))
     else:
         if heap:
             status = "max_subdivisions"
 
-    global_ub = heap[0][2] if heap else best_lb
+    # Include best_lb in global_ub to cover cells pruned when ub < best_lb.
+    global_ub = max(-heap[0][0], best_lb) if heap else best_lb
     if not global_ub.is_finite():
         return CertifiedBSplineMultiplier(
             order=n,
@@ -972,7 +992,7 @@ def certify_rank_unrestricted_split_sample(
     else:
         dataset.require_words(words)
         if rng is None:
-            rng = np.random.default_rng(0)
+            rng = np.random.default_rng()
         # Subset to the ray words before splitting so splitting is fast and exact
         sub_ds = ShotDataset(
             dataset.alphabet,

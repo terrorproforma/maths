@@ -494,45 +494,59 @@ def build_exact_frontier_v2_3x33() -> Tuple[List[List[F]], List[List[F]]]:
 
 
 def verify_proposition_2_sharpness_obstruction() -> None:
-    """Proposition 2: For every m >= 2 and every eps = 1/1000, construct an (m-1)-column
-    BFS with trivial kernel whose all-0 completion already reaches (m-1) - (m-1)*eps,
-    and after appending column m (still trivial kernel!), the bad completion (0,...,0,1)
-    cannot be eliminated by any BFS pivot!
+    """Proposition 2: For every m >= 3 and every c in [1, m - 1) (and m = 2, c in [1/2, 1)),
+    construct an (m-1)-column BFS with trivial kernel whose all-away completion already
+    exceeds c on row 0, and after appending column m (still trivial kernel!), EVERY
+    coordinate of the bad completion (0,...,0,1) lies strictly inside [-c, c], showing
+    BFS-box trapping cannot beat m - 1.
     """
-    eps = F(1, 1000)
     for m in [2, 3, 4, 5, 6]:
-        # m - 1 columns: col j (0..m-2) has support {0, j+1}, x = (1 - eps, eps), d = (1, 1)
-        x_cols = []
-        d_cols = []
-        for j in range(m - 1):
-            x = [F(0)] * m
-            x[0] = F(1) - eps
-            x[j + 1] = eps
-            d = [F(1)] * m
-            x_cols.append(x)
-            d_cols.append(d)
-        # Append m-th column on {0, 1} with distinct weight ratio d[1] = 1/2 so kernel is STILL trivial!
-        xm = [F(0)] * m
-        xm[0] = F(1) - eps
-        xm[1] = eps
-        dm = [F(1)] * m
-        dm[1] = F(1, 2)
-        x_cols.append(xm)
-        d_cols.append(dm)
+        test_cs = [F(1, 2), F(999, 1000)] if m == 2 else [F(1), F(m - 1) - F(1, 1000)]
+        for c in test_cs:
+            eps = F(4, 5) * (F(1) - c) if m == 2 else (F(m - 1) - c) / (F(m) - F(1, 2))
+            assert F(0) < eps < F(1)
+            # m - 1 columns: col j (0..m-2) has support {0, j+1}, x = (1 - eps, eps), d = (1, 1)
+            x_cols = []
+            d_cols = []
+            for j in range(m - 1):
+                x = [F(0)] * m
+                x[0] = F(1) - eps
+                x[j + 1] = eps
+                d = [F(1)] * m
+                x_cols.append(x)
+                d_cols.append(d)
+            # Append m-th column on {0, 1} with distinct weight ratio d[1] = 1/2 so kernel is STILL trivial!
+            xm = [F(0)] * m
+            xm[0] = F(1) - eps
+            xm[1] = eps
+            dm = [F(1)] * m
+            dm[1] = F(1, 2)
+            x_cols.append(xm)
+            d_cols.append(dm)
 
-        # Verify kernel is trivial at BOTH t = m - 1 and t = m!
-        d_mat = [[d_cols[j][i] for j in range(m)] for i in range(m)]
-        z_m1 = {j: list(x_cols[j]) for j in range(m - 1)}
-        z_m = {j: list(x_cols[j]) for j in range(m)}
-        assert find_kernel_vector(m, list(range(m - 1)), z_m1, d_mat) is None
-        assert find_kernel_vector(m, list(range(m)), z_m, d_mat) is None
-        # At t = m - 1, completion (0, ..., 0) (all away from row 0) reaches (m - 1)*(1 - eps)!
-        val_m1 = F(m - 1) * (F(1) - eps)
-        # At t = m, assigning col m -> row 0 pulls Delta_0 to (m - 1)*(1 - eps) - eps = (m - 1) - m*eps!
-        val_m = val_m1 - eps
-        assert val_m < val_m1 < F(m - 1)
-    print("[Proposition 2] Exact BFS-Box Trapping Sharpness Obstruction (m=2..6): PASS "
-          "(trivial kernel at |F|=m-1 and |F|=m with bad completion at (m-1)-O(eps))")
+            # Verify kernel is trivial at BOTH t = m - 1 and t = m!
+            d_mat = [[d_cols[j][i] for j in range(m)] for i in range(m)]
+            z_m1 = {j: list(x_cols[j]) for j in range(m - 1)}
+            z_m = {j: list(x_cols[j]) for j in range(m)}
+            assert find_kernel_vector(m, list(range(m - 1)), z_m1, d_mat) is None
+            assert find_kernel_vector(m, list(range(m)), z_m, d_mat) is None
+
+            # Compute FULL m-dimensional discrepancies explicitly for:
+            #   y_{m-1} = (1, 2, ..., m-1)  [all away from row 0]
+            #   y_m     = (1, 2, ..., m-1, 0)  [column m -> row 0]
+            disc_m1 = [F(0)] * m
+            for j in range(m - 1):
+                rj = j + 1
+                for i in range(m):
+                    disc_m1[i] += d_cols[j][i] * (x_cols[j][i] - (F(1) if i == rj else F(0)))
+            disc_m = list(disc_m1)
+            for i in range(m):
+                disc_m[i] += d_cols[m - 1][i] * (x_cols[m - 1][i] - (F(1) if i == 0 else F(0)))
+
+            assert disc_m1[0] > c, f"Expected outside box at t=m-1: {disc_m1[0]} <= {c}"
+            assert all(-c <= v <= c for v in disc_m), f"Non-hub or hub row outside [-c, c] at t=m: {disc_m} vs c={c}"
+    print("[Proposition 2] Exact BFS-Box Trapping Sharpness Obstruction (m=2..6, all m rows verified): PASS "
+          "(trivial kernel at |F|=m-1 and |F|=m with bad completion strictly in [-c, c]^m)")
 
 
 def main() -> None:

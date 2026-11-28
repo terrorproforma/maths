@@ -53,39 +53,42 @@ def _dec_ceil(value: Decimal, prec: int) -> Decimal:
 def _dec_sqrt_floor(value: Decimal, prec: int) -> Decimal:
     """Return Decimal s with exact s*s <= value (guaranteed outward lower bound).
 
-    Scales by an even power of 10 so the verification product never underflows
-    or overflows even near Decimal exponent limits.
+    Scales by an even power of 10 on explicit directed contexts so ambient
+    Decimal precision never truncates inputs or outputs.
     """
     if value <= _ZERO:
         return _ZERO
-    # Scale value into [1, 100) by an even power 10^(2*k)
     k = value.adjusted() // 2
-    scaled = value.scaleb(-2 * k)
+    scale_prec = max(prec, len(value.as_tuple().digits) + 4, 60)
     f = _floor_ctx(prec)
+    f_exact = _floor_ctx(scale_prec)
+    scaled = f_exact.scaleb(value, -2 * k)
     check_c = _ceil_ctx(max(2 * prec + 4, 60))
     s = f.sqrt(scaled)
     while check_c.multiply(s, s) > scaled:
         s = f.next_minus(s)
     s = max(_ZERO, s)
-    return _floor_ctx(prec).plus(s.scaleb(k))
+    return f.scaleb(s, k)
 
 
 def _dec_sqrt_ceil(value: Decimal, prec: int) -> Decimal:
     """Return Decimal s with exact s*s >= value (guaranteed outward upper bound).
 
-    Scales by an even power of 10 so the verification product never underflows
-    or overflows even near Decimal exponent limits.
+    Scales by an even power of 10 on explicit directed contexts so ambient
+    Decimal precision never truncates inputs or outputs.
     """
     if value <= _ZERO:
         return _ZERO
     k = value.adjusted() // 2
-    scaled = value.scaleb(-2 * k)
+    scale_prec = max(prec, len(value.as_tuple().digits) + 4, 60)
     c = _ceil_ctx(prec)
+    c_exact = _ceil_ctx(scale_prec)
+    scaled = c_exact.scaleb(value, -2 * k)
     check_f = _floor_ctx(max(2 * prec + 4, 60))
     s = c.sqrt(scaled)
     while check_f.multiply(s, s) < scaled:
         s = c.next_plus(s)
-    return _ceil_ctx(prec).plus(s.scaleb(k))
+    return c.scaleb(s, k)
 
 
 @dataclass(frozen=True, slots=True)
@@ -587,7 +590,7 @@ def interval_distance_sq(a: Interval, b: Interval, prec: int = DEFAULT_PREC) -> 
 def ln2_interval(prec: int = DEFAULT_PREC) -> Interval:
     """Certified enclosure of ln(2) = 2 * atanh(1/3) via positive series + geometric tail."""
     work_prec = prec + 10
-    cutoff = Decimal(1).scaleb(-(prec + 6))
+    cutoff = Decimal((0, (1,), -(prec + 6)))
     total = Interval.exact(0)
     power = 3
     k = 0
@@ -609,32 +612,31 @@ def ln2_interval(prec: int = DEFAULT_PREC) -> Interval:
     return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
 
 
-def _log_point(x: Decimal, prec: int) -> Interval:
-    """Certified enclosure of ln(x) for exact Decimal x > 0."""
-    if x <= _ZERO:
-        raise ValueError(f"log requires strictly positive input, got {x}")
+@lru_cache(maxsize=64)
+def _ln10_interval(prec: int = DEFAULT_PREC) -> Interval:
+    """Certified enclosure of ln(10) = ln(5/4) + 3*ln(2) via atanh(1/9) + 3*ln(2)."""
+    work_prec = prec + 10
+    ln54 = _log_point_small(Decimal("1.25"), work_prec)
+    total = ln54.add(Interval.exact(3).mul(ln2_interval(work_prec), work_prec), work_prec)
+    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+
+
+def _log_point_small(x: Decimal, prec: int) -> Interval:
+    """Certified enclosure of ln(x) for x in [0.5, 10]."""
     if x == _ONE:
         return Interval.exact(0)
     work_prec = prec + 10
-    # Range-reduce x = 2^e * m with m in [0.7, 1.45] so |(m-1)/(m+1)| < 0.2.
-    # Find integer e using exact bit/float estimate, then refine with Decimal comparisons.
     x_iv = Interval(x, x)
-    # Estimate e = round(log2(x)) using float on scaled decimal if extreme
-    adj = x.adjusted()
-    # x = s * 10^adj with 1 <= s < 10; log2(10) ~ 3.321928
-    e = int(round(adj * 3.321928094887362))
-    two_pow = Interval.exact(2).pow_int(e, work_prec)
-    m_iv = x_iv.div(two_pow, work_prec)
+    e = 0
+    m_iv = x_iv
     lo_bound = Decimal("0.7")
     hi_bound = Decimal("1.45")
     while m_iv.hi > hi_bound:
         e += 1
-        two_pow = Interval.exact(2).pow_int(e, work_prec)
-        m_iv = x_iv.div(two_pow, work_prec)
+        m_iv = x_iv.div(Interval.exact(2).pow_int(e, work_prec), work_prec)
     while m_iv.lo < lo_bound:
         e -= 1
-        two_pow = Interval.exact(2).pow_int(e, work_prec)
-        m_iv = x_iv.div(two_pow, work_prec)
+        m_iv = x_iv.div(Interval.exact(2).pow_int(e, work_prec), work_prec)
 
     one_iv = Interval.exact(1)
     u = m_iv.sub(one_iv, work_prec).div(m_iv.add(one_iv, work_prec), work_prec)
@@ -642,12 +644,11 @@ def _log_point(x: Decimal, prec: int) -> Interval:
     u_abs_max = max(u.lo.copy_abs(), u.hi.copy_abs())
     c_ctx = _ceil_ctx(work_prec)
     f_ctx = _floor_ctx(work_prec)
-    # 1 - u_abs_max^2 lower bound for geometric tail
     one_minus_u2_lo = f_ctx.subtract(_ONE, c_ctx.multiply(u_abs_max, u_abs_max))
     if one_minus_u2_lo <= _ZERO:
         raise ArithmeticError(f"Range reduction failed for log({x}): u={u}")
 
-    cutoff = Decimal(1).scaleb(-(prec + 6))
+    cutoff = Decimal((0, (1,), -(prec + 6)))
     total = Interval.exact(0)
     u_pow = u
     abs_pow = u_abs_max
@@ -672,6 +673,23 @@ def _log_point(x: Decimal, prec: int) -> Interval:
     return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
 
 
+def _log_point(x: Decimal, prec: int) -> Interval:
+    """Certified enclosure of ln(x) for any finite positive Decimal x > 0."""
+    if x <= _ZERO:
+        raise ValueError(f"log requires strictly positive input, got {x}")
+    if x == _ONE:
+        return Interval.exact(0)
+    # Exact base-10 reduction x = s * 10^adj with s in [1, 10) avoids overflow at extreme exponents.
+    work_prec = prec + 10
+    tup = x.as_tuple()
+    adj = x.adjusted()
+    s = Decimal((0, tup.digits, -(len(tup.digits) - 1)))
+    total = _log_point_small(s, work_prec)
+    if adj != 0:
+        total = total.add(Interval.exact(adj).mul(_ln10_interval(work_prec), work_prec), work_prec)
+    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+
+
 def log_interval(x: Interval, prec: int = DEFAULT_PREC) -> Interval:
     """Certified enclosure of ln(X) for strictly positive interval X > 0."""
     if x.lo <= _ZERO:
@@ -687,22 +705,39 @@ def _exp_point(x: Decimal, prec: int) -> Interval:
     """Certified enclosure of exp(x) for exact Decimal x."""
     if x == _ZERO:
         return Interval.exact(1)
-    work_prec = prec + 10
+    # Base-10 reduction x = m*ln(10) + r avoids intermediate 2^k overflow on representable outputs
+    # and ensures fast termination without unbounded unit-step loops.
+    # Require |x| within safe Decimal exponent range (|m| <= 900_000_000).
+    x_abs = x.copy_abs()
+    if x_abs > Decimal("2e9"):
+        raise OverflowError(f"exp_interval argument {x} exceeds representable Decimal range")
+    work_prec = max(prec + 12, x.adjusted() + 16)
+    ln10 = _ln10_interval(work_prec)
+    ln10_mid = ln10.midpoint(work_prec)
+    f_ctx = _floor_ctx(work_prec)
+    m = int(f_ctx.divide(x, ln10_mid).to_integral_value())
+    r = Interval(x, x).sub(Interval.exact(m).mul(ln10, work_prec), work_prec)
+    # Reduce remaining r via ln(2) into [-0.5, 0.5]
     ln2 = ln2_interval(work_prec)
     ln2_mid = ln2.midpoint(work_prec)
-    k = int(_floor_ctx(work_prec).divide(x, ln2_mid).to_integral_value())
-    r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
+    k = int(f_ctx.divide(r.midpoint(work_prec), ln2_mid).to_integral_value())
+    r = r.sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
     half = Decimal("0.5")
     neg_half = Decimal("-0.5")
-    while r.hi > half:
-        k += 1
-        r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
-    while r.lo < neg_half:
-        k -= 1
-        r = Interval(x, x).sub(Interval.exact(k).mul(ln2, work_prec), work_prec)
+    for _ in range(32):
+        if r.hi > half and r.lo > neg_half:
+            k += 1
+            r = r.sub(ln2, work_prec)
+        elif r.lo < neg_half and r.hi < half:
+            k -= 1
+            r = r.add(ln2, work_prec)
+        else:
+            break
+    if max(r.lo.copy_abs(), r.hi.copy_abs()) > Decimal("0.75"):
+        raise ArithmeticError(f"exp_interval range reduction failed for x={x}")
 
     r_abs_max = max(r.lo.copy_abs(), r.hi.copy_abs())
-    cutoff = Decimal(1).scaleb(-(prec + 6))
+    cutoff = Decimal((0, (1,), -(prec + 6)))
     c_ctx = _ceil_ctx(work_prec)
     total = Interval.exact(1)
     r_pow = r
@@ -710,8 +745,8 @@ def _exp_point(x: Decimal, prec: int) -> Interval:
     j = 1
     while True:
         fact = _factorial_dec(j)
-        # Since |r| <= 0.5 and j >= 1, sum_{m>=j} |r|^m/m! <= (|r|^j / j!) / (1 - 0.5/(j+1)) <= 2*|r|^j / j!
-        rem_hi = c_ctx.divide(c_ctx.multiply(_TWO, abs_pow), fact)
+        # Since |r| <= 0.75 and j >= 1, sum_{t>=j} |r|^t/t! <= (|r|^j/j!) / (1 - 0.75/(j+1)) <= 4*|r|^j/j!
+        rem_hi = c_ctx.divide(c_ctx.multiply(Decimal(4), abs_pow), fact)
         if rem_hi < cutoff:
             total = total.add(Interval(rem_hi.copy_negate(), rem_hi), work_prec)
             break
@@ -724,7 +759,10 @@ def _exp_point(x: Decimal, prec: int) -> Interval:
         total = Interval(_ZERO, total.hi)
     if k != 0:
         total = total.mul(Interval.exact(2).pow_int(k, work_prec), work_prec)
-    return Interval(_dec_floor(total.lo, prec), _dec_ceil(total.hi, prec))
+    # Apply exact base-10 scaling 10^m on directed precision contexts
+    lo_scaled = _floor_ctx(prec).scaleb(total.lo, m)
+    hi_scaled = _ceil_ctx(prec).scaleb(total.hi, m)
+    return Interval(max(_ZERO, lo_scaled), hi_scaled)
 
 
 def exp_interval(x: Interval, prec: int = DEFAULT_PREC) -> Interval:

@@ -112,6 +112,7 @@ def add_col(cols, m: int, eta: float, entries: dict[int, tuple[float, float]]) -
 
 
 def check_1_m3_ultracompact() -> None:
+    """Exact same 3x33 instance as verify_m3_and_small_m_ladder.py (denom=2000)."""
     m, eta = 3, 1e-6
     c_des = F(1002, 1000)
     u, p1, k1 = F(995, 1000), F(17, 50), 10
@@ -120,6 +121,25 @@ def check_1_m3_ultracompact() -> None:
     delta = term_A - F(int(term_A))
     xc = delta + F(1, 200)
     pp2 = build_pp(u + p1 - F(1), delta - xc, c_des, 4, 4, max_lev=20)
+    # Match verify_m3_and_small_m_ladder.py's denom=2000 for Block 2
+    a_c, h_c = u + p1 - F(1), delta - xc
+    pp2 = []
+    act = "A"
+    for _ in range(20):
+        va = a_c if act == "A" else h_c
+        gap = c_des - va
+        if gap <= 0:
+            break
+        r_lev = choose_r(gap, 4, denom=2000)
+        ae, pg, dL, xL = build_level(va, c_des, 4, r_lev)
+        if act == "A":
+            a_c, h_c = ae, h_c + pg
+        else:
+            h_c, a_c = ae, a_c + pg
+        pp2.append((act, dL, xL))
+        if max(a_c, h_c) >= c_des:
+            break
+        act = "H" if act == "A" else "A"
 
     cols = []
     add_col(cols, m, eta, {0: (float(u), 1.0), 1: (float(1 - u), eta)})
