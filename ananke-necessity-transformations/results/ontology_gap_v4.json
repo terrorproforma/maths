@@ -1,0 +1,212 @@
+{
+  "experiment": "ontology_gap_v4",
+  "elapsed_seconds": 88.89,
+  "quantum_realization_verification": {
+    "verified_word_count": 127,
+    "baseline_mixed_max_diff_from_su2": 4.440892098500626e-16,
+    "golden_noble3_pure_max_diff_from_su2": 6.661338147750939e-16,
+    "certified_C_quantum": 2
+  },
+  "fejes_toth_vs_bloch_polytopes": {
+    "depth_L": 7,
+    "word_count": 255,
+    "rows": [
+      {
+        "order_N": 4,
+        "fejes_toth_inradius_ub": 0.3333333333333335,
+        "true_polytope_inradius": 0.33333333333333337,
+        "fejes_toth_L7_compounded_ub": 0.0004572473708276192,
+        "fejes_toth_L7_amp_loss_lb": 0.4997713763145862,
+        "empirical_rotated_vertex_min_rho": 0.336409001610791,
+        "pure_qubit_L7_max_error": 0.49846704228239025,
+        "mixed_qubit_L7_max_error": 0.42344209624384166
+      },
+      {
+        "order_N": 6,
+        "fejes_toth_inradius_ub": 0.5773502691896258,
+        "true_polytope_inradius": 0.5773502691896258,
+        "fejes_toth_L7_compounded_ub": 0.021383343303319494,
+        "fejes_toth_L7_amp_loss_lb": 0.48930832834834026,
+        "empirical_rotated_vertex_min_rho": 0.7077857656821056,
+        "pure_qubit_L7_max_error": 0.4208360163333798,
+        "mixed_qubit_L7_max_error": 0.36266782128232317
+      },
+      {
+        "order_N": 8,
+        "fejes_toth_inradius_ub": 0.6880592574919708,
+        "true_polytope_inradius": 0.5773502691896258,
+        "fejes_toth_L7_compounded_ub": 0.0730097560110987,
+        "fejes_toth_L7_amp_loss_lb": 0.46349512199445064,
+        "empirical_rotated_vertex_min_rho": 0.7077857656821056,
+        "pure_qubit_L7_max_error": 0.4361978713636291,
+        "mixed_qubit_L7_max_error": 0.3907706762953842
+      },
+      {
+        "order_N": 12,
+        "fejes_toth_inradius_ub": 0.7946544722917663,
+        "true_polytope_inradius": 0.7946544722917661,
+        "fejes_toth_L7_compounded_ub": 0.20010056896919648,
+        "fejes_toth_L7_amp_loss_lb": 0.39994971551540176,
+        "empirical_rotated_vertex_min_rho": 0.7948630050700772,
+        "pure_qubit_L7_max_error": 0.3893211151744326,
+        "mixed_qubit_L7_max_error": 0.31024228490901995
+      },
+      {
+        "order_N": 20,
+        "fejes_toth_inradius_ub": 0.8778184380488055,
+        "true_polytope_inradius": 0.818924645158874,
+        "fejes_toth_L7_compounded_ub": 0.4016362383428081,
+        "fejes_toth_L7_amp_loss_lb": 0.299181880828596,
+        "empirical_rotated_vertex_min_rho": 0.8385229822528206,
+        "pure_qubit_L7_max_error": 0.28511100499256853,
+        "mixed_qubit_L7_max_error": 0.2369570171354598
+      },
+      {
+        "order_N": 32,
+        "fejes_toth_inradius_ub": 0.9239535711353034,
+        "true_polytope_inradius": 0.8855694207662619,
+        "fejes_toth_L7_compounded_ub": 0.5748453711761455,
+        "fejes_toth_L7_amp_loss_lb": 0.21257731441192723,
+        "empirical_rotated_vertex_min_rho": 0.8858412041398206,
+        "pure_qubit_L7_max_error": 0.20222923001556414,
+        "mixed_qubit_L7_max_error": 0.16110216206582972
+      },
+      {
+        "order_N": 64,
+        "fejes_toth_inradius_ub": 0.9620987523132656,
+        "true_polytope_inradius": 0.9423025403129678,
+        "fejes_toth_L7_compounded_ub": 0.7630228785389388,
+        "fejes_toth_L7_amp_loss_lb": 0.1184885607305306,
+        "empirical_rotated_vertex_min_rho": 0.949682749781625,
+        "pure_qubit_L7_max_error": 0.1272146366272776,
+        "mixed_qubit_L7_max_error": 0.0961305991669034
+      },
+      {
+        "order_N": 128,
+        "fejes_toth_inradius_ub": 0.9810783025097651,
+        "true_polytope_inradius": 0.9710371876626772,
+        "fejes_toth_L7_compounded_ub": 0.8748340876567896,
+        "fejes_toth_L7_amp_loss_lb": 0.0625829561716052,
+        "empirical_rotated_vertex_min_rho": 0.97487731087182,
+        "pure_qubit_L7_max_error": 0.06319857499308901,
+        "mixed_qubit_L7_max_error": 0.04933984037934126
+      }
+    ]
+  },
+  "static_nmf_vs_unconstrained_2sym_hmm": {
+    "baseline_mixed_qubit": {
+      "quantum_dimension_C_quantum": 2,
+      "word_count_L5": 63,
+      "word_count_L6": 127,
+      "comparison_by_order": [
+        {
+          "order_N": 4,
+          "static_15x15_nmf_max_err": 0.12355262010203255,
+          "static_15x15_nmf_rms_err": 0.026967224496765252,
+          "dynamical_hmm_L5_max_err": 0.25082433795275455,
+          "dynamical_hmm_L5_rms_err": 0.11941849569068333,
+          "dynamical_hmm_L6_max_err": 0.31971427914778655,
+          "dynamical_hmm_L6_rms_err": 0.16017184525781436,
+          "dynamical_over_static_ratio_L6": 2.5876770471055917
+        },
+        {
+          "order_N": 6,
+          "static_15x15_nmf_max_err": 0.019087276027778155,
+          "static_15x15_nmf_rms_err": 0.005901004197124851,
+          "dynamical_hmm_L5_max_err": 0.15950487832132554,
+          "dynamical_hmm_L5_rms_err": 0.08073767624291116,
+          "dynamical_hmm_L6_max_err": 0.26548470067925845,
+          "dynamical_hmm_L6_rms_err": 0.11437606726114062,
+          "dynamical_over_static_ratio_L6": 13.908988390637429
+        },
+        {
+          "order_N": 8,
+          "static_15x15_nmf_max_err": 0.005056484330764804,
+          "static_15x15_nmf_rms_err": 0.0009672514536715963,
+          "dynamical_hmm_L5_max_err": 0.14672788399506392,
+          "dynamical_hmm_L5_rms_err": 0.07262927538274466,
+          "dynamical_hmm_L6_max_err": 0.2331704996277414,
+          "dynamical_hmm_L6_rms_err": 0.10086921263185385,
+          "dynamical_over_static_ratio_L6": 46.11316566513988
+        },
+        {
+          "order_N": 10,
+          "static_15x15_nmf_max_err": 0.002603063438676334,
+          "static_15x15_nmf_rms_err": 0.000484675076498329,
+          "dynamical_hmm_L5_max_err": 0.11574733783556912,
+          "dynamical_hmm_L5_rms_err": 0.0488417958933591,
+          "dynamical_hmm_L6_max_err": 0.19702692214975637,
+          "dynamical_hmm_L6_rms_err": 0.08217073443637507,
+          "dynamical_over_static_ratio_L6": 75.69040355387773
+        },
+        {
+          "order_N": 12,
+          "static_15x15_nmf_max_err": 0.0016326265379754679,
+          "static_15x15_nmf_rms_err": 0.0002929684757636283,
+          "dynamical_hmm_L5_max_err": 0.1444775679059973,
+          "dynamical_hmm_L5_rms_err": 0.06937362395256264,
+          "dynamical_hmm_L6_max_err": 0.22470252284008085,
+          "dynamical_hmm_L6_rms_err": 0.08743584034272668,
+          "dynamical_over_static_ratio_L6": 137.63253114746152
+        }
+      ]
+    },
+    "golden_noble3_pure_qubit": {
+      "quantum_dimension_C_quantum": 2,
+      "word_count_L5": 63,
+      "word_count_L6": 127,
+      "comparison_by_order": [
+        {
+          "order_N": 4,
+          "static_15x15_nmf_max_err": 0.2501645533422851,
+          "static_15x15_nmf_rms_err": 0.07698969777558233,
+          "dynamical_hmm_L5_max_err": 0.3670352082891214,
+          "dynamical_hmm_L5_rms_err": 0.1684680993610614,
+          "dynamical_hmm_L6_max_err": 0.43556167997226414,
+          "dynamical_hmm_L6_rms_err": 0.21042581102914965,
+          "dynamical_over_static_ratio_L6": 1.7411007041285793
+        },
+        {
+          "order_N": 6,
+          "static_15x15_nmf_max_err": 0.10662237592322962,
+          "static_15x15_nmf_rms_err": 0.035109762751704666,
+          "dynamical_hmm_L5_max_err": 0.3232579817932273,
+          "dynamical_hmm_L5_rms_err": 0.1466955441600061,
+          "dynamical_hmm_L6_max_err": 0.3712062689075426,
+          "dynamical_hmm_L6_rms_err": 0.16089234651737525,
+          "dynamical_over_static_ratio_L6": 3.4815043811705997
+        },
+        {
+          "order_N": 8,
+          "static_15x15_nmf_max_err": 0.05591997186015038,
+          "static_15x15_nmf_rms_err": 0.015763769816397315,
+          "dynamical_hmm_L5_max_err": 0.21026345398761315,
+          "dynamical_hmm_L5_rms_err": 0.11457643089905675,
+          "dynamical_hmm_L6_max_err": 0.45924369111589675,
+          "dynamical_hmm_L6_rms_err": 0.20049856693304688,
+          "dynamical_over_static_ratio_L6": 8.21251649168233
+        },
+        {
+          "order_N": 10,
+          "static_15x15_nmf_max_err": 0.024454252920012243,
+          "static_15x15_nmf_rms_err": 0.006009352705426334,
+          "dynamical_hmm_L5_max_err": 0.3047119896218544,
+          "dynamical_hmm_L5_rms_err": 0.1330081827218504,
+          "dynamical_hmm_L6_max_err": 0.4019684574926848,
+          "dynamical_hmm_L6_rms_err": 0.1800901820391881,
+          "dynamical_over_static_ratio_L6": 16.437568500149606
+        },
+        {
+          "order_N": 12,
+          "static_15x15_nmf_max_err": 0.025115317162626417,
+          "static_15x15_nmf_rms_err": 0.00554817861149595,
+          "dynamical_hmm_L5_max_err": 0.32358457283758013,
+          "dynamical_hmm_L5_rms_err": 0.1515619244941228,
+          "dynamical_hmm_L6_max_err": 0.49564830561508005,
+          "dynamical_hmm_L6_rms_err": 0.2858506662253168,
+          "dynamical_over_static_ratio_L6": 19.734901311644354
+        }
+      ]
+    }
+  }
+}
