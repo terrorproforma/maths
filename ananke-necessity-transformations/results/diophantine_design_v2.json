@@ -1,0 +1,395 @@
+{
+  "experiment": "ANANKE v2 Diophantine gate design and noble-phase optimality audit",
+  "theorem_4_markov_constants": {
+    "exact_noble_constant": 7.478898776734448,
+    "analytic_non_noble_upper_bound": 7.4022033008170185,
+    "algebraic_gap_proof": "3/4 < 2*phi^3/(5*sqrt(5)) <=> 7*sqrt(5) < 16 <=> 245 < 256",
+    "periodic_cf_table": [
+      {
+        "period": [
+          1
+        ],
+        "is_noble": true,
+        "karpelevich_markov_constant": 7.478898776734449,
+        "ratio_to_noble": 1.0000000000000002
+      },
+      {
+        "period": [
+          1,
+          1,
+          2
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 6.1843358277759695,
+        "ratio_to_noble": 0.8269046035245672
+      },
+      {
+        "period": [
+          2
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 6.137504462682435,
+        "ratio_to_noble": 0.8206428039613456
+      },
+      {
+        "period": [
+          1,
+          1,
+          1,
+          2
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 5.985926687082583,
+        "ratio_to_noble": 0.8003754116453292
+      },
+      {
+        "period": [
+          1,
+          2,
+          2
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 5.6202006972518745,
+        "ratio_to_noble": 0.7514743634096693
+      },
+      {
+        "period": [
+          1,
+          2
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 5.448065119604089,
+        "ratio_to_noble": 0.7284581971549168
+      },
+      {
+        "period": [
+          2,
+          3
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 5.155921168536,
+        "ratio_to_noble": 0.6893957683416136
+      },
+      {
+        "period": [
+          3
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 5.057439255743266,
+        "ratio_to_noble": 0.6762277985999863
+      },
+      {
+        "period": [
+          1,
+          3
+        ],
+        "is_noble": false,
+        "karpelevich_markov_constant": 4.5904872022396175,
+        "ratio_to_noble": 0.6137918615130644
+      }
+    ]
+  },
+  "asymptotic_radial_gap_verification": [
+    {
+      "order": 10,
+      "exact_radial_gap": 0.007434035310429299,
+      "asymptotic_radial_gap": 0.0072801815983661,
+      "relative_error": 0.020695854356160476,
+      "n3_times_exact_gap": 7.434035310429299
+    },
+    {
+      "order": 15,
+      "exact_radial_gap": 0.007434035310429299,
+      "asymptotic_radial_gap": 0.0072801815983661,
+      "relative_error": 0.020695854356160476,
+      "n3_times_exact_gap": 25.089869172698883
+    },
+    {
+      "order": 20,
+      "exact_radial_gap": 0.0013991812036167062,
+      "asymptotic_radial_gap": 0.0013903909631521579,
+      "relative_error": 0.006282417489476437,
+      "n3_times_exact_gap": 11.19344962893365
+    },
+    {
+      "order": 30,
+      "exact_radial_gap": 0.0004072065389163493,
+      "asymptotic_radial_gap": 0.00040571061533619513,
+      "relative_error": 0.0036736236705212986,
+      "n3_times_exact_gap": 10.994576550741431
+    },
+    {
+      "order": 50,
+      "exact_radial_gap": 9.591662940178214e-05,
+      "asymptotic_radial_gap": 9.577528441261836e-05,
+      "relative_error": 0.0014736233961235696,
+      "n3_times_exact_gap": 11.989578675222766
+    },
+    {
+      "order": 80,
+      "exact_radial_gap": 2.2622221588330937e-05,
+      "asymptotic_radial_gap": 2.260947768575295e-05,
+      "relative_error": 0.0005633355914328898,
+      "n3_times_exact_gap": 11.58257745322544
+    },
+    {
+      "order": 120,
+      "exact_radial_gap": 5.33853591588862e-06,
+      "asymptotic_radial_gap": 5.337373669602931e-06,
+      "relative_error": 0.00021770880705896214,
+      "n3_times_exact_gap": 9.224990062655536
+    }
+  ],
+  "refinement_a_finite_horizon_sector8": [
+    {
+      "label": "baseline_0.73",
+      "theta_radians": 0.73,
+      "phase_turns": 0.1161831084570836,
+      "dist_theta_15_lo": 0.007448707548826925,
+      "dist_theta_15_hi": 0.007490867176876272,
+      "dist_theta_25_lo": 0.0012885889915321507,
+      "dist_theta_25_hi": 0.001304876718108997
+    },
+    {
+      "label": "noble_[0;8,1_bar]",
+      "theta_radians": 0.7290740922328395,
+      "phase_turns": 0.11603574565909282,
+      "dist_theta_15_lo": 0.007336942163037586,
+      "dist_theta_15_hi": 0.007380796487877464,
+      "dist_theta_25_lo": 0.0013773739054543813,
+      "dist_theta_25_hi": 0.0013937008944354058
+    },
+    {
+      "label": "silver_[0;8,2_bar]",
+      "theta_radians": 0.746734707956178,
+      "phase_turns": 0.1188465199495086,
+      "dist_theta_15_lo": 0.008149131615579747,
+      "dist_theta_15_hi": 0.008198923304971566,
+      "dist_theta_25_lo": 0.0005553226838644361,
+      "dist_theta_25_hi": 0.0005735517529660997
+    },
+    {
+      "label": "alt12_[0;8,(1,2)_bar]",
+      "theta_radians": 0.7195543688011261,
+      "phase_turns": 0.1145206346180679,
+      "dist_theta_15_lo": 0.00579956533706816,
+      "dist_theta_15_hi": 0.005848058340872305,
+      "dist_theta_25_lo": 0.001833001072227295,
+      "dist_theta_25_hi": 0.0018517219933953351
+    },
+    {
+      "label": "sector8_opt_N15",
+      "theta_radians": 0.7430782768524352,
+      "phase_turns": 0.11826458086527297,
+      "dist_theta_15_lo": 0.008211206527837188,
+      "dist_theta_15_hi": 0.008258101464943117,
+      "dist_theta_25_lo": 0.0004695848301391591,
+      "dist_theta_25_hi": 0.000487190742512693
+    },
+    {
+      "label": "sector8_opt_N25",
+      "theta_radians": 0.7188543624852899,
+      "phase_turns": 0.11440922515270702,
+      "dist_theta_15_lo": 0.005658133529933056,
+      "dist_theta_15_hi": 0.005707625718260272,
+      "dist_theta_25_lo": 0.001833609775112196,
+      "dist_theta_25_hi": 0.0018532011070475267
+    }
+  ],
+  "refinement_b_fixed_shot_gate_comparison": [
+    {
+      "design_metrics_N15": {
+        "label": "baseline_0.73 (k=8)",
+        "theta_x": 0.73,
+        "theta_z": 1.11,
+        "phase_turns": 0.1161831084570836,
+        "target_order": 15,
+        "sigma_1": 8.89206382415863,
+        "sigma_4": 0.5414672740427375,
+        "condition_number_4": 16.422162982756344,
+        "exact_scalar_sensitivity_l2": 0.8727963730414519,
+        "predicted_scalar_hoeffding_radius": 0.003159846152470213,
+        "karpelevich_radial_gap": 0.007538257288282613,
+        "karpelevich_distance_lo": 0.0074012706865206794,
+        "karpelevich_distance_hi": 0.007490867176876272,
+        "witness_margin_ratio": 2.342288304364036
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.013023392329849906,
+          "true_mode_error": 0.0013189494690645114,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 9
+        },
+        "300000": {
+          "certified_disk_radius": 0.005656975692139583,
+          "true_mode_error": 0.0010112147613664715,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 16
+        }
+      }
+    },
+    {
+      "design_metrics_N15": {
+        "label": "noble_[0;8,1_bar]",
+        "theta_x": 0.7290740922328395,
+        "theta_z": 1.11,
+        "phase_turns": 0.11603574565909282,
+        "target_order": 15,
+        "sigma_1": 8.890406265597923,
+        "sigma_4": 0.5413442255644674,
+        "condition_number_4": 16.422833837985007,
+        "exact_scalar_sensitivity_l2": 0.873786332747684,
+        "predicted_scalar_hoeffding_radius": 0.0031634301732859017,
+        "karpelevich_radial_gap": 0.007434035310429299,
+        "karpelevich_distance_lo": 0.007289099917479363,
+        "karpelevich_distance_hi": 0.007380796487877464,
+        "witness_margin_ratio": 2.3041760109116196
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.012384171119263914,
+          "true_mode_error": 0.00136309521618936,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 9
+        },
+        "300000": {
+          "certified_disk_radius": 0.005544235427520703,
+          "true_mode_error": 0.001165543545740502,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 17
+        }
+      }
+    },
+    {
+      "design_metrics_N15": {
+        "label": "silver_[0;8,2_bar]",
+        "theta_x": 0.746734707956178,
+        "theta_z": 1.11,
+        "phase_turns": 0.1188465199495086,
+        "target_order": 15,
+        "sigma_1": 8.920735139875662,
+        "sigma_4": 0.5436521983226738,
+        "condition_number_4": 16.40890107204338,
+        "exact_scalar_sensitivity_l2": 0.8557041401726856,
+        "predicted_scalar_hoeffding_radius": 0.003097965938555838,
+        "karpelevich_radial_gap": 0.008203029865665123,
+        "karpelevich_distance_lo": 0.008109685534245143,
+        "karpelevich_distance_hi": 0.008198923304971566,
+        "witness_margin_ratio": 2.617745222216869
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.01278035533673045,
+          "true_mode_error": 0.0013921987802590454,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 9
+        },
+        "300000": {
+          "certified_disk_radius": 0.005146207356962911,
+          "true_mode_error": 0.000260197404059945,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 17
+        }
+      }
+    },
+    {
+      "design_metrics_N15": {
+        "label": "sector8_opt_N15",
+        "theta_x": 0.7430782768524352,
+        "theta_z": 1.11,
+        "phase_turns": 0.11826458086527297,
+        "target_order": 15,
+        "sigma_1": 8.914680808234191,
+        "sigma_4": 0.5431810306942801,
+        "condition_number_4": 16.41198846145211,
+        "exact_scalar_sensitivity_l2": 0.8593131258800801,
+        "predicted_scalar_hoeffding_radius": 0.0031110318035778147,
+        "karpelevich_radial_gap": 0.008258101464935108,
+        "karpelevich_distance_lo": 0.008159074506145262,
+        "karpelevich_distance_hi": 0.008258101464943117,
+        "witness_margin_ratio": 2.622626517916657
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.01307226949588371,
+          "true_mode_error": 0.0003684218461053597,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 9
+        },
+        "300000": {
+          "certified_disk_radius": 0.005290622471229357,
+          "true_mode_error": 0.0007225288943797088,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 17
+        }
+      }
+    },
+    {
+      "design_metrics_N15": {
+        "label": "noble_[0;3,1_bar]",
+        "theta_x": 1.7366297073816477,
+        "theta_z": 1.11,
+        "phase_turns": 0.276393202250021,
+        "target_order": 15,
+        "sigma_1": 8.135800029254995,
+        "sigma_4": 0.9927946247066298,
+        "condition_number_4": 8.194846977197443,
+        "exact_scalar_sensitivity_l2": 0.47180351595781805,
+        "predicted_scalar_hoeffding_radius": 0.0017081034828617765,
+        "karpelevich_radial_gap": 0.004490627460691399,
+        "karpelevich_distance_lo": 0.004370578643002362,
+        "karpelevich_distance_hi": 0.004466276742993744,
+        "witness_margin_ratio": 2.558731767047184
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.00409574277630054,
+          "true_mode_error": 0.00128217967437225,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 14
+        },
+        "300000": {
+          "certified_disk_radius": 0.0020399586163740288,
+          "true_mode_error": 0.00035343260880952426,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 18
+        }
+      }
+    },
+    {
+      "design_metrics_N15": {
+        "label": "golden_[0;2,1_bar]",
+        "theta_x": 2.399963229728653,
+        "theta_z": 1.11,
+        "phase_turns": 0.3819660112501051,
+        "target_order": 15,
+        "sigma_1": 7.961163501686484,
+        "sigma_4": 1.0855933107986242,
+        "condition_number_4": 7.33346771990498,
+        "exact_scalar_sensitivity_l2": 0.48266393275222286,
+        "predicted_scalar_hoeffding_radius": 0.0017474222143345447,
+        "karpelevich_radial_gap": 0.0034674687618264644,
+        "karpelevich_distance_lo": 0.003343969180649864,
+        "karpelevich_distance_hi": 0.0034235090801151033,
+        "witness_margin_ratio": 1.9136583896086719
+      },
+      "end_to_end_certified_runs": {
+        "100000": {
+          "certified_disk_radius": 0.00433214408228748,
+          "true_mode_error": 0.000543903486379309,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 13
+        },
+        "300000": {
+          "certified_disk_radius": 0.002085018115455521,
+          "true_mode_error": 0.00018484885022364045,
+          "exact_mode_covered": true,
+          "certified_classical_state_lower_bound": 21
+        }
+      }
+    }
+  ],
+  "verdict_on_v1_conjecture": "REFINED AND PARTIALLY PROVED: (1) PROVED asymptotically: noble tails [0; k, overline{1}] strictly maximize the Karpelevi\u010d Markov constant liminf_{N->inf} N^3 dist(e^{2*pi*i*alpha}, Theta_N) = 2*pi^2*phi^3/(5*sqrt(5)) ~= 7.4789 over ALL irrationals (non-noble <= 3*pi^2/4 ~= 7.4022). (2) COUNTEREXAMPLE at fixed finite N: interior Farey-arc asymmetry places the gap maximum at t < 1/2 while noble sits at t > 0.64, so non-noble phases beat noble at fixed finite orders (e.g., silver beats noble at N=15; [0;8,(1,2)_bar] beats noble at N=25). (3) CROSS-SECTOR CONDITIONING: larger-angle noble phases such as golden [0;2,1_bar] and [0;3,1_bar] dramatically outperform sector k=8 under fixed shot budgets because Hankel sigma_4 nearly doubles and scalar sensitivity drops sharply.",
+  "pass": true
+}

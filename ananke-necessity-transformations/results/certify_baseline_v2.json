@@ -1,0 +1,444 @@
+{
+  "experiment": "ANANKE v2 certified baseline and finite-sample scaling",
+  "kls_2020_benchmark": {
+    "angle_radians": 1.832595714594046,
+    "theta_5_radius": {
+      "order": 5,
+      "angle_radians": 1.832595714594046,
+      "radius_lo": 0.8675221204970267,
+      "radius_hi": 0.8675221204970268,
+      "width": 1.1102230246251565e-16,
+      "farey_left": "1/4",
+      "farey_right": "1/3",
+      "certification": "PROVED (outward-rounded Decimal interval arithmetic)"
+    },
+    "theta_6_radius": {
+      "order": 6,
+      "angle_radians": 1.832595714594046,
+      "radius_lo": 0.9114159452656425,
+      "radius_hi": 0.9114159452656426,
+      "width": 1.1102230246251565e-16,
+      "farey_left": "1/4",
+      "farey_right": "1/3",
+      "certification": "PROVED (outward-rounded Decimal interval arithmetic)"
+    },
+    "z_0p9_distance_theta_5": {
+      "order": 5,
+      "distance_lo": 0.032164709430096555,
+      "distance_hi": 0.03226392310361922,
+      "enclosure_width": 9.921367352266203e-05,
+      "closest_angle_radians": 1.8281216039627128,
+      "certified_inside": false,
+      "pruned_arcs": 9,
+      "evaluated_subintervals": 294,
+      "status": "converged",
+      "certification": "PROVED (outward-rounded interval branch-and-bound over all Farey arcs)"
+    },
+    "z_0p9_distance_theta_6": {
+      "order": 6,
+      "distance_lo": 0.0,
+      "distance_hi": 0.0,
+      "enclosure_width": 0.0,
+      "closest_angle_radians": 1.832595714594046,
+      "certified_inside": true,
+      "pruned_arcs": 0,
+      "evaluated_subintervals": 1,
+      "status": "certified_inside_ray",
+      "certification": "PROVED (outward-rounded interval branch-and-bound over all Farey arcs)"
+    }
+  },
+  "v1_baseline_disk_interval_audit": {
+    "v1_bootstrap_disk_radius": 0.007926034862237889,
+    "v1_numerical_lower_bound": 16,
+    "v2_interval_certified_report": {
+      "point_estimate": [
+        0.7462648445835013,
+        0.667842916840135
+      ],
+      "disk_radius": 0.007926034862237889,
+      "confidence_level": 0.99,
+      "hankel_rank_lower_bound": 4,
+      "maximum_order_tested": 18,
+      "certified_excluded_through": 15,
+      "certified_classical_state_lower_bound": 16,
+      "tests": [
+        {
+          "order": 2,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.6678429168401349,
+          "distance_hi": 0.6678429168401351,
+          "closest_angle_radians": 0.0,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 0,
+          "evaluated_subintervals": 1,
+          "status": "exact_order_2"
+        },
+        {
+          "order": 3,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.451401446178988,
+          "distance_hi": 0.45150135452325757,
+          "closest_angle_radians": 0.4887646285400624,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 2,
+          "evaluated_subintervals": 1256,
+          "status": "converged"
+        },
+        {
+          "order": 4,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.29271954227375885,
+          "distance_hi": 0.292818406958492,
+          "closest_angle_radians": 0.7071651432152806,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 5,
+          "evaluated_subintervals": 698,
+          "status": "converged"
+        },
+        {
+          "order": 5,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.18717467748731695,
+          "distance_hi": 0.18727216566608273,
+          "closest_angle_radians": 0.7533379649306384,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 9,
+          "evaluated_subintervals": 398,
+          "status": "converged"
+        },
+        {
+          "order": 6,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.11408182963281119,
+          "distance_hi": 0.11418037388915783,
+          "closest_angle_radians": 0.7562525284276211,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 11,
+          "evaluated_subintervals": 272,
+          "status": "converged"
+        },
+        {
+          "order": 7,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.061058994532430744,
+          "distance_hi": 0.061158715984829304,
+          "closest_angle_radians": 0.7480347742068052,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 17,
+          "evaluated_subintervals": 166,
+          "status": "converged"
+        },
+        {
+          "order": 8,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.02105403140963595,
+          "distance_hi": 0.02115177258015487,
+          "closest_angle_radians": 0.7370777685790506,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 21,
+          "evaluated_subintervals": 74,
+          "status": "converged"
+        },
+        {
+          "order": 9,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 27,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 10,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 31,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 11,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 41,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 12,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 45,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 13,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 57,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 14,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 63,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 15,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.008871926873996456,
+          "distance_hi": 0.008942476545359524,
+          "closest_angle_radians": 0.7289817588652098,
+          "certified_excluded": true,
+          "certified_inside": false,
+          "pruned_arcs": 71,
+          "evaluated_subintervals": 58,
+          "status": "converged"
+        },
+        {
+          "order": 16,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.007378185985954768,
+          "distance_hi": 0.007465994437374811,
+          "closest_angle_radians": 0.72966352810427,
+          "certified_excluded": false,
+          "certified_inside": false,
+          "pruned_arcs": 79,
+          "evaluated_subintervals": 42,
+          "status": "converged"
+        },
+        {
+          "order": 17,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.0029409149153321076,
+          "distance_hi": 0.0030253034370059605,
+          "closest_angle_radians": 0.7305357916895383,
+          "certified_excluded": false,
+          "certified_inside": false,
+          "pruned_arcs": 95,
+          "evaluated_subintervals": 26,
+          "status": "converged"
+        },
+        {
+          "order": 18,
+          "disk_radius": 0.007926034862237889,
+          "distance_lo": 0.0026863646186443295,
+          "distance_hi": 0.0027599854112346674,
+          "closest_angle_radians": 0.7302149591064512,
+          "certified_excluded": false,
+          "certified_inside": false,
+          "pruned_arcs": 101,
+          "evaluated_subintervals": 22,
+          "status": "converged"
+        }
+      ],
+      "certification": "PROVED geometric separation: every excluded order N satisfies distance_lo > disk_radius via outward-rounded interval arithmetic over all Farey arcs of Theta_N."
+    },
+    "v1_n_ge_16_genuinely_certified": true
+  },
+  "non_asymptotic_shot_scaling": [
+    {
+      "shots_per_word": 10000,
+      "total_hankel_trials": 2550000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.0807752193508052,
+      "entrywise_kl_frobenius_h_delta_005": 0.30968191780727017,
+      "single_sample": {
+        "certified_isolated": false,
+        "certified_disk_radius": null,
+        "bauer_fike_comparison_radius": 1.1493039178378976,
+        "true_mode_error": 0.001461626768474045,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 4
+      },
+      "split_sample": {
+        "certified_isolated": false,
+        "certified_disk_radius": null,
+        "scalar_linear_bound": 0.01756294177569593,
+        "true_mode_error": 0.0030407937309915208,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 4
+      }
+    },
+    {
+      "shots_per_word": 30000,
+      "total_hankel_trials": 7650000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.04663559463603845,
+      "entrywise_kl_frobenius_h_delta_005": 0.17775395706907574,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.1446886514635773,
+        "bauer_fike_comparison_radius": 0.9452782035289352,
+        "true_mode_error": 0.002346652683608266,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 6
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.04073250337562133,
+        "scalar_linear_bound": 0.010076009747890663,
+        "true_mode_error": 0.0018211401115980086,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 8
+      }
+    },
+    {
+      "shots_per_word": 100000,
+      "total_hankel_trials": 25500000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.025543367164825186,
+      "entrywise_kl_frobenius_h_delta_005": 0.09706681863199487,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.05776255545223219,
+        "bauer_fike_comparison_radius": 0.3066720126635926,
+        "true_mode_error": 0.0008296227996087792,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 8
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.013690373096486975,
+        "scalar_linear_bound": 0.005497512352385266,
+        "true_mode_error": 0.0009713993618848982,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 9
+      }
+    },
+    {
+      "shots_per_word": 300000,
+      "total_hankel_trials": 76500000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.01474746990862127,
+      "entrywise_kl_frobenius_h_delta_005": 0.055944940551570295,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.02999002231683061,
+        "bauer_fike_comparison_radius": 0.1628633647720568,
+        "true_mode_error": 0.0011567154249629012,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 8
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.005378689395353646,
+        "scalar_linear_bound": 0.0031388323234074274,
+        "true_mode_error": 0.0009234660475371255,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 17
+      }
+    },
+    {
+      "shots_per_word": 1000000,
+      "total_hankel_trials": 255000000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.008077521935080519,
+      "entrywise_kl_frobenius_h_delta_005": 0.030610610445638304,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.01556375984846016,
+        "bauer_fike_comparison_radius": 0.27916144630012163,
+        "true_mode_error": 0.00010800647588930497,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 9
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.0024419673229800843,
+        "scalar_linear_bound": 0.0017280923588507875,
+        "true_mode_error": 0.0002820006199917319,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 17
+      }
+    },
+    {
+      "shots_per_word": 3000000,
+      "total_hankel_trials": 765000000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.004663559463603845,
+      "entrywise_kl_frobenius_h_delta_005": 0.01766309694351389,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.00874384906825986,
+        "bauer_fike_comparison_radius": 0.05250687280769215,
+        "true_mode_error": 0.0002506166128860247,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 9
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.0012074894728885217,
+        "scalar_linear_bound": 0.0010001208888575676,
+        "true_mode_error": 0.0003084850771291556,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 18
+      }
+    },
+    {
+      "shots_per_word": 10000000,
+      "total_hankel_trials": 2550000000,
+      "unconditional_rank_lower_bound": 4,
+      "matrix_hoeffding_h_delta_005": 0.002554336716482518,
+      "entrywise_kl_frobenius_h_delta_005": 0.00967093174479458,
+      "single_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.004712026423667026,
+        "bauer_fike_comparison_radius": 0.13583155778376654,
+        "true_mode_error": 4.1253435756962584e-05,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 17
+      },
+      "split_sample": {
+        "certified_isolated": true,
+        "certified_disk_radius": 0.0006142222746707342,
+        "scalar_linear_bound": 0.0005470110243072069,
+        "true_mode_error": 4.2151891556681424e-05,
+        "exact_mode_covered": true,
+        "certified_classical_state_lower_bound": 26
+      }
+    }
+  ],
+  "empirical_calibration": {
+    "trials": 40,
+    "nominal_confidence": 0.99,
+    "qubit_100k_exact_mode_coverage": "40/40",
+    "classical_3cycle_50k_false_exclusions": "0/40"
+  },
+  "pass": true
+}
