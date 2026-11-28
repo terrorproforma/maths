@@ -4,13 +4,13 @@ allowing ALL integral assignments (including off-support assignments!).
 
 Checks performed:
   1. Theorem 4 (m = 5, n = 47): full instance INFEASIBLE at budget 1.0 (kappa_5 > 1).
-  2. Theorem 5 (m = 4, n = 309): full instance INFEASIBLE at budget 1.0 (kappa_4 > 1).
-  3. Theorem 1 (2-level Fresh Cascade, 13 cols): single block with J denied to A
-     has MILP min-max = 1.285 > 1 + W(1/e) = 1.278465.
-  4. Theorem 2 (2-Row Ping-Pong, 29 cols & 122 cols): single block with J denied to A
-     has MILP min-max = 1.390 > 1 + 1/e = 1.367879, and 1.490 respectively.
-  5. Theorem 3 (1-Split Binary Tree + Ping-Pong, 5 rows): single block with J denied
-     to A is INFEASIBLE at budget 1.569 > 1 + W(1) = 1.567143.
+  2. Theorem 5 (m = 4, n = 219, exact rung-1 proof instance): full instance INFEASIBLE at budget 1.0 (kappa_4 > 1).
+  3. Theorem 1 (2-level Fresh Cascade, 12 cols): single killer block with J -> A forbidden
+     has MILP min-max = 1.285 > 1 + W(1/e) = 1.278465 (block-level check, not a standalone kappa instance).
+  4. Theorem 2 (2-Row Ping-Pong, 29 cols): single killer block with J -> A forbidden
+     has MILP min-max = 1.390 > 1 + 1/e = 1.367879 (block-level check).
+  5. Theorem 3 (1-Split Binary Tree + Ping-Pong, 5 rows): single killer block with J -> A forbidden
+     is INFEASIBLE at budget 1.569 > 1 + W(1) = 1.567143 (block-level check).
 
 Requires numpy + scipy (HiGHS).
 """
@@ -138,11 +138,12 @@ def check_1_m5() -> None:
 
 
 def check_2_m4() -> None:
+    """Exact rung-1 proof instance of Theorem 5 (m = 4, n = 219)."""
     m, eta = 4, 1e-6
-    c_eff = F(1002, 1000)
+    c_eff = F(10002, 10000)
     u, p1, p2 = F(3, 10), F(71, 100), F(31, 100)
     pp1 = build_pp(F(1) - p1, F(0), c_eff, k_first=10, k_rest=10)
-    pp2 = build_pp(F(1) - p2, F(-1), c_eff, k_first=10, k_rest=10)
+    pp2 = build_pp(u + p1 - p2, -c_eff, c_eff, k_first=10, k_rest=10)
     cols = [[(float(u), 1.0), (float(1 - u), 1.0), (0.0, eta), (0.0, eta)]]
     cols.append([(float(p1), 1.0), (0.0, eta), (float(1 - p1), 1.0), (0.0, eta)])
     for act, dL, xL in pp1:
@@ -160,7 +161,7 @@ def check_2_m4() -> None:
                 cols.append([(float(1 - xj), 1.0), (0.0, eta), (float(xj), float(dj)), (0.0, eta)])
     feas = solve_milp(cols, m, budget=1.0)
     assert feas is False
-    print(f"[2] m=4, n={len(cols)} full instance: MILP INFEASIBLE at budget 1.0 (kappa_4 > 1) OK")
+    print(f"[2] m=4, n={len(cols)} exact rung-1 instance: MILP INFEASIBLE at budget 1.0 (kappa_4 > 1) OK")
 
 
 def check_3_fresh_cascade() -> None:

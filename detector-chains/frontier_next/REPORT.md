@@ -14,13 +14,13 @@ $$
 \kappa = \sup_{m \ge 1} \kappa_m.
 $$
 
-| Quantity / Open Question | Prior Best | This Work | Proof / Certificate |
+| Quantity / Open Question | Prior Best | This Work (`frontier_next`) | Proof / Certificate |
 |---|---|---|---|
-| Lower bound on $\kappa$ | $1 + W(1/e) \approx 1.278465$ | **$1 + \ln 2 \approx 1.693147$** (via $1 + 1/e \to 1 + W(1) \to 1 + \ln 2$) | Theorems 1–3; [`verify_cascade_and_pingpong.py`](code/verify_cascade_and_pingpong.py) (LB $\ge 1.681499$) & [`verify_independent_milp.py`](code/verify_independent_milp.py) |
-| Minimal $m^*$ with $\kappa_{m^*} > 1$ | $m^* \in [3, 11]$ | **$m^* \in \{3, 4\}$** ($\kappa_4 \ge 1.079253$; compact $m = 5, n = 47$) | Theorems 4–5; [`verify_small_rows_m4_m5.py`](code/verify_small_rows_m4_m5.py) & [`verify_independent_milp.py`](code/verify_independent_milp.py) |
-| Upper bound on $\kappa_m$ | $\kappa_m \le 2m$ (Bárány–Grinberg) | **$\kappa_m \le m$** (strictly $< m$, support-preserving, poly-time) | Theorem 6; [`verify_upper_bound_km.py`](code/verify_upper_bound_km.py) |
-| Range for $\kappa_3$ | $1 \le \kappa_3 \le 6$ | **$1 \le \kappa_3 \le 3$**, and $0 \notin \mathrm{conv}(R_3)$ in 3 columns | Theorem 6 + Proposition 8; [`verify_small_rows_m4_m5.py`](code/verify_small_rows_m4_m5.py) |
-| Open Problem 3 of `detector-chains` | 2000-trial empirical LP sweep | **Proved unconditionally** for all nondecreasing $d$ | Theorem 7; [`verify_split_optimality_proof.py`](code/verify_split_optimality_proof.py) |
+| Lower bound on $\kappa$ | $1 + W(1/e) \approx 1.278465$ | **$1 + \ln 2 \approx 1.693147$** (via $1 + 1/e \to 1 + W(1) \to 1 + \ln 2$) | Theorems 1–3; exact recursion evaluation [`verify_cascade_and_pingpong.py`](code/verify_cascade_and_pingpong.py) (LB $\ge 1.681499$) & single-block MILP [`verify_independent_milp.py`](code/verify_independent_milp.py) |
+| Minimal $m^*$ with $\kappa_{m^*} > 1$ | $m^* \in [3, 11]$ | **$m^* \in \{3, 4\}$** ($\kappa_4 \ge 1.079253$; compact $m = 5, n = 47$; subsequently sharpened to $m^* = 3$ in [`../frontier_v2/REPORT.md`](../frontier_v2/REPORT.md)) | Theorems 4–5; [`verify_small_rows_m4_m5.py`](code/verify_small_rows_m4_m5.py) & [`verify_independent_milp.py`](code/verify_independent_milp.py) |
+| Upper bound on $\kappa_m$ | $\kappa_m \le 2m$ (Bárány–Grinberg $\pm 1$ phrasing) | **$\kappa_m \le m$** (strictly $< m$, support-preserving; standard 0/1 tightening of Bárány–Grinberg / LST / Beck–Fiala) | Proposition 6; [`verify_upper_bound_km.py`](code/verify_upper_bound_km.py) |
+| Range for $\kappa_3$ | $1 \le \kappa_3 \le 6$ | **$1 \le \kappa_3 \le 3$**, and $0 \notin \mathrm{conv}(R_3)$ in 3 columns | Proposition 6 + Proposition 8; [`verify_small_rows_m4_m5.py`](code/verify_small_rows_m4_m5.py) |
+| Open Problem 3 of `detector-chains` | 2000-trial empirical LP sweep | **First half proved unconditionally** (balanced split optimality for all nondecreasing $d$; optimality of chains among all single-block gadgets remains open) | Theorem 7; [`verify_split_optimality_proof.py`](code/verify_split_optimality_proof.py) |
 
 ---
 
@@ -71,8 +71,8 @@ $$
 $$
 For $c < 1 + 1/e$, we have $\alpha + e^{-\alpha} \ge 1 + 1/e > c$ for every $\alpha \ge 1$, so $-\ln(c - \alpha) > \alpha$ strictly on $[1, c)$. Moreover $c - \alpha_r \le c - 1 < 1/e < 1$ throughout, keeping every level admissible. Hence $\alpha_0 < \alpha_1 < \dots$ strictly exceeds $c$ at some finite level $L = L(c)$. Choosing $k$ large enough per level, $p > 0$ small enough, $N = \lceil (c + 1)/p \rceil$, and $\eta$ small enough absorbs all $p$ and $\eta$ drift (re-verified exactly in [`verify_cascade_and_pingpong.py`](code/verify_cascade_and_pingpong.py)): every block forces $J_b \mapsto A_b$, and finally $\Delta_B \ge Np - (n - N)\eta > c$. $\square$
 
-- **Exact certified full-instance rungs:** `L=2, k=16` $\implies \mathbf{1.309999}$ (`m=601, n=6200`); `L=3, k=35` $\implies \mathbf{1.347999}$; `L=8, k=90` $\implies \mathbf{1.363999}$.
-- **Independent MILP confirmation:** A 12-column, 4-row 2-level block (`k1=8, k2=5`, off-support allowed) has MILP min-max **$1.285000 > 1 + W(1/e) \approx 1.278465$**.
+- **Exact evaluation of the proof's recursion:** `L=2, k=16` $\implies \mathbf{1.309999}$ (`m=601, n=6200`); `L=3, k=35` $\implies \mathbf{1.347999}$; `L=8, k=90` $\implies \mathbf{1.363999}$.
+- **Independent single-block MILP check:** A 12-column, 4-row 2-level killer block (`k1=8, k2=5`, with `J -> A` forbidden and off-support allowed) has MILP min-max **$1.285000 > 1 + W(1/e) \approx 1.278465$** (verifying the single-block killer height, not a standalone $\kappa$ instance).
 
 ---
 
@@ -93,10 +93,10 @@ Look again at Lemma A: at the end of Level $1$ ($A \to H$), row $A$ does **not**
   $$
   u_r \;=\; c - \bigl((c - 1) - \ln u_{r-1}\bigr) \;=\; \mathbf{1 + \ln u_{r-1}} \qquad (r \ge 2).
   $$
-  Since $1 + \ln u < u$ strictly for all $u \in (0, 1)$, the sequence $1 > u_1 > u_2 > \dots$ has no fixed point in $(0, 1)$ and therefore crosses $0$ (i.e., $\alpha_r > c$) in finitely many levels! Note also that every level's active drain is a constant independent of $p$ and $\eta$, so $A$'s $(p, \eta)$ sensitivity stays $(1, E)$ and $H$'s stays $(0, E)$ across all levels without exponential error blowup. $\square$
+  Since $u - (1 + \ln u) > 0$ on $(0, 1)$ and is strictly decreasing in $u$ (derivative $1 - 1/u < 0$), the decrement $u_{r-1} - u_r \ge u_1 - (1 + \ln u_1) > 0$ is uniformly bounded below by a positive constant on $(0, u_1]$, so the sequence $1 > u_1 > u_2 > \dots$ crosses $0$ (i.e., $\alpha_r > c$) in finitely many levels! Note also that every level's active drain is a fixed design constant independent of $p$ and $\eta$, so $A$'s $(p, \eta)$ slack stays bounded by $p + n\eta$ and $H$'s by $n\eta$ (where $n$ is the total column count of the instance) across all levels without exponential error blowup. $\square$
 
-- **Exact certified full-instance rungs:** `c=1.40, k=10` (4 levels) $\implies \mathbf{1.395000}$; `c=1.50, k=15` (11 levels) $\implies \mathbf{1.497999}$; `c=1.55, k=25` (50 levels) $\implies \mathbf{1.548995}$; `c=1.562, k=40` (213 levels) $\implies \mathbf{1.561479}$.
-- **Independent MILP confirmation:** A 29-column, 3-row ping-pong block (`c=1.40`, 4 levels, off-support allowed) has MILP min-max **$1.390000 > 1 + 1/e \approx 1.367879$**.
+- **Exact evaluation of the proof's recursion:** `c=1.40, k=10` (4 levels) $\implies \mathbf{1.395000}$; `c=1.50, k=15` (11 levels) $\implies \mathbf{1.497999}$; `c=1.55, k=25` (50 levels) $\implies \mathbf{1.548995}$; `c=1.562, k=40` (213 levels) $\implies \mathbf{1.561479}$.
+- **Independent single-block MILP check:** A 29-column, 3-row ping-pong killer block (`c=1.40`, 4 levels, `J -> A` forbidden, off-support allowed) has MILP min-max **$1.390000 > 1 + 1/e \approx 1.367879$**.
 
 ---
 
@@ -104,11 +104,11 @@ Look again at Lemma A: at the end of Level $1$ ($A \to H$), row $A$ does **not**
 
 Why did 2-row ping-pong stop at $1 + \Omega$? Because at $c > 1 + \Omega$, after Level $1$ ($A \to H$) we have $A = c - 1$ and $H = -\ln(c - 1)$, with $H < c - 1$ so neither row alone is within distance $1$ of $c$! Yet **their sum** $A + H = (c - 1) - \ln(c - 1)$ still strictly exceeds $1$ for every $c \in (1, 2)$!
 
-**Lemma B (Height-Amplifying Binary Split).** *Suppose at budget $c$, row $X$ sits at height $h$ with $0 < c - h < 1$, and $Y$ is a fresh row at $0$. Run Level $1$ ($X \to Y$) so $(X, Y) \to (c - 1,\; -\ln(c - h))$, followed by **one** weight-$(1, 1)$ split column $K$ on $\{X, Y\}$ with $x_X = \frac{1 + Y - X}{2} \in [0, 1]$ and $x_Y = 1 - x_X$. Then regardless of how $K$ is assigned (to $X$, to $Y$, or off-support), **at least one** of $\{X, Y\}$ reaches height:*
+**Lemma B (Height-Amplifying Binary Split).** *Suppose at budget $c$, row $X$ sits at height $h$ with $0 < c - h < 1$, and $Y$ is a fresh row at $0$. Run Level $1$ ($X \to Y$) so $(X, Y) \to (c - 1,\; -\ln(c - h))$. If $u := c - h < e^{-c}$, then already $Y = -\ln u > c$ and the branch dies immediately without needing $K$. Otherwise $e^{-c} \le u < 1$, so $|Y - X| \le 1$, and we append **one** weight-$(1, 1)$ split column $K$ on $\{X, Y\}$ with $x_X = \frac{1 + Y - X}{2} \in [0, 1]$ and $x_Y = 1 - x_X$. Then regardless of how $K$ is assigned (to $X$, to $Y$, or off-support), **at least one** of $\{X, Y\}$ reaches height:*
 $$
 h' \;=\; \frac{1 + (c - 1) - \ln(c - h)}{2} \;=\; \mathbf{\frac{c - \ln(c - h)}{2}}.
 $$
-*Moreover, attaching independent killer subtrees on $X$ (using fresh rows disjoint from $Y$) and then on $Y$ (using fresh rows disjoint from $X$'s subtree) kills **both** branches with zero interference.*
+*Moreover, attaching independent killer subtrees on $X$ (using fresh rows disjoint from $Y$) and then on $Y$ (using fresh rows disjoint from $X$'s subtree) kills **both** branches with at most $O(n\eta)$ off-support interference, where $n$ is the total column count across all $2^D$ leaves.*
 
 **Theorem 3.** *For every $\varepsilon > 0$, there is a finite support-2, strictly positive instance with $D = 1$ forcing prefix discrepancy at least $1 + \ln 2 - \varepsilon$. Hence $\kappa \ge 1 + \ln 2 \approx 1.6931471806$.*
 
@@ -120,14 +120,14 @@ The function $\phi(u) = 2u - \ln u$ on $(0, 1)$ attains its unique global minimu
 $$
 \min_{u \in (0, 1)} (2u - \ln u) \;=\; 2 \cdot \frac{1}{2} - \ln\frac{1}{2} \;=\; \mathbf{1 + \ln 2 \approx 1.6931471806}.
 $$
-Therefore, for every $c < 1 + \ln 2$, we have $u - u' \ge \frac{1 + \ln 2 - c}{2} > 0$ uniformly on $(0, 1)$! Starting from $h_0 = 1$ ($u_0 = c - 1 < 1$), after finitely many binary-split depths $D = D(c)$, the guaranteed child height $h_D$ strictly crosses the ping-pong threshold $c - e^{-(c - 1)}$, after which a 2-row ping-pong leaf killer (Theorem 2) finishes each of the $2^D$ leaves in finitely many levels. Sensitivity to $(p, \eta)$ is non-amplifying down the tree: in every split, the left child inherits $X$'s slack ($\le p + E\eta$) and the right child inherits only $Y$'s fresh slack ($\le E\eta$). $\square$
+Therefore, for every $c < 1 + \ln 2$, we have $u - u' \ge \frac{1 + \ln 2 - c}{2} > 0$ uniformly on $(0, 1)$! Starting from $h_0 = 1$ ($u_0 = c - 1 < 1$), after finitely many binary-split depths $D = D(c)$, the guaranteed child height $h_D$ strictly crosses the ping-pong threshold $c - e^{-(c - 1)}$, after which a 2-row ping-pong leaf killer (Theorem 2) finishes each of the $2^D$ leaves in finitely many levels. Sensitivity to $(p, \eta)$ is non-amplifying down the tree: in every split, the left child inherits $X$'s slack ($\le p + n\eta$) and the right child inherits only $Y$'s fresh slack ($\le n\eta$), with $\eta$ scaled against the exact full column count $n$ across all $2^D$ leaves. $\square$
 
-- **Exact certified full-instance rungs (`verify_cascade_and_pingpong.py`):**
-  - `c = 1.60, D = 2` $\implies$ certified full-instance LB $= \mathbf{1.597999}$
-  - `c = 1.65, D = 6` $\implies$ certified full-instance LB $= \mathbf{1.648999}$
-  - `c = 1.67, D = 12` $\implies$ certified full-instance LB $= \mathbf{1.669499}$
-  - `c = 1.682, D = 26` $\implies$ certified full-instance LB $= \mathbf{1.681499}$ (within $0.0117$ of $1 + \ln 2$)
-- **Independent MILP confirmation (`verify_independent_milp.py`):** A 5-row, depth-1 binary-tree split + ping-pong block (`c = 1.578`, off-support allowed) is certified **INFEASIBLE at budget $1.569 > 1 + W(1) \approx 1.567143$**.
+- **Exact evaluation of the proof's recursion (`verify_cascade_and_pingpong.py`):**
+  - `c = 1.60, D = 2` $\implies$ recursion LB $= \mathbf{1.597999}$
+  - `c = 1.65, D = 6` $\implies$ recursion LB $= \mathbf{1.648999}$
+  - `c = 1.67, D = 12` $\implies$ recursion LB $= \mathbf{1.669499}$
+  - `c = 1.682, D = 26` $\implies$ recursion LB $= \mathbf{1.681499}$ (within $0.0117$ of $1 + \ln 2$; note the full $D = 26$ instance is astronomical in size and not materialized—the script evaluates the exact rational proof recursion with full $n\eta$ bookkeeping)
+- **Independent single-block MILP check (`verify_independent_milp.py`):** A 5-row, depth-1 binary-tree split + ping-pong killer block (`c = 1.578`, `J -> A` forbidden, off-support allowed) is certified **INFEASIBLE at budget $1.569 > 1 + W(1) \approx 1.567143$**.
 
 ### 2.5 Exact Barrier at $1 + \ln 2$
 
@@ -135,7 +135,7 @@ Remarkably, **two** distinct mechanisms meet tangentially at the exact same poin
 1. Binary-tree splitting stalls when $2u - \ln u = c$ ($\min = 1 + \ln 2$ at $u = 1/2$).
 2. Ping-pong from a single row $h$ requires $u = c - h < e^{-(c - 1)}$, which at $c = 1 + \ln 2$ is also $u < e^{-\ln 2} = 1/2$!
 
-Moreover, exhaustive beam search over multi-column weighted 2-row splits starting from $(0.70, 0.6931)$ at budget $c = 1.70$ up to depth 7 never beat the 1-column split baseline $\frac{a + b + 1}{2}$, and replacing binary splits by $q$-way Tijdeman splits on $(A, H, 0, \dots, 0)$ yields a strictly lower threshold ($\frac{5/4 + 1 + \ln 3}{2} \approx 1.6743$ for $q = 3$). Breaking $1 + \ln 2$ therefore requires a genuinely new mechanism beyond single-row-height amplification trees.
+*Update (`frontier_v2`):* This barrier is now proved rigorously as **Theorems 3–4 (Completeness Barrier at $1 + \ln 2$)** in [`../frontier_v2/REPORT.md`](../frontier_v2/REPORT.md): for arbitrary non-monotone forced chains and arbitrary $q$-way disjoint-subtree splits ($q \ge 2$), the $1$-Lipschitz row-excess potential $E(a) = \max(0, a - (h^* - 1))$ never increases past $1$ at any $c \ge 1 + \ln 2$. Breaking $1 + \ln 2$ therefore requires genuinely non-disjoint multi-row coupling.
 
 ---
 
@@ -195,15 +195,19 @@ With $\kappa_2 = 1$ and $\kappa_4 \ge 1.079253$, the sole remaining machine coun
 
 ---
 
-## 4. Problem B (Upper Bound): Cutting $\kappa_m \le 2m$ in Half to $\kappa_m \le m$, and Obstruction Audit for $\kappa < \infty$
+## 4. Problem B (Upper Bound): Proposition $\kappa_m \le m$ (Bárány–Grinberg / LST / Beck–Fiala) and Obstruction Audit
 
-### 4.1 Theorem 6 (Iterated Prefix Basis-Rounding): $\kappa_m \le m$
+### 4.1 Proposition 6 (Iterated Prefix Basis-Rounding): $\kappa_m \le m$
 
-**Theorem 6.** *For every finite instance $(x, d)$ with $m$ rows, $n$ columns, and maximum weight $D = \max_{i,j} d_{ij} > 0$, there is a polynomial-time, support-preserving ($y_{ij} = 0$ whenever $x_{ij} = 0$) integral assignment $y \in \{0, 1\}^{m \times n}$ satisfying*
+> **Attribution note:** This is the standard $0/1$ simplex specialization of the Bárány–Grinberg (1981) linear-dependence proof (replacing the $\pm 1$ diameter $2$ with $|z_{ij} - y_{ij}| < 1$), combined with the Lenstra–Shmoys–Tardos / Beck–Fiala basic-solution counting argument applied prefix by prefix. It is recorded here as a clean self-contained baseline rather than a novel upper bound.
+
+**Proposition 6.** *For every finite instance $(x, d)$ with $m$ rows, $n$ columns, and maximum weight $D = \max_{i,j} d_{ij} > 0$, there is a support-preserving ($y_{ij} = 0$ whenever $x_{ij} = 0$) integral assignment $y \in \{0, 1\}^{m \times n}$ (computable in polynomial time when each step pivots to a basic feasible vertex to control bit-length) satisfying*
 $$
 |\Delta_i(t)| \;<\; m \cdot D \qquad \text{for every row } i \in \{1, \dots, m\} \text{ and every prefix } t \in \{1, \dots, n\}.
 $$
-*In particular, $\kappa_m \le m$ for every $m \ge 1$ (halving Bárány–Grinberg's $2m$ bound, and giving $\kappa_3 \le 3$, $\kappa_4 \le 4$).*
+*In particular, $\kappa_m \le m$ for every $m \ge 1$ (giving $\kappa_3 \le 3$, $\kappa_4 \le 4$).*
+
+*(Monotonicity remark: $\kappa_m \le \kappa_{m+1}$ for all $m \ge 1$, since any $m$-row instance pads to $m+1$ rows by adding a dummy row with $x_{m+1,j} = 0$ and $d_{m+1,j} = \eta \to 0^+$, which only creates an $O(n\eta)$ sink tolerated by every lower-bound construction.)*
 
 *Proof.* Process columns $t = 1, \dots, n$ sequentially. Maintain a subset $F_t \subseteq \{1, \dots, t\}$ of currently fractional columns with vectors $z_j^{(t)} \in \Delta_{m-1}$ ($j \in F_t$), and already-fixed integral assignments $y_j \in \{0, 1\}^m$ for $j \in \{1, \dots, t\} \setminus F_t$, satisfying:
 1. $\mathrm{supp}(z_j^{(t)}) \subseteq \mathrm{supp}(x_j)$ and $\mathrm{supp}(y_j) \subseteq \mathrm{supp}(x_j)$,
@@ -241,7 +245,9 @@ Since the online problem is unbounded already for $m = 2$ (`chairman-small-rows`
 
 ---
 
-## 5. Open Problem 3 of `detector-chains`: Complete Analytic Resolution
+## 5. Open Problem 3 of `detector-chains` (First Half): Exact Split Optimality
+
+> **Scope note:** Open Problem 3 of `detector-chains` (`kappa_chains.tex`) asks two questions: (i) whether the balanced split is optimal among all splits at every admissible weight vector, and (ii) whether the chain is optimal among all single-block gadgets. Theorem 7 resolves **(i)** completely via an explicit LP-duality identity; **(ii)** remains open.
 
 **Theorem 7 (Exact Split Optimality & Admissibility Separation).** *Fix $k \ge 3$ and any nondecreasing weights $0 < d_2 \le d_3 \le \dots \le d_{k-1} \le d_k = 1$. Let $R = \sum_{j=2}^{k-1} \frac{d_j}{d_{j+1}}$ and $\tau_{\mathrm{bal}}(d) = \frac{d_2(k - 1 - R) + 1}{1 + d_2}$. For the $p = 0$ heights $\mathrm{dev}_j(x) = 1 - \sum_{i=2}^{j-1} d_i(1 - x_i) + d_j x_j$ ($2 \le j \le k$, with $\mathrm{dev}_k = \mathrm{term}_A$) and $\mathrm{term}_H(x) = \sum_{i=2}^k (1 - x_i)$,*
 $$

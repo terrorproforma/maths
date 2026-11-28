@@ -1,0 +1,297 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{array,booktabs}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\disc}{\Delta}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\W}{W}
+
+\title{Sharp Machine Thresholds, $1+\ln 2$ Amplification, and a Completeness Barrier\\
+for Machine-Dependent Weighted Chairman Assignment}
+\author{Angus Muffatti}
+\date{28 November 2026 --- research draft}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a fractional assignment $x\in[0,1]^{m\times n}$ ($\sum_{i=1}^m x_{ij}=1$) with strictly positive machine-dependent weights $d\in(0,D]^{m\times n}$, let $\kappa_m$ denote the supremum over $m$-row instances of $\min_y \max_{i,t} |\sum_{j=1}^t d_{ij}(x_{ij}-y_{ij})|/D$ over all integral assignments $y\in\{0,1\}^{m\times n}$ ($\sum_i y_{ij}=1$, off-support allowed), and let $\kappa=\sup_{m\ge1}\kappa_m$.
+Liu and Reis (ITCS 2026) proved the common-weight bound $\kappa(1)=1$ and conjectured $\kappa\le 1$ for machine-dependent weights; prior work in this programme established $\kappa_2=1$, refuted $\kappa_{11}\le 1$, and proved $\kappa\ge 1+\W(1/e)\approx 1.278465$ via single-level detector chains while documenting a composition barrier across blocks.
+
+We settle the minimal machine threshold and substantially advance both lower and obstruction bounds:
+\begin{enumerate}
+\item \textbf{Exact phase transition at $m^*=3$:} using a zero-pollution initial split and dirty-helper ping-pong amplification, we prove $\kappa_3\ge c_3^*\approx 1.101721$ (the unique root of $2c-1=e^{-(c-1)}+e^{1-2c}$), backed by an explicit $3\times 33$ counterexample certified in exact rational arithmetic and independently by HiGHS MILP. Combined with $\kappa_2=1$, the Liu--Reis bound holds on two machines and fails already on three. For every even $m\ge 4$, a zero-pollution ladder proves $\kappa_m\ge c_m^*$ solving $e^{-(c-1)}-(c-1)=2/m$ (giving $\kappa_4\ge 1.26625$ and $\kappa_8\ge 1.41220>1+1/e$).
+\item \textbf{Breaking the composition barrier to $\kappa\ge 1+\ln 2\approx 1.693147$:} amplifying height \emph{inside} each fresh block eliminates entry pollution and accumulator venting, yielding three escalating support-2 families: fresh cascades ($1+1/e$), two-row ping-pong ($1+\W(1)\approx 1.567143$), and recursive binary-tree splitting plus ping-pong ($1+\ln 2\approx 1.693147$).
+\item \textbf{Completeness barrier at $1+\ln 2$:} we prove universal optimality of the drain--gain law over arbitrary (possibly non-monotone) weights and splits, and construct a $1$-Lipschitz row-excess potential showing that no forced fresh-row chain or $q$-way disjoint-subtree split ($q\ge 2$) can cross $1+\ln 2$.
+\item \textbf{Baseline upper bound and split optimality:} we record the $0/1$-simplex specialization $\kappa_m\le m$ (strictly $<m\cdot D$) of B\'ar\'any--Grinberg / Lenstra--Shmoys--Tardos / Beck--Fiala, and resolve the first half of Open Problem~3 of the companion detector-chains draft via an explicit nonnegative dual identity.
+\end{enumerate}
+\end{abstract}
+
+\section{Introduction}
+
+Let $x\in[0,1]^{m\times n}$ satisfy $\sum_{i=1}^m x_{ij}=1$ for each column $j\in\{1,\dots,n\}$, and let $d\in(0,D]^{m\times n}$ be a matrix of strictly positive machine-dependent weights (normalized to $D=\max_{i,j}d_{ij}=1$ throughout). For an integral assignment $y\in\{0,1\}^{m\times n}$ with $\sum_{i=1}^m y_{ij}=1$ (not restricted to the support of $x$), define the row-prefix discrepancy
+\[
+ \disc_i(t)=\sum_{j=1}^t d_{ij}(x_{ij}-y_{ij}),\qquad
+ \kappa_m=\sup_{m\text{-row instances}}\min_y\max_{i,t}\frac{|\disc_i(t)|}{D},\qquad
+ \kappa=\sup_{m\ge1}\kappa_m.
+\]
+In the unweighted setting ($d_{ij}\equiv 1$), Tijdeman \cite{Tijdeman1973,Tijdeman1980} and Meijer \cite{Meijer1973} proved the exact optimal constant $1-\frac{1}{2m-2}$, hence $\kappa_{\text{unw}}=1$. Liu and Reis \cite{LiuReis2026} extended the guarantee $1$ to common column weights ($d_{ij}=d_j$, confirming a special case of the Morell--Skutella unsplittable-flow conjecture \cite{MorellSkutella2022}) and conjectured that $\kappa\le 1$ persists for arbitrary machine-dependent weights (Conjectures~19 and~21 in ITCS 2026; Conjectures~3 and~5 in arXiv:2511.18546).
+
+Prior papers in this research programme established three landmarks:
+\begin{itemize}
+\item \texttt{chairman-counterexample/} refuted $\kappa_{11}\le 1$ via an explicit $11\times 15$ instance and proved $\kappa\ge 4-2\sqrt{2}\approx 1.171573$;
+\item \texttt{chairman-small-rows/} proved $\kappa_2=1$ (via a parallelogram trapping invariant adapting Lund--Magazinov) and showed that the online problem is unbounded already for $m=2$;
+\item \texttt{detector-chains/} generalized the detector gadget to depth-$k$ chains, proving $\kappa\ge 1+\W(1/e)\approx 1.278465$, while documenting a sharp composition barrier (entry pollution, accumulator venting, and disjunctive exits) that defeated every attempt to compose stronger local block games across blocks.
+\end{itemize}
+
+Note that $\kappa_m$ is non-decreasing in $m$: any $m$-row instance pads to $m+1$ rows by adding a dummy row with $x_{m+1,j}=0$ and $d_{m+1,j}=\eta\to 0^+$, creating at most an $O(n\eta)$ sink accommodated by every lower-bound proof below. Table~\ref{tab:summary} summarizes the main results of this paper.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Quantity / Question & Prior Best & This Work \\
+\midrule
+Minimal $m^*$ with $\kappa_{m^*}>1$ & $m^*\in[3,11]$ & \textbf{$m^*=3$} (exact; $\kappa_2=1$, $\kappa_3\ge 1.101721$) \\
+Smallest counterexample $(m,n)$ & $(11,15)$ & \textbf{$(3,33)$} (exact \texttt{Fraction} + MILP infeasible at $1$) \\
+Small-$m$ lower bounds & $\kappa_2=1$, $\kappa_{11}>1$ & $\kappa_3\ge 1.10172$, $\kappa_4\ge 1.26625$, $\kappa_6\ge 1.36256$, $\kappa_8\ge 1.41220$ \\
+Global lower bound on $\kappa$ & $1+\W(1/e)\approx 1.278465$ & \textbf{$1+\ln 2\approx 1.693147$} (via $1+1/e \to 1+\W(1) \to 1+\ln 2$) \\
+Disjoint-tree barrier & Empirical ($c=1.35$–$1.60$) & \textbf{Proved completeness barrier at $1+\ln 2$} (Thms.~\ref{thm:nonmonotone}--\ref{thm:barrier}) \\
+Upper bound on $\kappa_m$ & $2m$ ($\pm 1$ B\'ar\'any--Grinberg) & $\kappa_m\le m$ ($<mD$; $0/1$ specialization, Prop.~\ref{prop:km}) \\
+Detector-chains OP3 (part 1) & 2000-trial LP sweep & \textbf{Proved unconditionally} via exact dual (Thm.~\ref{thm:splitopt}) \\
+\bottomrule
+\end{tabular}
+\caption{Summary of results on machine-dependent weighted chairman assignment.}
+\label{tab:summary}
+\end{table}
+
+\section{The Drain--Gain Primitive and Internal Amplification to $\kappa\ge 1+\ln 2$}
+
+Every lower-bound construction in this paper builds on a single elementary chain primitive. Instead of banking height \emph{across} blocks (where entry pollution and accumulator venting intervene), we amplify height \emph{inside each fresh block} before coupling to the global accumulator $B$. Every row inside a fresh block starts at height $\ge -n\eta$ (where $n$ is the total column count of the instance and $\eta>0$ is the off-support weight), and any off-support assignment on a column $C_j$ still denies both support rows their fractional shares while subtracting only $\eta$ from the recipient.
+
+\subsection{Lemma A: Single-Level Drain--Gain Identity}
+
+Fix a target budget $c>1$. Suppose an active row $X$ starts at height $\disc_X\ge\alpha$ with $0<c-\alpha<1$, and a passive row $Y$ starts at height $\disc_Y\ge\beta$. Append $k-1$ geometric chain columns $C_2,\dots,C_k$ supported on $\{X,Y\}$ with weights $d_j=r^{k-j}$ on $X$ ($d_k=1$, $r\in(0,1)$ chosen so $d_2=r^{k-2}\ge c-\alpha$), weight $1$ on $Y$, off-support weight $\eta$ elsewhere, and fractional splits
+\[
+ x_2=\frac{c-\alpha}{d_2}\in(0,1],\qquad x_j=r\in(0,1)\qquad (j=3,\dots,k).
+\]
+
+\begin{lemma}[Single-Level Drain--Gain]\label{lem:draingain}
+Assume every prefix discrepancy stays within $[-c,c]$. If any column $C_j$ ($2\le j\le k$) is not assigned to $X$ (whether assigned to $Y$ or off-support), then at the first such column $C_j$, row $X$ reaches height at least $c$ (up to accumulated prior $\eta$-sinks). Otherwise all $k-1$ columns are assigned to $X$, and immediately after $C_k$:
+\[
+ \disc_X\ge \alpha-\sum_{j=2}^k d_j(1-x_j) = c-1,\qquad
+ \disc_Y\ge \beta + 1 - x_2 + (k-2)(1-r).
+\]
+As $k\to\infty$ with $d_2\downarrow c-\alpha$ (so $x_2\uparrow 1$ and $(k-2)(1-r)\to-\ln(c-\alpha)$),
+\[
+ \disc_X \longrightarrow c-1,\qquad \disc_Y \longrightarrow \beta - \ln(c-\alpha).
+\]
+\end{lemma}
+\begin{proof}
+The drain sum telescopes identically for every $k\ge 3$:
+\[
+ \sum_{j=2}^k d_j(1-x_j)
+ = d_2\left(1-\frac{c-\alpha}{d_2}\right)+\sum_{j=3}^k r^{k-j}(1-r)
+ = (d_2 - c + \alpha) + (1 - d_2)
+ = 1 - (c-\alpha).
+\]
+At the first column $C_j$ not assigned to $X$: for $j=2$, $\disc_X\ge\alpha+d_2 x_2=c$; for $j\ge 3$, the drain strictly before $C_j$ is $d_{j-1}-(c-\alpha)$ and $d_j x_j=d_{j-1}$, giving $\disc_X\ge\alpha-(d_{j-1}-c+\alpha)+d_{j-1}=c$. Sending $C_j$ off-support still denies $X$ and preserves these inequalities.
+\end{proof}
+
+\subsection{Fresh Cascades, Two-Row Ping-Pong, and Recursive Binary-Tree Splitting}
+
+\begin{theorem}[$L$-Level Fresh Cascade]\label{thm:cascade}
+For every $\eps>0$, there exists a finite support-2, strictly positive instance with $D=1$ forcing prefix discrepancy at least $1+1/e-\eps$. Hence $\kappa\ge 1+1/e\approx 1.367879$.
+\end{theorem}
+\begin{proof}
+Fix $c\in(1,1+1/e)$. In each block $b=1,\dots,N$, introduce fresh rows $A_b,H_{b,1},\dots,H_{b,L}$ and place a detector $J_b$ on $\{B,A_b\}$ with weights $(1,1)$ and splits $(p,1-p)$, followed by $L$ levels $A_b\to H_{b,1}\to\cdots\to H_{b,L}$ designed via Lemma~\ref{lem:draingain} for the ideal heights $\alpha_0=1$, $\alpha_{r+1}=-\ln(c-\alpha_r)$. Since $\alpha+e^{-\alpha}\ge 1+1/e>c$ for all $\alpha\ge 1$, the decrement $-\ln(c-\alpha)-\alpha$ is strictly positive and bounded below on $[1,c)$, so $\alpha_L>c$ for some finite $L(c)$. Because each level uses fixed design parameters, the actual height trails the ideal height by at most $p+n\eta$ on $A_b$ and $n\eta$ on each $H_{b,r}$. Choosing $k$ large, $p>0$ small, $N=\lceil (c+1)/p\rceil$, and $\eta$ small enough forces $J_b\mapsto A_b$ in every block (including ruling out off-support $J_b$, which still denies $A_b$); then $\disc_B\ge Np-(n-N)\eta>c$.
+\end{proof}
+
+\begin{theorem}[Two-Row Ping-Pong Cascade]\label{thm:pingpong}
+For every $\eps>0$, there exists a finite support-2, strictly positive instance with $D=1$ and $2N+1$ rows forcing prefix discrepancy at least $1+\W(1)-\eps$, where $\Omega=\W(1)\approx 0.567143$ solves $\Omega e^\Omega=1$. Hence $\kappa\ge 1+\Omega\approx 1.567143$.
+\end{theorem}
+\begin{proof}
+Fix $c\in(1,1+\Omega)$ and use only two fresh rows $\{A_b,H_b\}$ per block. By Lemma~\ref{lem:draingain}, after Level~1 ($A_b\to H_b$) from $(1,0)$, row $A_b$ ends at $c-1>0$ rather than $0$, while $H_b$ reaches $\alpha_1=-\ln(c-1)$. The remaining gap on $H_b$ is $u_1:=c-\alpha_1=1+(c-1)+\ln(c-1)<1$ precisely because $(c-1)e^{c-1}<1\iff c-1<\W(1)=\Omega$. Immediately reversing direction ($H_b\to A_b\to H_b\to\cdots$) gives the passive row a free head start $\beta=c-1$ on every level $r\ge 2$, producing the exact gap recurrence
+\[
+ u_r := c-\alpha_r = c - \bigl((c-1)-\ln u_{r-1}\bigr) = 1+\ln u_{r-1}\qquad (r\ge 2).
+\]
+On $(0,1)$, the positive decrement $\delta(u):=u-(1+\ln u)$ has derivative $1-1/u<0$, so $\delta(u)$ is strictly decreasing in $u$; hence $u_{r-1}-u_r\ge \delta(u_1)>0$ uniformly until $u_r<0$ ($\alpha_r>c$) in finitely many levels. Since every level's drain and gain are fixed design constants, the slacks remain bounded by $p+n\eta$ on $A_b$ and $n\eta$ on $H_b$ across all levels without exponential amplification.
+\end{proof}
+
+Above $1+\Omega$, after Level~1 neither $X=c-1$ nor $Y=-\ln(c-h)$ alone lies within distance $1$ of $c$, yet their sum still exceeds $1$.
+
+\begin{lemma}[Height-Amplifying Binary Split]\label{lem:split}
+At budget $c>1$, let $X$ sit at height $h$ with $u:=c-h\in(0,1)$ and let $Y$ be fresh at $0$. Run Level~1 ($X\to Y$) so $(X,Y)\to(c-1,-\ln u)$. If $u<e^{-c}$, then already $Y=-\ln u>c$ and the branch dies immediately. Otherwise $e^{-c}\le u<1$, so $|Y-X|\le 1$, and appending one weight-$(1,1)$ split column $K$ on $\{X,Y\}$ with $x_X=\frac{1+Y-X}{2}\in[0,1]$ and $x_Y=1-x_X$ guarantees that under every integral assignment (to $X$, to $Y$, or off-support), at least one of $\{X,Y\}$ reaches
+\[
+ h' = \frac{1+(c-1)-\ln u}{2} = \frac{c-\ln u}{2}.
+\]
+Attaching independent killer subtrees on $X$ and then on $Y$ (on disjoint fresh row sets) kills both branches with at most $O(n\eta)$ off-support interference, where $n$ is the full column count across all leaves.
+\end{lemma}
+
+\begin{theorem}[Recursive Binary-Tree Splitting + Ping-Pong]\label{thm:ln2}
+For every $\eps>0$, there exists a finite support-2, strictly positive instance with $D=1$ forcing prefix discrepancy at least $1+\ln 2-\eps$. Hence $\kappa\ge 1+\ln 2\approx 1.69314718$.
+\end{theorem}
+\begin{proof}
+Fix $c\in(1,1+\ln 2)$. In gap coordinates $u=c-h\in(0,1)$, Lemma~\ref{lem:split} maps $u\mapsto u'=(c+\ln u)/2$, so
+\[
+ u-u' = \frac{2u-\ln u-c}{2} \;\ge\; \frac{1+\ln 2-c}{2} \;>\; 0
+\]
+uniformly on $(0,1)$, because $\phi(u)=2u-\ln u$ achieves its unique global minimum $1+\ln 2$ at $u=1/2$. Starting from $u_0=c-1<1$, after finitely many split depths $D=D(c)$ every guaranteed child gap $u_D$ drops below the ping-pong threshold $e^{-(c-1)}$ (or dies earlier if $u_r<e^{-c}$), where a two-row ping-pong leaf killer (Theorem~\ref{thm:pingpong}) finishes each of the $2^D$ leaves. Down the tree, the left child inherits slack $\le p+n\eta$ and the right child only $\le n\eta$, where $\eta$ is scaled against the exact full column count $n$ of all $2^D$ leaves.
+\end{proof}
+
+Exact rational evaluations of the proof recursions in \texttt{detector-chains/frontier\_next/code/verify\_cascade\_and\_pingpong.py} reach $1.363999$ (fresh cascade), $1.561479$ (ping-pong), and $1.681499$ (depth-26 binary tree; note that the script evaluates the exact rational proof recursion with full $n\eta$ accounting rather than materializing the $n\approx 6.15\times 10^{14}$ tree). Independent HiGHS MILP checks on materialized single killer blocks (with $J\to A$ forbidden and off-support allowed) confirm min-max $1.285>1+\W(1/e)$ (12 cols), $1.390>1+1/e$ (29 cols), and infeasibility at $1.569>1+\W(1)$ (5 rows, 959 cols).
+
+\section{Sharp Machine Threshold: $m^*=3$ and the Even-$m$ Ladder}
+
+Previously, $\kappa_2=1$ (\texttt{chairman-small-rows}) and $\kappa_{11}>1$ (\texttt{chairman-counterexample}) left $m^*\in[3,11]$. Two mechanisms close this gap completely to $m^*=3$.
+
+\begin{lemma}[Dirty-Helper Ping-Pong]\label{lem:dirty}
+At budget $c\ge 1$, suppose row $A$ enters a ping-pong block on $\{A,H\}$ at height $\alpha_0$ ($g_0:=c-\alpha_0\in(0,1)$), while $H$ enters at \emph{any} legal height $\disc_H\ge -c$ (arbitrarily polluted). After Level~1 ($A\to H$), $A$ stands at $c-1$ and $H$ rises to $\ge -c-\ln g_0$. Ping-pong on $\{A,H\}$ explodes past $c$ whenever $c-(-c-\ln g_0)<1$, i.e., $g_0<e^{1-2c}$.
+\end{lemma}
+
+\begin{theorem}[Exact Threshold $m^*=3$ and Quantitative Bound on Three Machines]\label{thm:m3}
+Let $c_3^*\approx 1.10172066$ be the unique root of $2c-1=e^{-(c-1)}+e^{1-2c}$. Then $\kappa_3\ge c_3^*>1$. Combined with $\kappa_2=1$, the minimal number of machines on which the Liu--Reis bound fails is $m^*=3$.
+\end{theorem}
+\begin{proof}
+Work on three rows $\{B,A,H\}$ at budget $c<c_3^*$.
+\begin{enumerate}
+\item \textbf{Zero-pollution initial split $J_0$:} place $J_0$ on $\{B,A\}$ with weights $(1,\eta)$ and splits $(u,1-u)$ where $u=c-\delta_0$ ($0<\delta_0\ll 1$). Notice row $A$ moves by at most $\eta$, leaving $\{A,H\}$ essentially fresh! Under $J_0\not\to B$, $\disc_B=+u$; under $J_0\to B$, $\disc_B=-(1-u)=-(1-c+\delta_0)$.
+\item \textbf{Block~1 (clean ping-pong on $(B,H,A)$ with share $p_1$):} place $J_1$ on $\{B,H\}$ with weights $(1,1)$ and splits $(p_1,1-p_1)$, followed by clean ping-pong on $\{H,A\}$. Whenever $c-(1-p_1)<e^{-(c-1)}$ (i.e., $p_1<1-c+e^{-(c-1)}$), Block~1 forces $J_1\mapsto H$ on every surviving schedule. Choosing $u+p_1>c$ kills the $J_0\not\to B$ branch immediately ($\disc_B=u+p_1>c$). The surviving $J_0\to B$ branch exits with $\disc_B=u+p_1-1$ and $\disc_A\ge -c$ (legal schedule!).
+\item \textbf{Block~2 (dirty-helper ping-pong directly on $\{B,A\}$):} with no coupling column $J_2$, run dirty-helper ping-pong directly from active row $B$ onto dirty helper $A$. The entry gap on $B$ is $g_0=c-(u+p_1-1)\approx 1-p_1$. By Lemma~\ref{lem:dirty}, Block~2 kills the surviving branch whenever $1-p_1<e^{1-2c}$.
+\end{enumerate}
+A valid $p_1$ satisfying $1-e^{1-2c}<p_1<1-c+e^{-(c-1)}$ exists if and only if $2c-1<e^{-(c-1)}+e^{1-2c}$, i.e., $c<c_3^*\approx 1.10172066$. Choosing $\delta_0,k,\eta$ appropriately yields finite exact rational instances forcing discrepancy $>c$.
+\end{proof}
+
+\begin{remark}[Ultra-compact $3\times 33$ counterexample]
+At budget $c=1$, replacing Block~1 by a single 1-level chain ($k_1=10$), appending one modulo-$1$ helper cleanup column $Z_1$ on $\{H,A\}$, and running a 7-level clean ping-pong Block~2 ($k=4$) yields an explicit **$3\times 33$ instance** certified in exact \texttt{fractions.Fraction} arithmetic to satisfy $\kappa_3>1001/1000$ (\texttt{detector-chains/frontier\_v2/code/verify\_m3\_and\_small\_m\_ladder.py}), and independently certified \textbf{INFEASIBLE at budget $1.00$} by HiGHS MILP in $0.064\,\text{s}$ allowing all off-support assignments (\texttt{verify\_independent\_milp\_v2.py}).
+\end{remark}
+
+\begin{theorem}[Even-$m$ Zero-Pollution Ladder]\label{thm:ladder}
+For every even $m=2q+2\ge 4$, let $c_m^*$ be the unique root of $e^{-(c-1)}-(c-1)=2/m$. Then $\kappa_m\ge c_m^*$. In particular,
+\[
+ \kappa_4\ge 1.266249,\qquad \kappa_6\ge 1.362560,\qquad \kappa_8\ge 1.412195 > 1+\frac{1}{e},
+\]
+and $c_m^*\uparrow 1+\W(1)\approx 1.567143$ as $m\to\infty$.
+\end{theorem}
+\begin{proof}
+On rows $\{B,R_0,A_1,H_1,\dots,A_q,H_q\}$, place zero-pollution $J_0$ on $\{B,R_0\}$ with weights $(1,\eta)$ and split $u=c-\delta_0$. Run $q$ clean ping-pong blocks on $(B,A_r,H_r)$ each transferring $p_1<1-c+e^{-(c-1)}$, killing the $J_0\not\to B$ branch when $u+qp_1>c$. In the surviving $J_0\to B$ branch, row $R_0$ is still completely fresh ($\ge -n\eta$) and $\disc_B=u+qp_1-1$, so clean final ping-pong on $\{B,R_0\}$ kills whenever $c-(u+qp_1-1)<e^{-(c-1)}$, i.e., $1-qp_1<e^{-(c-1)}$. Both inequalities hold simultaneously iff $q(1-c+e^{-(c-1)})>1-e^{-(c-1)}$, which simplifies identically to $e^{-(c-1)}-(c-1)>1/(q+1)=2/m$.
+\end{proof}
+
+\section{Exact Completeness Barrier at $1+\ln 2$}
+
+Why did recursive binary-tree splitting stall at $1+\ln 2$, right where $2u-\ln u=c$ meets the ping-pong threshold $u=e^{-(c-1)}$ tangentially at $(u,c)=(1/2,1+\ln 2)$? We prove that this wall is exact across all forced chains (even with non-monotone weights) and all $q$-way disjoint-subtree splits.
+
+\begin{theorem}[Universal Non-Monotone Drain--Gain Optimality]\label{thm:nonmonotone}
+Fix $c>1$, entry height $\alpha\in(c-1,c)$ ($u:=c-\alpha$), and any $k\ge 2$, arbitrary weights $d_2,\dots,d_k\in(0,1]$ on $X$ and $d_{Y,2},\dots,d_{Y,k}\in(0,1]$ on $Y$, and splits $x_2,\dots,x_k\in[0,1]$ such that every first deviation on $X$ reaches at least $c$. Letting $w:=c-\alpha_{\mathrm{end}}$ where $\alpha_{\mathrm{end}}=\alpha-\sum_{j=2}^k d_j(1-x_j)$, we have $w\in[u,1]$ and
+\[
+ \disc_Y^{\mathrm{gain}} := \sum_{j=2}^k d_{Y,j}(1-x_j) \;\le\; \ln\!\left(\frac{w}{u}\right) \;\le\; -\ln u,
+ \qquad \alpha_{\mathrm{end}}+\disc_Y^{\mathrm{gain}} \;\le\; c-1-\ln u.
+\]
+\end{theorem}
+\begin{proof}
+Let $u_1:=u$ and $u_j:=u_{j-1}+d_j(1-x_j)$ for $j=2,\dots,k$, so $u_k=w$. The deviation condition at column $j$ states $(c-u_{j-1})+d_j x_j\ge c$, i.e., $d_j x_j\ge u_{j-1}$, hence $u_j\le d_j\le 1$ (giving $w\le 1$) and
+\[
+ d_{Y,j}(1-x_j)\le 1-x_j = \frac{d_j(1-x_j)}{d_j} \le \frac{u_j - u_{j-1}}{u_j} \le \int_{u_{j-1}}^{u_j}\frac{dt}{t} = \ln\!\left(\frac{u_j}{u_{j-1}}\right).
+\]
+Summing over $j=2,\dots,k$ gives $\disc_Y^{\mathrm{gain}}\le \ln(w/u)\le -\ln u$. Finally, $\alpha_{\mathrm{end}}+\disc_Y^{\mathrm{gain}}\le c-w+\ln(w/u)$, whose derivative $-1+1/w\ge 0$ on $(0,1]$ is maximized at $w=1$, giving $c-1-\ln u$.
+\end{proof}
+
+\begin{theorem}[Exact $1+\ln 2$ Completeness Barrier]\label{thm:barrier}
+Fix $c\ge 1+\ln 2$, set $h^*:=c-e^{-(c-1)}$ (the single-row ping-pong kill threshold), and define the $1$-Lipschitz row-excess potential $E(a):=\max(0,\, a-(h^*-1))$.
+\begin{enumerate}
+\item For any forced chain from active height $\alpha\in(c-1,h^*)$ into a fresh row $Y$ at $0$ (satisfying Theorem~\ref{thm:nonmonotone}), the total excess change obeys
+\[
+ \Delta E := E(\alpha_{\mathrm{end}})+E(\disc_Y^{\mathrm{gain}})-E(\alpha) \;\le\; 2e^{-(c-1)}-1 \;\le\; 0.
+\]
+\item For any $q$-way split column ($q\ge 2$) on rows $1,\dots,q$ with arbitrary weights $d_r\in(0,1]$ and splits $\sum_{r=1}^q x_r=1$, partitioned into disjoint child subtrees $I_1,\dots,I_q$ (with $r\in I_r$ allowed), if the total pre-split excess satisfies $S:=\sum_i E(a_i)<1$, then there is a branch $r\in\{1,\dots,q\}$ whose child subtree satisfies
+\[
+ \sum_{i\in I_r} E\!\left(a_i^{(r)}\right) \;<\; \frac{S+1}{q} \;<\; 1.
+\]
+\end{enumerate}
+Consequently, starting from $(1,0,\dots,0)$ (where $E(1)=1-(h^*-1)=2-c+e^{-(c-1)}<1$ for $c\ge 1+\ln 2$), no composition of arbitrary forced fresh-row chains and $q$-way disjoint-subtree splits can reach $h^*$ at any budget $c\ge 1+\ln 2$.
+\end{theorem}
+\begin{proof}
+(1) Write $u=c-\alpha\in(e^{-(c-1)},1)$ and $w=c-\alpha_{\mathrm{end}}\in[u,1]$. Since $h^*-1=c-1-e^{-(c-1)}$ and $w\le 1<1+e^{-(c-1)}$, both $\alpha$ and $\alpha_{\mathrm{end}}$ lie strictly above $h^*-1$, so
+\[
+ E(\alpha)=1+e^{-(c-1)}-u,\qquad E(\alpha_{\mathrm{end}})=1+e^{-(c-1)}-w,\qquad E(\alpha_{\mathrm{end}})-E(\alpha)=u-w\le 0.
+\]
+If $\disc_Y^{\mathrm{gain}}\le h^*-1$, then $E(\disc_Y^{\mathrm{gain}})=0$ and $\Delta E=u-w\le 0$. Otherwise $E(\disc_Y^{\mathrm{gain}})=\disc_Y^{\mathrm{gain}}-(h^*-1)$, and Theorem~\ref{thm:nonmonotone} gives
+\[
+ \Delta E \;\le\; u - w + \ln\!\left(\frac{w}{u}\right) - (h^*-1)
+ \;\le\; (u - 1 - \ln u) - (c - 1 - e^{-(c-1)})
+ \;=\; u - \ln u - c + e^{-(c-1)},
+\]
+using that $w\mapsto -w+\ln w$ is nondecreasing on $(0,1]$ and maximized at $w=1$. On $(e^{-(c-1)},1)$, $u\mapsto u-\ln u$ has derivative $1-1/u<0$ and is therefore strictly bounded by its value at the left endpoint $u=e^{-(c-1)}$, yielding
+\[
+ \Delta E \;<\; \bigl(e^{-(c-1)} + c - 1\bigr) - c + e^{-(c-1)} \;=\; 2e^{-(c-1)} - 1 \;\le\; 0
+\]
+for all $c\ge 1+\ln 2$.
+
+(2) Under branch $r$, row $r$ decreases (so $E(a_r^{(r)})\le E(a_r)$), while each $i\ne r$ increases by $d_i x_i\le x_i$, so by $1$-Lipschitzness $E(a_i^{(r)})\le E(a_i)+x_i$. Summing over all $q$ disjoint subtrees $I_1,\dots,I_q$ gives
+\[
+ \sum_{r=1}^q \sum_{i\in I_r} E\!\left(a_i^{(r)}\right)
+ \;\le\; \sum_{i} E(a_i) + \sum_{r=1}^q \sum_{i\in I_r\setminus\{r\}} x_i
+ \;\le\; S + \sum_{i=1}^q x_i = S + 1.
+\]
+By averaging over $r=1,\dots,q$, at least one branch satisfies $\sum_{i\in I_r} E(a_i^{(r)})\le (S+1)/q < 1$ whenever $S<1$ and $q\ge 2$.
+\end{proof}
+
+\section{Upper Bound Baseline, Split Optimality, and Open Problems}
+
+\begin{proposition}[Iterated Prefix Basis-Rounding; $0/1$ specialization of B\'ar\'any--Grinberg / LST / Beck--Fiala]\label{prop:km}
+For every finite instance $(x,d)$ with $m$ rows and maximum weight $D=\max_{i,j}d_{ij}>0$, there exists a support-preserving integral assignment $y\in\{0,1\}^{m\times n}$ satisfying $|\disc_i(t)|<m\cdot D$ for all $i,t$. Hence $\kappa_m\le m$ for all $m\ge 1$ (and $1.10172\le \kappa_3\le 3$).
+\end{proposition}
+\begin{proof}[Proof sketch]
+Process columns $t=1,\dots,n$ sequentially, maintaining a set $F_t\subseteq\{1,\dots,t\}$ of fractional columns $z_j^{(t)}\in\Delta_{m-1}$ and permanently fixed $y_j$ ($j\notin F_t$) preserving $\sum_{j\notin F_t} d_{ij}y_{ij}+\sum_{j\in F_t}d_{ij}z_{ij}^{(t)}=\sum_{j=1}^t d_{ij}x_{ij}$ and $\sum_{j\in F_t}(|\mathrm{supp}(z_j^{(t)})|-1)\le m$ (hence $|F_t|\le m$). Whenever adding column $t$ exceeds $m$, the homogeneous system $\sum_{j\in F} d_{ij}\delta_{ij}=0$ ($i\le m$), $\sum_i\delta_{ij}=0$ ($j\in F$) has more unknowns than equations, yielding a support-shrinking pivot (pivoting to a basic feasible vertex controls bit-length in polynomial time). Rounding $F_n$ arbitrarily within its final support leaves $\disc_i(t)=\sum_{j\in F_t}d_{ij}(z_{ij}^{(t)}-y_{ij})$ with every nonzero term satisfying $|z_{ij}^{(t)}-y_{ij}|<1$, so $|\disc_i(t)|<|F_t|D\le mD$.
+\end{proof}
+
+\begin{theorem}[Balanced Split Optimality --- First Half of Detector-Chains OP3]\label{thm:splitopt}
+For every $k\ge 3$ and any nondecreasing weights $0<d_2\le\dots\le d_{k-1}\le d_k=1$, letting $R=\sum_{j=2}^{k-1}d_j/d_{j+1}$ and $\tau_{\mathrm{bal}}(d)=\frac{d_2(k-1-R)+1}{1+d_2}$, the $p=0$ chain heights $\mathrm{dev}_j(x)=1-\sum_{i=2}^{j-1}d_i(1-x_i)+d_jx_j$ ($2\le j\le k$, $\mathrm{dev}_k=\mathrm{term}_A$) and $\mathrm{term}_H(x)=\sum_{i=2}^k(1-x_i)$ satisfy
+\[
+ \max_{x\in[0,1]^{k-1}}\min\{\mathrm{dev}_2(x),\dots,\mathrm{dev}_{k-1}(x),\mathrm{term}_A(x),\mathrm{term}_H(x)\}
+ = \min\{\tau_{\mathrm{bal}}(d),\,1+d_2\}.
+\]
+\end{theorem}
+\begin{proof}
+Set nonnegative dual weights $\alpha_j=\frac{1}{d_j}-\frac{1}{d_{j+1}}\ge 0$ ($2\le j\le k-1$), $\alpha_k=1$, and $\beta=1$. Then $\sum_{j=i}^k\alpha_j=1/d_i$ cancels every $x_i$ identically, yielding
+\[
+ \sum_{j=2}^{k-1}\!\left(\frac{1}{d_j}-\frac{1}{d_{j+1}}\right)\mathrm{dev}_j(x)+\mathrm{term}_A(x)+\mathrm{term}_H(x)
+ \equiv \frac{1}{d_2}+k-1-R.
+\]
+Dividing by $\frac{1}{d_2}+1$ gives $\min\le\tau_{\mathrm{bal}}(d)$, while $\mathrm{dev}_2(x)=1+d_2 x_2\le 1+d_2$. Matching primal attainment uses $x_{j+1}=d_j/d_{j+1}$ and $x_2=\min(1,(\tau_{\mathrm{bal}}(d)-1)/d_2)$. (Optimality of chains among \emph{all} single-block gadgets---the second half of OP3---remains open.)
+\end{proof}
+
+\subsection*{Open Problems}
+\begin{enumerate}
+\item \textbf{Is $\kappa$ finite?} Now squeezed to $1+\ln 2\le\kappa\le\infty$ with $\kappa_m\le m$. Breaking $1+\ln 2$ requires genuinely non-disjoint multi-row coupling (Theorem~\ref{thm:barrier}).
+\item \textbf{Exact value of $\kappa_3\in[1.10172,3]$} and asymptotic growth of $\kappa_m$ as $m\to\infty$.
+\item \textbf{Morell--Skutella (2022) costless two-sided unsplittable flow:} still open (unrelated to machine-dependent weights, which assign edge-by-commodity weights).
+\end{enumerate}
+
+\section*{Reproducibility and Disclosure}
+All theorems carry exact \texttt{fractions.Fraction} verifiers in \texttt{detector-chains/frontier\_next/code/} and \texttt{detector-chains/frontier\_v2/code/}, plus independent HiGHS MILP infeasibility checks allowing off-support assignments. AI systems (Gemini 4 Neon, Claude Opus 5.5, GPT-5.6 Pro) assisted with proof discovery, verification code, and adversarial cross-model refereeing; the author assumes responsibility for independent verification and final text.
+
+\begin{thebibliography}{9}
+\bibitem{Tijdeman1973} R.~Tijdeman, On a distribution problem in finite and countable sets, \emph{J.\ Combin.\ Theory Ser.\ A} 15 (1973), 129--137.
+\bibitem{Meijer1973} H.~G.~Meijer, On a distribution problem in finite sets, \emph{Indag.\ Math.} 35 (1973), 9--17.
+\bibitem{Tijdeman1980} R.~Tijdeman, The chairman assignment problem, \emph{Discrete Math.} 32 (1980), 323--330.
+\bibitem{BaranyGrinberg1981} I.~B\'ar\'any and V.~S.~Grinberg, On some combinatorial questions in finite-dimensional spaces, \emph{Linear Algebra Appl.} 41 (1981), 1--9.
+\bibitem{MorellSkutella2022} S.~Morell and M.~Skutella, Single source unsplittable flows with arc-wise lower and upper bounds, \emph{Math.\ Program.} (2022).
+\bibitem{LiuReis2026} S.~Liu and V.~Reis, Weighted chairman assignment and flow-time scheduling, \emph{ITCS 2026} (arXiv:2511.18546).
+\end{thebibliography}
+
+\end{document}
