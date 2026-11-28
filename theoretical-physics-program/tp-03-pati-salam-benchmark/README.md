@@ -1,8 +1,8 @@
 # TP-03 — Complete Pati–Salam benchmark
 
 **Author:** Angus Muffatti  
-**Project status:** **ACTIVE — Phase 2B complete; `PS1-EW` next**  
-**Current version:** 0.3.0
+**Project status:** **ACTIVE — Phase 3 (`PS1-EW`) complete**  
+**Current version:** 0.4.0
 
 ## Research question
 
@@ -23,8 +23,8 @@ one discriminating observable?
 \textbf{Chiral anomaly cancellation: PASS.}\\
 \textbf{Strict one-bidoublet Yukawa branch: FAIL.}\\
 \textbf{General gauge-only scalar potential: 138 real parameters.}\\
-\textbf{Certified high-scale }PS1\textbf{-MM vacuum: PASS.}\\
-\textbf{Complete low-energy fit: OPEN.}
+\textbf{Certified high-scale }PS1\textbf{-MM vacuum: PASS (rescaled }\lambda_\Delta=0.08\textbf{).}\\
+\textbf{Phase 3 }PS1\textbf{-EW electroweak matching, 2-loop RGEs, fermion/neutrino fit \& stability: PASS (branch- and }T_{\rm rh}<v_R\textbf{-conditional).}
 \end{array}
 }
 \]
@@ -158,6 +158,18 @@ the desired SM-preserving coherent orbit is the certified global minimum. The ex
 - 120 positive \(\Phi_{15}\) spectator modes;
 - no deeper colour- or charge-breaking vacuum.
 
+### Phase 3 (`PS1-EW`)
+
+Extending `PS1-MM` with all 16 gauge-invariant quadratic and \(\Delta_R^\dagger\Delta_R\) bidoublet portal operators yields a surjective bijection onto the \(4\times 4\) colour-singlet Higgs doublet mass matrix \(\mathcal{M}_H^2\) decoupled from the colour-octet (\(\Omega_{1,2}\)) and triplet-leptoquark (\(\Sigma_{7/6},\Sigma_{1/6}\)) blocks. Tuning one determinant condition isolates a single light SM Higgs doublet \(h\) with a full \(188\times 188\) real Hessian splitting into 9 Goldstones, 4 light SM Higgs modes, and 175 positive heavy physical modes (explicit EW fine-tuning \(\Delta_{\rm FT} = v_R^2/\mu_{\rm SM}^2\)).
+
+Key Phase 3 outcomes across three benchmarks (`BM-LR` at \(5.08\times 10^{13}\text{ GeV}\), `BM-GUT` at \(2.15\times 10^{10}\text{ GeV}\), and `BM-LOW` at \(1.00\times 10^7\text{ GeV}\)):
+
+- 1- and 2-loop gauge couplings stay perturbative to \(M_{\rm Pl}\) across \(v_R\in[10^{5.5},10^{16}]\text{ GeV}\), with exact 2-loop threshold-matched \(SO(10)\) triple unification at \(v_R = 2.15\times 10^{10}\text{ GeV}\), \(M_{\rm GUT}=5.13\times 10^{16}\text{ GeV}\);
+- Phase 2B's \(\lambda_\Delta=2.0\) hits a 60-component \(\Delta_R\) scalar Landau pole at \(3.19\,v_R\); rescaling to \(\lambda_\Delta=0.08, \kappa_4=0.016, \kappa_R=0.012\) keeps all three benchmarks perturbative to \(M_{\rm Pl}\);
+- `PS1-EW-min` (2 Dirac Yukawas \(Y_1, Y_{15}, f_R\)) **fails** for real Higgs-mixing ratios (\(\|f_R\|_2=6.54>\sqrt{4\pi}\)) and below \(v_R\simeq 7.7\times 10^{11}\text{ GeV}\), but **passes** all 18 flavour observables to \(<5\times 10^{-13}\) at `BM-LR` with a complex phase (\(\|Y_1\|_2=0.519, \|Y_{15}\|_2=0.576, \|f_R\|_2=0.0539\));
+- `PS1-EW-gen` (all 4 gauge-allowed Dirac Yukawas + \(f_R\)) **passes** perturbatively to \(<10^{-12}\) across the full \(v_R\in[4.5\times 10^6,10^{16}]\text{ GeV}\) window;
+- \(K_L\to\mu e\), \(B_s\to\mu e\), \(\mu\to e\gamma\), \(W_R/Z_R\), heavy-Higgs FCNCs, and \(\Delta B=1,2\) stability pass at all three benchmarks; \(\pi_2=\mathbb{Z}\) monopoles require \(T_{\rm rh}<v_R\), leaving an open monopole-safe hierarchical thermal leptogenesis window at `BM-LR` and `BM-GUT`.
+
 ## Reproduce
 
 ```bash
@@ -169,17 +181,17 @@ This runs:
 
 - exact multigraded invariant counting;
 - the complete 138-channel invariant-basis construction;
-- the explicit \(60\times60\) \(\Delta_R\) Hessian and complete \(188\times188\) benchmark Hessian;
-- the gauge-boson mass matrix;
-- Goldstone-orbit matching;
-- deterministic moment-map diagnostics;
-- twelve unit tests.
+- the explicit \(60\times60\) \(\Delta_R\) Hessian and complete \(188\times188\) benchmark Hessians (Phase 2B and Phase 3 `PS1-EW`);
+- the gauge-boson mass matrix and Goldstone-orbit matching;
+- 1- and 2-loop gauge/Yukawa/Higgs-quartic RGEs, Weinberg–Hall 1-loop thresholds, fermion/neutrino fits, and flavour/stability/relic audits;
+- twenty unit tests (12 Phase 2B + 8 Phase 3).
 
 ## Key files
 
 - `phase1_algebraic_baseline.md`
 - `phase2a_breaking_spectrum.md`
 - `phase2b_scalar_invariants_and_vacuum.md`
+- `phase3_electroweak_and_fermion_matching.md`
 - `invariant_basis_multidegrees.csv`
 - `invariant_coupling_basis.csv`
 - `results/invariant_coupling_basis.json`
@@ -188,18 +200,16 @@ This runs:
 - `code/count_scalar_invariants.py`
 - `code/generate_invariant_coupling_basis.py`
 - `code/verify_phase2b_vacuum.py`
+- `code/verify_phase3_ew_matching.py`
+- `code/tests/test_phase2b.py`
+- `code/tests/test_phase3_ew.py`
 - `results/scalar_invariant_count.json`
 - `results/phase2b_vacuum_spectrum.json`
+- `results/phase3_ew_results.json`
+- `results/phase3_ew_summary.md`
 
 ## Next decisive calculation
 
-The next branch is `PS1-EW`:
-
-1. derive the complete bidoublet mass/mixing matrix induced by the high-scale vacuum;
-2. retain one light Standard Model Higgs doublet;
-3. integrate out the remaining scalar thresholds;
-4. run one- and two-loop matching;
-5. fit charged fermions, CKM, neutrinos and PMNS;
-6. calculate flavour, proton/nuclear stability, leptogenesis and topological relics.
+TP-03's concrete broken-generator, vector, scalar, and quark–lepton mixing spectra now feed directly into **TP-04** (`../tp-04-quark-lepton-rotations/`). Within TP-03, optional future extensions cover the full 138-coupling scalar RG flow, Boltzmann flavored leptogenesis/dark-matter completion, and the deferred parity-completed branch `PS1P`.
 
 No aggregate TP-00 score is used. An applicable fatal zero terminates the claimed branch.

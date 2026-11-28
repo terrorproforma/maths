@@ -6,6 +6,7 @@ verify:
 	$(PYTHON) code/count_scalar_invariants.py --root .
 	$(PYTHON) code/generate_invariant_coupling_basis.py --root .
 	$(PYTHON) code/verify_phase2b_vacuum.py --root .
+	$(PYTHON) code/verify_phase3_ew_matching.py --root .
 	$(PYTHON) -m unittest discover -s code/tests -v
 
 manifest:
