@@ -1,10 +1,10 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "project": "TP-03 Pati-Salam benchmark",
-  "phase": "3 electroweak matching, RG running, fermion/neutrino fit and stability audit",
+  "phase": "3 electroweak matching, RG running, fermion/neutrino fit and stability audit (post-referee revision)",
   "branch": "PS1-EW",
   "sub_branches": {
-    "PS1-EW-min": "Minimal 2-Dirac-Yukawa sub-branch (Y_1, Y_15, f_R; Y_1_tilde = Y_15_tilde = 0)",
+    "PS1-EW-min": "Minimal 2-Dirac-Yukawa sub-branch (Y_1, Y_15, f_R; Y_1_tilde = Y_15_tilde = 0; 30 real Yukawa params after U(3)_L x U(3)_R removal vs 18 real flavour observables)",
     "PS1-EW-gen": "Full gauge-invariant 4-Dirac-Yukawa branch (Y_1, Y_1_tilde, Y_15, Y_15_tilde, f_R)"
   },
   "ps1_gauge_beta_coefficients": {
@@ -13,6 +13,7 @@
       "SU(2)_L",
       "SU(2)_R"
     ],
+    "scope": "gauge-only 2-loop Machacek-Vaughn (2-loop UV Yukawa traces omitted above v_R)",
     "b_1loop": [
       -2.333333333333333,
       2.0000000000000004,
@@ -46,137 +47,227 @@
       "g_GUT": 0.582025540634864
     },
     "two_loop_with_thresholds": {
-      "vR_LR_parity_GeV": 57145072807903.64,
-      "vR_triple_unification_GeV": 21450894488.281036,
-      "M_GUT_triple_unification_GeV": 5.129458257902696e+16,
-      "alpha_GUT_inv": 32.395060054686525,
-      "g_GUT": 0.6228242838464655,
-      "coupling_mismatch_at_M_GUT": 2.3321944708776243e-08
+      "vR_LR_parity_GeV": 46816553071805.76,
+      "vR_triple_unification_GeV": 7321675817.901456,
+      "M_GUT_triple_unification_GeV": 8.14712064228935e+16,
+      "alpha_GUT_inv": 31.053721705353507,
+      "g_GUT": 0.6361332608469388,
+      "coupling_mismatch_at_M_GUT": 9.156866820347886e-09
     }
   },
   "v_R_viable_window": {
-    "generic_KL_mue_lower_bound_GeV": 4493105.045537787,
-    "PS1_EW_min_complex_fR_perturbativity_lower_bound_GeV": 771487323373.1693,
+    "aligned_KL_mue_lower_bound_GeV": 3778235.926151103,
+    "aligned_KL_mue_M_X_lower_bound_GeV": 2056624.5357928425,
+    "PS1_EW_min_refit_lower_scale_witness_6e11_GeV": {
+      "branch": "PS1-EW-min (complex ratios)",
+      "fit_epistemic_scope": "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R basis removal vs 18 real flavour observables; not a constrained prediction)",
+      "allow_complex_ratios": true,
+      "v_R_GeV": 600000000000.0,
+      "max_charged_fermion_ckm_rel_err": 4.83955875277348e-13,
+      "matching_identity_residual": 2.5187127977066897e-16,
+      "cd": [
+        42.30353380859468,
+        35.5006670927656
+      ],
+      "ce": [
+        17.619749318337558,
+        0.00536222513616567
+      ],
+      "r1": [
+        59.92328312693223,
+        35.50602931790177
+      ],
+      "r15": [
+        -10.555714146417998,
+        35.48458041735711
+      ],
+      "u_light": [
+        [
+          0.7069414218938715,
+          0.0
+        ],
+        [
+          0.008731823820465657,
+          0.005173821866727193
+        ],
+        [
+          0.7069414218938715,
+          0.0
+        ],
+        [
+          -0.005444614302289133,
+          0.018302869078415912
+        ]
+      ],
+      "Y1_spectral_norm": 0.5645170474267146,
+      "Y15_spectral_norm": 0.5943839516382717,
+      "YnuD_singular_values": [
+        0.0028530340791906796,
+        0.014337822477966623,
+        0.07443727142493861
+      ],
+      "seesaw": {
+        "M_R_GeV": [
+          13887967951.293251,
+          530009605109.8387,
+          1187353193981.262
+        ],
+        "f_R_spectral_norm": 2.7986183170921883,
+        "f_R_perturbative": true,
+        "seesaw_inversion_rel_err": 2.9660605331548806e-15,
+        "hat_basis_seesaw_rel_err": 3.841711166013952e-15,
+        "takagi_rel_err": 4.050222725794257e-16,
+        "pmns_roundtrip_recovery": {
+          "sin2_th12": 0.3030000000000004,
+          "sin2_th23": 0.5720000000000005,
+          "sin2_th13": 0.02202999999999948,
+          "delta_pmns_deg": 197.00000000000023,
+          "J_pmns": -0.009649964672102758,
+          "dm21_sq_running_eV2": 0.00012448240976466944,
+          "dm31_sq_running_eV2": 0.004218360167909,
+          "max_rel_err": 2.3623106799502592e-14
+        },
+        "epsilon_1_CP_asymmetry": -6.065768208392905e-07,
+        "epsilon_1_DI_bound": 6.851202552363617e-07,
+        "eta_B_ceiling_unflavored_kappa01": 5.823137480057188e-10,
+        "eta_B_observed_benchmark": 6.1e-10,
+        "vanilla_N1_leptogenesis_shortfall_factor": 1.0475452487410777,
+        "vanilla_N1_leptogenesis_reaches_etaB": false,
+        "monopole_safe_kinematic_window": true,
+        "sum_m_nu_eV": 0.08460129512120847,
+        "m_beta_eV": 0.01738605780017425,
+        "m_bb_eV": 0.016317512983993882
+      },
+      "max_yukawa_norm": 2.7986183170921883,
+      "all_yukawas_perturbative": true
+    },
     "gauge_perturbativity_to_MPl_verified_up_to_GeV": 1e+16,
     "scan": [
       {
         "log10_vR": 5.5,
         "v_R_GeV": 316227.7660168379,
         "lam_H_SM": 0.019576536022297947,
-        "g4_vR": 0.8481469803486419,
+        "g4_vR": 0.8535670176175658,
         "g2L_vR": 0.6106546538013395,
-        "g2R_vR": 0.4009939321602395,
+        "g2R_vR": 0.40220081627034665,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.878726481401862
+        "two_loop_max_g_MPl": 0.8816902991267457
       },
       {
         "log10_vR": 6.0,
         "v_R_GeV": 1000000.0,
         "lam_H_SM": 0.011091981473538601,
-        "g4_vR": 0.8177720655376454,
+        "g4_vR": 0.8226271007210691,
         "g2L_vR": 0.6055652731676466,
-        "g2R_vR": 0.40651956689572044,
+        "g2R_vR": 0.40777719141389285,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.835099221174391
+        "two_loop_max_g_MPl": 0.837050537932113
       },
       {
         "log10_vR": 7.0,
         "v_R_GeV": 10000000.0,
         "lam_H_SM": -0.0030687017152781285,
-        "g4_vR": 0.7658224346951161,
+        "g4_vR": 0.7698053716276025,
         "g2L_vR": 0.5957420385062683,
-        "g2R_vR": 0.41830519233042557,
+        "g2R_vR": 0.41967577453889005,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7751712781454225
+        "two_loop_max_g_MPl": 0.7868592319826332
       },
       {
         "log10_vR": 8.0,
         "v_R_GeV": 100000000.0,
         "lam_H_SM": -0.014188427053025143,
-        "g4_vR": 0.7227884229018717,
+        "g4_vR": 0.7261340860826682,
         "g2L_vR": 0.5863663555460943,
-        "g2R_vR": 0.43119559660599754,
+        "g2R_vR": 0.4326972926030398,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7576572737042958
+        "two_loop_max_g_MPl": 0.7678578865848718
       },
       {
         "log10_vR": 10.0,
         "v_R_GeV": 10000000000.0,
         "lam_H_SM": -0.029648291918938856,
-        "g4_vR": 0.6550061504876217,
+        "g4_vR": 0.6574929760411167,
         "g2L_vR": 0.5688386911040736,
-        "g2R_vR": 0.4610655751780104,
+        "g2R_vR": 0.4629028448198873,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7436962667006194
+        "two_loop_max_g_MPl": 0.7526360259817411
       },
       {
         "log10_vR": 11.5,
         "v_R_GeV": 316227766016.83795,
         "lam_H_SM": -0.03688829467742653,
-        "g4_vR": 0.615184441992174,
+        "g4_vR": 0.6172433331025127,
         "g2L_vR": 0.5566579584773476,
-        "g2R_vR": 0.488102674544109,
+        "g2R_vR": 0.49028405942291736,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7427924105446492
+        "two_loop_max_g_MPl": 0.7514107249528943
       },
       {
         "log10_vR": 13.0,
         "v_R_GeV": 10000000000000.0,
         "lam_H_SM": -0.041447365493118,
-        "g4_vR": 0.5819035001149423,
+        "g4_vR": 0.5836450686004281,
         "g2L_vR": 0.5452153982533559,
-        "g2R_vR": 0.520596718231223,
+        "g2R_vR": 0.5232458549493887,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7466180718398804
+        "two_loop_max_g_MPl": 0.7551693220299873
       },
       {
         "log10_vR": 13.7,
         "v_R_GeV": 50118723362727.15,
         "lam_H_SM": -0.042852280675668035,
-        "g4_vR": 0.5681323267845072,
+        "g4_vR": 0.5697528112952045,
         "g2L_vR": 0.5401082236567423,
-        "g2R_vR": 0.5381863630715296,
+        "g2R_vR": 0.5411147362054489,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7495875878596476
+        "two_loop_max_g_MPl": 0.7581644216228668
       },
       {
         "log10_vR": 15.0,
         "v_R_GeV": 1000000000000000.0,
         "lam_H_SM": -0.044482768501634205,
-        "g4_vR": 0.5449780471646736,
+        "g4_vR": 0.5464078788823341,
         "g2L_vR": 0.5309877348882899,
-        "g2R_vR": 0.5762747417013828,
+        "g2R_vR": 0.5798742062095811,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7566575964934095
+        "two_loop_max_g_MPl": 0.7653489676324224
       },
       {
         "log10_vR": 16.0,
         "v_R_GeV": 1e+16,
         "lam_H_SM": -0.04501787824233736,
-        "g4_vR": 0.5289894673188337,
+        "g4_vR": 0.5302968119518415,
         "g2L_vR": 0.5242745178016374,
-        "g2R_vR": 0.6118746033656707,
+        "g2R_vR": 0.6161883649568,
         "one_loop_pert_to_MPl": true,
         "two_loop_pert_to_MPl": true,
-        "two_loop_max_g_MPl": 0.7632116936229512
+        "two_loop_max_g_MPl": 0.7720331001275546
       }
     ]
   },
   "scalar_hessian_188_verification": {
     "delta_quartics_PS1_EW": {
-      "lambda_Delta": 0.08,
-      "kappa_4": 0.016,
-      "kappa_R": 0.012,
-      "lambda_eff": 0.044
+      "lambda_Delta": 0.03,
+      "kappa_4": 0.006,
+      "kappa_R": 0.0045,
+      "lambda_eff": 0.016499999999999997
+    },
+    "portal_map_structure": {
+      "operator_count": 17,
+      "real_parameter_count": 25,
+      "target_hermitian_dim": 16,
+      "linear_map_rank": 16,
+      "kernel_dim": 9
     },
     "gauge_invariance_max_rel_err": 7.370825865449283e-15,
     "delta_squared_vanishing_residual": 0.0,
@@ -184,109 +275,110 @@
       188,
       188
     ],
-    "hessian_188_max_spectrum_err": 3.1086244689504383e-15,
+    "hessian_188_max_spectrum_err": 3.3306690738754696e-15,
     "goldstone_count": 9,
-    "goldstone_orbit_residual": 4.906538933386797e-18,
+    "goldstone_orbit_residual": 2.4532694666933983e-18,
     "light_higgs_probe_check": {
       "light_eigenvalues": [
-        9.999999999964741e-05,
-        0.00010000000000002402,
-        0.00010000000000024817,
-        0.00010000000000039432
+        9.999999999985948e-05,
+        0.00010000000000000206,
+        0.00010000000000023452,
+        0.0001000000000002842
       ],
-      "max_eigenvalue_error": 3.943107776058219e-16,
-      "eigenvector_subspace_error": 6.661338147750939e-16,
-      "eigenvector_operator_residual": 8.419815954533492e-15
+      "max_eigenvalue_error": 2.8419649446276285e-16,
+      "eigenvector_subspace_error": 4.440892098500626e-16,
+      "eigenvector_operator_residual": 7.942454780113192e-15
     },
     "light_higgs_criticality_check": {
       "light_eigenvalues": [
-        -1.7749537192977393e-17,
-        3.173229783373848e-16,
-        3.674650073567888e-16,
-        5.431645611055367e-16
+        -4.62146063971564e-16,
+        -9.522776664617618e-17,
+        1.8116653918832112e-16,
+        1.899202427560912e-15
       ],
-      "max_eigenvalue_error": 5.431645611055367e-16,
-      "eigenvector_subspace_error": 4.440892098500626e-16,
-      "eigenvector_operator_residual": 8.376064418171614e-15
+      "max_eigenvalue_error": 1.899202427560912e-15,
+      "eigenvector_subspace_error": 2.220446049250313e-16,
+      "eigenvector_operator_residual": 7.896652578637645e-15
     },
     "heavy_physical_mode_count": 175,
     "full_188_clusters_at_probe": [
       {
-        "value": 0.0,
+        "value": 8.673617379884035e-19,
         "multiplicity": 9
       },
       {
-        "value": 9.99999999995586e-05,
+        "value": 9.999999999976111e-05,
         "multiplicity": 4
       },
       {
-        "value": 0.024,
+        "value": 0.009000000000000001,
         "multiplicity": 2
       },
       {
-        "value": 0.028000000000000004,
+        "value": 0.010500000000000002,
         "multiplicity": 6
       },
       {
-        "value": 0.032,
+        "value": 0.012,
         "multiplicity": 12
       },
       {
-        "value": 0.04000000000000001,
+        "value": 0.015000000000000003,
         "multiplicity": 6
       },
       {
-        "value": 0.044000000000000004,
+        "value": 0.0165,
         "multiplicity": 12
       },
       {
-        "value": 0.05600000000000001,
+        "value": 0.021,
         "multiplicity": 12
       },
       {
-        "value": 0.08799999999999998,
+        "value": 0.03299999999999999,
         "multiplicity": 1
       },
       {
-        "value": 0.7999999999999995,
+        "value": 0.7999999999999999,
         "multiplicity": 4
       },
       {
-        "value": 1.0999999999999974,
+        "value": 1.0999999999999985,
         "multiplicity": 32
       },
       {
-        "value": 1.1999999999999984,
+        "value": 1.199999999999999,
         "multiplicity": 4
       },
       {
-        "value": 1.299999999999997,
+        "value": 1.2999999999999976,
         "multiplicity": 32
       },
       {
-        "value": 1.399999999999997,
+        "value": 1.3999999999999972,
         "multiplicity": 24
       },
       {
-        "value": 1.6000000000000008,
+        "value": 1.6000000000000003,
         "multiplicity": 4
       },
       {
-        "value": 1.7999999999999983,
+        "value": 1.7999999999999972,
         "multiplicity": 24
       }
     ],
+    "ew_vacuum_scope_note": "Hessian verified at the unbroken EW origin (<Phi>=0); tuning lambda_1 = -mu_SM^2 gives the expected tachyonic EWSB curvature, and full EW-broken vacuum stability with <h> != 0 and quartic backreaction remains open.",
     "criticality_portal_parameters_BM_LR": {
       "v_R": 1.0,
-      "mu1_sq": 0.6500111193752444,
+      "mu1_sq": 0.6500130541520245,
       "tmu1_sq": [
-        -0.0024662036310983066,
-        -0.0014586035515625458
+        -0.0024631286129911693,
+        -0.0014597088775760853
       ],
       "mu15_sq": 1.0000000000000002,
       "tmu15_sq": 0.04999999999999999,
       "alpha1_0": 0.3,
-      "alpha1_R": 0.7996492972479987,
+      "alpha1_R": 0.7996459035984098,
       "talpha1_0": [
         0.0,
         0.0
@@ -294,29 +386,41 @@
       "alpha15_0": 0.4,
       "alpha15_a": 0.45358983848622403,
       "alpha15_b": 1.1464101615137756,
-      "alpha15_c": -2.1333629850006517,
-      "alpha15_cR": 1.597703764304815,
+      "alpha15_c": -2.1333681444053982,
+      "alpha15_cR": 1.5976498980004012,
       "talpha15_c": [
-        -0.12061849450244107,
-        -0.0412034562715338
+        -0.12021903193893493,
+        -0.04164811057381609
       ],
       "beta0": [
-        0.4617479083121924,
-        0.0003470428778458319
+        0.4617429931128602,
+        0.00035156855272008635
       ],
       "betaR": [
-        -0.46158188663749994,
-        0.0003470428778458319
+        -0.4615784150122451,
+        0.00035156855272008635
       ],
       "tbeta0": [
-        0.007716905619781429,
-        0.01863272696780298
+        0.007587288299527004,
+        0.01876626616671631
       ],
       "tbetaR": [
-        -0.015059599961906223,
-        0.0051618636884238085
+        -0.015160714907661601,
+        0.005285255855874896
       ]
     }
+  },
+  "tree_level_higgs_stability_audit": {
+    "benchmark": "BM-LR",
+    "lambda_H_SM_2loop_at_vR": -0.011219896371842992,
+    "lambda_eff_DeltaR": 0.016499999999999997,
+    "lambda_hDelta_at_criticality": -1.6483039757313331,
+    "lambda_H_UV_matched": 41.1540224735027,
+    "coherent_ray_r_over_x": 49.94860532519192,
+    "coherent_ray_in_physical_quadrant": true,
+    "V4_over_x2_along_coherent_ray": -0.011219896371841287,
+    "tree_level_global_stability_pass": false,
+    "obstruction_summary": "FAILED / OPEN at tree level for the matched negative-portal BM-LR point: lambda_hDelta < 0 puts r = -lambda_hDelta x / (2 lambda_eff) > 0 in the physical quadrant where V_4(x, r) = lambda_H^SM(v_R) x^2 < 0 (unbounded below). Stabilizing requires lambda_H^SM(v_R) > 0 (as at BM-LOW/BM-GUT), positive-portal lambda_hDelta > 0 copositivity, or radiative effective-potential / UV RG stabilization."
   },
   "benchmarks": {
     "BM-LR": {
@@ -331,7 +435,7 @@
         "lam_H_2loop_Buttazzo": -0.011219896371842992,
         "mu_instability_1loop_GeV": 5778811.603228649,
         "mu_instability_2loop_GeV": 9042361021.032412,
-        "min_portal_coupling_for_UV_stability": 0.04443761651398921,
+        "min_positive_portal_for_lambda_H_UV_pos": 0.027212371461187233,
         "yu_sv": [
           3.157171644120415e-06,
           0.0015914219309898208,
@@ -381,22 +485,22 @@
           "alpha2R_inv": 42.632050952980315
         },
         "one_loop_matched": {
-          "g4": 0.5680250153443946,
+          "g4": 0.5696445791549918,
           "g2L": 0.5400675218033693,
-          "g2R": 0.538335951017922,
-          "alpha4_inv": 38.947083335167186,
+          "g2R": 0.5412667799624348,
+          "alpha4_inv": 38.725936251243766,
           "alpha2L_inv": 43.08377433560243,
-          "alpha2R_inv": 43.36138011459243
+          "alpha2R_inv": 42.893068642754585
         },
         "weinberg_hall_lambda_i": {
-          "SU3": -2.8468498495813295,
+          "SU3": -11.183898500181005,
           "SU2L": 4.41806529902,
-          "U1Y": 25.597161734311953
+          "U1Y": 2.3842027463677575
         },
         "delta_alpha_inv_shift": {
-          "SU3": -0.07551503763354789,
+          "SU3": -0.2966621215569736,
           "SU2L": 0.11719282187363428,
-          "U1Y": 0.6789858031897433
+          "U1Y": 0.06324294206961684
         },
         "heavy_vector_real_dof": 9,
         "heavy_scalar_real_dof": 175,
@@ -406,164 +510,207 @@
         "perturbative_to_MPl": true,
         "landau_pole_GeV": null,
         "g_at_MPl": {
-          "g4": 0.5526833841031146,
-          "g2L": 0.5781860997674713,
-          "g2R": 0.749614190107327
+          "g4": 0.5543044280800958,
+          "g2L": 0.5782613981217803,
+          "g2R": 0.7581913474691502
         },
-        "max_g_at_MPl": 0.749614190107327
+        "max_g_at_MPl": 0.7581913474691502
       },
       "delta_quartic_landau_pole": {
+        "diagnostic_scope": "pure-self-coupling 1-loop O(60) truncation; kappa^2, bidoublet portal, gauge, and Yukawa terms omitted; full coupled 138-parameter scalar RGEs open",
         "N_complex_DeltaR": 30,
         "N_real_DeltaR": 60,
-        "beta_coeff_lambda_Delta_sq": 68.0,
+        "beta_coeff_lambda_Delta_sq": 136.0,
+        "beta_coeff_lambda_Delta_kappa4": -36.0,
+        "beta_coeff_lambda_Delta_kappaR": -16.0,
         "v_R_GeV": 50775880435119.71,
         "phase2b_benchmark_lambda_Delta": 2.0,
-        "phase2b_landau_pole_ratio_over_vR": 3.1935397130813796,
-        "phase2b_landau_pole_GeV": 162154790636226.62,
+        "phase2b_landau_pole_ratio_over_vR": 1.7870477646334413,
+        "phase2b_landau_pole_GeV": 90738923628875.56,
         "phase2b_sub_planckian_landau_pole": true,
-        "ps1_ew_benchmark_lambda_Delta": 0.08,
-        "ps1_ew_landau_pole_GeV": 2.053361864503128e+26,
-        "ps1_ew_perturbative_to_MPl": true,
-        "max_lambda_Delta_perturbative_to_MPl": 0.18742620343529745
+        "ps1_ew_benchmark_lambda_Delta": 0.03,
+        "ps1_ew_benchmark_kappa4": 0.006,
+        "ps1_ew_benchmark_kappaR": 0.0045,
+        "ps1_ew_partial_beta_16pi2_at_vR": 0.11376,
+        "ps1_ew_landau_pole_GeV": 3.271408931518384e+30,
+        "ps1_ew_perturbative_to_MPl_pure_truncation": true,
+        "max_lambda_Delta_perturbative_to_MPl_pure_truncation": 0.09371310171764873
       },
       "fit_PS1_EW_min_complex": {
-        "branch": "PS1-EW-min",
+        "branch": "PS1-EW-min (complex ratios)",
+        "fit_epistemic_scope": "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R basis removal vs 18 real flavour observables; not a constrained prediction)",
         "allow_complex_ratios": true,
         "v_R_GeV": 50775880435119.71,
-        "max_charged_fermion_ckm_rel_err": 4.947240539315313e-13,
-        "matching_identity_residual": 1.2432449050086573e-16,
+        "max_charged_fermion_ckm_rel_err": 7.342224261052279e-13,
+        "matching_identity_residual": 1.2889176106603065e-16,
         "cd": [
-          42.30592551248286,
-          35.495450745767144
+          42.29873401779814,
+          35.428196630686514
         ],
         "ce": [
-          17.746416151611566,
-          0.021713257388129004
+          17.765484197709153,
+          0.16729444169035843
         ],
         "r1": [
-          60.05234166409443,
-          35.51716400315527
+          60.064218215507296,
+          35.59549107237687
         ],
         "r15": [
-          -10.933322942351836,
-          35.43031097360276
+          -10.997718575329316,
+          34.92631330561544
         ],
         "u_light": [
           [
-            0.7069419435575623,
+            0.7069387328891913,
             0.0
           ],
           [
-            0.008721379646423175,
-            0.005158144755927117
+            0.008710544840726848,
+            0.005162077028975316
           ],
           [
-            0.7069419435575623,
+            0.7069387328891913,
             0.0
           ],
           [
-            -0.005621890073911042,
-            0.018218186239290998
+            -0.00579857519046989,
+            0.018414987839644348
           ]
         ],
-        "Y1_spectral_norm": 0.5190476537462101,
-        "Y15_spectral_norm": 0.5757374612011255,
+        "Y1_spectral_norm": 0.5219676994271412,
+        "Y15_spectral_norm": 0.5659543040336175,
         "YnuD_singular_values": [
-          0.0022272518005184384,
-          0.03113920830311541,
-          0.05849263244630028
+          0.0020930372535427942,
+          0.025694398600622323,
+          0.06498005003014042
         ],
         "seesaw": {
           "M_R_GeV": [
-            7283333757.572895,
-            1061148294876.8672,
-            1933831938286.576
+            6803852269.68635,
+            1194348447499.4526,
+            1364815370869.1926
           ],
-          "f_R_spectral_norm": 0.053861229604273586,
+          "f_R_spectral_norm": 0.038012938250962844,
           "f_R_perturbative": true,
-          "seesaw_inversion_rel_err": 7.903459874575119e-15,
-          "takagi_rel_err": 5.215692626838798e-16,
-          "epsilon_1_CP_asymmetry": 1.722984676550897e-07,
-          "epsilon_1_DI_bound": 3.593009071204895e-07,
-          "monopole_safe_leptogenesis_window": true,
+          "seesaw_inversion_rel_err": 9.381826110034301e-15,
+          "hat_basis_seesaw_rel_err": 4.497305635920378e-15,
+          "takagi_rel_err": 1.007167384807638e-15,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.3029999999999417,
+            "sin2_th23": 0.5720000000000018,
+            "sin2_th13": 0.02202999999999945,
+            "delta_pmns_deg": 197.0000000000004,
+            "J_pmns": -0.009649964672102416,
+            "dm21_sq_running_eV2": 0.000127610793260582,
+            "dm31_sq_running_eV2": 0.004324385684678427,
+            "max_rel_err": 1.9236537555386376e-13
+          },
+          "epsilon_1_CP_asymmetry": -1.8844447698879124e-07,
+          "epsilon_1_DI_bound": 3.35647160185442e-07,
+          "eta_B_ceiling_unflavored_kappa01": 1.8090669790923956e-10,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 3.371903898804429,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": true,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 0.5757374612011255,
+        "max_yukawa_norm": 0.5659543040336175,
         "all_yukawas_perturbative": true
       },
-      "fit_PS1_EW_min_real_control": {
-        "branch": "PS1-EW-min (real-ratio control)",
+      "fit_PS1_EW_min_real_witness": {
+        "branch": "PS1-EW-min (real ratios)",
+        "fit_epistemic_scope": "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R basis removal vs 18 real flavour observables; not a constrained prediction)",
         "allow_complex_ratios": false,
         "v_R_GeV": 50775880435119.71,
-        "max_charged_fermion_ckm_rel_err": 8.633518279112482e-13,
-        "matching_identity_residual": 7.881128161752542e-17,
+        "max_charged_fermion_ckm_rel_err": 5.874177419105683e-13,
+        "matching_identity_residual": 1.1189058345729077e-16,
         "cd": [
-          71.55897644348613,
+          113.38131477525094,
           0.0
         ],
         "ce": [
-          3.1076162574737016,
+          28.367192569169124,
           0.0
         ],
         "r1": [
-          74.66659270095984,
+          141.74850734442006,
           0.0
         ],
         "r15": [
-          62.23612767106503,
+          28.279737067743568,
           0.0
         ],
         "u_light": [
           [
-            0.7070294462246002,
+            0.7068770533724064,
             0.0
           ],
           [
-            0.009469153749338174,
+            0.004986839485052487,
             -0.0
           ],
           [
-            0.7070294462246002,
+            0.7068770533724064,
             0.0
           ],
           [
-            0.011360434408153482,
+            0.02499588492209443,
             -0.0
           ]
         ],
-        "Y1_spectral_norm": 0.6133432756085672,
-        "Y15_spectral_norm": 0.8397335477838057,
+        "Y1_spectral_norm": 0.5215596588364486,
+        "Y15_spectral_norm": 0.5714996849530734,
         "YnuD_singular_values": [
-          0.004875173294231183,
-          0.04263442566586649,
-          0.6534623756144246
+          0.002670573265793895,
+          0.04128908944722599,
+          0.07171889427344687
         ],
         "seesaw": {
           "M_R_GeV": [
-            59419062357.22711,
-            1201127165138.7659,
-            234744949139884.47
+            11298850948.852034,
+            709894699233.8114,
+            7080883981072.508
           ],
-          "f_R_spectral_norm": 6.538133616341777,
-          "f_R_perturbative": false,
-          "seesaw_inversion_rel_err": 7.314320857202796e-15,
-          "takagi_rel_err": 3.5124841448434103e-16,
-          "epsilon_1_CP_asymmetry": 5.473435465737759e-08,
-          "epsilon_1_DI_bound": 2.9312569924456e-06,
-          "monopole_safe_leptogenesis_window": true,
+          "f_R_spectral_norm": 0.1972173022665486,
+          "f_R_perturbative": true,
+          "seesaw_inversion_rel_err": 6.618705990613275e-15,
+          "hat_basis_seesaw_rel_err": 5.886492601982883e-15,
+          "takagi_rel_err": 2.72482841266713e-16,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.3030000000000332,
+            "sin2_th23": 0.5719999999999983,
+            "sin2_th13": 0.022029999999999533,
+            "delta_pmns_deg": 197.0000000000002,
+            "J_pmns": -0.009649964672103101,
+            "dm21_sq_running_eV2": 0.00012761079326057643,
+            "dm31_sq_running_eV2": 0.004324385684678426,
+            "max_rel_err": 1.0955666150591479e-13
+          },
+          "epsilon_1_CP_asymmetry": 3.3140811346973755e-10,
+          "epsilon_1_DI_bound": 5.573941179230805e-07,
+          "eta_B_ceiling_unflavored_kappa01": 3.1815178893094803e-13,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 1917.3238096498492,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": true,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 6.538133616341777,
-        "all_yukawas_perturbative": false
+        "max_yukawa_norm": 0.5714996849530734,
+        "all_yukawas_perturbative": true
       },
       "fit_PS1_EW_gen": {
         "branch": "PS1-EW-gen",
         "v_R_GeV": 50775880435119.71,
-        "exact_reconstruction_rel_err": 4.813271138196294e-15,
+        "determinants_D1_D15": [
+          0.20128824476650561,
+          0.15458937198067632
+        ],
+        "exact_reconstruction_rel_err": 6.935135728972039e-15,
+        "direct_tensor_contraction_rel_err": 3.48715387434164e-15,
         "u_light": [
           [
             0.601929265428846,
@@ -583,11 +730,11 @@
           ]
         ],
         "yukawa_spectral_norms": {
-          "Y1": 0.47023960967444806,
-          "Y1_tilde": 0.30107720395727167,
-          "Y15": 0.3260774607386025,
-          "Y15_tilde": 0.23745075438540705,
-          "f_R": 0.8305165690236231
+          "Y1": 1.1928246777762337,
+          "Y1_tilde": 0.7828007302889062,
+          "Y15": 1.018634428081944,
+          "Y15_tilde": 0.732139826021672,
+          "f_R": 0.8281853471033455
         },
         "YnuD_singular_values": [
           0.07085081435111575,
@@ -596,143 +743,168 @@
         ],
         "seesaw": {
           "M_R_GeV": [
-            5425726281486.341,
-            11181196141318.717,
-            29818841460809.08
+            5426050616195.09,
+            11211999368731.656,
+            29735141340373.855
           ],
-          "f_R_spectral_norm": 0.8305165690236231,
+          "f_R_spectral_norm": 0.8281853471033455,
           "f_R_perturbative": true,
-          "seesaw_inversion_rel_err": 2.9361916912375483e-16,
-          "takagi_rel_err": 3.7388459699937944e-16,
-          "epsilon_1_CP_asymmetry": 3.51650179759947e-06,
-          "epsilon_1_DI_bound": 0.00026766154615646303,
-          "monopole_safe_leptogenesis_window": true,
+          "seesaw_inversion_rel_err": 4.853274983330169e-16,
+          "hat_basis_seesaw_rel_err": 9.722554272464224e-16,
+          "takagi_rel_err": 6.726432042029802e-16,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.3029999999999959,
+            "sin2_th23": 0.5720000000000002,
+            "sin2_th13": 0.022029999999999952,
+            "delta_pmns_deg": 197.0,
+            "J_pmns": -0.009649964672102771,
+            "dm21_sq_running_eV2": 0.00012761079326057616,
+            "dm31_sq_running_eV2": 0.004324385684678394,
+            "max_rel_err": 1.3557178848558017e-14
+          },
+          "epsilon_1_CP_asymmetry": -5.3311458621597755e-05,
+          "epsilon_1_DI_bound": 0.00026767754621343464,
+          "eta_B_ceiling_unflavored_kappa01": 5.117900027673384e-08,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 0.011918951067852495,
+          "vanilla_N1_leptogenesis_reaches_etaB": true,
+          "monopole_safe_kinematic_window": true,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 0.8305165690236231,
+        "max_yukawa_norm": 1.1928246777762337,
         "all_yukawas_perturbative": true
       },
       "flavour_baryon_cosmology_audit": {
         "vector_masses_GeV": {
-          "M_X": 20394352755948.887,
-          "M_WR": 19328397499557.523,
-          "M_ZR": 44665006132363.2
+          "M_X": 20452501525407.676,
+          "M_WR": 19433625892228.754,
+          "M_ZR": 44835767937870.95
         },
         "flavour": {
+          "audit_scope": "Valencia-Willenbrock tree-level X-boson K_L/B_s -> mu e; preliminary order-of-magnitude checks for mu -> e gamma, W_R/Z_R, and heavy-Higgs FCNC (full SMEFT Wilson-coefficient matching open)",
           "chiral_enhancement_R_chi_KL": 100.4363235580433,
-          "BR_KL_mue_generic_O1": 2.881736691359224e-40,
-          "BR_KL_mue_fitted_mixing": 5.366990173643231e-40,
-          "pass_KL_mue_generic": true,
+          "BR_KL_mue_aligned_O1": 1.4408683456796125e-40,
+          "BR_KL_mue_fitted_mixing": 1.3411753006256581e-40,
+          "pass_KL_mue_aligned": true,
           "pass_KL_mue_fitted": true,
-          "M_X_lower_bound_generic_GeV": 1804675.1426658025,
-          "v_R_lower_bound_generic_GeV": 4493105.045537787,
-          "BR_Bs_mue_generic_O1": 1.1539806604936684e-42,
+          "M_X_lower_bound_aligned_GeV": 1521871.7111502378,
+          "v_R_lower_bound_aligned_GeV": 3778235.9261511033,
+          "BR_Bs_mue_aligned_O1": 5.769903302468342e-43,
           "pass_Bs_mue": true,
-          "BR_mu_egamma_est": 1.8844366342233734e-46,
-          "pass_mu_egamma": true,
-          "pass_WR_collider": true,
-          "pass_heavy_Higgs_FCNC": true,
+          "BR_mu_egamma_prelim_est": 1.8844366342233734e-46,
+          "pass_mu_egamma_MEGII": true,
+          "pass_WR_collider_prelim": true,
+          "pass_heavy_Higgs_FCNC_prelim": true,
           "smeft_vEW2_over_vR2": 2.351428234591632e-23
         },
         "baryon_stability": {
-          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN (exact B-L / no diquark gauge boson)",
+          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN at perturbative level (accidental 3B+L conservation; X is a pure leptoquark; note gauged B-L is broken by Delta_R by Delta(B-L)=2)",
           "d6_scalar_proton_decay_in_PS1": "FORBIDDEN (3B+L = 0 on Phi1,Phi15; 3B+L = +2 on DeltaR)",
           "n_nbar_in_PS1_MM": "FORBIDDEN at tree level (exact U(1)_Delta forbids Delta_R^4)",
-          "tau_nnbar_s_if_lambda_Delta4_O1": 2.6612755216349344e+59,
-          "pass_nnbar_even_if_lambda4_O1": true,
-          "optional_SO10_d6_tau_p_yr": null
+          "sextet_mass_ratio_range_over_vR": [
+            0.10954451150103323,
+            0.14491376746189438
+          ],
+          "tau_nnbar_prelim_s_if_lambda_Delta4_O1": 5.641045298483178e+53,
+          "pass_nnbar_prelim_even_if_lambda4_O1": true,
+          "optional_SO10_d6_tau_p_ballpark_yr": null
         },
         "cosmology_and_relics": {
           "homotopy_pi2_GPS_over_GSM": "Z (topologically stable doubly-charged magnetic monopoles)",
-          "monopole_mass_GeV": 794300556352737.9,
+          "homotopy_pi1_GPS_over_GSM": "Z_2 (cosmic-string sector from disconnected stabilizer after Delta(B-L)=2 breaking)",
+          "monopole_mass_GeV": 792042270251403.8,
           "requires_Trh_below_vR": true,
           "D_parity_domain_walls": "ABSENT (no Delta_L multiplet in PS1-MM / PS1-EW)",
-          "M_R1_GeV": 7283333757.572895,
-          "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation": true
+          "M_R1_GeV": 6803852269.68635,
+          "epsilon_1_CP_asymmetry": -1.8844447698879124e-07,
+          "eta_B_ceiling_unflavored_kappa01": 1.8090669790923956e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 3.371903898804429,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": true
         }
       },
       "ew_hierarchy_fine_tuning_vR2_over_muSM2": 3.2869224061565616e+23
     },
     "BM-GUT": {
-      "description": "2-loop threshold-matched SO(10) triple-unification scale",
-      "v_R_GeV": 21450894488.281036,
+      "description": "Gauge-only 2-loop threshold-matched approximate SO(10) triple crossing (no M_GUT parent thresholds)",
+      "v_R_GeV": 7321675817.901456,
       "sm_at_vR": {
-        "g1": 0.5209996235370529,
-        "g2": 0.5669275255286635,
-        "g3": 0.6439782592787003,
-        "gY": 0.4035645730678679,
-        "lam_H_1loop_matrix": -0.03152079720083752,
-        "lam_H_2loop_Buttazzo": -0.0017215937467772737,
+        "g1": 0.5170663645373409,
+        "g2": 0.5708424857975184,
+        "g3": 0.6572144376806599,
+        "gY": 0.4005178837474269,
+        "lam_H_1loop_matrix": -0.028833949154659293,
+        "lam_H_2loop_Buttazzo": 0.000446813413233717,
         "mu_instability_1loop_GeV": 5778811.603228649,
         "mu_instability_2loop_GeV": 9042361021.032412,
-        "min_portal_coupling_for_UV_stability": 0.01740690953135565,
+        "min_positive_portal_for_lambda_H_UV_pos": 0.0,
         "yu_sv": [
-          3.668708171210267e-06,
-          0.0018492695646790173,
-          0.5505786307216443
+          3.754980468354988e-06,
+          0.0018927563967751188,
+          0.5617494925105055
         ],
         "yd_sv": [
-          8.104863416970938e-06,
-          0.000161342053856418,
-          0.007856889194426158
+          8.286335377417969e-06,
+          0.00016495559776137593,
+          0.008058154511377673
         ],
         "ye_sv": [
-          2.8258183651761538e-06,
-          0.0005953014069705693,
-          0.010111762872508914
+          2.8336415628660993e-06,
+          0.0005969494798008409,
+          0.010139746384387891
         ],
         "V_ckm_abs": [
           [
-            0.9742508222731484,
-            0.22543058739436803,
-            0.004047908981782743
+            0.9742510976031638,
+            0.22542962607156752,
+            0.004035159013391971
           ],
           [
-            0.2252700672298135,
-            0.9732158262410802,
-            0.04587322055586492
+            0.22527011658857007,
+            0.973222613911369,
+            0.045728747453810524
           ],
           [
-            0.009419772309878071,
-            0.04507777524370428,
-            0.9989390682462614
+            0.009390068753859055,
+            0.044935814900316624,
+            0.9989457438460013
           ]
         ],
-        "J_ckm": 3.70847205921106e-05,
+        "J_ckm": 3.685160542290978e-05,
         "m_nu_running_eV": [
-          0.01918505319341918,
-          0.022119658284530126,
-          0.06690012013385815
+          0.019085473680310272,
+          0.0220048510885032,
+          0.06655290131450596
         ]
       },
       "threshold_matching": {
         "tree": {
-          "g4": 0.6439782592787003,
-          "g2L": 0.5669275255286635,
-          "g2R": 0.4697102631911722,
-          "alpha4_inv": 30.301731970750662,
-          "alpha2L_inv": 39.098021148267186,
-          "alpha2R_inv": 56.957348641672446
+          "g4": 0.6572144376806599,
+          "g2L": 0.5708424857975184,
+          "g2R": 0.4617378765140824,
+          "alpha4_inv": 29.093480059722005,
+          "alpha2L_inv": 38.563574889164386,
+          "alpha2R_inv": 58.94118477620929
         },
         "one_loop_matched": {
-          "g4": 0.6455349030507842,
-          "g2L": 0.5660797735699992,
-          "g2R": 0.4666487433240355,
-          "alpha4_inv": 30.15576889289476,
-          "alpha2L_inv": 39.21521397014082,
-          "alpha2R_inv": 57.70715485984838
+          "g4": 0.6615310670684863,
+          "g2L": 0.569977076524863,
+          "g2R": 0.4606531939838581,
+          "alpha4_inv": 28.715036656342306,
+          "alpha2L_inv": 38.68076771103802,
+          "alpha2R_inv": 59.21908469724953
         },
         "weinberg_hall_lambda_i": {
-          "SU3": -5.502678397049472,
+          "SU3": -14.266980190286095,
           "SU2L": 4.41806529902,
-          "U1Y": 24.5985762149498
+          "U1Y": 0.9652600776209065
         },
         "delta_alpha_inv_shift": {
-          "SU3": -0.14596307785590176,
+          "SU3": -0.37844340337969695,
           "SU2L": 0.11719282187363428,
-          "U1Y": 0.652497499605331
+          "U1Y": 0.025604318787105642
         },
         "heavy_vector_real_dof": 9,
         "heavy_scalar_real_dof": 175,
@@ -742,98 +914,125 @@
         "perturbative_to_MPl": true,
         "landau_pole_GeV": null,
         "g_at_MPl": {
-          "g4": 0.6158208527790701,
-          "g2L": 0.6492299174403391,
-          "g2R": 0.7429783178472791
+          "g4": 0.6297915067651134,
+          "g2L": 0.6621941372657176,
+          "g2R": 0.7530771784775083
         },
-        "max_g_at_MPl": 0.7429783178472791
+        "max_g_at_MPl": 0.7530771784775083
       },
       "delta_quartic_landau_pole": {
+        "diagnostic_scope": "pure-self-coupling 1-loop O(60) truncation; kappa^2, bidoublet portal, gauge, and Yukawa terms omitted; full coupled 138-parameter scalar RGEs open",
         "N_complex_DeltaR": 30,
         "N_real_DeltaR": 60,
-        "beta_coeff_lambda_Delta_sq": 68.0,
-        "v_R_GeV": 21450894488.281036,
+        "beta_coeff_lambda_Delta_sq": 136.0,
+        "beta_coeff_lambda_Delta_kappa4": -36.0,
+        "beta_coeff_lambda_Delta_kappaR": -16.0,
+        "v_R_GeV": 7321675817.901456,
         "phase2b_benchmark_lambda_Delta": 2.0,
-        "phase2b_landau_pole_ratio_over_vR": 3.1935397130813796,
-        "phase2b_landau_pole_GeV": 68504283429.44397,
+        "phase2b_landau_pole_ratio_over_vR": 1.7870477646334413,
+        "phase2b_landau_pole_GeV": 13084184403.75152,
         "phase2b_sub_planckian_landau_pole": true,
-        "ps1_ew_benchmark_lambda_Delta": 0.08,
-        "ps1_ew_landau_pole_GeV": 8.6746794588817e+22,
-        "ps1_ew_perturbative_to_MPl": true,
-        "max_lambda_Delta_perturbative_to_MPl": 0.11519333043541156
+        "ps1_ew_benchmark_lambda_Delta": 0.03,
+        "ps1_ew_benchmark_kappa4": 0.006,
+        "ps1_ew_benchmark_kappaR": 0.0045,
+        "ps1_ew_partial_beta_16pi2_at_vR": 0.11376,
+        "ps1_ew_landau_pole_GeV": 4.717238865994766e+26,
+        "ps1_ew_perturbative_to_MPl_pure_truncation": true,
+        "max_lambda_Delta_perturbative_to_MPl_pure_truncation": 0.05468103616126696
       },
       "fit_PS1_EW_min_complex": {
-        "branch": "PS1-EW-min",
+        "branch": "PS1-EW-min (complex ratios)",
+        "fit_epistemic_scope": "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R basis removal vs 18 real flavour observables; not a constrained prediction)",
         "allow_complex_ratios": true,
-        "v_R_GeV": 21450894488.281036,
-        "max_charged_fermion_ckm_rel_err": 3.600580421220353e-13,
-        "matching_identity_residual": 1.1116960584573483e-16,
+        "v_R_GeV": 7321675817.901456,
+        "max_charged_fermion_ckm_rel_err": 6.851866737970218e-13,
+        "matching_identity_residual": 1.6695056764648573e-16,
         "cd": [
-          42.32787457856916,
-          35.66882717918526
+          42.328539955242825,
+          35.683170066390645
         ],
         "ce": [
-          17.354371607420717,
-          -0.34638422444267924
+          17.17195371286103,
+          -0.3786416479941733
         ],
         "r1": [
-          59.682246185989875,
-          35.32244295474258
+          59.50049366810386,
+          35.30452841839647
         ],
         "r15": [
-          -9.735240243692992,
-          36.7079798525133
+          -9.187321183340266,
+          36.81909501037316
         ],
         "u_light": [
           [
-            0.7069475103742188,
+            0.7069471474879533,
             0.0
           ],
           [
-            0.008772416901972746,
-            0.005191882266453484
+            0.00878758684155775,
+            0.005214101434308138
           ],
           [
-            0.7069475103742188,
+            0.7069471474879533,
             0.0
           ],
           [
-            -0.004771919273838915,
-            0.01799313752687117
+            -0.004510217458545311,
+            0.01807514092625287
           ]
         ],
-        "Y1_spectral_norm": 0.5976030143634611,
-        "Y15_spectral_norm": 0.6333812675698687,
+        "Y1_spectral_norm": 0.6125082159785911,
+        "Y15_spectral_norm": 0.6373583210068683,
         "YnuD_singular_values": [
-          0.0036620670276824485,
-          0.013803206043527966,
-          0.07437134167437565
+          0.0010753531200759531,
+          0.022772819618465886,
+          0.08055507550401572
         ],
         "seesaw": {
           "M_R_GeV": [
-            17500035063.853207,
-            285547935931.0509,
-            2774517473889.288
+            2102796238.4116223,
+            714657519638.2928,
+            2580406190657.943
           ],
-          "f_R_spectral_norm": 182.91825745350548,
+          "f_R_spectral_norm": 498.41669066220777,
           "f_R_perturbative": false,
-          "seesaw_inversion_rel_err": 6.131919245038957e-15,
-          "takagi_rel_err": 4.2195432061482906e-16,
-          "epsilon_1_CP_asymmetry": 4.976696244053407e-07,
-          "epsilon_1_DI_bound": 8.633104952172582e-07,
-          "monopole_safe_leptogenesis_window": false,
+          "seesaw_inversion_rel_err": 3.841356749857757e-15,
+          "hat_basis_seesaw_rel_err": 1.672555810484436e-14,
+          "takagi_rel_err": 8.725141940071123e-16,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.302999999999999,
+            "sin2_th23": 0.5720000000000015,
+            "sin2_th13": 0.02203000000000047,
+            "delta_pmns_deg": 196.9999999999991,
+            "J_pmns": -0.009649964672102425,
+            "dm21_sq_running_eV2": 0.00011995816582538422,
+            "dm31_sq_running_eV2": 0.004065033367776527,
+            "max_rel_err": 2.1260796119552332e-14
+          },
+          "epsilon_1_CP_asymmetry": -8.503686975383613e-08,
+          "epsilon_1_DI_bound": 1.0373499569002653e-07,
+          "eta_B_ceiling_unflavored_kappa01": 8.163539496368269e-11,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 7.472249019820042,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": false,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 182.91825745350548,
+        "max_yukawa_norm": 498.41669066220777,
         "all_yukawas_perturbative": false
       },
-      "fit_PS1_EW_min_real_control": null,
+      "fit_PS1_EW_min_real_witness": null,
       "fit_PS1_EW_gen": {
         "branch": "PS1-EW-gen",
-        "v_R_GeV": 21450894488.281036,
-        "exact_reconstruction_rel_err": 6.800769723988971e-15,
+        "v_R_GeV": 7321675817.901456,
+        "determinants_D1_D15": [
+          0.20128824476650561,
+          0.15458937198067632
+        ],
+        "exact_reconstruction_rel_err": 8.494429253376751e-14,
+        "direct_tensor_contraction_rel_err": 1.2814420392903738e-13,
         "u_light": [
           [
             0.601929265428846,
@@ -853,80 +1052,105 @@
           ]
         ],
         "yukawa_spectral_norms": {
-          "Y1": 0.482350721455879,
-          "Y1_tilde": 0.30759187346008837,
-          "Y15": 0.55699891253698,
-          "Y15_tilde": 0.40117648860771116,
-          "f_R": 0.8305179274411402
+          "Y1": 1.2442627319557567,
+          "Y1_tilde": 0.8152715268175182,
+          "Y15": 1.766288748563013,
+          "Y15_tilde": 1.2647006962551055,
+          "f_R": 0.8281868978636702
         },
         "YnuD_singular_values": [
-          0.001437651549224827,
-          0.002396085915374712,
-          0.00342297987910673
+          0.0008377341675914792,
+          0.0013962236126524648,
+          0.001994605160932094
         ],
         "seesaw": {
           "M_R_GeV": [
-            2292167035.6606417,
-            4723639131.070482,
-            12597356514.012646
+            782415344.8850478,
+            1616726970.8727777,
+            4287694690.620949
           ],
-          "f_R_spectral_norm": 0.8305179274411402,
+          "f_R_spectral_norm": 0.8281868978636702,
           "f_R_perturbative": true,
-          "seesaw_inversion_rel_err": 1.0828738775628007e-16,
-          "takagi_rel_err": 4.774218169619769e-16,
-          "epsilon_1_CP_asymmetry": 1.447865553871657e-09,
-          "epsilon_1_DI_bound": 1.1307702250061404e-07,
-          "monopole_safe_leptogenesis_window": true,
+          "seesaw_inversion_rel_err": 4.585497937012889e-16,
+          "hat_basis_seesaw_rel_err": 7.3519398349531625e-16,
+          "takagi_rel_err": 3.8914567870093474e-16,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.3030000000000018,
+            "sin2_th23": 0.572,
+            "sin2_th13": 0.02203,
+            "delta_pmns_deg": 196.99999999999991,
+            "J_pmns": -0.00964996467210282,
+            "dm21_sq_running_eV2": 0.00011995816582538433,
+            "dm31_sq_running_eV2": 0.004065033367776551,
+            "max_rel_err": 6.0457689459785755e-15
+          },
+          "epsilon_1_CP_asymmetry": -7.453205941113093e-09,
+          "epsilon_1_DI_bound": 3.8598058597807536e-08,
+          "eta_B_ceiling_unflavored_kappa01": 7.155077703468569e-12,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 85.25414052516719,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": false,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 0.8305179274411402,
+        "max_yukawa_norm": 1.766288748563013,
         "all_yukawas_perturbative": true
       },
       "flavour_baryon_cosmology_audit": {
         "vector_masses_GeV": {
-          "M_X": 9791520504.589767,
-          "M_WR": 7078162183.1823435,
-          "M_ZR": 19693206472.239883
+          "M_X": 3424883020.0852475,
+          "M_WR": 2384896765.6420264,
+          "M_ZR": 6823850545.64828
         },
         "flavour": {
+          "audit_scope": "Valencia-Willenbrock tree-level X-boson K_L/B_s -> mu e; preliminary order-of-magnitude checks for mu -> e gamma, W_R/Z_R, and heavy-Higgs FCNC (full SMEFT Wilson-coefficient matching open)",
           "chiral_enhancement_R_chi_KL": 100.4363235580433,
-          "BR_KL_mue_generic_O1": 9.046956871602124e-27,
-          "BR_KL_mue_fitted_mixing": 1.8093763309118807e-26,
-          "pass_KL_mue_generic": true,
+          "BR_KL_mue_aligned_O1": 3.3328223751558605e-25,
+          "BR_KL_mue_fitted_mixing": 3.332796605170468e-25,
+          "pass_KL_mue_aligned": true,
           "pass_KL_mue_fitted": true,
-          "M_X_lower_bound_generic_GeV": 2050932.1980346215,
-          "v_R_lower_bound_generic_GeV": 4493105.045537787,
-          "BR_Bs_mue_generic_O1": 3.6228199812471155e-29,
+          "M_X_lower_bound_aligned_GeV": 1767357.1448919803,
+          "v_R_lower_bound_aligned_GeV": 3778235.926151103,
+          "BR_Bs_mue_aligned_O1": 1.334616232399912e-27,
           "pass_Bs_mue": true,
-          "BR_mu_egamma_est": 5.9160217545915784e-33,
-          "pass_mu_egamma": true,
-          "pass_WR_collider": true,
-          "pass_heavy_Higgs_FCNC": true,
-          "smeft_vEW2_over_vR2": 1.3175158256911125e-16
+          "BR_mu_egamma_prelim_est": 4.358824730888753e-31,
+          "pass_mu_egamma_MEGII": true,
+          "pass_WR_collider_prelim": true,
+          "pass_heavy_Higgs_FCNC_prelim": true,
+          "smeft_vEW2_over_vR2": 1.1309037978804142e-15
         },
         "baryon_stability": {
-          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN (exact B-L / no diquark gauge boson)",
+          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN at perturbative level (accidental 3B+L conservation; X is a pure leptoquark; note gauged B-L is broken by Delta_R by Delta(B-L)=2)",
           "d6_scalar_proton_decay_in_PS1": "FORBIDDEN (3B+L = 0 on Phi1,Phi15; 3B+L = +2 on DeltaR)",
           "n_nbar_in_PS1_MM": "FORBIDDEN at tree level (exact U(1)_Delta forbids Delta_R^4)",
-          "tau_nnbar_s_if_lambda_Delta4_O1": 8.662539736514765e+33,
-          "pass_nnbar_even_if_lambda4_O1": true,
-          "optional_SO10_d6_tau_p_yr": 8.335306787459461e+38
+          "sextet_mass_ratio_range_over_vR": [
+            0.10954451150103323,
+            0.14491376746189438
+          ],
+          "tau_nnbar_prelim_s_if_lambda_Delta4_O1": 6.93324264395296e+25,
+          "pass_nnbar_prelim_even_if_lambda4_O1": true,
+          "optional_SO10_d6_tau_p_ballpark_yr": 4.874408394755908e+39
         },
         "cosmology_and_relics": {
           "homotopy_pi2_GPS_over_GSM": "Z (topologically stable doubly-charged magnetic monopoles)",
-          "monopole_mass_GeV": 295270829446.44934,
+          "homotopy_pi1_GPS_over_GSM": "Z_2 (cosmic-string sector from disconnected stabilizer after Delta(B-L)=2 breaking)",
+          "monopole_mass_GeV": 98345641465.43224,
           "requires_Trh_below_vR": true,
           "D_parity_domain_walls": "ABSENT (no Delta_L multiplet in PS1-MM / PS1-EW)",
-          "M_R1_GeV": 2292167035.6606417,
-          "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation": true
+          "M_R1_GeV": 782415344.8850478,
+          "epsilon_1_CP_asymmetry": -7.453205941113093e-09,
+          "eta_B_ceiling_unflavored_kappa01": 7.155077703468569e-12,
+          "vanilla_N1_leptogenesis_shortfall_factor": 85.25414052516719,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": false
         }
       },
-      "ew_hierarchy_fine_tuning_vR2_over_muSM2": 5.8663144685143496e+16
+      "ew_hierarchy_fine_tuning_vR2_over_muSM2": 6834323277748593.0
     },
     "BM-LOW": {
-      "description": "Low-scale benchmark above generic K_L -> mu e floor",
+      "description": "Low-scale benchmark above aligned Valencia-Willenbrock K_L -> mu e floor",
       "v_R_GeV": 10000000.0,
       "sm_at_vR": {
         "g1": 0.494719787273518,
@@ -937,7 +1161,7 @@
         "lam_H_2loop_Buttazzo": 0.021188591212667158,
         "mu_instability_1loop_GeV": 5778811.602983669,
         "mu_instability_2loop_GeV": 9042361021.032412,
-        "min_portal_coupling_for_UV_stability": 0.0,
+        "min_positive_portal_for_lambda_H_UV_pos": 0.0,
         "yu_sv": [
           4.416790317484001e-06,
           0.0022263513995547015,
@@ -987,22 +1211,22 @@
           "alpha2R_inv": 71.12963759958996
         },
         "one_loop_matched": {
-          "g4": 0.7658224346951161,
+          "g4": 0.7698053716276025,
           "g2L": 0.5957420385062683,
-          "g2R": 0.41830519233042557,
-          "alpha4_inv": 21.426621327431448,
+          "g2R": 0.41967577453889005,
+          "alpha4_inv": 21.205474243508025,
           "alpha2L_inv": 35.40734557694185,
-          "alpha2R_inv": 71.81635404429554
+          "alpha2R_inv": 71.3480425724577
         },
         "weinberg_hall_lambda_i": {
-          "SU3": -9.025007053253681,
+          "SU3": -17.362055703853354,
           "SU2L": 4.41806529902,
-          "U1Y": 19.87192868460072
+          "U1Y": -3.3410303033434716
         },
         "delta_alpha_inv_shift": {
-          "SU3": -0.23939574732742394,
+          "SU3": -0.4605428312508496,
           "SU2L": 0.11719282187363428,
-          "U1Y": 0.5271192798206384
+          "U1Y": -0.08862358129948801
         },
         "heavy_vector_real_dof": 9,
         "heavy_scalar_real_dof": 175,
@@ -1012,98 +1236,125 @@
         "perturbative_to_MPl": true,
         "landau_pole_GeV": null,
         "g_at_MPl": {
-          "g4": 0.7279586743208615,
-          "g2L": 0.7713128239732461,
-          "g2R": 0.7751712781454225
+          "g4": 0.7327984156540572,
+          "g2L": 0.7723209873124903,
+          "g2R": 0.7868592319826332
         },
-        "max_g_at_MPl": 0.7751712781454225
+        "max_g_at_MPl": 0.7868592319826332
       },
       "delta_quartic_landau_pole": {
+        "diagnostic_scope": "pure-self-coupling 1-loop O(60) truncation; kappa^2, bidoublet portal, gauge, and Yukawa terms omitted; full coupled 138-parameter scalar RGEs open",
         "N_complex_DeltaR": 30,
         "N_real_DeltaR": 60,
-        "beta_coeff_lambda_Delta_sq": 68.0,
+        "beta_coeff_lambda_Delta_sq": 136.0,
+        "beta_coeff_lambda_Delta_kappa4": -36.0,
+        "beta_coeff_lambda_Delta_kappaR": -16.0,
         "v_R_GeV": 10000000.0,
         "phase2b_benchmark_lambda_Delta": 2.0,
-        "phase2b_landau_pole_ratio_over_vR": 3.1935397130813796,
-        "phase2b_landau_pole_GeV": 31935397.130813796,
+        "phase2b_landau_pole_ratio_over_vR": 1.7870477646334413,
+        "phase2b_landau_pole_GeV": 17870477.646334413,
         "phase2b_sub_planckian_landau_pole": true,
-        "ps1_ew_benchmark_lambda_Delta": 0.08,
-        "ps1_ew_landau_pole_GeV": 4.043970969891636e+19,
-        "ps1_ew_perturbative_to_MPl": true,
-        "max_lambda_Delta_perturbative_to_MPl": 0.08344265211971658
+        "ps1_ew_benchmark_lambda_Delta": 0.03,
+        "ps1_ew_benchmark_kappa4": 0.006,
+        "ps1_ew_benchmark_kappaR": 0.0045,
+        "ps1_ew_partial_beta_16pi2_at_vR": 0.11376,
+        "ps1_ew_landau_pole_GeV": 6.442840386979635e+23,
+        "ps1_ew_perturbative_to_MPl_pure_truncation": true,
+        "max_lambda_Delta_perturbative_to_MPl_pure_truncation": 0.04172132605985829
       },
       "fit_PS1_EW_min_complex": {
-        "branch": "PS1-EW-min",
+        "branch": "PS1-EW-min (complex ratios)",
+        "fit_epistemic_scope": "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R basis removal vs 18 real flavour observables; not a constrained prediction)",
         "allow_complex_ratios": true,
         "v_R_GeV": 10000000.0,
-        "max_charged_fermion_ckm_rel_err": 3.743461188309815e-13,
-        "matching_identity_residual": 2.5482196045923977e-16,
+        "max_charged_fermion_ckm_rel_err": 4.422408270567946e-13,
+        "matching_identity_residual": 1.139963311547232e-16,
         "cd": [
-          42.4745162473286,
-          36.27632083527407
+          42.434501168751076,
+          36.15631722532851
         ],
         "ce": [
-          15.278960336266106,
-          -1.4940619832929507
+          15.206132483975136,
+          -1.2745649656014375
         ],
         "r1": [
-          57.753476583594704,
-          34.78225885198112
+          57.64063365272621,
+          34.88175225972707
         ],
         "r15": [
-          -3.3623647614697134,
-          40.758506785152925
+          -3.1838962831743274,
+          39.98001212213282
         ],
         "u_light": [
           [
-            0.7069622408589992,
+            0.7069579845809284,
             0.0
           ],
           [
-            0.00898286150676158,
-            0.005409963739714166
+            0.008977285012616493,
+            0.00543268545001914
           ],
           [
-            0.7069622408589992,
+            0.7069579845809284,
             0.0
           ],
           [
-            -0.0014212123787757515,
-            0.017227903125583175
+            -0.0013993328781075625,
+            0.01757134669407703
           ]
         ],
-        "Y1_spectral_norm": 0.6994277886766835,
-        "Y15_spectral_norm": 0.7503987908270701,
+        "Y1_spectral_norm": 0.7072002519565754,
+        "Y15_spectral_norm": 0.7245219737943464,
         "YnuD_singular_values": [
-          0.0036149280934377795,
-          0.017981593375754175,
-          0.09124978288577902
+          0.0035198464762942866,
+          0.01632308200567537,
+          0.10583262697512742
         ],
         "seesaw": {
           "M_R_GeV": [
-            17693789629.730022,
-            412775674013.31915,
-            5496824363438.679
+            32692610083.93295,
+            516998704471.13055,
+            2496199750141.277
           ],
-          "f_R_spectral_norm": 777368.3564757833,
+          "f_R_spectral_norm": 353015.95410421264,
           "f_R_perturbative": false,
-          "seesaw_inversion_rel_err": 1.3200419647422733e-15,
-          "takagi_rel_err": 3.512143696924119e-16,
-          "epsilon_1_CP_asymmetry": 9.031493302159393e-07,
-          "epsilon_1_DI_bound": 8.728687817925361e-07,
-          "monopole_safe_leptogenesis_window": false,
+          "seesaw_inversion_rel_err": 7.928696607497733e-16,
+          "hat_basis_seesaw_rel_err": 9.553594248282326e-15,
+          "takagi_rel_err": 5.144326337094788e-16,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.30299999999998994,
+            "sin2_th23": 0.5719999999999993,
+            "sin2_th13": 0.02202999999999997,
+            "delta_pmns_deg": 197.00000000000023,
+            "J_pmns": -0.009649964672102853,
+            "dm21_sq_running_eV2": 0.00010959460369077431,
+            "dm31_sq_running_eV2": 0.003713824369377608,
+            "max_rel_err": 3.316012664309461e-14
+          },
+          "epsilon_1_CP_asymmetry": -2.4509594151875074e-06,
+          "epsilon_1_DI_bound": 1.6127895343365374e-06,
+          "eta_B_ceiling_unflavored_kappa01": 2.352921038580007e-09,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 0.2592522188369467,
+          "vanilla_N1_leptogenesis_reaches_etaB": true,
+          "monopole_safe_kinematic_window": false,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 777368.3564757833,
+        "max_yukawa_norm": 353015.95410421264,
         "all_yukawas_perturbative": false
       },
-      "fit_PS1_EW_min_real_control": null,
+      "fit_PS1_EW_min_real_witness": null,
       "fit_PS1_EW_gen": {
         "branch": "PS1-EW-gen",
         "v_R_GeV": 10000000.0,
-        "exact_reconstruction_rel_err": 8.021854901166475e-13,
+        "determinants_D1_D15": [
+          0.20128824476650561,
+          0.15458937198067632
+        ],
+        "exact_reconstruction_rel_err": 7.231411378049802e-13,
+        "direct_tensor_contraction_rel_err": 1.9357943735997943e-12,
         "u_light": [
           [
             0.601929265428846,
@@ -1123,11 +1374,11 @@
           ]
         ],
         "yukawa_spectral_norms": {
-          "Y1": 0.5647111816715363,
-          "Y1_tilde": 0.3602306132255236,
-          "Y15": 0.6588308568491902,
-          "Y15_tilde": 0.4714998719301282,
-          "f_R": 0.8305193243721032
+          "Y1": 1.4292639938169749,
+          "Y1_tilde": 0.9365995943863609,
+          "Y15": 2.0340387370573776,
+          "Y15_tilde": 1.4537912717845616,
+          "f_R": 0.8281881009781459
         },
         "YnuD_singular_values": [
           3.0268454604192634e-05,
@@ -1136,68 +1387,102 @@
         ],
         "seesaw": {
           "M_R_GeV": [
-            1068565.8883924084,
-            2202073.5521158264,
-            5872658.46169984
+            1068629.7004815766,
+            2208140.189226143,
+            5856174.22299656
           ],
-          "f_R_spectral_norm": 0.8305193243721032,
+          "f_R_spectral_norm": 0.8281881009781459,
           "f_R_perturbative": true,
-          "seesaw_inversion_rel_err": 2.9920874278658845e-16,
-          "takagi_rel_err": 4.00090319372232e-16,
-          "epsilon_1_CP_asymmetry": 6.418022937310071e-13,
-          "epsilon_1_DI_bound": 5.271441702341367e-11,
-          "monopole_safe_leptogenesis_window": false,
+          "seesaw_inversion_rel_err": 2.411537226064291e-16,
+          "hat_basis_seesaw_rel_err": 1.3216739386063726e-15,
+          "takagi_rel_err": 1.0560015501396433e-15,
+          "pmns_roundtrip_recovery": {
+            "sin2_th12": 0.30299999999999677,
+            "sin2_th23": 0.572000000000001,
+            "sin2_th13": 0.02203,
+            "delta_pmns_deg": 196.9999999999998,
+            "J_pmns": -0.009649964672102771,
+            "dm21_sq_running_eV2": 0.00010959460369077372,
+            "dm31_sq_running_eV2": 0.0037138243693776007,
+            "max_rel_err": 1.0625896935356283e-14
+          },
+          "epsilon_1_CP_asymmetry": -9.729958727522041e-12,
+          "epsilon_1_DI_bound": 5.271756499689485e-11,
+          "eta_B_ceiling_unflavored_kappa01": 9.340760378421158e-15,
+          "eta_B_observed_benchmark": 6.1e-10,
+          "vanilla_N1_leptogenesis_shortfall_factor": 65305.17594790356,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": false,
           "sum_m_nu_eV": 0.08460129512120847,
           "m_beta_eV": 0.01738605780017425,
           "m_bb_eV": 0.016317512983993882
         },
-        "max_yukawa_norm": 0.8305193243721032,
+        "max_yukawa_norm": 2.0340387370573776,
         "all_yukawas_perturbative": true
       },
       "flavour_baryon_cosmology_audit": {
         "vector_masses_GeV": {
-          "M_X": 5415182.367577086,
-          "M_WR": 2957864.3810238694,
-          "M_ZR": 10269884.303896163
+          "M_X": 5443345.98471708,
+          "M_WR": 2967555.8607616583,
+          "M_ZR": 10320020.450633245
         },
         "flavour": {
+          "audit_scope": "Valencia-Willenbrock tree-level X-boson K_L/B_s -> mu e; preliminary order-of-magnitude checks for mu -> e gamma, W_R/Z_R, and heavy-Higgs FCNC (full SMEFT Wilson-coefficient matching open)",
           "chiral_enhancement_R_chi_KL": 100.4363235580433,
-          "BR_KL_mue_generic_O1": 1.915508778986469e-13,
-          "BR_KL_mue_fitted_mixing": 3.8310014252190824e-13,
-          "pass_KL_mue_generic": true,
+          "BR_KL_mue_aligned_O1": 9.577543894932353e-14,
+          "BR_KL_mue_fitted_mixing": 9.577503563047712e-14,
+          "pass_KL_mue_aligned": true,
           "pass_KL_mue_fitted": true,
-          "M_X_lower_bound_generic_GeV": 2433098.321826786,
-          "v_R_lower_bound_generic_GeV": 4493105.045537787,
-          "BR_Bs_mue_generic_O1": 7.670583133373026e-16,
+          "M_X_lower_bound_aligned_GeV": 2056624.5357928425,
+          "v_R_lower_bound_aligned_GeV": 3778235.926151103,
+          "BR_Bs_mue_aligned_O1": 3.8352915666865154e-16,
           "pass_Bs_mue": true,
-          "BR_mu_egamma_est": 1.2525970631258556e-19,
-          "pass_mu_egamma": true,
-          "pass_WR_collider": true,
-          "pass_heavy_Higgs_FCNC": true,
+          "BR_mu_egamma_prelim_est": 1.2525970631258563e-19,
+          "pass_mu_egamma_MEGII": true,
+          "pass_WR_collider_prelim": true,
+          "pass_heavy_Higgs_FCNC_prelim": true,
           "smeft_vEW2_over_vR2": 6.06242884e-10
         },
         "baryon_stability": {
-          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN (exact B-L / no diquark gauge boson)",
+          "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN at perturbative level (accidental 3B+L conservation; X is a pure leptoquark; note gauged B-L is broken by Delta_R by Delta(B-L)=2)",
           "d6_scalar_proton_decay_in_PS1": "FORBIDDEN (3B+L = 0 on Phi1,Phi15; 3B+L = +2 on DeltaR)",
           "n_nbar_in_PS1_MM": "FORBIDDEN at tree level (exact U(1)_Delta forbids Delta_R^4)",
-          "tau_nnbar_s_if_lambda_Delta4_O1": 1.9072905424867555e+17,
-          "pass_nnbar_even_if_lambda4_O1": true,
-          "optional_SO10_d6_tau_p_yr": null
+          "sextet_mass_ratio_range_over_vR": [
+            0.10954451150103323,
+            0.14491376746189438
+          ],
+          "tau_nnbar_prelim_s_if_lambda_Delta4_O1": 329520767741.60754,
+          "pass_nnbar_prelim_even_if_lambda4_O1": true,
+          "optional_SO10_d6_tau_p_ballpark_yr": null
         },
         "cosmology_and_relics": {
           "homotopy_pi2_GPS_over_GSM": "Z (topologically stable doubly-charged magnetic monopoles)",
-          "monopole_mass_GeV": 116029062.00905791,
+          "homotopy_pi1_GPS_over_GSM": "Z_2 (cosmic-string sector from disconnected stabilizer after Delta(B-L)=2 breaking)",
+          "monopole_mass_GeV": 115428733.07742088,
           "requires_Trh_below_vR": true,
           "D_parity_domain_walls": "ABSENT (no Delta_L multiplet in PS1-MM / PS1-EW)",
-          "M_R1_GeV": 1068565.8883924084,
-          "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation": false
+          "M_R1_GeV": 1068629.7004815766,
+          "epsilon_1_CP_asymmetry": -9.729958727522041e-12,
+          "eta_B_ceiling_unflavored_kappa01": 9.340760378421158e-15,
+          "vanilla_N1_leptogenesis_shortfall_factor": 65305.17594790356,
+          "vanilla_N1_leptogenesis_reaches_etaB": false,
+          "monopole_safe_kinematic_window": false
         }
       },
       "ew_hierarchy_fine_tuning_vR2_over_muSM2": 12748953191.421549
     }
   },
+  "gate_verdicts": {
+    "PERT-01": "PARTIAL (scoped to 175 heavy modes at unbroken EW origin; -mu_SM^2 EWSB curvature & EW-broken vacuum open)",
+    "PERT-05": "PARTIAL (gauge-only 2-loop PS RGEs & pure-self-coupling 136*lambda_Delta^2 diagnostic; coupled 138-param scalar RGEs & UV Yukawa 2-loop traces open)",
+    "REC-03": "PARTIAL (existence/interpolation witnesses only: 30 real Yukawa params vs 18 observables; not a constrained prediction)",
+    "NP-02": "FAIL (tree-level Higgs+Delta_R quartic potential is unbounded below along the coherent ray at the matched negative-portal BM-LR point)",
+    "LAB-02": "PARTIAL (Valencia-Willenbrock K_L/B_s -> mu e and MEG II mu -> e gamma checked; n-nbar, heavy-Higgs FCNC, W_R/Z_R remain preliminary order-of-magnitude checks)",
+    "COS-01": "OPEN / PARTIAL (pi_2=Z monopoles and pi_1=Z_2 strings require T_rh < v_R; vanilla N_1 thermal leptogenesis at BM-GUT falls short of observed eta_B; Boltzmann transport & DM open)"
+  },
   "checks": {
     "portal_operators_gauge_invariant": true,
+    "portal_map_is_rank16_surjective_with_dim9_kernel": true,
     "delta_squared_portals_vanish_on_vacuum": true,
     "hessian_188_quadratic_identity": true,
     "hessian_188_matches_analytic_spectrum": true,
@@ -1206,17 +1491,18 @@
     "hessian_188_exact_four_light_higgs_modes": true,
     "hessian_188_light_higgs_eigenvector_matches_target": true,
     "hessian_188_all_175_heavy_modes_positive": true,
+    "BM_LR_negative_portal_tree_ray_unbounded_detected": true,
     "ps1_2loop_beta_dim_symmetry": true,
     "threshold_beta_sum_rules_exact": true,
-    "all_scanned_vR_gauge_perturbative_to_MPl_2loop": true,
-    "ps1_ew_delta_quartic_perturbative_to_MPl": true,
-    "BM_LR_PS1_EW_min_complex_fits_all_fermions_perturbativity": true,
-    "BM_LR_PS1_EW_min_real_fails_fR_perturbativity": true,
-    "BM_GUT_PS1_EW_min_fails_fR_perturbativity": true,
-    "all_benchmarks_PS1_EW_gen_fit_perturbatively": true,
-    "all_benchmarks_pass_KL_mue_Bs_mue_mu_egamma": true,
-    "all_benchmarks_pass_baryon_stability": true,
-    "BM_LR_and_BM_GUT_have_monopole_safe_leptogenesis_window": true
+    "all_scanned_vR_gauge_perturbative_to_MPl_2loop_gauge_only": true,
+    "delta_quartic_beta_coeff_136_and_rescaled_pure_truncation_ok": true,
+    "BM_LR_PS1_EW_min_complex_witness_perturbative_and_pmns_roundtrip": true,
+    "BM_LR_PS1_EW_min_real_witness_perturbative_and_pmns_roundtrip": true,
+    "vR_6e11_PS1_EW_min_refit_witness_perturbative_and_pmns_roundtrip": true,
+    "all_benchmarks_PS1_EW_gen_fit_direct_contraction_and_pmns_roundtrip": true,
+    "all_benchmarks_pass_valencia_willenbrock_and_prelim_flavour_checks": true,
+    "all_benchmarks_pass_prelim_baryon_stability": true,
+    "BM_GUT_vanilla_N1_leptogenesis_shortfall_detected": true
   },
   "all_pass": true
 }

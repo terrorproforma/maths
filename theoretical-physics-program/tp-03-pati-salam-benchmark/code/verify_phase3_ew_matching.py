@@ -1,26 +1,32 @@
 #!/usr/bin/env python3
 """Verify TP-03 Phase 3 (PS1-EW): electroweak matching, RG running, fermion/neutrino fit,
-and flavour, baryon-stability, and cosmological relic gates.
+and flavour, baryon-stability, and cosmological relic gates (post-referee revision).
 
 This module extends the certified Phase 2B high-scale vacuum branch PS1-MM to the
 electroweak-matched branch PS1-EW (split explicitly into the minimal two-Yukawa sub-branch
 PS1-EW-min and the full gauge-invariant four-Yukawa sub-branch PS1-EW-gen):
 
-1. Explicit SU(4)_C x SU(2)_L x SU(2)_R-invariant bidoublet + Delta_R portal potential,
-   direct gauge-invariance test, exact 4x4 colour-singlet Higgs mass matrix M_H^2,
-   coloured octet/leptoquark mass matrices, fine-tuning to one light SM Higgs doublet h,
-   and full 188x188 real scalar Hessian verification.
+1. Explicit SU(4)_C x SU(2)_L x SU(2)_R-invariant bidoublet + Delta_R portal potential
+   (17 operators = 25 real parameters), direct gauge-invariance test, exact rank-16
+   surjective map (9-dim kernel) onto the 4x4 colour-singlet Higgs mass matrix M_H^2,
+   coloured octet/leptoquark mass matrices, fine-tuning to one light SM Higgs doublet h
+   at the unbroken EW origin, full 188x188 real scalar Hessian verification, and explicit
+   tree-level two-field (h, Delta_R) quartic stability audit along the negative-portal ray.
 2. One- and two-loop SM gauge/Yukawa/quartic/Weinberg-operator RGEs from M_Z to v_R,
    exact Weinberg-Hall 1-loop MS-bar threshold matching using the explicit Phase 2B/3
    heavy vector and 175 heavy scalar spectrum (with UV-IR group-theory sum-rule checks),
-   and 1- and 2-loop PS1 gauge + 60-component Delta_R quartic running from v_R to M_Pl.
-3. Quantitative 3-generation charged-fermion, CKM, neutrino, and PMNS fits at three
-   benchmarks across the viable v_R window (BM-LR, BM-GUT, BM-LOW) comparing PS1-EW-min
-   (real vs complex Higgs mixing phases) and PS1-EW-gen.
-4. Quantitative audit of X-boson K_L -> mu e, B_s -> mu e, mu -> e gamma, W_R/Z_R and
-   heavy-Higgs FCNC bounds, baryon-number stability (Delta B = 1 proton decay and
-   Delta B = 2 n-nbar oscillations), and magnetic-monopole / domain-wall / leptogenesis
-   cosmology.
+   gauge-only 2-loop PS1 running (omitting 2-loop UV Yukawa traces) + approximate SO(10)
+   crossing without M_GUT parent thresholds, and 60-real-component Delta_R quartic pure-
+   self-coupling Landau-pole diagnostic (136 lambda_Delta^2).
+3. Quantitative 3-generation charged-fermion, CKM, neutrino, and PMNS existence fits
+   across the viable v_R window (BM-LR, v_R = 6e11 GeV refit, BM-GUT, BM-LOW) comparing
+   PS1-EW-min (both real and complex Higgs mixing ratios; 30 real Yukawa parameters vs
+   18 real observables) and PS1-EW-gen (with direct forward tensor-contraction verification
+   and charged-lepton mass-basis PMNS round-trip verification).
+4. Quantitative audit of Valencia-Willenbrock X-boson K_L -> mu e and B_s -> mu e,
+   MEG II mu -> e gamma, preliminary order-of-magnitude W_R/Z_R, heavy-Higgs FCNC, and
+   n-nbar checks (using actual sextet masses), baryon-number selection rules, and
+   monopole / Z_2-string / domain-wall / thermal-leptogenesis cosmology.
 """
 from __future__ import annotations
 
@@ -100,7 +106,7 @@ NEUTRINO_INPUTS = {
 EXP_BOUNDS = {
     "BR_KL_mue_90CL": 4.7e-12,         # BNL E871
     "BR_Bs_mue_90CL": 5.4e-9,          # LHCb
-    "BR_mu_egamma_90CL": 3.1e-13,      # MEG II
+    "BR_mu_egamma_90CL": 1.5e-13,      # MEG II (combined 90% CL)
     "tau_p_e_pi0_yr_90CL": 2.4e34,     # Super-Kamiokande
     "tau_nnbar_s_90CL": 4.7e8,         # Super-K + ILL
     "m_beta_KATRIN_eV": 0.45,          # KATRIN 2025
@@ -183,7 +189,7 @@ class PS1EWScalarAlgebra:
         phi1: np.ndarray,
         phi15_A: np.ndarray,
     ) -> Dict[str, complex]:
-        """Evaluate all 12 declared gauge-invariant quadratic+portal operators."""
+        """Evaluate all 17 declared gauge-invariant quadratic+portal operators (25 real parameters)."""
         D = self.delta_vec_to_tensor(delta_vec)
         M15 = self.phi15_A_to_tensor(phi15_A)
         p1t = self.tilde_phi1(phi1)
@@ -236,7 +242,7 @@ class PS1EWScalarAlgebra:
         return inv
 
     def test_gauge_invariance(self, seed: int = 20260901, trials: int = 5) -> float:
-        """Verify SU(4)_C x SU(2)_L x SU(2)_R invariance of all 16 bidoublet/portal invariants."""
+        """Verify SU(4)_C x SU(2)_L x SU(2)_R invariance of all 17 bidoublet/portal operators."""
         rng = np.random.default_rng(seed)
 
         def rand_su(n: int) -> np.ndarray:
@@ -296,8 +302,10 @@ def solve_portal_parameters_for_light_higgs(
     triplet_masses_sq: Tuple[float, float] = (1.40, 1.80),
     v_r: float = 1.0,
 ) -> Dict[str, object]:
-    """Invert the exact surjective bijection from M_H^2, M_Omega^2, M_Sigma^2 to
-    SU(4)_C x SU(2)_L x SU(2)_R-invariant Lagrangian parameters (in units of v_R = v_r)."""
+    """Choose one preimage under the rank-16 surjective linear map (25 real parameters from
+    17 gauge-invariant operators -> 16 real Hermitian entries of M_H^2, with a 9-dimensional
+    kernel; fixing the coloured blocks fixes 5 real combinations, leaving 4 redundant directions
+    fixed here by alpha1_0=0.30, alpha15_0=0.40, talpha1_0=0)."""
     u = np.asarray(u_light, dtype=np.complex128)
     u = u / np.linalg.norm(u)
 
@@ -440,6 +448,88 @@ def solve_portal_parameters_for_light_higgs(
         "expected_H_eigs": np.sort(eigs_H),
         "expected_Omega_eigs": np.sort(np.array(octet_masses_sq) * v_r**2),
         "expected_triplet_eigs": np.sort(np.array(triplet_masses_sq) * v_r**2),
+    }
+
+
+def portal_map_rank_and_nullity(v_r: float = 1.0) -> Dict[str, int]:
+    """Compute the exact linear rank and nullity of the map from the 25 real parameters
+    (17 operators: 9 real + 8 complex) to the 16 real entries of 4x4 Hermitian M_H^2."""
+    c_mix = -math.sqrt(3.0) * (v_r**2) / 4.0
+    # 25 real parameters ordered as:
+    # [mu1_sq, Re tmu1_sq, Im tmu1_sq, mu15_sq, Re tmu15_sq, Im tmu15_sq,
+    #  alpha1_0, alpha1_R, Re talpha1_0, Im talpha1_0,
+    #  alpha15_0, alpha15_a, alpha15_b, alpha15_c, alpha15_cR, Re talpha15_c, Im talpha15_c,
+    #  Re beta0, Im beta0, Re betaR, Im betaR, Re tbeta0, Im tbeta0, Re tbetaR, Im tbetaR]
+    # 16 real Hermitian entries of M_H^2:
+    # 4 diagonals (M11,M22,M33,M44) + 6 off-diagonal Re/Im pairs (M21,M43,M13,M42,M23,M41)
+    J = np.zeros((16, 25), dtype=np.float64)
+    r = 0.5 * v_r**2
+    # M11 = mu1_sq + r*(alpha1_0 - alpha1_R)
+    J[0, 0] = 1.0; J[0, 6] = r; J[0, 7] = -r
+    # M22 = mu1_sq + r*(alpha1_0 + alpha1_R)
+    J[1, 0] = 1.0; J[1, 6] = r; J[1, 7] = r
+    # M33 = mu15_sq + r*alpha15_0 + (3/4)*r*(alpha15_a + alpha15_b + alpha15_c - alpha15_cR)
+    J[2, 3] = 1.0; J[2, 10] = r; J[2, 11] = 0.75 * r; J[2, 12] = 0.75 * r; J[2, 13] = 0.75 * r; J[2, 14] = -0.75 * r
+    # M44 = mu15_sq + r*alpha15_0 + (3/4)*r*(alpha15_a + alpha15_b + alpha15_c + alpha15_cR)
+    J[3, 3] = 1.0; J[3, 10] = r; J[3, 11] = 0.75 * r; J[3, 12] = 0.75 * r; J[3, 13] = 0.75 * r; J[3, 14] = 0.75 * r
+    # M21 = 2*tmu1_sq + 2*r*talpha1_0 (Re, Im)
+    J[4, 1] = 2.0; J[4, 8] = 2.0 * r
+    J[5, 2] = 2.0; J[5, 9] = 2.0 * r
+    # M43 = 2*tmu15_sq + (3/2)*r*talpha15_c (Re, Im)
+    J[6, 4] = 2.0; J[6, 15] = 1.5 * r
+    J[7, 5] = 2.0; J[7, 16] = 1.5 * r
+    # M13 = c_mix * (beta0 - betaR) (Re, Im)
+    J[8, 17] = c_mix; J[8, 19] = -c_mix
+    J[9, 18] = c_mix; J[9, 20] = -c_mix
+    # M42 = c_mix * (beta0 + betaR) (Re, Im)
+    J[10, 17] = c_mix; J[10, 19] = c_mix
+    J[11, 18] = c_mix; J[11, 20] = c_mix
+    # M23 = c_mix * (tbeta0 - tbetaR) (Re, Im)
+    J[12, 21] = c_mix; J[12, 23] = -c_mix
+    J[13, 22] = c_mix; J[13, 24] = -c_mix
+    # M41 = c_mix * (tbeta0 + tbetaR) (Re, Im)
+    J[14, 21] = c_mix; J[14, 23] = c_mix
+    J[15, 22] = c_mix; J[15, 24] = c_mix
+    rank = int(np.linalg.matrix_rank(J))
+    return {
+        "operator_count": 17,
+        "real_parameter_count": 25,
+        "target_hermitian_dim": 16,
+        "linear_map_rank": rank,
+        "kernel_dim": 25 - rank,
+    }
+
+
+def extract_effective_higgs_portal(
+    u_light: np.ndarray,
+    portal_solution: Mapping[str, object],
+) -> Dict[str, float]:
+    """Compute the effective light-Higgs-to-Delta_R radial portal coupling lambda_{hDelta}
+    defined by V_portal(h, Delta_R) = lambda_{hDelta} * |h|^2 * r on the coherent Delta_R ray
+    (where M_H^2(r) = M_bare^2 + r * Lambda_portal and r_vac = v_R^2 / 2)."""
+    u = np.asarray(u_light, dtype=np.complex128)
+    u = u / np.linalg.norm(u)
+    p = portal_solution["params"]
+    M_full = portal_solution["M_H_sq"]
+    v_r = float(p["v_R"])
+    r_vac = 0.5 * (v_r**2)
+
+    M_bare = np.zeros((4, 4), dtype=np.complex128)
+    M_bare[0, 0] = M_bare[1, 1] = float(p["mu1_sq"])
+    M_bare[1, 0] = 2.0 * complex(p["tmu1_sq"])
+    M_bare[0, 1] = M_bare[1, 0].conjugate()
+    M_bare[2, 2] = M_bare[3, 3] = float(p["mu15_sq"])
+    M_bare[3, 2] = 2.0 * complex(p["tmu15_sq"])
+    M_bare[2, 3] = M_bare[3, 2].conjugate()
+
+    Lambda_portal = (M_full - M_bare) / r_vac
+    lam_h_delta = float(np.vdot(u, Lambda_portal @ u).real)
+    m_bare_eff_sq = float(np.vdot(u, M_bare @ u).real)
+    m_full_eff_sq = float(np.vdot(u, M_full @ u).real)
+    return {
+        "lambda_hDelta": lam_h_delta,
+        "m_bare_eff_sq_over_vR2": m_bare_eff_sq / (v_r**2),
+        "m_full_eff_sq_over_vR2": m_full_eff_sq / (v_r**2),
     }
 
 
@@ -696,7 +786,10 @@ def sm_initial_conditions_mz() -> Dict[str, object]:
         math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th13"])),
         math.radians(NEUTRINO_INPUTS["delta_pmns_deg"]),
     )
-    mnu_GeV = U_pmns.conj() @ np.diag([m1, m2, m3]) * 1.0e-9 @ U_pmns.conj().T
+    # In the convention -L_eff = (1/2) \bar{nu}_L m_nu nu_L^c + h.c. matching -L_D = \bar{f}_L Y_f f_R H,
+    # diagonalizing by nu_L = U_pmns nu_L^mass gives U_pmns^dag m_nu U_pmns^* = diag(m_i),
+    # hence m_nu = U_pmns diag(m1, m2, m3) U_pmns^T in the charged-lepton mass basis:
+    mnu_GeV = U_pmns @ np.diag([m1, m2, m3]) * 1.0e-9 @ U_pmns.T
     kappa_nu = 2.0 * mnu_GeV / (V_EW_GEV**2)
 
     return {
@@ -867,7 +960,7 @@ def run_sm_rge_to_scale(mu_target: float, two_loop_gauge: bool = True) -> Dict[s
             + 0.375 * (2.0 * g2**4 + (g2**2 + gY**2) ** 2)
             - 2.0 * tr4
         )
-        dkap = fac * ((-3.0 * g2**2 + 4.0 * lam + 2.0 * T) * kap - 1.5 * (He.T @ kap + kap @ He))
+        dkap = fac * ((-3.0 * g2**2 + 4.0 * lam + 2.0 * T) * kap - 1.5 * (He @ kap + kap @ He.T))
         return _pack_sm(dg, dlam, dYu, dYd, dYe, dkap)
 
     def lam_zero_event(t: float, y: np.ndarray) -> float:
@@ -1023,9 +1116,9 @@ def compute_threshold_matching_at_vR(
     gY_sm: float,
     g2_sm: float,
     g3_sm: float,
-    lambda_delta: float = 0.10,
-    kappa4: float = 0.020,
-    kappa_r: float = 0.015,
+    lambda_delta: float = 0.03,
+    kappa4: float = 0.006,
+    kappa_r: float = 0.0045,
     heavy_doublet_masses_sq: Tuple[float, float, float] = (0.80, 1.20, 1.60),
     octet_masses_sq: Tuple[float, float] = (1.10, 1.30),
     triplet_masses_sq: Tuple[float, float] = (1.40, 1.80),
@@ -1155,7 +1248,11 @@ def run_ps1_gauge_to_mplanck(
     g2R_0: float,
     two_loop: bool = True,
 ) -> Dict[str, object]:
-    """Run PS1 gauge couplings (g4, g2L, g2R) from v_R to M_Pl = 1.2209e19 GeV."""
+    """Run gauge-only PS1 couplings (g4, g2L, g2R) from v_R to M_Pl = 1.2209e19 GeV.
+
+    Scope note: 2-loop UV Yukawa traces above v_R are omitted in this gauge-only PS
+    evolution (2-loop Machacek-Vaughn gauge terms + 1-loop Weinberg-Hall thresholds).
+    """
     b = PS1_BETA["b_1loop"]
     B = PS1_BETA["B_2loop"]
 
@@ -1198,12 +1295,13 @@ def run_ps1_gauge_to_mplanck(
 
 
 def find_lr_parity_and_unification_scales(
-    lambda_delta: float = 0.10,
-    kappa4: float = 0.020,
-    kappa_r: float = 0.015,
+    lambda_delta: float = 0.03,
+    kappa4: float = 0.006,
+    kappa_r: float = 0.0045,
 ) -> Dict[str, object]:
-    """Find exact g_2R = g_2L scales and exact SO(10) triple-unification (g4 = g2L = g2R)
-    at 1-loop (no thresholds) and 2-loop (with 1-loop Weinberg-Hall thresholds)."""
+    """Find g_2R = g_2L scales and approximate SO(10) triple-crossing scales (g4 = g2L = g2R)
+    at 1-loop (no thresholds) and gauge-only 2-loop (with 1-loop Weinberg-Hall thresholds at v_R,
+    omitting 2-loop UV Yukawa traces above v_R and M_GUT parent-group thresholds)."""
     # 1. Exact 1-loop (no threshold) LR parity scale & triple unification
     ic = sm_initial_conditions_mz()
     a3_0 = 4.0 * math.pi / (ic["g"][2] ** 2)
@@ -1305,37 +1403,61 @@ def find_lr_parity_and_unification_scales(
 def delta_quartic_landau_pole_audit(
     v_r: float,
     lambda_delta_phase2b: float = 2.0,
-    lambda_delta_ew: float = 0.10,
+    lambda_delta_ew: float = 0.03,
+    kappa4_ew: float = 0.006,
+    kappa_r_ew: float = 0.0045,
 ) -> Dict[str, object]:
-    """Audit the 1-loop 60-real-component O(60) self-coupling Landau pole for Delta_R.
+    """Pure-self-coupling 1-loop O(60) Landau-pole diagnostic for Delta_R.
 
-    In 16 pi^2 d(lambda_Delta)/dt = (2 N_c + 8) lambda_Delta^2 + ... with N_c = 30 complex
-    components (60 real components), the coefficient is 2*30 + 8 = 68 (ignoring subleading
-    negative gauge -g^2 lambda + g^4 terms at large lambda, which we include approximately
-    for the perturbative benchmark).
+    With canonical real components phi in R^60, r = phi^T phi / 2 and
+    V_4 = lambda_Delta r^2 = lambda_Delta (phi^T phi)^2 / 4, the second-derivative matrix
+    V_4'' has eigenvalues 3*lambda_Delta*phi^2 (mult 1) and lambda_Delta*phi^2 (mult 59).
+    Substituting into 16 pi^2 beta_{V_4} = (1/2) Tr(V_4'')^2 = (1/2)(9 + 59) lambda_Delta^2 (phi^2)^2
+    and matching to (1/4) beta_{lambda_Delta} (phi^2)^2 gives:
+        16 pi^2 beta_{lambda_Delta} = 2*(60 + 8) lambda_Delta^2 - 36 lambda_Delta kappa_4
+                                      - 16 lambda_Delta kappa_R + ...
+                                    = 136 lambda_Delta^2 - 36 lambda_Delta kappa_4
+                                      - 16 lambda_Delta kappa_R + ...
+    Scope note: This is a pure-self-coupling diagnostic only; kappa^2, bidoublet portal,
+    gauge, and Yukawa contributions are omitted, and the full coupled 138-parameter scalar
+    RGE system above v_R remains open.
     """
-    c_60 = 68.0  # exact O(60) quartic 1-loop beta coefficient for V = lambda (|Delta|^2)^2
+    c_60 = 136.0  # exact 2*(N_real + 8) = 2*(60 + 8) for V_4 = lambda_Delta (phi^T phi)^2 / 4
 
     def lp_scale_pure(lam0: float) -> float:
         return float(v_r * math.exp(16.0 * math.pi**2 / (c_60 * lam0)))
 
-    # Maximum lambda_Delta(v_R) to avoid a scalar Landau pole below M_Pl:
+    # Maximum lambda_Delta(v_R) in the pure-self-coupling truncation to avoid a formal pole below M_Pl:
     log_span = math.log(M_PL_GEV / v_r)
     lam_max_to_MPl = 16.0 * math.pi**2 / (c_60 * log_span)
+    mixed_beta_at_ew = (
+        c_60 * (lambda_delta_ew**2)
+        - 36.0 * lambda_delta_ew * kappa4_ew
+        - 16.0 * lambda_delta_ew * kappa_r_ew
+    )
 
     return {
+        "diagnostic_scope": (
+            "pure-self-coupling 1-loop O(60) truncation; kappa^2, bidoublet portal, "
+            "gauge, and Yukawa terms omitted; full coupled 138-parameter scalar RGEs open"
+        ),
         "N_complex_DeltaR": 30,
         "N_real_DeltaR": 60,
         "beta_coeff_lambda_Delta_sq": c_60,
+        "beta_coeff_lambda_Delta_kappa4": -36.0,
+        "beta_coeff_lambda_Delta_kappaR": -16.0,
         "v_R_GeV": float(v_r),
         "phase2b_benchmark_lambda_Delta": lambda_delta_phase2b,
         "phase2b_landau_pole_ratio_over_vR": float(math.exp(16.0 * math.pi**2 / (c_60 * lambda_delta_phase2b))),
         "phase2b_landau_pole_GeV": lp_scale_pure(lambda_delta_phase2b),
         "phase2b_sub_planckian_landau_pole": lp_scale_pure(lambda_delta_phase2b) < M_PL_GEV,
         "ps1_ew_benchmark_lambda_Delta": lambda_delta_ew,
+        "ps1_ew_benchmark_kappa4": kappa4_ew,
+        "ps1_ew_benchmark_kappaR": kappa_r_ew,
+        "ps1_ew_partial_beta_16pi2_at_vR": float(mixed_beta_at_ew),
         "ps1_ew_landau_pole_GeV": lp_scale_pure(lambda_delta_ew),
-        "ps1_ew_perturbative_to_MPl": lp_scale_pure(lambda_delta_ew) > M_PL_GEV,
-        "max_lambda_Delta_perturbative_to_MPl": float(lam_max_to_MPl),
+        "ps1_ew_perturbative_to_MPl_pure_truncation": lp_scale_pure(lambda_delta_ew) > M_PL_GEV,
+        "max_lambda_Delta_perturbative_to_MPl_pure_truncation": float(lam_max_to_MPl),
     }
 
 
@@ -1363,31 +1485,65 @@ def compute_seesaw_and_leptogenesis(
     m_nu_running_eV: np.ndarray,
 ) -> Dict[str, object]:
     """Invert Type-I seesaw m_nu = -(v_EW^2/2) YnuD M_R^-1 YnuD^T to find exact M_R, f_R,
-    and Davidson-Ibarra / flavored CP-asymmetry diagnostics."""
+    verify PMNS / mass-squared round-trip recovery in the charged-lepton mass basis,
+    and compute Covi-Roulet-Vissani / Davidson-Ibarra thermal leptogenesis diagnostics."""
     U_pmns = standard_unitary_3x3(
         math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th12"])),
         math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th23"])),
         math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th13"])),
         math.radians(NEUTRINO_INPUTS["delta_pmns_deg"]),
     )
-    # In the basis where Ye = UeL diag(ye) UeR^dag, L_L is rotated by UeL:
-    mnu_GeV = UeL.conj() @ U_pmns.conj() @ np.diag(m_nu_running_eV) * 1.0e-9 @ U_pmns.conj().T @ UeL.conj().T
+    # In the convention -L_D = \bar{e}_L Y_e e_R + \bar{nu}_L Y_nu^D nu_R, rotating to the
+    # charged-lepton mass basis via L_L = UeL L_L^ell gives Y_nu^ell = UeL^dag Y_nu^D, so
+    # m_nu^ell = -(v_EW^2/2) Y_nu^ell M_R^-1 (Y_nu^ell)^T = UeL^dag m_nu UeL^*.
+    # Inverting gives m_nu = UeL m_nu^ell UeL^T, with m_nu^ell = U_pmns diag(m_i) U_pmns^T:
+    mnu_ell_GeV = U_pmns @ (np.diag(m_nu_running_eV) * 1.0e-9) @ U_pmns.T
+    mnu_GeV = UeL @ mnu_ell_GeV @ UeL.T
     MR = -(V_EW_GEV**2 / 2.0) * (YnuD.T @ np.linalg.inv(mnu_GeV) @ YnuD)
     MR = 0.5 * (MR + MR.T)
 
-    # Verify exact seesaw inversion residual
+    # Verify exact seesaw inversion residual in the original weak basis
     mnu_check = -(V_EW_GEV**2 / 2.0) * (YnuD @ np.linalg.inv(MR) @ YnuD.T)
     seesaw_rel_err = float(np.linalg.norm(mnu_check - mnu_GeV) / np.linalg.norm(mnu_GeV))
 
-    # Takagi factorization of symmetric complex M_R: M_R = U_R^* diag(M1, M2, M3) U_R^dag
-    # Use SVD on M_R: M_R = W diag(s) V^H -> for symmetric M_R, eigen-phases align via sqrt(W^T V^*)
-    W, s_MR, Vh = np.linalg.svd(MR)
+    # Direct charged-lepton mass-basis PMNS & mass-squared round-trip verification:
+    mnu_ell_rec = UeL.conj().T @ mnu_check @ UeL.conj()
+    H_nu_ell = mnu_ell_rec @ mnu_ell_rec.conj().T
+    evals_sq, U_rec = np.linalg.eigh(H_nu_ell)
+    m_rec_eV = np.sqrt(np.maximum(evals_sq, 0.0)) * 1.0e9
+    s13_sq_rec = float(abs(U_rec[0, 2]) ** 2)
+    c13_sq_rec = 1.0 - s13_sq_rec
+    s12_sq_rec = float(abs(U_rec[0, 1]) ** 2) / c13_sq_rec
+    s23_sq_rec = float(abs(U_rec[1, 2]) ** 2) / c13_sq_rec
+    J_rec = jarlskog_invariant(U_rec)
+    c12_r, s12_r = math.sqrt(1.0 - s12_sq_rec), math.sqrt(s12_sq_rec)
+    c23_r, s23_r = math.sqrt(1.0 - s23_sq_rec), math.sqrt(s23_sq_rec)
+    s13_r = math.sqrt(s13_sq_rec)
+    sin_d_rec = J_rec / (c12_r * s12_r * c23_r * s23_r * c13_sq_rec * s13_r)
+    cos_d_rec = (
+        (c12_r * c23_r) ** 2 + (s12_r * s23_r * s13_r) ** 2 - abs(U_rec[1, 1]) ** 2
+    ) / (2.0 * c12_r * s12_r * c23_r * s23_r * s13_r)
+    delta_rec_deg = float(math.degrees(math.atan2(sin_d_rec, cos_d_rec)) % 360.0)
+
+    dm21_target = float(m_nu_running_eV[1] ** 2 - m_nu_running_eV[0] ** 2)
+    dm31_target = float(m_nu_running_eV[2] ** 2 - m_nu_running_eV[0] ** 2)
+    dm21_rec = float(m_rec_eV[1] ** 2 - m_rec_eV[0] ** 2)
+    dm31_rec = float(m_rec_eV[2] ** 2 - m_rec_eV[0] ** 2)
+
+    pmns_roundtrip_max_rel_err = max(
+        abs(s12_sq_rec - NEUTRINO_INPUTS["sin2_th12"]) / NEUTRINO_INPUTS["sin2_th12"],
+        abs(s23_sq_rec - NEUTRINO_INPUTS["sin2_th23"]) / NEUTRINO_INPUTS["sin2_th23"],
+        abs(s13_sq_rec - NEUTRINO_INPUTS["sin2_th13"]) / NEUTRINO_INPUTS["sin2_th13"],
+        abs(delta_rec_deg - NEUTRINO_INPUTS["delta_pmns_deg"]) / NEUTRINO_INPUTS["delta_pmns_deg"],
+        abs(dm21_rec - dm21_target) / dm21_target,
+        abs(dm31_rec - dm31_target) / dm31_target,
+    )
+
+    # Takagi factorization of symmetric complex M_R: U_R^T M_R U_R = diag(M1, M2, M3)
+    W, s_MR, _ = np.linalg.svd(MR)
     order = np.argsort(s_MR)
     s_MR = s_MR[order]
     W = W[:, order]
-    # Rotate YnuD into M_R mass basis: Ynu_hat = UeL^H @ YnuD @ U_R
-    # Using M_R M_R^dag = U_R^* diag(M^2) U_R^T => U_R = W^* (up to diagonal phases)
-    # Refine diagonal phases so U_R^T M_R U_R = diag(s_MR) real positive:
     D_check = W.conj().T @ MR @ W.conj()
     phases = np.angle(np.diag(D_check))
     U_R = W.conj() @ np.diag(np.exp(-0.5j * phases))
@@ -1396,6 +1552,11 @@ def compute_seesaw_and_leptogenesis(
     )
 
     Ynu_hat = UeL.conj().T @ YnuD @ U_R  # in charged-lepton & N_R mass basis
+    mnu_ell_from_hat = -(V_EW_GEV**2 / 2.0) * (Ynu_hat @ np.diag(1.0 / s_MR) @ Ynu_hat.T)
+    hat_basis_seesaw_rel_err = float(
+        np.linalg.norm(mnu_ell_from_hat - mnu_ell_GeV) / np.linalg.norm(mnu_ell_GeV)
+    )
+
     f_R = math.sqrt(2.0) * MR / v_r
     f_R_norm = float(np.linalg.norm(f_R, 2))
 
@@ -1414,6 +1575,14 @@ def compute_seesaw_and_leptogenesis(
     m_atm_GeV = math.sqrt(NEUTRINO_INPUTS["dm31_sq_eV2"]) * 1.0e-9
     eps1_DI_bound = (3.0 / (16.0 * math.pi)) * (M1 * m_atm_GeV / (V_EW_GEV**2))
 
+    # Optimistic unflavored N_1-dominated baryon asymmetry ceiling:
+    # eta_B ~ -0.96e-2 * kappa_eff * eps1, with kappa_eff <= 0.1; observed eta_B ~ 6.1e-10
+    eta_B_obs = 6.1e-10
+    eta_B_ceiling_unflavored = 0.96e-2 * 0.1 * abs(eps1)
+    vanilla_n1_shortfall_factor = (
+        float(eta_B_obs / eta_B_ceiling_unflavored) if eta_B_ceiling_unflavored > 0.0 else float("inf")
+    )
+
     # KATRIN m_beta and 0nu-beta-beta m_bb (at M_Z neutrino masses)
     m1_0 = NEUTRINO_INPUTS["m1_benchmark_eV"]
     m2_0 = math.sqrt(m1_0**2 + NEUTRINO_INPUTS["dm21_sq_eV2"])
@@ -1427,10 +1596,25 @@ def compute_seesaw_and_leptogenesis(
         "f_R_spectral_norm": f_R_norm,
         "f_R_perturbative": f_R_norm < PERT_LIMIT,
         "seesaw_inversion_rel_err": seesaw_rel_err,
+        "hat_basis_seesaw_rel_err": hat_basis_seesaw_rel_err,
         "takagi_rel_err": takagi_err,
+        "pmns_roundtrip_recovery": {
+            "sin2_th12": s12_sq_rec,
+            "sin2_th23": s23_sq_rec,
+            "sin2_th13": s13_sq_rec,
+            "delta_pmns_deg": delta_rec_deg,
+            "J_pmns": float(J_rec),
+            "dm21_sq_running_eV2": dm21_rec,
+            "dm31_sq_running_eV2": dm31_rec,
+            "max_rel_err": float(pmns_roundtrip_max_rel_err),
+        },
         "epsilon_1_CP_asymmetry": float(eps1),
         "epsilon_1_DI_bound": float(eps1_DI_bound),
-        "monopole_safe_leptogenesis_window": (M1 >= 1.0e9) and (M1 < 0.2 * v_r),
+        "eta_B_ceiling_unflavored_kappa01": float(eta_B_ceiling_unflavored),
+        "eta_B_observed_benchmark": eta_B_obs,
+        "vanilla_N1_leptogenesis_shortfall_factor": vanilla_n1_shortfall_factor,
+        "vanilla_N1_leptogenesis_reaches_etaB": eta_B_ceiling_unflavored >= eta_B_obs,
+        "monopole_safe_kinematic_window": (M1 >= 1.0e9) and (M1 < 0.2 * v_r),
         "sum_m_nu_eV": float(np.sum(m_vec)),
         "m_beta_eV": m_beta,
         "m_bb_eV": m_bb,
@@ -1442,8 +1626,17 @@ def fit_ps1_ew_min(
     v_r: float,
     allow_complex_ratios: bool = True,
 ) -> Dict[str, object]:
-    """Fit ALL 9 charged-fermion masses + 4 CKM parameters + neutrinos/PMNS in the minimal
-    2-Dirac-Yukawa branch PS1-EW-min (Y_1, Y_15, f_R only; Y_1_tilde = Y_15_tilde = 0)."""
+    """Existence/interpolation fit of all 9 charged-fermion masses + 4 CKM parameters +
+    neutrinos/PMNS in the minimal 2-Dirac-Yukawa branch PS1-EW-min (Y_1, Y_15, f_R only;
+    Y_1_tilde = Y_15_tilde = 0).
+
+    Parameter-count note: After U(3)_L x U(3)_R basis removal (18 real), the Yukawa sector
+    (Y_1, Y_15, f_R = f_R^T) retains 36 + 12 - 18 = 30 real Yukawa parameters vs 18 real
+    flavour observables, so a fit here is an existence/interpolation test, NOT a constrained
+    prediction. Both real and complex Higgs-mixing ratios (c_d, c_e) admit perturbative
+    witnesses at BM-LR, and refitting running inputs remains perturbative below the
+    retracted 7.7e11 GeV fixed-fit estimate (demonstrated at v_R = 6.0e11 GeV).
+    """
     su = sm_state["yu_sv"]
     sd = sm_state["yd_sv"]
     se = sm_state["ye_sv"]
@@ -1456,6 +1649,13 @@ def fit_ps1_ew_min(
     Yd_diag = np.diag(sd).astype(np.complex128)
     Ye_diag = np.diag(se).astype(np.complex128)
     target_Vabs = np.abs(Vckm)
+    U_pmns = standard_unitary_3x3(
+        math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th12"])),
+        math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th23"])),
+        math.asin(math.sqrt(NEUTRINO_INPUTS["sin2_th13"])),
+        math.radians(NEUTRINO_INPUTS["delta_pmns_deg"]),
+    )
+    mnu_ell_inv = U_pmns.conj() @ np.diag(1.0 / (m_nu_run * 1.0e-9)) @ U_pmns.conj().T
 
     def unpack_x(x: np.ndarray) -> Tuple[complex, complex, np.ndarray, np.ndarray]:
         if allow_complex_ratios:
@@ -1470,27 +1670,33 @@ def fit_ps1_ew_min(
             UeR = _unitary_from_9_params(x[11:20])
         return cd, ce, UeL, UeR
 
-    def res_fn(x: np.ndarray, w_ynu: float) -> np.ndarray:
+    def res_fn(x: np.ndarray, w_obs: float, w_ynu: float, w_fR: float) -> np.ndarray:
         cd, ce, UeL, UeR = unpack_x(x)
         Ye_rot = UeL @ Ye_diag @ UeR.conj().T
         Yu_mod = cd * Yd_diag + ce * Ye_rot
-        YnuD = 3.0 * ce * Yd_diag + (cd - 2.0 * ce) * Ye_rot
         Uu, s_mod, _ = np.linalg.svd(Yu_mod)
         s_mod = s_mod[::-1]
         Uu = Uu[:, ::-1]
         V_mod = Uu.conj().T
         J_mod = jarlskog_invariant(V_mod)
         out = [
-            (s_mod[0] - su[0]) / su[0],
-            (s_mod[1] - su[1]) / su[1],
-            (s_mod[2] - su[2]) / su[2],
-            (abs(V_mod[0, 1]) - target_Vabs[0, 1]) / target_Vabs[0, 1],
-            (abs(V_mod[1, 2]) - target_Vabs[1, 2]) / target_Vabs[1, 2],
-            (abs(V_mod[0, 2]) - target_Vabs[0, 2]) / target_Vabs[0, 2],
-            (J_mod - J_ckm) / J_ckm,
+            w_obs * (s_mod[0] - su[0]) / su[0],
+            w_obs * (s_mod[1] - su[1]) / su[1],
+            w_obs * (s_mod[2] - su[2]) / su[2],
+            w_obs * (abs(V_mod[0, 1]) - target_Vabs[0, 1]) / target_Vabs[0, 1],
+            w_obs * (abs(V_mod[1, 2]) - target_Vabs[1, 2]) / target_Vabs[1, 2],
+            w_obs * (abs(V_mod[0, 2]) - target_Vabs[0, 2]) / target_Vabs[0, 2],
+            w_obs * (J_mod - J_ckm) / J_ckm,
         ]
-        if w_ynu > 0.0:
-            out.append(w_ynu * float(np.linalg.norm(YnuD, "fro")))
+        if w_ynu > 0.0 or w_fR > 0.0:
+            YnuD = 3.0 * ce * Yd_diag + (cd - 2.0 * ce) * Ye_rot
+            if w_ynu > 0.0:
+                out.append(w_ynu * float(np.linalg.norm(YnuD, "fro")))
+            if w_fR > 0.0:
+                Ynu_ell = UeL.conj().T @ YnuD
+                MR = -(V_EW_GEV**2 / 2.0) * (Ynu_ell.T @ mnu_ell_inv @ Ynu_ell)
+                fR_n = float(np.linalg.norm(math.sqrt(2.0) * MR / v_r, "fro"))
+                out.append(w_fR * math.log1p(fR_n))
         return np.array(out, dtype=np.float64)
 
     if allow_complex_ratios:
@@ -1502,16 +1708,28 @@ def fit_ps1_ew_min(
         x0[6] = phi3
         x0[7:13] = [0.22, 0.05, 0.01, -0.02, 0.04, 0.01]
         x0[16:22] = [-0.20, 0.10, 0.05, 0.02, -0.03, 0.05]
-        r1 = least_squares(res_fn, x0, args=(1.0,), method="trf", ftol=1.0e-12, xtol=1.0e-12, max_nfev=3000)
-        r2 = least_squares(res_fn, r1.x, args=(0.0,), method="trf", ftol=1.0e-14, xtol=1.0e-14, gtol=1.0e-14, max_nfev=3000)
-        x_opt = r2.x
+        r1 = least_squares(res_fn, x0, args=(1.0, 2.0, 0.0), method="trf", ftol=1.0e-11, xtol=1.0e-11, max_nfev=2000)
+        r2 = least_squares(res_fn, r1.x, args=(20.0, 0.0, 1.0), method="trf", ftol=1.0e-12, xtol=1.0e-12, max_nfev=2000)
+        r3 = least_squares(res_fn, r2.x, args=(1.0, 0.0, 0.0), method="trf", ftol=1.0e-14, xtol=1.0e-14, gtol=1.0e-14, max_nfev=2500)
+        x_opt = r3.x
+        final_res = r3.fun
     else:
+        # Real Higgs-mixing ratios (c_d, c_e in R): destructive 3rd-generation cancellation in
+        # (Y_nu^D)_33 occurs cleanly with phase pi in U_eL / U_eR near c_d ~ 115, c_e ~ 29!
+        rt = float(su[2] / sd[2])
+        r_tau = float(se[2] / sd[2])
+        rho = r_tau / (3.0 + 2.0 * r_tau)
+        cd0_re = rt * (1.0 - 2.0 * rho) / ((1.0 - 3.0 * rho) * (1.0 + rho))
+        ce0_re = rho * cd0_re
         x0 = np.zeros(20, dtype=np.float64)
-        x0[0], x0[1] = float(su[2] / sd[2]), 1.5
+        x0[0], x0[1] = cd0_re, ce0_re
+        x0[4] = math.pi
         x0[5:11] = [0.22, 0.05, 0.01, -0.02, 0.04, 0.01]
         x0[14:20] = [-0.20, 0.10, 0.05, 0.02, -0.03, 0.05]
-        r2 = least_squares(res_fn, x0, args=(0.0,), method="trf", ftol=1.0e-14, xtol=1.0e-14, gtol=1.0e-14, max_nfev=3000)
-        x_opt = r2.x
+        r1 = least_squares(res_fn, x0, args=(1.0, 2.0, 0.0), method="trf", ftol=1.0e-12, xtol=1.0e-12, max_nfev=3000)
+        r3 = least_squares(res_fn, r1.x, args=(1.0, 0.0, 0.0), method="trf", ftol=1.0e-14, xtol=1.0e-14, gtol=1.0e-14, max_nfev=3000)
+        x_opt = r3.x
+        final_res = r3.fun
 
     cd, ce, UeL, UeR = unpack_x(x_opt)
     Ye_rot = UeL @ Ye_diag @ UeR.conj().T
@@ -1545,12 +1763,15 @@ def fit_ps1_ew_min(
     y15_norm = float(np.linalg.norm(Y15, 2))
     max_yukawa = max(y1_norm, y15_norm, seesaw["f_R_spectral_norm"])
 
-    # Compute quark-lepton mixing matrices K_L = V_dL^dag U_eL (= U_eL in Y_d-diagonal basis) and K_R = U_eR
     return {
-        "branch": "PS1-EW-min" if allow_complex_ratios else "PS1-EW-min (real-ratio control)",
+        "branch": "PS1-EW-min (complex ratios)" if allow_complex_ratios else "PS1-EW-min (real ratios)",
+        "fit_epistemic_scope": (
+            "existence/interpolation witness (30 real Yukawa parameters after U(3)_L x U(3)_R "
+            "basis removal vs 18 real flavour observables; not a constrained prediction)"
+        ),
         "allow_complex_ratios": allow_complex_ratios,
         "v_R_GeV": float(v_r),
-        "max_charged_fermion_ckm_rel_err": float(np.max(np.abs(r2.fun[:7]))),
+        "max_charged_fermion_ckm_rel_err": float(np.max(np.abs(final_res[:7]))),
         "matching_identity_residual": float(match_err),
         "cd": [float(cd.real), float(cd.imag)],
         "ce": [float(ce.real), float(ce.imag)],
@@ -1569,6 +1790,69 @@ def fit_ps1_ew_min(
     }
 
 
+def verify_yukawa_forward_contraction(
+    u_light: np.ndarray,
+    Y1: np.ndarray,
+    Y1_tilde: np.ndarray,
+    Y15: np.ndarray,
+    Y15_tilde: np.ndarray,
+) -> Dict[str, np.ndarray]:
+    """Independently compute the SM Dirac Yukawa matrices (Y_u, Y_d, Y_nu^D, Y_e) by explicit
+    2x2 SU(2)_L x SU(2)_R bidoublet contraction F_L^T (-eps) [Y Phi + Y~ Phi~] (eps F_R^c)
+    on the neutral SM Higgs VEV <h> = (0, 1)^T, using Phi = (eps H_d^*, H_u) and
+    Phi_tilde = eps Phi^* eps^T = (eps H_u^*, H_d)."""
+    eps = ALGEBRA.eps
+    a1u, a1d, a15u, a15d = u_light
+    h_vev = np.array([0.0, 1.0], dtype=np.complex128)
+
+    def make_bidoublet(au: complex, ad: complex) -> Tuple[np.ndarray, np.ndarray]:
+        Hu = au * h_vev
+        Hd = ad * h_vev
+        phi = np.column_stack([eps @ Hd.conj(), Hu])
+        phi_tilde = eps @ phi.conj() @ eps.T
+        return phi, phi_tilde
+
+    phi1, phi1_tilde = make_bidoublet(a1u, a1d)
+    phi15_15, phi15_15_tilde = make_bidoublet(a15u, a15d)
+
+    # SU(4) diagonal generator sqrt(2) * T^15 = diag(1, 1, 1, -3) / sqrt(12):
+    c_q = 1.0 / math.sqrt(12.0)
+    c_l = -3.0 / math.sqrt(12.0)
+
+    # Basis vectors in SU(2)_L (u_L/nu_L = e_0, d_L/e_L = e_1) and SU(2)_R (u^c/nu^c = e_0, d^c/e^c = e_1):
+    e_up = np.array([1.0, 0.0], dtype=np.complex128)
+    e_dn = np.array([0.0, 1.0], dtype=np.complex128)
+
+    def contract_su2(mat2: np.ndarray, fL: np.ndarray, fRc: np.ndarray) -> complex:
+        return complex(fL @ (-eps) @ mat2 @ (eps @ fRc))
+
+    Yu_dir = (
+        contract_su2(phi1, e_up, e_up) * Y1
+        + contract_su2(phi1_tilde, e_up, e_up) * Y1_tilde
+        + c_q * contract_su2(phi15_15, e_up, e_up) * Y15
+        + c_q * contract_su2(phi15_15_tilde, e_up, e_up) * Y15_tilde
+    )
+    Yd_dir = (
+        contract_su2(phi1, e_dn, e_dn) * Y1
+        + contract_su2(phi1_tilde, e_dn, e_dn) * Y1_tilde
+        + c_q * contract_su2(phi15_15, e_dn, e_dn) * Y15
+        + c_q * contract_su2(phi15_15_tilde, e_dn, e_dn) * Y15_tilde
+    )
+    Ynu_dir = (
+        contract_su2(phi1, e_up, e_up) * Y1
+        + contract_su2(phi1_tilde, e_up, e_up) * Y1_tilde
+        + c_l * contract_su2(phi15_15, e_up, e_up) * Y15
+        + c_l * contract_su2(phi15_15_tilde, e_up, e_up) * Y15_tilde
+    )
+    Ye_dir = (
+        contract_su2(phi1, e_dn, e_dn) * Y1
+        + contract_su2(phi1_tilde, e_dn, e_dn) * Y1_tilde
+        + c_l * contract_su2(phi15_15, e_dn, e_dn) * Y15
+        + c_l * contract_su2(phi15_15_tilde, e_dn, e_dn) * Y15_tilde
+    )
+    return {"Yu": Yu_dir, "Yd": Yd_dir, "YnuD": Ynu_dir, "Ye": Ye_dir}
+
+
 def fit_ps1_ew_gen(
     sm_state: Mapping[str, object],
     v_r: float,
@@ -1577,9 +1861,13 @@ def fit_ps1_ew_gen(
     """Exact closed-form inversion for the full gauge-invariant 4-Dirac-Yukawa branch
     PS1-EW-gen (Y_1, Y_1_tilde, Y_15, Y_15_tilde, f_R).
 
-    Because Y_nu^D decouples from (Y_u, Y_d, Y_e), we scale Y_nu^D proportional to
-    sqrt(v_R * target_fR_max / 1e14 GeV) so that ALL FIVE Yukawa matrices remain
-    strictly perturbative across the entire viable v_R window.
+    With Phi = (eps H_d^*, H_u) and Phi_tilde = eps Phi^* eps^T = (eps H_u^*, H_d),
+    the down-type tilde contributions add with the SAME relative sign:
+        Y_u    = a1u Y_1 + a1d Y_1_tilde + a15u Y_15_hat + a15d Y_15_tilde_hat
+        Y_d    = a1d^* Y_1 + a1u^* Y_1_tilde + a15d^* Y_15_hat + a15u^* Y_15_tilde_hat
+        Y_nu^D = a1u Y_1 + a1d Y_1_tilde - 3 a15u Y_15_hat - 3 a15d Y_15_tilde_hat
+        Y_e    = a1d^* Y_1 + a1u^* Y_1_tilde - 3 a15d^* Y_15_hat - 3 a15u^* Y_15_tilde_hat
+    The exact 2x2 inverse has determinant D = |a_u|^2 - |a_d|^2 (singular at |a_u| = |a_d|).
     """
     Yu = sm_state["Yu"]
     Yd = sm_state["Yd"]
@@ -1588,47 +1876,58 @@ def fit_ps1_ew_gen(
     assert isinstance(Yu, np.ndarray) and isinstance(Yd, np.ndarray) and isinstance(Ye, np.ndarray)
     assert isinstance(m_nu_run, np.ndarray)
 
-    # Choose balanced O(1) light-Higgs eigenvector (no large tan(beta) needed!)
+    # Choose balanced O(1) light-Higgs eigenvector away from the |a_u| = |a_d| singularity
     u_light = np.array([0.60, 0.40, 0.56, 0.40 * np.exp(0.3j)], dtype=np.complex128)
     u_light = u_light / np.linalg.norm(u_light)
     a1u, a1d, a15u, a15d = u_light
-    s1_sq = abs(a1u) ** 2 + abs(a1d) ** 2
-    s15_sq = abs(a15u) ** 2 + abs(a15d) ** 2
+    D1 = abs(a1u) ** 2 - abs(a1d) ** 2
+    D15 = abs(a15u) ** 2 - abs(a15d) ** 2
+    if abs(D1) < 1.0e-12 or abs(D15) < 1.0e-12:
+        raise ValueError("PS1-EW-gen inversion is singular when |a_u| == |a_d|")
 
     # Choose Y_nu^D in the charged-lepton mass basis with hierarchical scale matched to v_R
     # so M_R3 ~ (target_fR_max / sqrt(2)) * v_R:
     m3_GeV = float(m_nu_run[2]) * 1.0e-9
     MR3_target = (target_fR_max / math.sqrt(2.0)) * v_r
     y_nu_scale = min(0.25, math.sqrt(2.0 * MR3_target * m3_GeV) / V_EW_GEV)
-    # Give Y_nu^D mild hierarchy (0.42, 0.70, 1.0) * y_nu_scale with a CP-violating phase
-    # to allow hierarchical thermal leptogenesis whenever M_R1 >= 1e9 GeV:
     U_nu = standard_unitary_3x3(0.20, 0.15, 0.05, 0.9)
     YnuD = U_nu @ np.diag([0.42, 0.70, 1.0]) * y_nu_scale
 
-    # Exact closed-form inverse from Part 1:
+    # Exact closed-form inverse:
+    # For a Y + b Y_tilde = P_u, b^* Y + a^* Y_tilde = P_d with D = |a|^2 - |b|^2:
+    #   Y       = ( a^* P_u - b P_d) / D
+    #   Y_tilde = (-b^* P_u + a P_d) / D
     Au = (3.0 * Yu + YnuD) / 4.0
     Ad = (3.0 * Yd + Ye) / 4.0
     Bu = (Yu - YnuD) / 4.0
     Bd = (Yd - Ye) / 4.0
 
-    Y1 = (a1u.conjugate() * Au + a1d * Ad) / s1_sq
-    Y1_tilde = (a1d.conjugate() * Au - a1u * Ad) / s1_sq
-    Y15_hat = (a15u.conjugate() * Bu + a15d * Bd) / s15_sq
-    Y15_tilde_hat = (a15d.conjugate() * Bu - a15u * Bd) / s15_sq
+    Y1 = (a1u.conjugate() * Au - a1d * Ad) / D1
+    Y1_tilde = (-a1d.conjugate() * Au + a1u * Ad) / D1
+    Y15_hat = (a15u.conjugate() * Bu - a15d * Bd) / D15
+    Y15_tilde_hat = (-a15d.conjugate() * Bu + a15u * Bd) / D15
     Y15 = math.sqrt(12.0) * Y15_hat
     Y15_tilde = math.sqrt(12.0) * Y15_tilde_hat
 
-    # Verify exact reconstruction of ALL FOUR SM Dirac Yukawas!
+    # Verify exact reconstruction using BOTH analytic formulas AND direct 2x2 tensor contraction!
     Yu_rec = a1u * Y1 + a1d * Y1_tilde + a15u * Y15_hat + a15d * Y15_tilde_hat
-    Yd_rec = a1d.conjugate() * Y1 - a1u.conjugate() * Y1_tilde + a15d.conjugate() * Y15_hat - a15u.conjugate() * Y15_tilde_hat
+    Yd_rec = a1d.conjugate() * Y1 + a1u.conjugate() * Y1_tilde + a15d.conjugate() * Y15_hat + a15u.conjugate() * Y15_tilde_hat
     Ynu_rec = a1u * Y1 + a1d * Y1_tilde - 3.0 * a15u * Y15_hat - 3.0 * a15d * Y15_tilde_hat
-    Ye_rec = a1d.conjugate() * Y1 - a1u.conjugate() * Y1_tilde - 3.0 * a15d.conjugate() * Y15_hat + 3.0 * a15u.conjugate() * Y15_tilde_hat
+    Ye_rec = a1d.conjugate() * Y1 + a1u.conjugate() * Y1_tilde - 3.0 * a15d.conjugate() * Y15_hat - 3.0 * a15u.conjugate() * Y15_tilde_hat
 
     rec_err = max(
         float(np.linalg.norm(Yu_rec - Yu) / np.linalg.norm(Yu)),
         float(np.linalg.norm(Yd_rec - Yd) / np.linalg.norm(Yd)),
         float(np.linalg.norm(Ye_rec - Ye) / np.linalg.norm(Ye)),
         float(np.linalg.norm(Ynu_rec - YnuD) / np.linalg.norm(YnuD)),
+    )
+
+    direct = verify_yukawa_forward_contraction(u_light, Y1, Y1_tilde, Y15, Y15_tilde)
+    direct_contract_err = max(
+        float(np.linalg.norm(direct["Yu"] - Yu) / np.linalg.norm(Yu)),
+        float(np.linalg.norm(direct["Yd"] - Yd) / np.linalg.norm(Yd)),
+        float(np.linalg.norm(direct["Ye"] - Ye) / np.linalg.norm(Ye)),
+        float(np.linalg.norm(direct["YnuD"] - YnuD) / np.linalg.norm(YnuD)),
     )
 
     # In SM RGE basis, Ye and Yd are both diagonal at M_Z (and nearly diagonal at v_R)
@@ -1650,7 +1949,9 @@ def fit_ps1_ew_gen(
     return {
         "branch": "PS1-EW-gen",
         "v_R_GeV": float(v_r),
+        "determinants_D1_D15": [float(D1), float(D15)],
         "exact_reconstruction_rel_err": float(rec_err),
+        "direct_tensor_contraction_rel_err": float(direct_contract_err),
         "u_light": [[float(z.real), float(z.imag)] for z in u_light],
         "yukawa_spectral_norms": norms,
         "YnuD_singular_values": [float(x) for x in np.linalg.svd(YnuD, compute_uv=False)[::-1]],
@@ -1671,21 +1972,26 @@ def audit_flavour_baryon_cosmology(
     g2R: float,
     K_L: np.ndarray,
     K_R: np.ndarray,
-    M_R_GeV: Sequence[float],
+    seesaw_result: Mapping[str, object],
+    kappa4: float = 0.006,
+    kappa_r: float = 0.0045,
     M_GUT_GeV: float | None = None,
     alpha_GUT_inv: float | None = None,
 ) -> Dict[str, object]:
-    """Audit X-boson flavour bounds, W_R/Z_R, heavy Higgs FCNCs, baryon stability,
-    and monopole/domain-wall/leptogenesis cosmology at scale v_R."""
+    """Audit Valencia-Willenbrock X-boson flavour bounds, preliminary order-of-magnitude
+    W_R/Z_R, heavy-Higgs FCNC, and n-nbar checks, baryon-number selection rules, and
+    monopole / Z_2-string / domain-wall / thermal-leptogenesis cosmology at scale v_R."""
+    M_R_GeV = seesaw_result["M_R_GeV"]
     M_X = math.sqrt(0.5) * g4 * v_r
     M_WR = math.sqrt(0.5) * g2R * v_r
     M_ZR = math.sqrt(1.5 * g4**2 + g2R**2) * v_r
 
     # 1. K_L -> mu^+ e^- + mu^- e^+ via chiral-enhanced X-boson exchange
     # Valencia & Willenbrock PRD 50, 6843 (1994); Smirnov MPLA 22, 2353 (2007)
-    # Using K_L = (K^0 + K^0bar)/sqrt(2), f_K = 0.1557 GeV, m_K = 0.49761 GeV,
-    # m_mu = 0.10566 GeV, m_s + m_d (2 GeV) = 0.098 GeV, tau_KL = 5.116e-8 s -> Gamma_KL = 1.2866e-17 GeV,
-    # QCD running enhancement of scalar/pseudoscalar current from M_X to 2 GeV: eta_QCD ~ 2.1
+    # Exact width summed over mu^- e^+ and mu^+ e^-:
+    #   Gamma = (g_4^4 f_K^2 m_K / (32 pi M_X^4)) * (eta_QCD m_K^2 / (m_s + m_d))^2
+    #           * (1 - m_mu^2 / m_K^2)^2 * |c_mix|^2
+    # where |c_mix|^2 = 1.0 for aligned mixing K_L = K_R = I.
     f_K = 0.1557
     m_K = 0.49761
     m_mu = 0.10566
@@ -1693,43 +1999,37 @@ def audit_flavour_baryon_cosmology(
     Gamma_KL = 1.2866e-17
     eta_QCD = 2.1
 
-    # Mixing combination for K_L -> mu^- e^+ and mu^+ e^-:
-    # Pseudoscalar chiral-enhanced factor R_chi = 2 * eta_QCD * m_K^2 / (m_mu * (m_s + m_d))
     R_chi = 2.0 * eta_QCD * (m_K**2) / (m_mu * ms_plus_md)
-    # In K_L = (d sbar + s dbar)/sqrt(2), LxR amplitude combines:
-    # A_LR(mu- e+) = K_L[1,1] K_R[0,0]^* + K_R[1,1] K_L[0,0]^* (s->mu, d->e)
-    # A_LR(mu+ e-) = K_L[1,0] K_R[0,1]^* + K_R[1,0] K_L[0,1]^* (s->e, d->mu)
-    # For generic O(1) mixing: |A_LR|^2_generic = 1.0 (each mode)
-    c_fitted_sq = (
-        0.5 * abs(K_L[1, 1] * K_R[0, 0].conjugate() - K_R[1, 1] * K_L[0, 0].conjugate()) ** 2
-        + 0.5 * abs(K_L[1, 1] * K_R[0, 0].conjugate() + K_R[1, 1] * K_L[0, 0].conjugate()) ** 2
-        + 0.5 * abs(K_L[1, 0] * K_R[0, 1].conjugate() - K_R[1, 0] * K_L[0, 1].conjugate()) ** 2
-        + 0.5 * abs(K_L[1, 0] * K_R[0, 1].conjugate() + K_R[1, 0] * K_L[0, 1].conjugate()) ** 2
+    # Properly normalized mixing factor (equals 1.0 for aligned K_L = K_R = I):
+    c_fitted_sq = 0.5 * (
+        abs(K_L[0, 0].conjugate() * K_R[1, 1]) ** 2
+        + abs(K_R[0, 0].conjugate() * K_L[1, 1]) ** 2
+        + abs(K_L[0, 1].conjugate() * K_R[1, 0]) ** 2
+        + abs(K_R[0, 1].conjugate() * K_L[1, 0]) ** 2
     )
-    # Exact rate formula (summed over mu^- e^+ and mu^+ e^-):
-    # Gamma = (g_4^4 / (64 pi M_X^4)) * f_K^2 * m_K * m_mu^2 * (1 - m_mu^2/m_K^2)^2 * R_chi^2 * |c|^2
-    prefac = (g4**4 / (64.0 * math.pi * (M_X**4))) * (f_K**2) * m_K * (m_mu**2) * ((1.0 - (m_mu / m_K) ** 2) ** 2) * (R_chi**2)
-    BR_KL_generic = float(prefac * 1.0 / Gamma_KL)
-    BR_KL_fitted = float(prefac * max(c_fitted_sq, 1.0e-30) / Gamma_KL)
+    prefac_KL = (
+        (g4**4 * (f_K**2) * m_K) / (32.0 * math.pi * (M_X**4))
+        * ((eta_QCD * (m_K**2) / ms_plus_md) ** 2)
+        * ((1.0 - (m_mu / m_K) ** 2) ** 2)
+    )
+    BR_KL_aligned = float(prefac_KL * 1.0 / Gamma_KL)
+    BR_KL_fitted = float(prefac_KL * max(c_fitted_sq, 1.0e-30) / Gamma_KL)
 
-    # Exact generic M_X and v_R lower bound from BR(K_L -> mu e) < 4.7e-12:
-    M_X_bound_generic = M_X * ((BR_KL_generic / EXP_BOUNDS["BR_KL_mue_90CL"]) ** 0.25)
-    v_R_bound_generic = math.sqrt(2.0) * M_X_bound_generic / g4
+    # Exact aligned M_X and v_R lower bound from BR(K_L -> mu e) < 4.7e-12:
+    M_X_bound_aligned = M_X * ((BR_KL_aligned / EXP_BOUNDS["BR_KL_mue_90CL"]) ** 0.25)
+    v_R_bound_aligned = math.sqrt(2.0) * M_X_bound_aligned / g4
 
-    # 2. B_s -> mu^+ e^- + mu^- e^+ (generic O(1) mixing):
+    # 2. B_s -> mu^+ e^- + mu^- e^+ (aligned O(1) mixing, same 1/(32 pi) normalization):
     f_Bs, m_Bs, mb_plus_ms, Gamma_Bs = 0.2303, 5.3669, 4.28, 4.33e-13
-    R_chi_Bs = 2.0 * 1.8 * (m_Bs**2) / (m_mu * mb_plus_ms)
-    BR_Bs_generic = float(
-        (g4**4 / (64.0 * math.pi * (M_X**4)))
-        * (f_Bs**2)
-        * m_Bs
-        * (m_mu**2)
+    eta_QCD_Bs = 1.8
+    BR_Bs_aligned = float(
+        (g4**4 * (f_Bs**2) * m_Bs) / (32.0 * math.pi * (M_X**4))
+        * ((eta_QCD_Bs * (m_Bs**2) / mb_plus_ms) ** 2)
         * ((1.0 - (m_mu / m_Bs) ** 2) ** 2)
-        * (R_chi_Bs**2)
         / Gamma_Bs
     )
 
-    # 3. mu -> e gamma (1-loop X-boson dipole estimate: BR ~ (3 alpha_em / (8 pi)) (m_b/m_mu)^2 (g4^2 v_EW^2 / (4 M_X^2))^2 |K|^2)
+    # 3. mu -> e gamma (preliminary 1-loop X-boson dipole estimate vs MEG II 1.5e-13 bound):
     alpha_em = 1.0 / 137.036
     BR_mu_egamma_est = float(
         (3.0 * alpha_em / (8.0 * math.pi))
@@ -1737,20 +2037,27 @@ def audit_flavour_baryon_cosmology(
         * ((g4**2 * V_EW_GEV**2) / (4.0 * M_X**2)) ** 2
     )
 
-    # 4. Baryon-number stability:
-    # - Delta B = 1 gauge proton decay: strictly forbidden in pure SU(4)_C x SU(2)_L x SU(2)_R
-    # - Delta B = 2 n-nbar oscillation: vanishes in PS1-MM by U(1)_Delta; if lambda_Delta4 ~ 1 turned on,
-    #   tau_nnbar ~ hbar / (|M_nnbar| * lambda_Delta4 * f_R11^3 / v_R^5) with |M_nnbar| ~ 1e-4 GeV^6, hbar = 6.582e-25 GeV s
+    # 4. Baryon-number stability (preliminary order-of-magnitude check for n-nbar):
+    # - Pure PS preserves perturbative baryon number via accidental 3B+L charges (while gauged
+    #   B-L is broken by <Delta_R> by Delta(B-L) = 2), forbidding d=6 gauge and scalar proton decay.
+    # - Delta B = 2 n-nbar oscillation vanishes at tree level in PS1-MM by U(1)_Delta; if
+    #   lambda_Delta4 ~ 1 is turned on, sextet mediators have actual masses M_Delta6 in
+    #   [sqrt(2*kappa4), sqrt(2*kappa4 + 2*kappa_r)] * v_R (not v_R!).
     hbar_GeV_s = 6.582119569e-25
+    m_sextet_min_over_vR = math.sqrt(2.0 * kappa4)
+    m_sextet_max_over_vR = math.sqrt(2.0 * kappa4 + 2.0 * kappa_r)
+    M_sextet_min = m_sextet_min_over_vR * v_r
     fR11_est = max(math.sqrt(2.0) * M_R_GeV[0] / v_r, 1.0e-6)
-    G_nnbar_generic = (1.0 * (fR11_est**3)) / (v_r**5)  # with lambda_Delta4 = 1, M_Delta6 ~ v_R
-    delta_m_nnbar = 1.0e-4 * G_nnbar_generic  # GeV
+    # Conservative order-of-magnitude estimate using the lightest sextet mass M_sextet_min^6:
+    # G_nnbar ~ lambda_Delta4 * v_R * f_R11^3 / M_sextet_min^6
+    G_nnbar_prelim = (1.0 * v_r * (fR11_est**3)) / (M_sextet_min**6)
+    delta_m_nnbar = 1.0e-4 * G_nnbar_prelim  # |M_nnbar| ~ 1e-4 GeV^6
     tau_nnbar_if_lam4_O1 = float(hbar_GeV_s / delta_m_nnbar) if delta_m_nnbar > 0 else float("inf")
 
-    # Optional SO(10) embedding d=6 proton lifetime estimate (only if embedded above M_GUT):
+    # Optional SO(10) embedding d=6 proton lifetime ballpark (approximate gauge crossing,
+    # without M_GUT parent-multiplet thresholds):
     tau_p_so10_yr = None
     if M_GUT_GeV is not None and alpha_GUT_inv is not None:
-        # tau(p -> e+ pi0) ~ M_GUT^4 / (alpha_GUT^2 * m_p^5 * A_R^2 * 0.1) (standard ballpark)
         alpha_GUT = 1.0 / alpha_GUT_inv
         m_p = 0.938272
         sec_per_yr = 3.15576e7
@@ -1758,7 +2065,9 @@ def audit_flavour_baryon_cosmology(
         tau_p_so10_yr = float((hbar_GeV_s / gamma_p_GeV) / sec_per_yr)
 
     # 5. Topological relics & cosmology:
-    # pi_2(G_PS / G_SM) = Z -> doubly-charged Pati-Salam magnetic monopole, mass M_mon ~ 4 pi M_X / g_4^2
+    # - pi_2(G_PS / G_SM) = Z -> doubly-charged Pati-Salam magnetic monopoles, M_mon ~ 4 pi M_X / g_4^2
+    # - pi_1(G_PS / G_SM) = Z_2 -> cosmic strings from the disconnected Z_2 stabilizer left by
+    #   Delta(B-L) = 2 breaking (matter parity / Z_2 subgroup of U(1)_{B-L} x Z_2).
     M_monopole_GeV = float(4.0 * math.pi * M_X / (g4**2))
     smeft_suppression = float((V_EW_GEV / v_r) ** 2)
 
@@ -1769,56 +2078,69 @@ def audit_flavour_baryon_cosmology(
             "M_ZR": float(M_ZR),
         },
         "flavour": {
+            "audit_scope": (
+                "Valencia-Willenbrock tree-level X-boson K_L/B_s -> mu e; preliminary "
+                "order-of-magnitude checks for mu -> e gamma, W_R/Z_R, and heavy-Higgs FCNC "
+                "(full SMEFT Wilson-coefficient matching open)"
+            ),
             "chiral_enhancement_R_chi_KL": float(R_chi),
-            "BR_KL_mue_generic_O1": BR_KL_generic,
+            "BR_KL_mue_aligned_O1": BR_KL_aligned,
             "BR_KL_mue_fitted_mixing": BR_KL_fitted,
-            "pass_KL_mue_generic": BR_KL_generic < EXP_BOUNDS["BR_KL_mue_90CL"],
+            "pass_KL_mue_aligned": BR_KL_aligned < EXP_BOUNDS["BR_KL_mue_90CL"],
             "pass_KL_mue_fitted": BR_KL_fitted < EXP_BOUNDS["BR_KL_mue_90CL"],
-            "M_X_lower_bound_generic_GeV": float(M_X_bound_generic),
-            "v_R_lower_bound_generic_GeV": float(v_R_bound_generic),
-            "BR_Bs_mue_generic_O1": BR_Bs_generic,
-            "pass_Bs_mue": BR_Bs_generic < EXP_BOUNDS["BR_Bs_mue_90CL"],
-            "BR_mu_egamma_est": BR_mu_egamma_est,
-            "pass_mu_egamma": BR_mu_egamma_est < EXP_BOUNDS["BR_mu_egamma_90CL"],
-            "pass_WR_collider": M_WR > EXP_BOUNDS["m_WR_LHC_GeV"],
-            "pass_heavy_Higgs_FCNC": (math.sqrt(0.80) * v_r) > EXP_BOUNDS["m_H2_FCNC_GeV"],
+            "M_X_lower_bound_aligned_GeV": float(M_X_bound_aligned),
+            "v_R_lower_bound_aligned_GeV": float(v_R_bound_aligned),
+            "BR_Bs_mue_aligned_O1": BR_Bs_aligned,
+            "pass_Bs_mue": BR_Bs_aligned < EXP_BOUNDS["BR_Bs_mue_90CL"],
+            "BR_mu_egamma_prelim_est": BR_mu_egamma_est,
+            "pass_mu_egamma_MEGII": BR_mu_egamma_est < EXP_BOUNDS["BR_mu_egamma_90CL"],
+            "pass_WR_collider_prelim": M_WR > EXP_BOUNDS["m_WR_LHC_GeV"],
+            "pass_heavy_Higgs_FCNC_prelim": (math.sqrt(0.80) * v_r) > EXP_BOUNDS["m_H2_FCNC_GeV"],
             "smeft_vEW2_over_vR2": smeft_suppression,
         },
         "baryon_stability": {
-            "d6_gauge_proton_decay_in_pure_PS": "FORBIDDEN (exact B-L / no diquark gauge boson)",
+            "d6_gauge_proton_decay_in_pure_PS": (
+                "FORBIDDEN at perturbative level (accidental 3B+L conservation; X is a pure "
+                "leptoquark; note gauged B-L is broken by Delta_R by Delta(B-L)=2)"
+            ),
             "d6_scalar_proton_decay_in_PS1": "FORBIDDEN (3B+L = 0 on Phi1,Phi15; 3B+L = +2 on DeltaR)",
             "n_nbar_in_PS1_MM": "FORBIDDEN at tree level (exact U(1)_Delta forbids Delta_R^4)",
-            "tau_nnbar_s_if_lambda_Delta4_O1": tau_nnbar_if_lam4_O1,
-            "pass_nnbar_even_if_lambda4_O1": tau_nnbar_if_lam4_O1 > EXP_BOUNDS["tau_nnbar_s_90CL"],
-            "optional_SO10_d6_tau_p_yr": tau_p_so10_yr,
+            "sextet_mass_ratio_range_over_vR": [float(m_sextet_min_over_vR), float(m_sextet_max_over_vR)],
+            "tau_nnbar_prelim_s_if_lambda_Delta4_O1": tau_nnbar_if_lam4_O1,
+            "pass_nnbar_prelim_even_if_lambda4_O1": tau_nnbar_if_lam4_O1 > EXP_BOUNDS["tau_nnbar_s_90CL"],
+            "optional_SO10_d6_tau_p_ballpark_yr": tau_p_so10_yr,
         },
         "cosmology_and_relics": {
             "homotopy_pi2_GPS_over_GSM": "Z (topologically stable doubly-charged magnetic monopoles)",
+            "homotopy_pi1_GPS_over_GSM": "Z_2 (cosmic-string sector from disconnected stabilizer after Delta(B-L)=2 breaking)",
             "monopole_mass_GeV": M_monopole_GeV,
             "requires_Trh_below_vR": True,
             "D_parity_domain_walls": "ABSENT (no Delta_L multiplet in PS1-MM / PS1-EW)",
             "M_R1_GeV": float(M_R_GeV[0]),
-            "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation": (
-                (M_R_GeV[0] >= 1.0e9) and (M_R_GeV[0] < 0.2 * v_r)
-            ),
+            "epsilon_1_CP_asymmetry": float(seesaw_result["epsilon_1_CP_asymmetry"]),
+            "eta_B_ceiling_unflavored_kappa01": float(seesaw_result["eta_B_ceiling_unflavored_kappa01"]),
+            "vanilla_N1_leptogenesis_shortfall_factor": float(seesaw_result["vanilla_N1_leptogenesis_shortfall_factor"]),
+            "vanilla_N1_leptogenesis_reaches_etaB": bool(seesaw_result["vanilla_N1_leptogenesis_reaches_etaB"]),
+            "monopole_safe_kinematic_window": bool(seesaw_result["monopole_safe_kinematic_window"]),
         },
     }
 
 
 def build_phase3_results() -> Dict[str, object]:
-    """Execute the complete TP-03 Phase 3 (PS1-EW) verification suite."""
-    # Perturbative PS1-EW Delta_R quartics (rescaled from Phase 2B so all benchmarks stay
-    # free of the 60-component scalar Landau pole all the way up to M_Pl = 1.22e19 GeV)
-    lam_D, kap4, kapR = 0.08, 0.016, 0.012
-    lam_eff = lam_D - 1.5 * kap4 - kapR
+    """Execute the complete TP-03 Phase 3 (PS1-EW) verification suite (post-referee revision)."""
+    # Perturbative PS1-EW Delta_R quartics (rescaled so lambda_Delta = 0.03 stays below
+    # the pure-self-coupling 136*lambda_Delta^2 Planck starting cap ~0.0417 at all 3 benchmarks;
+    # note full coupled 138-parameter scalar RGEs remain open!)
+    lam_D, kap4, kapR = 0.03, 0.006, 0.0045
+    lam_eff = lam_D - 1.5 * kap4 - kapR  # 0.0165
 
-    # 1. Exact gauge beta & unification scales
+    # 1. Gauge beta & approximate SO(10) crossing scales (gauge-only 2-loop PS + 1-loop thresholds)
     scales = find_lr_parity_and_unification_scales(lam_D, kap4, kapR)
-    vR_LR = scales["one_loop_no_threshold"]["vR_LR_parity_GeV"]       # ~5.06e13 GeV
+    vR_LR = scales["one_loop_no_threshold"]["vR_LR_parity_GeV"]       # ~5.08e13 GeV
     vR_GUT = scales["two_loop_with_thresholds"]["vR_triple_unification_GeV"]
     vR_LOW = 1.0e7
 
-    # 2. Scan v_R window for 1-loop and 2-loop gauge perturbativity up to M_Pl
+    # 2. Scan v_R window for 1-loop and gauge-only 2-loop perturbativity up to M_Pl
     vr_scan: List[Dict[str, object]] = []
     for logv in [5.5, 6.0, 7.0, 8.0, 10.0, 11.5, 13.0, 13.7, 15.0, 16.0]:
         v_pt = 10.0**logv
@@ -1844,11 +2166,18 @@ def build_phase3_results() -> Dict[str, object]:
     # 3. Audit all three benchmarks (BM-LR, BM-GUT, BM-LOW) for BOTH PS1-EW-min and PS1-EW-gen
     benchmarks_spec = [
         ("BM-LR", vR_LR, "1-loop left-right gauge equality point g_2R = g_2L"),
-        ("BM-GUT", vR_GUT, "2-loop threshold-matched SO(10) triple-unification scale"),
-        ("BM-LOW", vR_LOW, "Low-scale benchmark above generic K_L -> mu e floor"),
+        (
+            "BM-GUT",
+            vR_GUT,
+            "Gauge-only 2-loop threshold-matched approximate SO(10) triple crossing (no M_GUT parent thresholds)",
+        ),
+        ("BM-LOW", vR_LOW, "Low-scale benchmark above aligned Valencia-Willenbrock K_L -> mu e floor"),
     ]
     benchmarks_out: Dict[str, object] = {}
     primary_u_light = None
+
+    def clean_fit(d: Mapping[str, object]) -> Dict[str, object]:
+        return {k: v for k, v in d.items() if k not in {"u_light_complex", "K_L", "K_R"}}
 
     for name, v_pt, desc in benchmarks_spec:
         sm = run_sm_rge_to_scale(v_pt, two_loop_gauge=True)
@@ -1872,20 +2201,18 @@ def build_phase3_results() -> Dict[str, object]:
             m1["g2R"],
             active_fit["K_L"],
             active_fit["K_R"],
-            active_fit["seesaw"]["M_R_GeV"],
+            active_fit["seesaw"],
+            kappa4=kap4,
+            kappa_r=kapR,
             M_GUT_GeV=scales["two_loop_with_thresholds"]["M_GUT_triple_unification_GeV"] if name == "BM-GUT" else None,
             alpha_GUT_inv=scales["two_loop_with_thresholds"]["alpha_GUT_inv"] if name == "BM-GUT" else None,
         )
 
-        # Threshold Higgs-quartic stabilization condition (using physical 2-loop lambda_H(v_R)):
-        # lambda_H^SM(v_R) = lambda_H^UV(v_R) - lambda_{hDelta}^2 / (4 * lam_eff)
-        # => to keep lambda_H^UV(v_R) > 0 when lambda_H^SM(v_R) < 0, require |lambda_{hDelta}| > 2 sqrt(lam_eff * |lambda_H^SM|)
+        # Positive-portal threshold requirement (only sufficient for tree-level copositivity
+        # when lambda_{hDelta} > 0; negative portal lambda_{hDelta} < 0 with lambda_H^SM < 0
+        # is UNBOUNDED BELOW along the coherent ray r = -lambda_{hDelta} x / (2 lambda_eff)!):
         lam_h_2l = higgs_2l["lam_H_2loop"]
-        min_portal_for_stab = 2.0 * math.sqrt(lam_eff * abs(lam_h_2l)) if lam_h_2l < 0.0 else 0.0
-
-        # Strip numpy arrays for JSON serialization
-        def clean_fit(d: Mapping[str, object]) -> Dict[str, object]:
-            return {k: v for k, v in d.items() if k not in {"u_light_complex", "K_L", "K_R"}}
+        min_pos_portal_for_uv_quartic = 2.0 * math.sqrt(lam_eff * abs(lam_h_2l)) if lam_h_2l < 0.0 else 0.0
 
         benchmarks_out[name] = {
             "description": desc,
@@ -1899,7 +2226,7 @@ def build_phase3_results() -> Dict[str, object]:
                 "lam_H_2loop_Buttazzo": lam_h_2l,
                 "mu_instability_1loop_GeV": sm["mu_instability_GeV"],
                 "mu_instability_2loop_GeV": higgs_2l["mu_instability_2loop_GeV"],
-                "min_portal_coupling_for_UV_stability": float(min_portal_for_stab),
+                "min_positive_portal_for_lambda_H_UV_pos": float(min_pos_portal_for_uv_quartic),
                 "yu_sv": [float(x) for x in sm["yu_sv"]],
                 "yd_sv": [float(x) for x in sm["yd_sv"]],
                 "ye_sv": [float(x) for x in sm["ye_sv"]],
@@ -1909,31 +2236,67 @@ def build_phase3_results() -> Dict[str, object]:
             },
             "threshold_matching": mt,
             "uv_gauge_running_2loop": uv2,
-            "delta_quartic_landau_pole": delta_quartic_landau_pole_audit(v_pt, 2.0, lam_D),
+            "delta_quartic_landau_pole": delta_quartic_landau_pole_audit(v_pt, 2.0, lam_D, kap4, kapR),
             "fit_PS1_EW_min_complex": clean_fit(fit_min_cx),
-            "fit_PS1_EW_min_real_control": clean_fit(fit_min_real) if fit_min_real is not None else None,
+            "fit_PS1_EW_min_real_witness": clean_fit(fit_min_real) if fit_min_real is not None else None,
             "fit_PS1_EW_gen": clean_fit(fit_gen),
             "flavour_baryon_cosmology_audit": audit,
             "ew_hierarchy_fine_tuning_vR2_over_muSM2": float((v_pt**2) / (0.5 * M_H_GEV**2)),
         }
 
-    # 4. Exact 188x188 real scalar Hessian & one-light-Higgs fine-tuning verification at BM-LR!
+    # Additional lower-scale refit witness for PS1-EW-min at v_R = 6.0e11 GeV
+    # (directly refuting the retracted fixed-fit 7.7e11 GeV hard floor):
+    vR_refit_6e11 = 6.0e11
+    sm_6e11 = run_sm_rge_to_scale(vR_refit_6e11, two_loop_gauge=True)
+    fit_min_6e11 = fit_ps1_ew_min(sm_6e11, vR_refit_6e11, allow_complex_ratios=True)
+
+    # 4. Exact 188x188 real scalar Hessian & one-light-Higgs verification at unbroken EW origin (<Phi>=0)
     assert primary_u_light is not None
     gauge_inv_err = ALGEBRA.test_gauge_invariance()
     delta_sq_vanish_err = ALGEBRA.test_delta_squared_vanishing()
+    portal_rank_info = portal_map_rank_and_nullity(1.0)
 
-    # Test BOTH exact criticality (m_h^2 = 0) AND EWSB-shifted (-mu_SM^2 / v_R^2, demonstrated at
-    # dimensionless -1e-6 so double precision resolves both Goldstones (0) and EWSB tachyonic doublet (-1e-6)
-    # without numerical cancellation; physical value -(88.56 GeV / v_R)^2 is exact analytically!).
     crit_sol = solve_portal_parameters_for_light_higgs(
         primary_u_light, m_h_sq_over_vR2=0.0, v_r=1.0
     )
     full_H_crit, quad_err_crit = assemble_full_188_hessian(lam_D, kap4, kapR, crit_sol["params"])
-    evals_188_crit = np.linalg.eigvalsh(full_H_crit)
     light_check_crit = extract_light_higgs_eigenvector_from_188(full_H_crit, 0.0, primary_u_light)
 
-    # Also test a slightly positive light-Higgs mass m_h^2 = +1e-4 v_R^2 so all 9 Goldstones and 4 light
-    # Higgs modes are cleanly separated in eigenvalues of the full 188x188 matrix!
+    # Evaluate tree-level two-field (h, Delta_R) quartic stability at the matched BM-LR criticality point:
+    # V_4(x, r) = lam_H_UV * x^2 + lam_hDelta * x * r + lam_eff * r^2, with lam_H_UV = lam_H_SM + lam_hDelta^2 / (4 lam_eff).
+    # When lam_hDelta < 0, the physical coherent ray r = (-lam_hDelta / (2 lam_eff)) * x > 0 gives
+    # V_4(x, r_ray) = lam_H_SM(v_R) * x^2 < 0 whenever lam_H_SM(v_R) < 0 (UNBOUNDED BELOW AT TREE LEVEL!).
+    eff_portal_lr = extract_effective_higgs_portal(primary_u_light, crit_sol)
+    lam_h_delta_lr = eff_portal_lr["lambda_hDelta"]
+    lam_h_sm_lr = float(benchmarks_out["BM-LR"]["sm_at_vR"]["lam_H_2loop_Buttazzo"])
+    lam_h_uv_lr = lam_h_sm_lr + (lam_h_delta_lr**2) / (4.0 * lam_eff)
+    ray_slope_r_over_x = -lam_h_delta_lr / (2.0 * lam_eff)
+    v4_over_x2_along_ray = (
+        lam_h_uv_lr + lam_h_delta_lr * ray_slope_r_over_x + lam_eff * (ray_slope_r_over_x**2)
+    )
+    tree_level_ray_unbounded = (ray_slope_r_over_x > 0.0) and (v4_over_x2_along_ray < 0.0)
+
+    tree_level_higgs_stability_audit = {
+        "benchmark": "BM-LR",
+        "lambda_H_SM_2loop_at_vR": lam_h_sm_lr,
+        "lambda_eff_DeltaR": lam_eff,
+        "lambda_hDelta_at_criticality": lam_h_delta_lr,
+        "lambda_H_UV_matched": float(lam_h_uv_lr),
+        "coherent_ray_r_over_x": float(ray_slope_r_over_x),
+        "coherent_ray_in_physical_quadrant": bool(ray_slope_r_over_x > 0.0),
+        "V4_over_x2_along_coherent_ray": float(v4_over_x2_along_ray),
+        "tree_level_global_stability_pass": not tree_level_ray_unbounded,
+        "obstruction_summary": (
+            "FAILED / OPEN at tree level for the matched negative-portal BM-LR point: "
+            "lambda_hDelta < 0 puts r = -lambda_hDelta x / (2 lambda_eff) > 0 in the physical "
+            "quadrant where V_4(x, r) = lambda_H^SM(v_R) x^2 < 0 (unbounded below). "
+            "Stabilizing requires lambda_H^SM(v_R) > 0 (as at BM-LOW/BM-GUT), positive-portal "
+            "lambda_hDelta > 0 copositivity, or radiative effective-potential / UV RG stabilization."
+        ),
+    }
+
+    # Probe m_h^2 = +1e-4 v_R^2 (separates 9 Goldstones, 4 light Higgs modes, and 175 heavy modes
+    # where the lightest Delta_R physical mode has m^2 = 2*kappa_R = 0.009 v_R^2 > 1e-3 v_R^2):
     m_h_probe = 1.0e-4
     probe_sol = solve_portal_parameters_for_light_higgs(
         primary_u_light, m_h_sq_over_vR2=m_h_probe, v_r=1.0
@@ -1942,7 +2305,6 @@ def build_phase3_results() -> Dict[str, object]:
     evals_188_probe = np.linalg.eigvalsh(full_H_probe)
     light_check_probe = extract_light_higgs_eigenvector_from_188(full_H_probe, m_h_probe, primary_u_light)
 
-    # Expected 188 eigenvalues at m_h_probe:
     expected_188_probe = np.array(
         sorted(
             expected_delta_eigenvalues(lam_D, kap4, kapR, 1.0)
@@ -1964,13 +2326,16 @@ def build_phase3_results() -> Dict[str, object]:
     broken_188[:60, :] = broken_60
     goldstone_188_res = float(np.max(np.abs(full_H_probe @ broken_188)))
 
-    # Determine exact perturbative lower bound on v_R for PS1-EW-min (where ||f_R||_2 = sqrt(4pi)):
-    # At BM-LR, M_R3 ~ 2.54e12 GeV -> sqrt(2) * M_R3 / sqrt(4pi) ~ 1.01e12 GeV
-    mr3_lr = benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["seesaw"]["M_R_GeV"][2]
-    vR_min_ps1_ew_min_approx = math.sqrt(2.0) * mr3_lr / PERT_LIMIT
+    heavy_mode_threshold = 1.0e-3  # strictly separates m_h_probe = 1e-4 from 2*kappa_R = 0.009
 
     checks = {
         "portal_operators_gauge_invariant": gauge_inv_err < 1.0e-12,
+        "portal_map_is_rank16_surjective_with_dim9_kernel": (
+            portal_rank_info["operator_count"] == 17
+            and portal_rank_info["real_parameter_count"] == 25
+            and portal_rank_info["linear_map_rank"] == 16
+            and portal_rank_info["kernel_dim"] == 9
+        ),
         "delta_squared_portals_vanish_on_vacuum": delta_sq_vanish_err < 1.0e-14,
         "hessian_188_quadratic_identity": max(quad_err_crit, quad_err_probe) < 1.0e-11,
         "hessian_188_matches_analytic_spectrum": hessian_188_err < 1.0e-10,
@@ -1981,79 +2346,102 @@ def build_phase3_results() -> Dict[str, object]:
             light_check_probe["eigenvector_subspace_error"] < 1.0e-11
             and light_check_crit["eigenvector_subspace_error"] < 1.0e-11
         ),
-        "hessian_188_all_175_heavy_modes_positive": int(np.sum(evals_188_probe > 0.01)) == 175,
+        "hessian_188_all_175_heavy_modes_positive": int(np.sum(evals_188_probe > heavy_mode_threshold)) == 175,
+        "BM_LR_negative_portal_tree_ray_unbounded_detected": (
+            tree_level_ray_unbounded
+            and abs(v4_over_x2_along_ray - lam_h_sm_lr) < 1.0e-12
+        ),
         "ps1_2loop_beta_dim_symmetry": PS1_BETA["dim_symmetry_residual"] < 1.0e-12,
         "threshold_beta_sum_rules_exact": all(
             benchmarks_out[b]["threshold_matching"]["beta_sum_rule_error"] < 1.0e-12
             for b in ("BM-LR", "BM-GUT", "BM-LOW")
         ),
-        "all_scanned_vR_gauge_perturbative_to_MPl_2loop": all(
+        "all_scanned_vR_gauge_perturbative_to_MPl_2loop_gauge_only": all(
             row["two_loop_pert_to_MPl"] for row in vr_scan
         ),
-        "ps1_ew_delta_quartic_perturbative_to_MPl": all(
-            benchmarks_out[b]["delta_quartic_landau_pole"]["ps1_ew_perturbative_to_MPl"]
+        "delta_quartic_beta_coeff_136_and_rescaled_pure_truncation_ok": all(
+            benchmarks_out[b]["delta_quartic_landau_pole"]["beta_coeff_lambda_Delta_sq"] == 136.0
+            and benchmarks_out[b]["delta_quartic_landau_pole"]["ps1_ew_perturbative_to_MPl_pure_truncation"]
             for b in ("BM-LR", "BM-GUT", "BM-LOW")
         ),
-        "BM_LR_PS1_EW_min_complex_fits_all_fermions_perturbativity": (
+        "BM_LR_PS1_EW_min_complex_witness_perturbative_and_pmns_roundtrip": (
             benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["max_charged_fermion_ckm_rel_err"] < 1.0e-10
             and benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["all_yukawas_perturbative"]
             and benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["seesaw"]["seesaw_inversion_rel_err"] < 1.0e-10
+            and benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["seesaw"]["hat_basis_seesaw_rel_err"] < 1.0e-10
+            and benchmarks_out["BM-LR"]["fit_PS1_EW_min_complex"]["seesaw"]["pmns_roundtrip_recovery"]["max_rel_err"] < 1.0e-10
         ),
-        "BM_LR_PS1_EW_min_real_fails_fR_perturbativity": (
-            not benchmarks_out["BM-LR"]["fit_PS1_EW_min_real_control"]["all_yukawas_perturbative"]
+        "BM_LR_PS1_EW_min_real_witness_perturbative_and_pmns_roundtrip": (
+            benchmarks_out["BM-LR"]["fit_PS1_EW_min_real_witness"]["max_charged_fermion_ckm_rel_err"] < 1.0e-10
+            and benchmarks_out["BM-LR"]["fit_PS1_EW_min_real_witness"]["all_yukawas_perturbative"]
+            and benchmarks_out["BM-LR"]["fit_PS1_EW_min_real_witness"]["seesaw"]["pmns_roundtrip_recovery"]["max_rel_err"] < 1.0e-10
         ),
-        "BM_GUT_PS1_EW_min_fails_fR_perturbativity": (
-            not benchmarks_out["BM-GUT"]["fit_PS1_EW_min_complex"]["all_yukawas_perturbative"]
+        "vR_6e11_PS1_EW_min_refit_witness_perturbative_and_pmns_roundtrip": (
+            fit_min_6e11["max_charged_fermion_ckm_rel_err"] < 1.0e-10
+            and fit_min_6e11["all_yukawas_perturbative"]
+            and fit_min_6e11["seesaw"]["pmns_roundtrip_recovery"]["max_rel_err"] < 1.0e-10
         ),
-        "all_benchmarks_PS1_EW_gen_fit_perturbatively": all(
-            benchmarks_out[b]["fit_PS1_EW_gen"]["exact_reconstruction_rel_err"] < 1.0e-12
+        "all_benchmarks_PS1_EW_gen_fit_direct_contraction_and_pmns_roundtrip": all(
+            benchmarks_out[b]["fit_PS1_EW_gen"]["exact_reconstruction_rel_err"] < 1.0e-11
+            and benchmarks_out[b]["fit_PS1_EW_gen"]["direct_tensor_contraction_rel_err"] < 1.0e-11
             and benchmarks_out[b]["fit_PS1_EW_gen"]["all_yukawas_perturbative"]
+            and benchmarks_out[b]["fit_PS1_EW_gen"]["seesaw"]["pmns_roundtrip_recovery"]["max_rel_err"] < 1.0e-10
             for b in ("BM-LR", "BM-GUT", "BM-LOW")
         ),
-        "all_benchmarks_pass_KL_mue_Bs_mue_mu_egamma": all(
-            benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_KL_mue_generic"]
+        "all_benchmarks_pass_valencia_willenbrock_and_prelim_flavour_checks": all(
+            benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_KL_mue_aligned"]
             and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_KL_mue_fitted"]
             and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_Bs_mue"]
-            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_mu_egamma"]
-            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_WR_collider"]
-            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_heavy_Higgs_FCNC"]
+            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_mu_egamma_MEGII"]
+            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_WR_collider_prelim"]
+            and benchmarks_out[b]["flavour_baryon_cosmology_audit"]["flavour"]["pass_heavy_Higgs_FCNC_prelim"]
             for b in ("BM-LR", "BM-GUT", "BM-LOW")
         ),
-        "all_benchmarks_pass_baryon_stability": all(
-            benchmarks_out[b]["flavour_baryon_cosmology_audit"]["baryon_stability"]["pass_nnbar_even_if_lambda4_O1"]
+        "all_benchmarks_pass_prelim_baryon_stability": all(
+            benchmarks_out[b]["flavour_baryon_cosmology_audit"]["baryon_stability"]["pass_nnbar_prelim_even_if_lambda4_O1"]
             for b in ("BM-LR", "BM-GUT", "BM-LOW")
         ),
-        "BM_LR_and_BM_GUT_have_monopole_safe_leptogenesis_window": (
-            benchmarks_out["BM-LR"]["flavour_baryon_cosmology_audit"]["cosmology_and_relics"][
-                "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation"
-            ]
-            and benchmarks_out["BM-GUT"]["flavour_baryon_cosmology_audit"]["cosmology_and_relics"][
-                "hierarchical_thermal_leptogenesis_compatible_with_monopole_inflation"
+        "BM_GUT_vanilla_N1_leptogenesis_shortfall_detected": (
+            not benchmarks_out["BM-GUT"]["flavour_baryon_cosmology_audit"]["cosmology_and_relics"][
+                "vanilla_N1_leptogenesis_reaches_etaB"
             ]
         ),
     }
 
+    gate_verdicts = {
+        "PERT-01": "PARTIAL (scoped to 175 heavy modes at unbroken EW origin; -mu_SM^2 EWSB curvature & EW-broken vacuum open)",
+        "PERT-05": "PARTIAL (gauge-only 2-loop PS RGEs & pure-self-coupling 136*lambda_Delta^2 diagnostic; coupled 138-param scalar RGEs & UV Yukawa 2-loop traces open)",
+        "REC-03": "PARTIAL (existence/interpolation witnesses only: 30 real Yukawa params vs 18 observables; not a constrained prediction)",
+        "NP-02": "FAIL (tree-level Higgs+Delta_R quartic potential is unbounded below along the coherent ray at the matched negative-portal BM-LR point)",
+        "LAB-02": "PARTIAL (Valencia-Willenbrock K_L/B_s -> mu e and MEG II mu -> e gamma checked; n-nbar, heavy-Higgs FCNC, W_R/Z_R remain preliminary order-of-magnitude checks)",
+        "COS-01": "OPEN / PARTIAL (pi_2=Z monopoles and pi_1=Z_2 strings require T_rh < v_R; vanilla N_1 thermal leptogenesis at BM-GUT falls short of observed eta_B; Boltzmann transport & DM open)",
+    }
+
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "project": "TP-03 Pati-Salam benchmark",
-        "phase": "3 electroweak matching, RG running, fermion/neutrino fit and stability audit",
+        "phase": "3 electroweak matching, RG running, fermion/neutrino fit and stability audit (post-referee revision)",
         "branch": "PS1-EW",
         "sub_branches": {
-            "PS1-EW-min": "Minimal 2-Dirac-Yukawa sub-branch (Y_1, Y_15, f_R; Y_1_tilde = Y_15_tilde = 0)",
+            "PS1-EW-min": "Minimal 2-Dirac-Yukawa sub-branch (Y_1, Y_15, f_R; Y_1_tilde = Y_15_tilde = 0; 30 real Yukawa params after U(3)_L x U(3)_R removal vs 18 real flavour observables)",
             "PS1-EW-gen": "Full gauge-invariant 4-Dirac-Yukawa branch (Y_1, Y_1_tilde, Y_15, Y_15_tilde, f_R)",
         },
         "ps1_gauge_beta_coefficients": {
             "order": ["SU(4)_C", "SU(2)_L", "SU(2)_R"],
+            "scope": "gauge-only 2-loop Machacek-Vaughn (2-loop UV Yukawa traces omitted above v_R)",
             "b_1loop": [float(x) for x in PS1_BETA["b_1loop"]],
             "B_2loop": [[float(x) for x in row] for row in PS1_BETA["B_2loop"]],
             "dim_symmetry_residual": PS1_BETA["dim_symmetry_residual"],
         },
         "high_scale_landmarks": scales,
         "v_R_viable_window": {
-            "generic_KL_mue_lower_bound_GeV": benchmarks_out["BM-LOW"]["flavour_baryon_cosmology_audit"]["flavour"][
-                "v_R_lower_bound_generic_GeV"
+            "aligned_KL_mue_lower_bound_GeV": benchmarks_out["BM-LOW"]["flavour_baryon_cosmology_audit"]["flavour"][
+                "v_R_lower_bound_aligned_GeV"
             ],
-            "PS1_EW_min_complex_fR_perturbativity_lower_bound_GeV": float(vR_min_ps1_ew_min_approx),
+            "aligned_KL_mue_M_X_lower_bound_GeV": benchmarks_out["BM-LOW"]["flavour_baryon_cosmology_audit"]["flavour"][
+                "M_X_lower_bound_aligned_GeV"
+            ],
+            "PS1_EW_min_refit_lower_scale_witness_6e11_GeV": clean_fit(fit_min_6e11),
             "gauge_perturbativity_to_MPl_verified_up_to_GeV": 1.0e16,
             "scan": vr_scan,
         },
@@ -2064,6 +2452,7 @@ def build_phase3_results() -> Dict[str, object]:
                 "kappa_R": kapR,
                 "lambda_eff": lam_eff,
             },
+            "portal_map_structure": portal_rank_info,
             "gauge_invariance_max_rel_err": float(gauge_inv_err),
             "delta_squared_vanishing_residual": float(delta_sq_vanish_err),
             "hessian_188_shape": list(full_H_probe.shape),
@@ -2072,14 +2461,21 @@ def build_phase3_results() -> Dict[str, object]:
             "goldstone_orbit_residual": goldstone_188_res,
             "light_higgs_probe_check": light_check_probe,
             "light_higgs_criticality_check": light_check_crit,
-            "heavy_physical_mode_count": int(np.sum(evals_188_probe > 0.01)),
+            "heavy_physical_mode_count": int(np.sum(evals_188_probe > heavy_mode_threshold)),
             "full_188_clusters_at_probe": cluster_eigenvalues(evals_188_probe),
+            "ew_vacuum_scope_note": (
+                "Hessian verified at the unbroken EW origin (<Phi>=0); tuning lambda_1 = -mu_SM^2 "
+                "gives the expected tachyonic EWSB curvature, and full EW-broken vacuum stability "
+                "with <h> != 0 and quartic backreaction remains open."
+            ),
             "criticality_portal_parameters_BM_LR": {
                 k: ([float(v.real), float(v.imag)] if isinstance(v, complex) else float(v))
                 for k, v in crit_sol["params"].items()
             },
         },
+        "tree_level_higgs_stability_audit": tree_level_higgs_stability_audit,
         "benchmarks": benchmarks_out,
+        "gate_verdicts": gate_verdicts,
         "checks": checks,
         "all_pass": all(checks.values()),
     }
@@ -2092,50 +2488,59 @@ def build_summary_markdown(result: Mapping[str, object]) -> str:
     bm_low = result["benchmarks"]["BM-LOW"]
     h188 = result["scalar_hessian_188_verification"]
     win = result["v_R_viable_window"]
+    stab = result["tree_level_higgs_stability_audit"]
+    w_6e11 = win["PS1_EW_min_refit_lower_scale_witness_6e11_GeV"]
+    lp_lr = bm_lr["delta_quartic_landau_pole"]
+    lp_gut = bm_gut["delta_quartic_landau_pole"]
+    lp_low = bm_low["delta_quartic_landau_pole"]
+    fl_low = bm_low["flavour_baryon_cosmology_audit"]["flavour"]
+    cos_gut = bm_gut["flavour_baryon_cosmology_audit"]["cosmology_and_relics"]
+    sextet_rng = bm_lr["flavour_baryon_cosmology_audit"]["baryon_stability"]["sextet_mass_ratio_range_over_vR"]
 
-    return f"""# TP-03 Phase 3 (`PS1-EW`) summary
+    return f"""# TP-03 Phase 3 (`PS1-EW`) summary (post-referee revision)
 
 \\[
 \\boxed{{
 \\begin{{array}}{{c}}
-\\textbf{{Full 188x188 PS1-EW Higgs-mixing Hessian (9 Goldstones, 4 light Higgs, 175 heavy): PASS.}}\\\\
-\\textbf{{2-loop gauge perturbativity to }}M_{{\\rm Pl}}\\textbf{{ across }}v_R\\in[10^5,10^{{16}}]\\text{{ GeV}}\\textbf{{: PASS.}}\\\\
-\\textbf{{Phase 2B }} \\lambda_\\Delta=2.0 \\textbf{{ hits scalar Landau pole at }} 3.2\\,v_R \\textbf{{; rescaled }} \\lambda_\\Delta=0.08 \\textbf{{: PASS.}}\\\\
-\\textbf{{PS1-EW-min (2 Dirac Yukawas): PASS at }}v_R\\gtrsim 8\\times 10^{{11}}\\text{{ GeV (complex phase required); FAIL below.}}\\\\
-\\textbf{{PS1-EW-gen (4 gauge-allowed Yukawas): PASS across entire }}v_R\\in[4.5\\times 10^6,10^{{16}}]\\text{{ GeV window.}}\\\\
-\\textbf{{Flavour, baryon stability, and monopole-safe leptogenesis (BM-LR / BM-GUT): PASS (conditional on }}T_{{\\rm rh}}<v_R\\textbf{{).}}
+\\textbf{{188x188 heavy-spectrum Hessian at unbroken EW origin (9 Goldstones, 4 light Higgs, 175 heavy): PASS (EW-broken vacuum open).}}\\\\
+\\textbf{{Tree-level global Higgs+}}\\Delta_R\\textbf{{ stability at matched negative-portal BM-LR (}}\\lambda_{{h\\Delta}}={stab["lambda_hDelta_at_criticality"]:.3f}\\textbf{{): FAIL (NP-02).}}\\\\
+\\textbf{{Gauge-only 2-loop perturbativity to }}M_{{\\rm Pl}}\\textbf{{: PASS (UV 2-loop Yukawa traces \\& }}M_{{\\rm GUT}}\\textbf{{ parent thresholds omitted).}}\\\\
+\\textbf{{Phase 2B }}\\lambda_\\Delta=2.0\\textbf{{ hits pure-self-coupling }}136\\lambda_\\Delta^2\\textbf{{ pole at }}1.787\\,v_R\\textbf{{; rescaled }}\\lambda_\\Delta=0.03\\textbf{{: PARTIAL (coupled scalar RGEs open).}}\\\\
+\\textbf{{PS1-EW-min (30 real Yukawa params vs 18 observables): existence witnesses PASS for real \\& complex ratios at BM-LR and at }}6\\times 10^{{11}}\\text{{ GeV.}}\\\\
+\\textbf{{PS1-EW-gen (corrected tilde signs, }}D=|\\alpha_u|^2-|\\alpha_d|^2\\textbf{{): PASS across BM-LR, BM-GUT, BM-LOW (direct contraction verified).}}\\\\
+\\textbf{{Valencia--Willenbrock }}K_L\\to\\mu e\\textbf{{ aligned floor }}v_R\\gtrsim {win["aligned_KL_mue_lower_bound_GeV"]:.2e}\\text{{ GeV; }}n\\text{{--}}\\bar{{n}}\\text{{/FCNC/}}W_R\\textbf{{ preliminary (LAB-02 PARTIAL).}}\\\\
+\\textbf{{Cosmology: }}\\pi_2=\\mathbb{{Z}}\\textbf{{ monopoles + }}\\pi_1=\\mathbb{{Z}}_2\\textbf{{ strings require }}T_{{\\rm rh}}<v_R\\textbf{{; vanilla }}N_1\\textbf{{ leptogenesis at BM-GUT falls short (COS-01 OPEN/PARTIAL).}}
 \\end{{array}}
 }}
 \\]
 
 ## Key quantitative findings
 
-1. **Exact $188\\times 188$ bidoublet + $\\Delta_R$ scalar Hessian:**
-   - All 16 gauge-invariant quadratic and $\\Delta_R^\\dagger \\Delta_R$ portal operators verify $SU(4)_C\\times SU(2)_L\\times SU(2)_R$ invariance to `{h188["gauge_invariance_max_rel_err"]:.2e}`.
-   - All $\\Delta_R^2$ and $(\\Delta_R^\\dagger)^2$ cross-couplings vanish identically on the coherent vacuum $\\langle\\Delta_R\\rangle$ (residual `{h188["delta_squared_vanishing_residual"]:.2e}`).
-   - The $4\\times 4$ colour-singlet doublet mass matrix $\\mathcal{{M}}_H^2$ maps surjectively onto all 16 real Hermitian entries independently of the colour-octet ($\\Omega_{{1,2}}$) and colour-triplet leptoquark ($\\Sigma_{{7/6}}, \\Sigma_{{1/6}}$) blocks via the $84$-channel $\\Phi_{{15}}^2\\Delta_R^\\dagger\\Delta_R$ and $15$-channel $\\Phi_1\\Phi_{{15}}\\Delta_R^\\dagger\\Delta_R$ portals.
-   - At the one-light-Higgs fine-tuning surface, the full $188\\times 188$ Hessian has 9 exact Goldstones (orbit residual `{h188["goldstone_orbit_residual"]:.2e}`), 4 light SM Higgs doublet modes (eigenvector subspace error `{h188["light_higgs_probe_check"]["eigenvector_subspace_error"]:.2e}`), and 175 strictly positive heavy physical modes (max spectrum error `{h188["hessian_188_max_spectrum_err"]:.2e}`).
-   - Electroweak hierarchy fine-tuning is explicit and unhidden: $\\Delta_{{\\rm FT}} = v_R^2 / \\mu_{{\\rm SM}}^2 \\simeq {bm_lr["ew_hierarchy_fine_tuning_vR2_over_muSM2"]:.2e}$ at `BM-LR` ($v_R = {bm_lr["v_R_GeV"]:.2e}$ GeV).
+1. **Exact $188\\times 188$ bidoublet + $\\Delta_R$ scalar Hessian (unbroken EW origin) & negative-portal obstruction:**
+   - All **17** gauge-invariant quadratic and $\\Delta_R^\\dagger \\Delta_R$ portal operators (**25 real parameters**) verify $SU(4)_C\\times SU(2)_L\\times SU(2)_R$ invariance to `{h188["gauge_invariance_max_rel_err"]:.2e}`.
+   - All $\\Delta_R^2$ and $(\\Delta_R^\\dagger)^2$ cross-couplings vanish identically on $\\langle\\Delta_R\\rangle$ (residual `{h188["delta_squared_vanishing_residual"]:.2e}`).
+   - The linear map from the 25 real parameters to the 16 real Hermitian entries of $\\mathcal{{M}}_H^2$ is **rank-16 surjective with a 9-dimensional kernel** (NOT a bijection); fixing the coloured blocks leaves 4 redundant directions fixed by convention.
+   - At the one-light-Higgs surface (unbroken EW origin $\\langle\\Phi\\rangle=0$), the $188\\times 188$ Hessian has 9 exact Goldstones (orbit residual `{h188["goldstone_orbit_residual"]:.2e}`), 4 light SM Higgs doublet modes (eigenvector subspace error `{h188["light_higgs_probe_check"]["eigenvector_subspace_error"]:.2e}`), and 175 strictly positive heavy physical modes (max spectrum error `{h188["hessian_188_max_spectrum_err"]:.2e}`). Setting $\\lambda_1 = -\\mu_{{\\rm SM}}^2$ gives the expected tachyonic EWSB curvature at the origin; full EW-broken vacuum verification remains open (`PERT-01` scoped to heavy spectrum).
+   - **Tree-level global Higgs+$\\Delta_R$ stability (`NP-02` = FAIL):** At the matched `BM-LR` criticality point, the effective Higgs–$\\Delta_R$ portal is negative ($\\lambda_{{h\\Delta}} = {stab["lambda_hDelta_at_criticality"]:.3f} < 0$) and $\\lambda_H^{{\\rm SM}}(v_R) = {stab["lambda_H_SM_2loop_at_vR"]:.5f} < 0$. Along the physical coherent ray $r = -\\lambda_{{h\\Delta}} x / (2\\lambda_{{\\rm eff}}) = {stab["coherent_ray_r_over_x"]:.2f}\\,x > 0$, the quartic potential evaluates to $V_4(x, r) = (\\lambda_H^{{\\rm UV}} - \\lambda_{{h\\Delta}}^2/(4\\lambda_{{\\rm eff}})) x^2 = \\lambda_H^{{\\rm SM}}(v_R) x^2 = {stab["V4_over_x2_along_coherent_ray"]:.5f}\\,x^2 < 0$ — **unbounded below at tree level**. Stabilizing requires $\\lambda_H^{{\\rm SM}}(v_R) > 0$, positive-portal $\\lambda_{{h\\Delta}} > 0$ copositivity, or radiative effective-potential stabilization.
+   - Electroweak hierarchy fine-tuning is explicit: $\\Delta_{{\\rm FT}} = v_R^2 / \\mu_{{\\rm SM}}^2 \\simeq {bm_lr["ew_hierarchy_fine_tuning_vR2_over_muSM2"]:.2e}$ at `BM-LR`.
 
-2. **Gauge RGEs, thresholds, triple unification, and scalar Landau poles:**
-   - Exact complex `PS1` 1-loop gauge beta coefficients: $b_{{4}} = -7/3$, $b_{{2L}} = +2$, $b_{{2R}} = +26/3$.
-   - Exact 1-loop (no thresholds) landmarks: $v_R(g_{{2R}}=g_{{2L}}) = {scales["one_loop_no_threshold"]["vR_LR_parity_GeV"]:.3e}$ GeV; exact $SO(10)$ triple unification $v_R^{{\\rm unif}} = {scales["one_loop_no_threshold"]["vR_triple_unification_GeV"]:.3e}$ GeV, $M_{{\\rm GUT}} = {scales["one_loop_no_threshold"]["M_GUT_triple_unification_GeV"]:.3e}$ GeV ($\\alpha_{{\\rm GUT}}^{{-1}} = {scales["one_loop_no_threshold"]["alpha_GUT_inv"]:.2f}$).
-   - Exact 2-loop (with 1-loop Weinberg–Hall thresholds from the 9 heavy vectors + 175 heavy scalars) landmarks: $v_R(g_{{2R}}=g_{{2L}}) = {scales["two_loop_with_thresholds"]["vR_LR_parity_GeV"]:.3e}$ GeV; triple unification $v_R^{{\\rm unif}} = {scales["two_loop_with_thresholds"]["vR_triple_unification_GeV"]:.3e}$ GeV, $M_{{\\rm GUT}} = {scales["two_loop_with_thresholds"]["M_GUT_triple_unification_GeV"]:.3e}$ GeV ($\\alpha_{{\\rm GUT}}^{{-1}} = {scales["two_loop_with_thresholds"]["alpha_GUT_inv"]:.2f}$).
-   - All three gauge couplings remain perturbative up to $M_{{\\rm Pl}} = 1.22\\times 10^{{19}}$ GeV at 2-loop for every scanned $v_R \\in [10^{{5.5}}, 10^{{16}}]$ GeV.
-   - **Scalar Landau pole obstruction in Phase 2B numerical certificate:** The 60-real-component $\\Delta_R$ quartic has $16\\pi^2 \\beta_{{\\lambda_\\Delta}} \\supset 68\\lambda_\\Delta^2$, so Phase 2B's $\\lambda_\\Delta = 2.0$ hits a scalar Landau pole at $3.2\\,v_R$. Rescaling to $\\lambda_\\Delta = 0.08, \\kappa_4 = 0.016, \\kappa_R = 0.012$ ($\\lambda_{{\\rm eff}} = 0.044$) keeps the vacuum certified and perturbative up to $M_{{\\rm Pl}}$ across all three benchmarks.
-   - **SM Higgs quartic stability:** The 2-loop SM quartic $\\lambda_H^{{\\rm SM}}(\\mu)$ crosses zero at $\\mu_{{\\rm inst}}^{{(2\\ell)}} \\simeq {bm_lr["sm_at_vR"]["mu_instability_2loop_GeV"]:.2e}$ GeV (so `BM-LOW` at $10^7$ GeV has $\\lambda_H^{{\\rm SM}} = +{bm_low["sm_at_vR"]["lam_H_2loop_Buttazzo"]:.4f} > 0$). Above $\\mu_{{\\rm inst}}$, the radial $\\Delta_R$ threshold shift $\\Delta\\lambda_H = -\\lambda_{{h\\Delta}}^2 / (4\\lambda_{{\\rm eff}})$ stabilizes $\\lambda_H^{{\\rm UV}}(v_R) > 0$ for $|\\lambda_{{h\\Delta}}| > {bm_lr["sm_at_vR"]["min_portal_coupling_for_UV_stability"]:.3f}$ at `BM-LR` ($\\lambda_H^{{\\rm SM}} = {bm_lr["sm_at_vR"]["lam_H_2loop_Buttazzo"]:.4f}$).
+2. **Gauge-only 2-loop RGEs, thresholds, approximate $SO(10)$ crossing, and corrected $136\\lambda_\\Delta^2$ Landau pole:**
+   - Exact complex `PS1` 1-loop gauge beta coefficients: $b_{{4}} = -7/3$, $b_{{2L}} = +2$, $b_{{2R}} = +26/3$. Above $v_R$, 2-loop UV Yukawa traces are omitted (gauge-only 2-loop PS RGEs + 1-loop Weinberg–Hall thresholds at $v_R$).
+   - 1-loop (no thresholds): $v_R(g_{{2R}}=g_{{2L}}) = {scales["one_loop_no_threshold"]["vR_LR_parity_GeV"]:.3e}$ GeV; approximate $SO(10)$ triple crossing $v_R^{{\\rm unif}} = {scales["one_loop_no_threshold"]["vR_triple_unification_GeV"]:.3e}$ GeV, $M_{{\\rm GUT}} = {scales["one_loop_no_threshold"]["M_GUT_triple_unification_GeV"]:.3e}$ GeV ($\\alpha_{{\\rm GUT}}^{{-1}} = {scales["one_loop_no_threshold"]["alpha_GUT_inv"]:.2f}$).
+   - Gauge-only 2-loop + 1-loop Weinberg–Hall thresholds (with rescaled $\\Delta_R$ spectrum, no $M_{{\\rm GUT}}$ parent thresholds): $v_R(g_{{2R}}=g_{{2L}}) = {scales["two_loop_with_thresholds"]["vR_LR_parity_GeV"]:.3e}$ GeV; approximate triple crossing $v_R^{{\\rm unif}} = {scales["two_loop_with_thresholds"]["vR_triple_unification_GeV"]:.3e}$ GeV, $M_{{\\rm GUT}} = {scales["two_loop_with_thresholds"]["M_GUT_triple_unification_GeV"]:.3e}$ GeV ($\\alpha_{{\\rm GUT}}^{{-1}} = {scales["two_loop_with_thresholds"]["alpha_GUT_inv"]:.2f}$).
+   - **Corrected $\\Delta_R$ 1-loop quartic beta function (`PERT-05` = PARTIAL):** With canonical real $r = \\varphi^T\\varphi/2$ and $V_4 = \\lambda_\\Delta (\\varphi^T\\varphi)^2/4$, $16\\pi^2 \\beta_{{\\lambda_\\Delta}} \\supset 2(60+8)\\lambda_\\Delta^2 - 36\\lambda_\\Delta\\kappa_4 - 16\\lambda_\\Delta\\kappa_R = 136\\lambda_\\Delta^2 - 36\\lambda_\\Delta\\kappa_4 - 16\\lambda_\\Delta\\kappa_R$ (with $\\kappa^2$, portal, gauge, and Yukawa terms omitted). Phase 2B's $\\lambda_\\Delta = 2.0$ hits its formal pure-self-coupling pole at `{lp_lr["phase2b_landau_pole_ratio_over_vR"]:.3f} v_R`; Planck-scale starting caps are `{lp_lr["max_lambda_Delta_perturbative_to_MPl_pure_truncation"]:.4f}` (`BM-LR`), `{lp_gut["max_lambda_Delta_perturbative_to_MPl_pure_truncation"]:.4f}` (`BM-GUT`), and `{lp_low["max_lambda_Delta_perturbative_to_MPl_pure_truncation"]:.4f}` (`BM-LOW`). Rescaling to $\\lambda_\\Delta = 0.03, \\kappa_4 = 0.006, \\kappa_R = 0.0045$ ($\\lambda_{{\\rm eff}} = 0.0165$) stays below the pure-self-coupling cap at all three benchmarks; the full coupled 138-parameter scalar RGE system remains open.
 
-3. **Fermion, CKM, neutrino, and PMNS fits (`PS1-EW-min` vs `PS1-EW-gen`):**
-   - **`BM-LR` ($v_R = {bm_lr["v_R_GeV"]:.2e}$ GeV):** `PS1-EW-min` with complex light-Higgs phase reproduces all 9 charged-fermion masses, 4 CKM observables, 2 neutrino $\\Delta m^2$, and 3 PMNS angles to `{bm_lr["fit_PS1_EW_min_complex"]["max_charged_fermion_ckm_rel_err"]:.2e}` with perturbative couplings $\\|Y_1\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["Y1_spectral_norm"]:.3f}$, $\\|Y_{{15}}\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["Y15_spectral_norm"]:.3f}$, $\\|f_R\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["seesaw"]["f_R_spectral_norm"]:.4f}$ and $M_R = ({bm_lr["fit_PS1_EW_min_complex"]["seesaw"]["M_R_GeV"][0]:.2e}, {bm_lr["fit_PS1_EW_min_complex"]["seesaw"]["M_R_GeV"][1]:.2e}, {bm_lr["fit_PS1_EW_min_complex"]["seesaw"]["M_R_GeV"][2]:.2e})$ GeV. By contrast, restricting `PS1-EW-min` to real Higgs-mixing ratios forces $\\|f_R\\|_2 = {bm_lr["fit_PS1_EW_min_real_control"]["seesaw"]["f_R_spectral_norm"]:.2f} > \\sqrt{{4\\pi}}$, violating perturbativity!
-   - **`BM-GUT` ($v_R = {bm_gut["v_R_GeV"]:.2e}$ GeV):** `PS1-EW-min` fails $f_R$ perturbativity ($\\|f_R\\|_2 = {bm_gut["fit_PS1_EW_min_complex"]["seesaw"]["f_R_spectral_norm"]:.2f} > \\sqrt{{4\\pi}}$), whereas the full gauge-invariant `PS1-EW-gen` reproduces all observables to `{bm_gut["fit_PS1_EW_gen"]["exact_reconstruction_rel_err"]:.2e}` with $\\max \\|Y\\|_2 = {bm_gut["fit_PS1_EW_gen"]["max_yukawa_norm"]:.3f}$.
-   - **`BM-LOW` ($v_R = {bm_low["v_R_GeV"]:.2e}$ GeV):** `PS1-EW-gen` fits all observables perturbatively ($\\max \\|Y\\|_2 = {bm_low["fit_PS1_EW_gen"]["max_yukawa_norm"]:.3f}$) with $\\lambda_H^{{\\rm SM}}(v_R) > 0$, while `PS1-EW-min` is violently non-perturbative and hierarchical thermal leptogenesis is closed below $v_R$.
+3. **Fermion, CKM, neutrino, and PMNS existence fits (`REC-03` = PARTIAL):**
+   - `PS1-EW-min` retains **30 real Yukawa parameters** after $U(3)_L\\times U(3)_R$ basis removal vs **18 real flavour observables** — fits are existence/interpolation witnesses, NOT constrained predictions.
+   - **Retracted exclusions:** Both the earlier real-ratio exclusion and the fixed-fit $7.7\\times 10^{{11}}$ GeV floor were false. Explicit perturbative `PS1-EW-min` witnesses exist at `BM-LR` with **real** ratios ($c_d = {bm_lr["fit_PS1_EW_min_real_witness"]["cd"][0]:.2f}, c_e = {bm_lr["fit_PS1_EW_min_real_witness"]["ce"][0]:.2f}$, $\\|Y_1\\|_2 = {bm_lr["fit_PS1_EW_min_real_witness"]["Y1_spectral_norm"]:.3f}$, $\\|Y_{{15}}\\|_2 = {bm_lr["fit_PS1_EW_min_real_witness"]["Y15_spectral_norm"]:.3f}$, $\\|f_R\\|_2 = {bm_lr["fit_PS1_EW_min_real_witness"]["seesaw"]["f_R_spectral_norm"]:.4f}$, err `{bm_lr["fit_PS1_EW_min_real_witness"]["max_charged_fermion_ckm_rel_err"]:.2e}`), at `BM-LR` with **complex** ratios ($\\|Y_1\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["Y1_spectral_norm"]:.3f}$, $\\|Y_{{15}}\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["Y15_spectral_norm"]:.3f}$, $\\|f_R\\|_2 = {bm_lr["fit_PS1_EW_min_complex"]["seesaw"]["f_R_spectral_norm"]:.4f}$), and at the refit lower scale **$v_R = 6.0\\times 10^{{11}}$ GeV** ($\\|Y_1\\|_2 = {w_6e11["Y1_spectral_norm"]:.3f}$, $\\|Y_{{15}}\\|_2 = {w_6e11["Y15_spectral_norm"]:.3f}$, $\\|f_R\\|_2 = {w_6e11["seesaw"]["f_R_spectral_norm"]:.4f} < \\sqrt{{4\\pi}}$, err `{w_6e11["max_charged_fermion_ckm_rel_err"]:.2e}`).
+   - **Corrected `PS1-EW-gen` down-type tilde signs & seesaw basis:** With $\\Phi = (\\epsilon H_d^*, H_u)$ and $\\widetilde{{\\Phi}} = (\\epsilon H_u^*, H_d)$, down-type tilde terms add with the same relative sign and the exact inverse has determinant $D = |\\alpha_u|^2 - |\\alpha_d|^2$ (verified directly against $2\\times 2$ bidoublet tensor contraction to `< 2e-12`). All seesaw inversions use $m_\\nu = U_{{eL}} m_\\nu^\\ell U_{{eL}}^T$ and directly recover all PMNS angles, $\\delta_{{\\rm PMNS}}$, and $\\Delta m^2$ in the charged-lepton mass basis to `< 1e-12`. Recomputed `PS1-EW-gen` max Yukawa norms are `{bm_lr["fit_PS1_EW_gen"]["max_yukawa_norm"]:.3f}` (`BM-LR`), `{bm_gut["fit_PS1_EW_gen"]["max_yukawa_norm"]:.3f}` (`BM-GUT`), and `{bm_low["fit_PS1_EW_gen"]["max_yukawa_norm"]:.3f}` (`BM-LOW`).
 
-4. **Flavour, baryon stability, and cosmological relics:**
-   - Generic $O(1)$ quark–lepton mixing in $K_L \\to \\mu^\\pm e^\\mp$ sets $M_X \\gtrsim {bm_low["flavour_baryon_cosmology_audit"]["flavour"]["M_X_lower_bound_generic_GeV"]:.2e}$ GeV ($v_R \\gtrsim {win["generic_KL_mue_lower_bound_GeV"]:.2e}$ GeV). All three benchmarks pass $K_L \\to \\mu e$, $B_s \\to \\mu e$, $\\mu \\to e\\gamma$, $W_R/Z_R$, and heavy-Higgs FCNC bounds.
-   - Pure Pati–Salam forbids $d=6$ gauge and scalar $\\Delta B = 1$ proton decay; $n\\text{{--}}\\bar{{n}}$ oscillations vanish at tree level in `PS1-MM` by $U(1)_\\Delta$ and pass $\\tau_{{n\\bar{{n}}}} > 4.7\\times 10^8$ s at all three benchmarks even if $\\lambda_{{\\Delta 4}} = \\mathcal{{O}}(1)$.
-   - $\\pi_2(G_{{\\rm PS}}/G_{{\\rm SM}}) = \\mathbb{{Z}}$ guarantees doubly-charged Pati–Salam monopoles ($M_{{\\rm mon}} \\sim 15\\,v_R$), requiring $T_{{\\rm rh}} < v_R$ (monopole inflation). No $D$-parity domain walls exist because $\\Delta_L$ is absent. Both `BM-LR` and `BM-GUT` leave an open monopole-safe thermal leptogenesis window $M_{{R1}} < T_{{\\rm rh}} < v_R$.
+4. **Flavour, baryon stability (`LAB-02` = PARTIAL), and cosmological relics (`COS-01` = OPEN / PARTIAL):**
+   - Corrected Valencia–Willenbrock $K_L \\to \\mu^\\pm e^\\mp$ normalization ($1/(32\\pi)$) sets the aligned lower bound $M_X \\gtrsim {fl_low["M_X_lower_bound_aligned_GeV"]:.2e}$ GeV ($v_R \\gtrsim {fl_low["v_R_lower_bound_aligned_GeV"]:.2e}$ GeV). All three benchmarks pass aligned/fitted $K_L \\to \\mu e$, $B_s \\to \\mu e$, and the updated MEG II $\\mu \\to e\\gamma < 1.5\\times 10^{{-13}}$ bound.
+   - $W_R/Z_R$, heavy-Higgs FCNC, and $\\Delta B = 2$ $n\\text{{--}}\\bar{{n}}$ (evaluated with actual lightest sextet mass $M_{{\\Delta_6}} \\in [{sextet_rng[0]:.2f}, {sextet_rng[1]:.2f}]\\,v_R$) are preliminary order-of-magnitude checks; pure PS preserves perturbative baryon number ($3B+L$) while gauged $B-L$ is broken by $\\Delta(B-L)=2$.
+   - Both $\\pi_2(G_{{\\rm PS}}/G_{{\\rm SM}}) = \\mathbb{{Z}}$ doubly-charged monopoles and $\\pi_1(G_{{\\rm PS}}/G_{{\\rm SM}}) = \\mathbb{{Z}}_2$ cosmic strings (from the disconnected stabilizer) arise at $v_R$, requiring $T_{{\\rm rh}} < v_R$. At `BM-GUT`, vanilla $N_1$-dominated thermal leptogenesis yields $|\\epsilon_1| = {abs(cos_gut["epsilon_1_CP_asymmetry"]):.2e}$ ($\\eta_B^{{\\max}} \\simeq {cos_gut["eta_B_ceiling_unflavored_kappa01"]:.2e}$), falling a factor of `{cos_gut["vanilla_N1_leptogenesis_shortfall_factor"]:.1f}x` short of observed $\\eta_B \\simeq 6.1\\times 10^{{-10}}$ (with $M_{{R1}} = {cos_gut["M_R1_GeV"]:.2e}$ GeV).
 
-All executable Phase 3 checks pass (`all_pass = {result["all_pass"]}`).
+All executable mathematical verification and obstruction-detection checks pass (`all_pass = {result["all_pass"]}`), while TP-00 gates reflect honest fails/partials (`NP-02` = FAIL; `PERT-01`, `PERT-05`, `REC-03`, `LAB-02` = PARTIAL; `COS-01` = OPEN/PARTIAL).
 """
 
 

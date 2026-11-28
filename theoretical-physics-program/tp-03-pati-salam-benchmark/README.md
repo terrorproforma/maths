@@ -1,8 +1,8 @@
 # TP-03 — Complete Pati–Salam benchmark
 
 **Author:** Angus Muffatti  
-**Project status:** **ACTIVE — Phase 3 (`PS1-EW`) complete**  
-**Current version:** 0.4.0
+**Project status:** **ACTIVE — Phase 3 audited — partial/revised with sharp obstructions recorded**  
+**Current version:** 0.4.1
 
 ## Research question
 
@@ -23,8 +23,9 @@ one discriminating observable?
 \textbf{Chiral anomaly cancellation: PASS.}\\
 \textbf{Strict one-bidoublet Yukawa branch: FAIL.}\\
 \textbf{General gauge-only scalar potential: 138 real parameters.}\\
-\textbf{Certified high-scale }PS1\textbf{-MM vacuum: PASS (rescaled }\lambda_\Delta=0.08\textbf{).}\\
-\textbf{Phase 3 }PS1\textbf{-EW electroweak matching, 2-loop RGEs, fermion/neutrino fit \& stability: PASS (branch- and }T_{\rm rh}<v_R\textbf{-conditional).}
+\textbf{Certified high-scale }PS1\textbf{-MM }\Delta_R\textbf{-only vacuum: PASS (rescaled }\lambda_\Delta=0.03\textbf{; coupled scalar RGEs open).}\\
+\textbf{Phase 3 }PS1\textbf{-EW (post-referee audit): PARTIAL / REVISED — NP-02 FAIL at negative-portal BM-LR;}\\
+\textbf{PERT-01, PERT-05, REC-03, LAB-02 PARTIAL; COS-01 OPEN / PARTIAL.}
 \end{array}
 }
 \]
@@ -150,25 +151,24 @@ For
 \lambda_\Delta-\frac32\kappa_4-\kappa_R>0,
 \]
 
-the desired SM-preserving coherent orbit is the certified global minimum. The explicit full \(188\times188\) real Hessian has:
+the desired SM-preserving coherent orbit is the certified global minimum of \(V_\Delta\). The explicit full \(188\times188\) real Hessian has:
 
 - nine and only nine Goldstones;
 - 51 positive physical \(\Delta_R\) modes;
 - eight positive \(\Phi_1\) spectator modes;
 - 120 positive \(\Phi_{15}\) spectator modes;
-- no deeper colour- or charge-breaking vacuum.
+- no deeper colour- or charge-breaking vacuum in `PS1-MM`.
 
-### Phase 3 (`PS1-EW`)
+### Phase 3 (`PS1-EW`, post-referee revision)
 
-Extending `PS1-MM` with all 16 gauge-invariant quadratic and \(\Delta_R^\dagger\Delta_R\) bidoublet portal operators yields a surjective bijection onto the \(4\times 4\) colour-singlet Higgs doublet mass matrix \(\mathcal{M}_H^2\) decoupled from the colour-octet (\(\Omega_{1,2}\)) and triplet-leptoquark (\(\Sigma_{7/6},\Sigma_{1/6}\)) blocks. Tuning one determinant condition isolates a single light SM Higgs doublet \(h\) with a full \(188\times 188\) real Hessian splitting into 9 Goldstones, 4 light SM Higgs modes, and 175 positive heavy physical modes (explicit EW fine-tuning \(\Delta_{\rm FT} = v_R^2/\mu_{\rm SM}^2\)).
+Extending `PS1-MM` with all **17** gauge-invariant quadratic and \(\Delta_R^\dagger\Delta_R\) bidoublet portal operators (**25 real parameters**) yields a **rank-16 surjective linear map (9-dimensional kernel)** onto the \(4\times 4\) colour-singlet Higgs doublet mass matrix \(\mathcal{M}_H^2\) decoupled from the colour-octet (\(\Omega_{1,2}\)) and triplet-leptoquark (\(\Sigma_{7/6},\Sigma_{1/6}\)) blocks. Tuning one determinant condition isolates a single light SM Higgs doublet \(h\) at the unbroken EW origin (\(\langle\Phi\rangle=0\)) with a full \(188\times 188\) real Hessian splitting into 9 Goldstones, 4 light SM Higgs modes, and 175 positive heavy physical modes (explicit EW fine-tuning \(\Delta_{\rm FT} = v_R^2/\mu_{\rm SM}^2\); full EW-broken vacuum verification remains open under `PERT-01`).
 
-Key Phase 3 outcomes across three benchmarks (`BM-LR` at \(5.08\times 10^{13}\text{ GeV}\), `BM-GUT` at \(2.15\times 10^{10}\text{ GeV}\), and `BM-LOW` at \(1.00\times 10^7\text{ GeV}\)):
+Key revised Phase 3 outcomes and honest obstructions across three benchmarks (`BM-LR` at \(5.08\times 10^{13}\text{ GeV}\), `BM-GUT` at \(7.32\times 10^9\text{ GeV}\), and `BM-LOW` at \(1.00\times 10^7\text{ GeV}\)):
 
-- 1- and 2-loop gauge couplings stay perturbative to \(M_{\rm Pl}\) across \(v_R\in[10^{5.5},10^{16}]\text{ GeV}\), with exact 2-loop threshold-matched \(SO(10)\) triple unification at \(v_R = 2.15\times 10^{10}\text{ GeV}\), \(M_{\rm GUT}=5.13\times 10^{16}\text{ GeV}\);
-- Phase 2B's \(\lambda_\Delta=2.0\) hits a 60-component \(\Delta_R\) scalar Landau pole at \(3.19\,v_R\); rescaling to \(\lambda_\Delta=0.08, \kappa_4=0.016, \kappa_R=0.012\) keeps all three benchmarks perturbative to \(M_{\rm Pl}\);
-- `PS1-EW-min` (2 Dirac Yukawas \(Y_1, Y_{15}, f_R\)) **fails** for real Higgs-mixing ratios (\(\|f_R\|_2=6.54>\sqrt{4\pi}\)) and below \(v_R\simeq 7.7\times 10^{11}\text{ GeV}\), but **passes** all 18 flavour observables to \(<5\times 10^{-13}\) at `BM-LR` with a complex phase (\(\|Y_1\|_2=0.519, \|Y_{15}\|_2=0.576, \|f_R\|_2=0.0539\));
-- `PS1-EW-gen` (all 4 gauge-allowed Dirac Yukawas + \(f_R\)) **passes** perturbatively to \(<10^{-12}\) across the full \(v_R\in[4.5\times 10^6,10^{16}]\text{ GeV}\) window;
-- \(K_L\to\mu e\), \(B_s\to\mu e\), \(\mu\to e\gamma\), \(W_R/Z_R\), heavy-Higgs FCNCs, and \(\Delta B=1,2\) stability pass at all three benchmarks; \(\pi_2=\mathbb{Z}\) monopoles require \(T_{\rm rh}<v_R\), leaving an open monopole-safe hierarchical thermal leptogenesis window at `BM-LR` and `BM-GUT`.
+- **Tree-level Higgs+\(\Delta_R\) stability obstruction (`NP-02` = FAIL):** At the matched negative-portal `BM-LR` criticality point (\(\lambda_{h\Delta} = -1.648 < 0\), \(\lambda_H^{\rm SM}(v_R) = -0.01122 < 0\)), the physical coherent ray \(r = -\lambda_{h\Delta} x/(2\lambda_{\rm eff}) = 49.95\,x > 0\) gives \(V_4(x,r) = \lambda_H^{\rm SM}(v_R) x^2 < 0\) — **unbounded below at tree level**;
+- **Gauge-only 2-loop RGEs & corrected \(136\lambda_\Delta^2\) Landau pole (`PERT-05` = PARTIAL):** Gauge couplings stay perturbative to \(M_{\rm Pl}\) across \(v_R\in[10^{5.5},10^{16}]\text{ GeV}\) (2-loop UV Yukawa traces omitted), with an approximate \(SO(10)\) triple crossing at \(v_R = 7.32\times 10^9\text{ GeV}\), \(M_{\rm GUT}=8.15\times 10^{16}\text{ GeV}\) (no \(M_{\rm GUT}\) parent thresholds). Phase 2B's \(\lambda_\Delta=2.0\) hits a pure-self-coupling \(136\lambda_\Delta^2\) pole at \(1.787\,v_R\); rescaling to \(\lambda_\Delta=0.03, \kappa_4=0.006, \kappa_R=0.0045\) (\(\lambda_{\rm eff}=0.0165\)) stays below the pure-self-coupling Planck starting cap (`0.0417` at `BM-LOW`), while the full coupled 138-parameter scalar RGE system remains open;
+- **Fermion/neutrino existence witnesses (`REC-03` = PARTIAL):** Earlier false exclusions of real ratios and \(v_R < 7.7\times 10^{11}\text{ GeV}\) in `PS1-EW-min` are retracted: perturbative witnesses pass at `BM-LR` for **both** real (\(\|f_R\|_2=0.197\)) and complex (\(\|f_R\|_2=0.0380\)) ratios and at refitted \(v_R=6.0\times 10^{11}\text{ GeV}\) (\(\|f_R\|_2=2.80 < \sqrt{4\pi}\)). `PS1-EW-min` has 30 real Yukawa parameters vs 18 observables (existence/interpolation test, not a constrained prediction). `PS1-EW-gen` (with corrected down-type tilde signs, \(D=|\alpha_u|^2-|\alpha_d|^2\), and direct \(2\times 2\) contraction) passes across all three benchmarks with charged-lepton-basis PMNS round-trip verified to `< 1e-12`;
+- **Flavour, baryon stability (`LAB-02` = PARTIAL) & cosmology (`COS-01` = OPEN / PARTIAL):** Corrected Valencia–Willenbrock \(K_L\to\mu e\) (\(1/(32\pi)\)) sets the aligned floor \(M_X\gtrsim 2.06\times 10^6\text{ GeV}\) (\(v_R\gtrsim 3.78\times 10^6\text{ GeV}\)) and MEG II \(\mu\to e\gamma < 1.5\times 10^{-13}\) passes; \(n\text{--}\bar{n}\) (using actual sextet masses \(0.11\text{–}0.14\,v_R\)), heavy-Higgs FCNC, and \(W_R/Z_R\) are preliminary order-of-magnitude checks; \(\pi_2=\mathbb{Z}\) monopoles and \(\pi_1=\mathbb{Z}_2\) cosmic strings require \(T_{\rm rh}<v_R\); vanilla \(N_1\)-dominated thermal leptogenesis at `BM-GUT` falls \(\sim 85\times\) short of \(\eta_B^{\rm obs}\).
 
 ## Reproduce
 
@@ -183,8 +183,8 @@ This runs:
 - the complete 138-channel invariant-basis construction;
 - the explicit \(60\times60\) \(\Delta_R\) Hessian and complete \(188\times188\) benchmark Hessians (Phase 2B and Phase 3 `PS1-EW`);
 - the gauge-boson mass matrix and Goldstone-orbit matching;
-- 1- and 2-loop gauge/Yukawa/Higgs-quartic RGEs, Weinberg–Hall 1-loop thresholds, fermion/neutrino fits, and flavour/stability/relic audits;
-- twenty unit tests (12 Phase 2B + 8 Phase 3).
+- 1- and gauge-only 2-loop RGEs, Weinberg–Hall 1-loop thresholds, corrected \(136\lambda_\Delta^2\) Landau-pole audit, tree-level negative-portal stability audit, fermion/neutrino existence witnesses with direct tensor contraction and PMNS round-trip checks, and flavour/stability/relic audits;
+- twenty-two unit tests (12 Phase 2B + 10 Phase 3).
 
 ## Key files
 
@@ -210,6 +210,6 @@ This runs:
 
 ## Next decisive calculation
 
-TP-03's concrete broken-generator, vector, scalar, and quark–lepton mixing spectra now feed directly into **TP-04** (`../tp-04-quark-lepton-rotations/`). Within TP-03, optional future extensions cover the full 138-coupling scalar RG flow, Boltzmann flavored leptogenesis/dark-matter completion, and the deferred parity-completed branch `PS1P`.
+Close the Phase 3 obstructions recorded in `acceptance_matrix.csv`: resolve `NP-02` via a positive-portal parameter choice or radiative effective-potential analysis, verify the full EW-broken vacuum (`PERT-01`), compute the coupled scalar RGE system and UV Yukawa 2-loop gauge traces (`PERT-05`), upgrade preliminary flavour/baryon checks to full SMEFT matching (`LAB-02`), and complete Boltzmann flavored/resonant leptogenesis + dark matter (`COS-01`). Concrete broken-generator, vector, scalar, and mixing structures also feed into **TP-04** (`../tp-04-quark-lepton-rotations/`).
 
 No aggregate TP-00 score is used. An applicable fatal zero terminates the claimed branch.
