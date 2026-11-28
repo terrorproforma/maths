@@ -10,16 +10,17 @@ This file records the canonical project structure. The repository README remains
 ### Mathematics
 
 - [`chairman-counterexample/`](chairman-counterexample/) — machine-dependent weighted-chairman counterexample and strengthened lower bounds.
-- [`detector-chains/`](detector-chains/) — detector-chain lower bounds for machine-dependent chairman assignment.
-- [`chairman-small-rows/`](chairman-small-rows/) — machine-dependent chairman assignment with few rows: proof that the bound `D` holds and is optimal for two rows; search data for three and four rows.
+- [`detector-chains/`](detector-chains/) — detector-chain lower bounds, $m^* = 3$, $\kappa \ge 1 + \ln 2$, and completeness barrier for machine-dependent chairman assignment (`frontier_next/`, `frontier_v2/`).
+- [`chairman-small-rows/`](chairman-small-rows/) — machine-dependent chairman assignment with few rows: proof that the bound `D` holds and is optimal for two rows ($\kappa_2 = 1$); search data for three and four rows.
 - [`subtree-shuffling-counterexample/`](subtree-shuffling-counterexample/) — fixed-parameter obstruction to the subtree-shuffling conjecture.
 - [`planar-cost-lower-bound/`](planar-cost-lower-bound/) — planar cost-preserving unsplittable-flow lower bound and corollaries.
-- [`ananke-necessity-transformations/`](ananke-necessity-transformations/) — transformations/necessity research programme.
+- [`ananke-necessity-transformations/`](ananke-necessity-transformations/) — ANANKE v0–v3: operational Hankel core, Karpelevič Markov Theorem, interval-certified fixed-rank and rank-unrestricted classical counterfeit complexity.
 
 ### Physics
 
 - [`chronometric-emergence/`](chronometric-emergence/) — chronometric shear, scale locking, QCD thresholds, cosmology and nonequilibrium transport. Self-contained stages live under `chronometric-emergence/projects/`; the current adversarial evidence layer is `chronometric-emergence/frontier-evidence-v2/`.
 - [`theoretical-physics-program/`](theoretical-physics-program/) — the TP-00 through TP-16 programme. Each TP project has its own self-contained directory inside the programme root so the dependency graph remains coherent without scattering one programme across the repository root.
+- [`bns-prompt-collapse-jet-replication/`](bns-prompt-collapse-jet-replication/) — reduced-order visual surrogate and full-fidelity GRMHD replication campaign scaffolding (Hayashi et al., PRL 134, 211407, 2025).
 
 ## Archived combined packages
 
